@@ -167,3 +167,40 @@ def test_coco_to_yolo(tmp_path):
     txt = (tmp_path / "yolo/labels/a.txt").read_text().strip().split("\n")
     assert len(txt) == 2 and info["per_class"] == {"styrofoam_buoy": 1, "pet_bottle": 1}
     assert txt[0].startswith("0 0.100000 0.200000")
+
+
+def test_dataset_per_image_json_and_split(tmp_path):
+    import json, cv2
+    from litter3d.dataset import detect_format, prepare_dataset, inspect_dataset
+    root = tmp_path / "data"; root.mkdir()
+    for i in range(5):
+        cv2.imwrite(str(root / f"img{i}.jpg"), np.zeros((40, 80, 3), np.uint8))
+        (root / f"img{i}.json").write_text(json.dumps({
+            "image_name": f"img{i}.jpg", "width": 80, "height": 40,
+            "annotations": [{"class": "스티로폼 부표", "polygon": [[10, 10], [30, 10], [30, 30]]},
+                            {"label": "PET", "bbox": [50, 5, 10, 10]},
+                            {"label": "식생", "points": [{"x": 0.1, "y": 0.1}, {"x": 0.2, "y": 0.1}, {"x": 0.2, "y": 0.3}]}]}),
+            encoding="utf-8")
+    assert detect_format(root) == "per_image_json"
+    assert inspect_dataset(root)["n_images"] == 5
+    r = prepare_dataset(root, tmp_path / "yolo", val_ratio=0.2)
+    assert r["train"] == 4 and r["val"] == 1
+    assert r["per_class"] == {"styrofoam_buoy": 5, "pet_bottle": 5, "vegetation": 5}
+    assert r["skipped"].get("bbox_only") == 5
+    line = (tmp_path / "yolo/labels/train").glob("*.txt").__next__().read_text().splitlines()[0]
+    assert line.startswith("0 0.125000 0.250000")
+    assert (tmp_path / "yolo/data.yaml").exists()
+
+
+def test_dataset_labelme(tmp_path):
+    import json, cv2
+    from litter3d.dataset import detect_format, prepare_dataset
+    root = tmp_path / "lm"; root.mkdir()
+    cv2.imwrite(str(root / "a.jpg"), np.zeros((40, 80, 3), np.uint8))
+    cv2.imwrite(str(root / "b.jpg"), np.zeros((40, 80, 3), np.uint8))
+    for n in "ab":
+        (root / f"{n}.json").write_text(json.dumps({"imagePath": f"{n}.jpg", "imageWidth": 80, "imageHeight": 40,
+                                                    "shapes": [{"label": "net", "points": [[1, 1], [20, 1], [20, 20]]}]}))
+    assert detect_format(root) == "labelme"
+    r = prepare_dataset(root, tmp_path / "out")
+    assert r["per_class"] == {"net": 2}
