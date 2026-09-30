@@ -20,7 +20,7 @@ from .volume import volumes_from_masks
 def run(surface: Surface, masks: MaskList, out_dir: str | Path, *, wet: bool = False,
         plan_params: PlanParams | None = None, cell_m: float = 10.0, min_conf: float = 0.0,
         title: str = "붕붕이 무게 리포트", site: str = "", truth_kg: float | None = None,
-        frame_detections: list | None = None) -> dict:
+        frame_detections: list | None = None, has_dsm: bool = True) -> dict:
     out = Path(out_dir); out.mkdir(parents=True, exist_ok=True)
     masks = [m for m in masks if m[2] >= min_conf]
     vols = volumes_from_masks(surface.dsm, masks, surface.gsd_m)
@@ -65,7 +65,7 @@ def run(surface: Surface, masks: MaskList, out_dir: str | Path, *, wet: bool = F
     # HTML 리포트 (외부 의존성 없음)
     from .report_html import build_report
     build_report(surface, masks, masses, plan, out / "report.html", title=title, site=site, truth_kg=truth_kg,
-                 cell_m=pp.cell_m, vols=vols, frames=frame_detections)
+                 cell_m=pp.cell_m, vols=vols, frames=frame_detections, has_dsm=has_dsm)
 
     # 요약
     tk = total_kg(masses)
@@ -142,3 +142,10 @@ def run_from_files(dsm_path: str | Path, out_dir: str | Path, ortho_path: str | 
             raise ValueError("마스크 PNG, 모델 가중치, 정사영상 중 하나는 있어야 합니다")
         masks = color_baseline(surf.ortho)
     return run(surf, masks, out_dir, **kw)
+
+
+def run_image_only(image_bgr: np.ndarray, masks: MaskList, gsd_m: float, out_dir: str | Path, **kw) -> dict:
+    """DSM 없이 사진 + 마스크만으로 2D 추정 (면적×두께×비중 또는 개수×평균무게). 리포트에 'DSM 없음' 을 표시한다."""
+    surf = Surface(dsm=np.zeros(image_bgr.shape[:2], np.float32), ortho=image_bgr, gsd_m=gsd_m, transform=None, crs=None)
+    kw.setdefault("cell_m", max(round(image_bgr.shape[1] * gsd_m / 4, 2), 0.25))
+    return run(surf, masks, out_dir, has_dsm=False, **kw)

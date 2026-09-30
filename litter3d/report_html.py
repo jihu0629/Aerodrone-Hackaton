@@ -72,12 +72,16 @@ def _nice_max(v: float) -> float:
 
 
 def _crop_box(mask: np.ndarray, pad_frac: float = 0.6, min_px: int = 60) -> tuple[int, int, int, int]:
+    """물체 주변을 정사각형으로 잘라 카드 크기를 맞춘다."""
     ys, xs = np.nonzero(mask)
     y0, y1, x0, x1 = ys.min(), ys.max() + 1, xs.min(), xs.max() + 1
-    ph = max(int((y1 - y0) * pad_frac), (min_px - (y1 - y0)) // 2, 6)
-    pw = max(int((x1 - x0) * pad_frac), (min_px - (x1 - x0)) // 2, 6)
+    side = int(max(y1 - y0, x1 - x0) * (1 + 2 * pad_frac))
+    side = max(side, min_px)
+    cy, cx = (y0 + y1) // 2, (x0 + x1) // 2
     H, W = mask.shape
-    return max(y0 - ph, 0), min(y1 + ph, H), max(x0 - pw, 0), min(x1 + pw, W)
+    side = min(side, H, W)
+    ya, xa = int(np.clip(cy - side // 2, 0, H - side)), int(np.clip(cx - side // 2, 0, W - side))
+    return ya, ya + side, xa, xa + side
 
 
 def _height_image(dsm_crop: np.ndarray, ground_z: float, h_max: float) -> np.ndarray:
@@ -112,7 +116,7 @@ def _overlay_block(img_bgr: np.ndarray, items: list[tuple[np.ndarray, str, str, 
 def build_report(surface, masks: MaskList, masses: list[ObjectMass], plan: CollectionPlan, out_path: str | Path,
                  *, title: str = "붕붕이 무게 리포트", site: str = "", truth_kg: float | None = None,
                  cell_m: float | None = None, vols=None, frames: list[tuple[str, np.ndarray, MaskList]] | None = None,
-                 n_evidence: int = 12) -> Path:
+                 n_evidence: int = 12, has_dsm: bool = True) -> Path:
     litter = [m for m in masses if m.method != "excluded"]
     tk = total_kg(litter)
     by = summarize_by_class(litter)
@@ -154,7 +158,7 @@ def build_report(surface, masks: MaskList, masses: list[ObjectMass], plan: Colle
             for k in top) + (f'<span class="key"><i style="background:var(--other)"></i>기타 <b>{sum(by[k]["count"] for k in order[7:])}</b></span>' if len(order) > 7 else "")
         overlay_html = f"""
 <figure class="card overlay">
-  <figcaption><h2>검출 결과</h2><p>정사영상 위 물체 윤곽. 마우스를 올리면 종류·무게·부피가 보입니다.</p></figcaption>
+  <figcaption><h2>검출 결과</h2><p>{'정사영상' if has_dsm else '사진'} 위 물체 윤곽. 마우스를 올리면 종류·무게{'·부피' if has_dsm else '·면적'}가 보입니다.</p></figcaption>
   <div class="ov-wrap"><img src="{src}" alt="정사영상 {W}×{H}px, GSD {gsd * 100:.2f} cm/px" width="{int(W * s)}" height="{int(H * s)}">
   <svg viewBox="0 0 {int(W * s)} {int(H * s)}" preserveAspectRatio="none">{''.join(polys)}</svg></div>
   <div class="legend">{legend}</div>
@@ -177,10 +181,14 @@ def build_report(surface, masks: MaskList, masses: list[ObjectMass], plan: Colle
             col_css = cls_color(cls)
             hexcol = CAT_LIGHT[slot[cls]] if cls in slot else "#9a9890"
             photo_html = _overlay_block(photo, [(sub, col_css, f"{mm.class_ko} 마스크 (신뢰도 {conf:.2f})", None)], max_w=260, stroke=2)
-            v = vol_by_id.get(mm.obj_id)
-            gz = v.ground_z_m if v else float(np.nanmedian(surface.dsm[y0:y1, x0:x1]))
-            hmap = _height_image(surface.dsm[y0:y1, x0:x1].astype(np.float32), gz, max(mm.h_max_m, 0.01))
-            height_html = _overlay_block(hmap, [(sub, "#0b0b0b", f"DSM − 바닥, 최대 {mm.h_max_m * 100:.1f} cm", None)], max_w=260, stroke=1)
+            if has_dsm:
+                v = vol_by_id.get(mm.obj_id)
+                gz = v.ground_z_m if v else float(np.nanmedian(surface.dsm[y0:y1, x0:x1]))
+                hmap = _height_image(surface.dsm[y0:y1, x0:x1].astype(np.float32), gz, max(mm.h_max_m, 0.01))
+                height_fig = (f'<figure>{_overlay_block(hmap, [(sub, "#0b0b0b", f"DSM − 바닥, 최대 {mm.h_max_m * 100:.1f} cm", None)], max_w=260, stroke=1)}'
+                              f'<figcaption>DSM 높이 (진할수록 높음, 최대 {mm.h_max_m * 100:.1f} cm)</figcaption></figure>')
+            else:
+                height_fig = ""
             spec = CLASSES.get(cls, CLASSES["unknown"])
             if mm.method == "volume":
                 formula = (f"V = Σ(DSM − 바닥)·GSD² = <b>{mm.volume_m3 * 1000:.2f} L</b> &nbsp;→&nbsp; "
@@ -189,12 +197,13 @@ def build_report(surface, masks: MaskList, masses: list[ObjectMass], plan: Colle
                 why = "부피 × 종류별 겉보기 밀도"
             else:
                 formula = f"{_esc(mm.note)} → <b>{_fmt_kg(mm.kg_typ)}</b> ({_fmt_kg(mm.kg_min)}–{_fmt_kg(mm.kg_max)})"
-                why = "면적 ≤ 25 cm² 또는 높이 ≤ 3 cm → DSM 으로 못 잼" if mm.area_m2 <= 0.0025 or mm.h_max_m <= 0.03 else "속 빈 물체 → 개당 평균무게"
+                why = ("DSM 없음 → 면적·개수 기반" if not has_dsm else
+                       "면적 ≤ 25 cm² 또는 높이 ≤ 3 cm → DSM 으로 못 잼" if mm.area_m2 <= 0.0025 or mm.h_max_m <= 0.03 else "속 빈 물체 → 개당 평균무게")
             cards.append(f"""<article class="ev{' more' if rank >= n_evidence else ''}">
   <header><span class="swatch" style="background:{col_css}"></span><b>#{mm.obj_id} {_esc(mm.class_ko)}</b><span class="muted"> 신뢰도 {conf:.2f} · {_esc(why)}</span></header>
-  <div class="ev-imgs"><figure>{photo_html}<figcaption>정사영상 + 분할 폴리곤</figcaption></figure>
-  <figure>{height_html}<figcaption>DSM 높이 (진할수록 높음, 최대 {mm.h_max_m * 100:.1f} cm)</figcaption></figure></div>
-  <dl><dt>면적</dt><dd>{mm.area_m2 * 1e4:,.0f} cm²</dd><dt>최대 높이</dt><dd>{mm.h_max_m * 100:.1f} cm</dd><dt>부피</dt><dd>{mm.volume_m3 * 1000:.2f} L</dd><dt>무게</dt><dd><b>{_esc(_fmt_kg(mm.kg_typ))}</b></dd></dl>
+  <div class="ev-imgs{'' if has_dsm else ' one'}"><figure>{photo_html}<figcaption>{'정사영상' if has_dsm else '사진'} + 분할 폴리곤</figcaption></figure>
+  {height_fig}</div>
+  <dl><dt>면적</dt><dd>{mm.area_m2 * 1e4:,.0f} cm²</dd><dt>최대 높이</dt><dd>{f"{mm.h_max_m * 100:.1f} cm" if has_dsm else "—"}</dd><dt>부피</dt><dd>{f"{mm.volume_m3 * 1000:.2f} L" if has_dsm else "—"}</dd><dt>무게</dt><dd><b>{_esc(_fmt_kg(mm.kg_typ))}</b></dd></dl>
   <p class="formula">{formula}</p>
 </article>""")
         n_more = sum(1 for c in cards if 'class="ev more"' in c)
@@ -202,7 +211,7 @@ def build_report(surface, masks: MaskList, masses: list[ObjectMass], plan: Colle
 <section class="card">
   <h2>추정 근거 (물체별)</h2>
   <p class="sub">각 물체를 어떤 사진 조각과 높이 정보로 판단했고, 어떤 식으로 무게가 나왔는지. 무게 순 상위 {min(n_evidence, len(cards))}개{f', 나머지 {n_more}개는 아래 펼치기' if n_more else ''}.</p>
-  <ol class="flow"><li>정사영상</li><li>분할 폴리곤 (YOLO-seg)</li><li>DSM − 바닥 = 높이</li><li>Σ 높이 × GSD² = 부피</li><li>× 종류별 겉보기 밀도</li><li>무게 범위</li></ol>
+  <ol class="flow">{'<li>정사영상</li><li>분할 폴리곤 (YOLO-seg)</li><li>DSM − 바닥 = 높이</li><li>Σ 높이 × GSD² = 부피</li><li>× 종류별 겉보기 밀도</li><li>무게 범위</li>' if has_dsm else '<li>사진</li><li>분할 폴리곤</li><li>면적 × GSD²</li><li>면적 × 0.4 cm × 1.2 g/cm³ 또는 개수 × 평균무게</li><li>무게 범위</li>'}</ol>
   <div class="ev-grid">{''.join(cards)}</div>
   {f'<button type="button" class="more-btn" id="ev-more">나머지 {n_more}개 펼치기</button>' if n_more else ''}
 </section>"""
@@ -214,16 +223,17 @@ def build_report(surface, masks: MaskList, masses: list[ObjectMass], plan: Colle
         for name, img, fmasks in frames:
             items = []
             counts = {}
+            show_labels = len(fmasks) <= 30
             for cls, m, conf in fmasks:
                 ko = KO_NAMES.get(cls, cls)
                 counts[ko] = counts.get(ko, 0) + 1
-                items.append((m, cls_color(cls), f"{ko} · 신뢰도 {conf:.2f}", f"{ko} {conf:.2f}"))
+                items.append((m, cls_color(cls), f"{ko} · 신뢰도 {conf:.2f}", f"{ko} {conf:.2f}" if show_labels else None))
             summary = ", ".join(f"{k} {v}" for k, v in sorted(counts.items(), key=lambda kv: -kv[1])) or "검출 없음"
             figs.append(f'<figure class="frame">{_overlay_block(img, items, max_w=900)}<figcaption><b>{_esc(name)}</b> · {len(fmasks)}개 검출 ({_esc(summary)})</figcaption></figure>')
         frames_html = f"""
 <section class="card">
   <h2>원본 프레임 검출</h2>
-  <p class="sub">드론 영상 프레임에 분할 모델을 돌린 결과. 폴리곤 색은 위 검출 결과와 같은 종류색, 라벨은 종류와 신뢰도. 마우스를 올리면 자세히 보입니다.</p>
+  <p class="sub">사진별 검출 결과. 폴리곤 색은 위와 같은 종류색, 검출이 30개 이하면 종류·신뢰도 라벨을 함께 표시. 마우스를 올리면 자세히 보입니다.</p>
   <div class="frames">{''.join(figs)}</div>
 </section>"""
 
@@ -412,11 +422,12 @@ details summary{cursor:pointer;color:var(--ink2);margin-top:8px}details[open] su
 .ev{border:1px solid var(--border);border-radius:8px;padding:12px;min-width:0;display:grid;gap:8px;align-content:start}
 .ev.more{display:none}.ev-grid.open .ev.more{display:grid}
 .ev header{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px}.swatch{display:inline-block;width:12px;height:12px;border-radius:3px}
-.ev-imgs{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ev-imgs figure{margin:0;min-width:0}.ev-imgs figcaption{font-size:11px;color:var(--muted);margin-top:4px}
+.ev-imgs{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ev-imgs.one{grid-template-columns:1fr}.ev-imgs figure{margin:0;min-width:0}.ev-imgs figcaption{font-size:11px;color:var(--muted);margin-top:4px}
 .ev-imgs .ov-wrap{display:block}.ev-imgs .ov-wrap img{width:100%;height:auto}
 .ev dl{display:grid;grid-template-columns:auto 1fr auto 1fr;gap:2px 8px;margin:0;font-size:12px;font-variant-numeric:tabular-nums}.ev dt{color:var(--muted)}.ev dd{margin:0}
 .formula{margin:0;font-size:12px;color:var(--ink2);line-height:1.6}
 .more-btn{margin-top:12px;background:var(--surface);color:var(--ink);border:1px solid var(--axis);border-radius:6px;padding:6px 14px;cursor:pointer;font:inherit}
+.nodsm{margin:0;min-width:0}.nodsm>div{aspect-ratio:1;display:grid;place-items:center;text-align:center;border:1px dashed var(--axis);border-radius:6px;color:var(--muted);font-size:12px;line-height:1.4}.nodsm figcaption{font-size:11px;color:var(--muted);margin-top:4px}
 .frames{display:grid;gap:14px}.frame{margin:0}.frame figcaption{font-size:13px;color:var(--ink2);margin-top:6px}
 #tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--bg);padding:6px 10px;border-radius:6px;font-size:12px;max-width:320px;z-index:9;display:none;box-shadow:0 2px 8px rgba(0,0,0,.25)}
 footer{color:var(--muted);font-size:12px}footer ul{margin:4px 0 0;padding-left:18px}
@@ -437,14 +448,14 @@ var b=document.getElementById('ev-more');if(b){b.addEventListener('click',functi
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600&display=swap">
 {css}
 <div class="wrap">
-<header><h1>{_esc(title)}</h1><p>{_esc(site) + ' · ' if site else ''}드론 영상 → 종류별 분할 → 3D 부피 → 겉보기 밀도 → 수거 계획 · GSD {gsd * 100:.2f} cm/px</p></header>
+<header><h1>{_esc(title)}</h1><p>{_esc(site) + ' · ' if site else ''}{'드론 영상 → 종류별 분할 → 3D 부피 → 겉보기 밀도 → 수거 계획' if has_dsm else '사진 → 분할 → 면적·개수 기반 무게 (DSM 없음, 2D 추정)'} · GSD {gsd * 100:.2f} cm/px</p></header>
 <div class="hero">
   <div class="card big"><span class="lab">추정 총 무게 (대표값)</span><span class="num">{_esc(_fmt_kg(tk[1]))}</span>
     <div class="range">범위 {_esc(_fmt_kg(tk[0]))} – {_esc(_fmt_kg(tk[2]))}</div>
-    <div class="foot">검출 누락은 반영하지 않은 최소 추정치 · 부피 기반 {n_vol}개, 개수/면적 기반 {n_cnt}개</div></div>
+    <div class="foot">{'검출 누락은 반영하지 않은 최소 추정치 · 부피 기반 ' + str(n_vol) + '개, 개수/면적 기반 ' + str(n_cnt) + '개' if has_dsm else 'DSM(높이) 없음 → 면적·개수 기반 2D 추정 (W2/W3). 3D 복원 후 부피 기반으로 바뀝니다'}</div></div>
   <div class="tiles">
     <div class="tile"><span class="lab">검출 물체</span><span class="val">{len(litter)}</span><span class="sub">식생 제외 {len(masses) - len(litter)}개</span></div>
-    <div class="tile"><span class="lab">총 겉 부피 (L)</span><span class="val">{vol * 1000:,.0f}</span><span class="sub">{vol:.3f} m³</span></div>
+    {f'<div class="tile"><span class="lab">총 겉 부피 (L)</span><span class="val">{vol * 1000:,.0f}</span><span class="sub">{vol:.3f} m³</span></div>' if has_dsm else f'<div class="tile"><span class="lab">총 면적 (cm²)</span><span class="val">{area * 1e4:,.0f}</span><span class="sub">{area:.2f} m²</span></div>'}
     <div class="tile"><span class="lab">마대</span><span class="val">{p.total_bags}</span><span class="sub">톤백 {p.tonbags} · 1 t 트럭 {p.truck_trips}회</span></div>
     <div class="tile"><span class="lab">작업량 (인·시간)</span><span class="val">{p.worker_hours:.1f}</span><span class="sub">4시간 기준 {p.workers_for_4h}명</span></div>
     <div class="tile"><span class="lab">23 kg 초과</span><span class="val">{len(p.heavy_items)}</span><span class="sub">2인 이상 또는 장비</span></div>

@@ -30,6 +30,7 @@ pytest tests/test_litter3d.py -q
 | 4. 무게·계획 | `python scripts/13_estimate_mass.py --dsm ... --ortho ... --weights best.pt` → `outputs/mass/report.html` 을 브라우저로 열기 | 2·3 결과 |
 
 마스크 PNG(클래스 인덱스)가 이미 있으면 `--mask masks.png`, 둘 다 없으면 색 기반 베이스라인(Kako 2020 방식)으로 돌아간다.
+DSM 없이 사진만 있을 때는 `pipeline.run_image_only()` (면적·개수 기반, 리포트에 'DSM 없음' 표시) — 예: `python scripts/16_photo_demo.py`.
 
 ## 모듈
 
