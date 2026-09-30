@@ -258,4 +258,4 @@ def test_report_html_sections(tmp_path):
     html = (tmp_path / "report.html").read_text(encoding="utf-8")
     for key in ("추정 근거 (물체별)", "원본 프레임 검출", "종류별 무게", "격자별 무게 지도", "기존 방식과 비교", "수거 계획", "data-tip=", "실측 대비"):
         assert key in html, key
-    assert html.count('<article class="ev') == sum(1 for m in masks if m[0] != "vegetation")
+    assert html.count('<article class="ev') == sum(1 for m in masks if m[0] != "vegetation" and m[1].any())
