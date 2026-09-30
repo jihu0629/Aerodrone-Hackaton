@@ -246,3 +246,16 @@ def test_new_material_classes_and_small_rule():
     ov3 = ObjectVolume(2, "wood", 0.1, 0.0038, 0, 0.038, 0.038, 0, 0.005, 10, 10, 1000, 1000)
     m3 = estimate_mass(ov3)
     assert m3.method == "volume" and abs(m3.kg_typ - 1.9) < 0.01
+
+
+def test_report_html_sections(tmp_path):
+    from litter3d.pipeline import run
+    objs = default_objects()
+    dsm, ortho, masks = make_scene(objs, size_m=(20, 10), gsd_m=0.01)
+    surf = Surface(dsm=dsm, ortho=ortho, gsd_m=0.01, transform=None, crs=None)
+    frames = [("frame A", ortho[:500, :1000], [(c, m[:500, :1000], k) for c, m, k in masks if m[:500, :1000].any()])]
+    r = run(surf, masks, tmp_path, truth_kg=10.0, frame_detections=frames)
+    html = (tmp_path / "report.html").read_text(encoding="utf-8")
+    for key in ("추정 근거 (물체별)", "원본 프레임 검출", "종류별 무게", "격자별 무게 지도", "기존 방식과 비교", "수거 계획", "data-tip=", "실측 대비"):
+        assert key in html, key
+    assert html.count('<article class="ev') == sum(1 for m in masks if m[0] != "vegetation")

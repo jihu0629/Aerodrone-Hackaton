@@ -16,8 +16,9 @@ ap.add_argument("--weights", default=None, help="YOLO-seg .pt")
 ap.add_argument("--out", default="outputs/mass")
 ap.add_argument("--cell", type=float, default=10.0)
 ap.add_argument("--wet", action="store_true", help="젖은 상태 → 최대값에 젖음 계수 적용")
+ap.add_argument("--frames", default=None, help="원본 프레임 폴더 (리포트에 검출 갤러리 추가, 최대 6장)")
 a = ap.parse_args()
 
-r = run_from_files(a.dsm, a.out, a.ortho, a.mask, a.weights, cell_m=a.cell, wet=a.wet)
+r = run_from_files(a.dsm, a.out, a.ortho, a.mask, a.weights, frames_dir=a.frames, cell_m=a.cell, wet=a.wet)
 lo, ty, hi = r["total_kg"]
 print(f"물체 {r['n_objects']}개, 총 {ty:.1f} kg (범위 {lo:.1f}–{hi:.1f}) → {r['out_dir']}/summary.md")

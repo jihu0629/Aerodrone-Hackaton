@@ -71,9 +71,48 @@ def _nice_max(v: float) -> float:
     return float(10 * e)
 
 
+def _crop_box(mask: np.ndarray, pad_frac: float = 0.6, min_px: int = 60) -> tuple[int, int, int, int]:
+    ys, xs = np.nonzero(mask)
+    y0, y1, x0, x1 = ys.min(), ys.max() + 1, xs.min(), xs.max() + 1
+    ph = max(int((y1 - y0) * pad_frac), (min_px - (y1 - y0)) // 2, 6)
+    pw = max(int((x1 - x0) * pad_frac), (min_px - (x1 - x0)) // 2, 6)
+    H, W = mask.shape
+    return max(y0 - ph, 0), min(y1 + ph, H), max(x0 - pw, 0), min(x1 + pw, W)
+
+
+def _height_image(dsm_crop: np.ndarray, ground_z: float, h_max: float) -> np.ndarray:
+    """DSM − 바닥 을 파랑 한 색 진하기 이미지로 (0 = 연함, h_max = 진함)."""
+    h = np.nan_to_num(dsm_crop - ground_z, nan=0.0)
+    t = np.clip(h / max(h_max, 1e-3), 0, 1)
+    lut = np.array([[int(c[i:i + 2], 16) for i in (5, 3, 1)] for c in SEQ_LIGHT], np.float32)   # BGR
+    idx = t * (len(lut) - 1)
+    lo = np.floor(idx).astype(int); hi = np.minimum(lo + 1, len(lut) - 1); f = (idx - lo)[..., None]
+    img = lut[lo] * (1 - f) + lut[hi] * f
+    return img.astype(np.uint8)
+
+
+def _overlay_block(img_bgr: np.ndarray, items: list[tuple[np.ndarray, str, str, str | None]], max_w: int = 900,
+                   stroke: int = 2) -> str:
+    """이미지 + SVG 폴리곤 오버레이. items = [(mask, color css, tooltip, label or None)]"""
+    src, s = _img_b64(img_bgr, max_w=max_w)
+    H, W = img_bgr.shape[:2]
+    parts = []
+    for m, col, tip, label in items:
+        polys = _contours(m, s)
+        for pts in polys:
+            parts.append(f'<polygon points="{pts}" style="stroke:{col};stroke-width:{stroke}" data-tip="{_esc(tip)}" tabindex="0"/>')
+        if label and polys:
+            ys, xs = np.nonzero(m)
+            lx, ly = xs.min() * s, max(ys.min() * s - 4, 10)
+            parts.append(f'<text x="{lx:.1f}" y="{ly:.1f}" class="ov-lab" style="fill:{col}">{_esc(label)}</text>')
+    return (f'<div class="ov-wrap"><img src="{src}" alt="" width="{int(W * s)}" height="{int(H * s)}">'
+            f'<svg viewBox="0 0 {int(W * s)} {int(H * s)}" preserveAspectRatio="none">{"".join(parts)}</svg></div>')
+
+
 def build_report(surface, masks: MaskList, masses: list[ObjectMass], plan: CollectionPlan, out_path: str | Path,
                  *, title: str = "붕붕이 무게 리포트", site: str = "", truth_kg: float | None = None,
-                 cell_m: float | None = None) -> Path:
+                 cell_m: float | None = None, vols=None, frames: list[tuple[str, np.ndarray, MaskList]] | None = None,
+                 n_evidence: int = 12) -> Path:
     litter = [m for m in masses if m.method != "excluded"]
     tk = total_kg(litter)
     by = summarize_by_class(litter)
@@ -120,6 +159,73 @@ def build_report(surface, masks: MaskList, masses: list[ObjectMass], plan: Colle
   <svg viewBox="0 0 {int(W * s)} {int(H * s)}" preserveAspectRatio="none">{''.join(polys)}</svg></div>
   <div class="legend">{legend}</div>
 </figure>"""
+
+    # ---------------- 추정 근거 카드 (물체별) ----------------
+    evidence_html = ""
+    if surface.ortho is not None:
+        vol_by_id = {v.obj_id: v for v in (vols or [])}
+        order_obj = sorted(range(len(masses)), key=lambda i: -masses[i].kg_typ)
+        cards = []
+        for rank, i in enumerate(order_obj):
+            mm = masses[i]
+            if mm.method == "excluded":
+                continue
+            cls, m, conf = masks[i]
+            y0, y1, x0, x1 = _crop_box(m)
+            photo = surface.ortho[y0:y1, x0:x1]
+            sub = m[y0:y1, x0:x1]
+            col_css = cls_color(cls)
+            hexcol = CAT_LIGHT[slot[cls]] if cls in slot else "#9a9890"
+            photo_html = _overlay_block(photo, [(sub, col_css, f"{mm.class_ko} 마스크 (신뢰도 {conf:.2f})", None)], max_w=260, stroke=2)
+            v = vol_by_id.get(mm.obj_id)
+            gz = v.ground_z_m if v else float(np.nanmedian(surface.dsm[y0:y1, x0:x1]))
+            hmap = _height_image(surface.dsm[y0:y1, x0:x1].astype(np.float32), gz, max(mm.h_max_m, 0.01))
+            height_html = _overlay_block(hmap, [(sub, "#0b0b0b", f"DSM − 바닥, 최대 {mm.h_max_m * 100:.1f} cm", None)], max_w=260, stroke=1)
+            spec = CLASSES.get(cls, CLASSES["unknown"])
+            if mm.method == "volume":
+                formula = (f"V = Σ(DSM − 바닥)·GSD² = <b>{mm.volume_m3 * 1000:.2f} L</b> &nbsp;→&nbsp; "
+                           f"m = V × ρ<sub>겉보기</sub>({spec.rho_min}/{spec.rho_typ}/{spec.rho_max} kg/m³) = "
+                           f"<b>{_fmt_kg(mm.kg_typ)}</b> ({_fmt_kg(mm.kg_min)}–{_fmt_kg(mm.kg_max)})")
+                why = "부피 × 종류별 겉보기 밀도"
+            else:
+                formula = f"{_esc(mm.note)} → <b>{_fmt_kg(mm.kg_typ)}</b> ({_fmt_kg(mm.kg_min)}–{_fmt_kg(mm.kg_max)})"
+                why = "면적 ≤ 25 cm² 또는 높이 ≤ 3 cm → DSM 으로 못 잼" if mm.area_m2 <= 0.0025 or mm.h_max_m <= 0.03 else "속 빈 물체 → 개당 평균무게"
+            cards.append(f"""<article class="ev{' more' if rank >= n_evidence else ''}">
+  <header><span class="swatch" style="background:{col_css}"></span><b>#{mm.obj_id} {_esc(mm.class_ko)}</b><span class="muted"> 신뢰도 {conf:.2f} · {_esc(why)}</span></header>
+  <div class="ev-imgs"><figure>{photo_html}<figcaption>정사영상 + 분할 폴리곤</figcaption></figure>
+  <figure>{height_html}<figcaption>DSM 높이 (진할수록 높음, 최대 {mm.h_max_m * 100:.1f} cm)</figcaption></figure></div>
+  <dl><dt>면적</dt><dd>{mm.area_m2 * 1e4:,.0f} cm²</dd><dt>최대 높이</dt><dd>{mm.h_max_m * 100:.1f} cm</dd><dt>부피</dt><dd>{mm.volume_m3 * 1000:.2f} L</dd><dt>무게</dt><dd><b>{_esc(_fmt_kg(mm.kg_typ))}</b></dd></dl>
+  <p class="formula">{formula}</p>
+</article>""")
+        n_more = sum(1 for c in cards if 'class="ev more"' in c)
+        evidence_html = f"""
+<section class="card">
+  <h2>추정 근거 (물체별)</h2>
+  <p class="sub">각 물체를 어떤 사진 조각과 높이 정보로 판단했고, 어떤 식으로 무게가 나왔는지. 무게 순 상위 {min(n_evidence, len(cards))}개{f', 나머지 {n_more}개는 아래 펼치기' if n_more else ''}.</p>
+  <ol class="flow"><li>정사영상</li><li>분할 폴리곤 (YOLO-seg)</li><li>DSM − 바닥 = 높이</li><li>Σ 높이 × GSD² = 부피</li><li>× 종류별 겉보기 밀도</li><li>무게 범위</li></ol>
+  <div class="ev-grid">{''.join(cards)}</div>
+  {f'<button type="button" class="more-btn" id="ev-more">나머지 {n_more}개 펼치기</button>' if n_more else ''}
+</section>"""
+
+    # ---------------- 원본 프레임 검출 갤러리 ----------------
+    frames_html = ""
+    if frames:
+        figs = []
+        for name, img, fmasks in frames:
+            items = []
+            counts = {}
+            for cls, m, conf in fmasks:
+                ko = KO_NAMES.get(cls, cls)
+                counts[ko] = counts.get(ko, 0) + 1
+                items.append((m, cls_color(cls), f"{ko} · 신뢰도 {conf:.2f}", f"{ko} {conf:.2f}"))
+            summary = ", ".join(f"{k} {v}" for k, v in sorted(counts.items(), key=lambda kv: -kv[1])) or "검출 없음"
+            figs.append(f'<figure class="frame">{_overlay_block(img, items, max_w=900)}<figcaption><b>{_esc(name)}</b> · {len(fmasks)}개 검출 ({_esc(summary)})</figcaption></figure>')
+        frames_html = f"""
+<section class="card">
+  <h2>원본 프레임 검출</h2>
+  <p class="sub">드론 영상 프레임에 분할 모델을 돌린 결과. 폴리곤 색은 위 검출 결과와 같은 종류색, 라벨은 종류와 신뢰도. 마우스를 올리면 자세히 보입니다.</p>
+  <div class="frames">{''.join(figs)}</div>
+</section>"""
 
     # ---------------- 클래스별 막대 ----------------
     bar_w, row_h, lab_w = 640, 30, 150
@@ -277,7 +383,7 @@ h3{font-size:14px;margin:16px 0 6px;font-weight:600}h2.inline{display:inline}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
 .tile{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:grid;gap:2px;min-width:0}
 .tile .lab{color:var(--ink2);font-size:12px}.tile .val{font-size:24px;font-weight:600;line-height:1.1}.tile .sub{font-size:12px;color:var(--muted);margin:0}
-.ov-wrap{position:relative;max-width:100%;overflow:auto;border-radius:6px}.ov-wrap img{display:block;max-width:100%;height:auto}
+.ov-wrap{position:relative;display:inline-block;max-width:100%;vertical-align:top;border-radius:6px;overflow:hidden}.ov-wrap img{display:block;max-width:100%;height:auto}
 .ov-wrap svg{position:absolute;inset:0;width:100%;height:100%}
 .ov-wrap polygon{fill:rgba(255,255,255,.001);stroke-width:2;vector-effect:non-scaling-stroke;cursor:pointer;outline:none}
 .ov-wrap polygon:hover,.ov-wrap polygon:focus{fill:rgba(255,255,255,.25);stroke-width:3}
@@ -299,6 +405,19 @@ details summary{cursor:pointer;color:var(--ink2);margin-top:8px}details[open] su
 .list{margin:0;padding-left:18px}.list li{margin:4px 0}.muted{color:var(--muted)}
 .chip{display:inline-block;padding:1px 8px;border-radius:999px;font-size:12px;font-weight:600;border:1px solid var(--border)}
 .chip.serious{background:var(--serious);color:#1a1a19}
+.ov-lab{font-size:12px;font-weight:600;paint-order:stroke;stroke:var(--surface);stroke-width:3px;pointer-events:none}
+.flow{display:flex;flex-wrap:wrap;gap:6px;list-style:none;padding:0;margin:0 0 14px;font-size:12px;color:var(--ink2)}
+.flow li{background:var(--bg);border:1px solid var(--border);border-radius:999px;padding:2px 10px}.flow li+li::before{content:"→ ";color:var(--muted)}
+.ev-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.ev{border:1px solid var(--border);border-radius:8px;padding:12px;min-width:0;display:grid;gap:8px;align-content:start}
+.ev.more{display:none}.ev-grid.open .ev.more{display:grid}
+.ev header{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px}.swatch{display:inline-block;width:12px;height:12px;border-radius:3px}
+.ev-imgs{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ev-imgs figure{margin:0;min-width:0}.ev-imgs figcaption{font-size:11px;color:var(--muted);margin-top:4px}
+.ev-imgs .ov-wrap{display:block}.ev-imgs .ov-wrap img{width:100%;height:auto}
+.ev dl{display:grid;grid-template-columns:auto 1fr auto 1fr;gap:2px 8px;margin:0;font-size:12px;font-variant-numeric:tabular-nums}.ev dt{color:var(--muted)}.ev dd{margin:0}
+.formula{margin:0;font-size:12px;color:var(--ink2);line-height:1.6}
+.more-btn{margin-top:12px;background:var(--surface);color:var(--ink);border:1px solid var(--axis);border-radius:6px;padding:6px 14px;cursor:pointer;font:inherit}
+.frames{display:grid;gap:14px}.frame{margin:0}.frame figcaption{font-size:13px;color:var(--ink2);margin-top:6px}
 #tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--bg);padding:6px 10px;border-radius:6px;font-size:12px;max-width:320px;z-index:9;display:none;box-shadow:0 2px 8px rgba(0,0,0,.25)}
 footer{color:var(--muted);font-size:12px}footer ul{margin:4px 0 0;padding-left:18px}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -311,7 +430,8 @@ function show(e){var el=e.currentTarget;t.textContent=el.getAttribute('data-tip'
 function move(e){var x=(e.clientX||0)+14,y=(e.clientY||0)+14;if(x+t.offsetWidth>innerWidth-8)x=innerWidth-t.offsetWidth-8;if(y+t.offsetHeight>innerHeight-8)y=y-t.offsetHeight-28;t.style.left=x+'px';t.style.top=y+'px';}
 function hide(){t.style.display='none';}
 document.querySelectorAll('[data-tip]').forEach(function(el){el.addEventListener('pointerenter',show);el.addEventListener('pointermove',move);el.addEventListener('pointerleave',hide);
-el.addEventListener('focus',function(e){var r=el.getBoundingClientRect();t.textContent=el.getAttribute('data-tip');t.style.display='block';t.style.left=(r.left+8)+'px';t.style.top=(r.bottom+6)+'px';});el.addEventListener('blur',hide);});})();
+el.addEventListener('focus',function(e){var r=el.getBoundingClientRect();t.textContent=el.getAttribute('data-tip');t.style.display='block';t.style.left=(r.left+8)+'px';t.style.top=(r.bottom+6)+'px';});el.addEventListener('blur',hide);});
+var b=document.getElementById('ev-more');if(b){b.addEventListener('click',function(){document.querySelector('.ev-grid').classList.add('open');b.hidden=true;});}})();
 </script>"""
     page = f"""<title>{_esc(title)}</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600&display=swap">
@@ -332,6 +452,8 @@ el.addEventListener('focus',function(e){var r=el.getBoundingClientRect();t.textC
   </div>
 </div>
 {overlay_html}
+{frames_html}
+{evidence_html}
 {bars_html}
 {comp_html}
 {heat_html}

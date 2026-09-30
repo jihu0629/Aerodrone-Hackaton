@@ -19,7 +19,8 @@ from .volume import volumes_from_masks
 
 def run(surface: Surface, masks: MaskList, out_dir: str | Path, *, wet: bool = False,
         plan_params: PlanParams | None = None, cell_m: float = 10.0, min_conf: float = 0.0,
-        title: str = "붕붕이 무게 리포트", site: str = "", truth_kg: float | None = None) -> dict:
+        title: str = "붕붕이 무게 리포트", site: str = "", truth_kg: float | None = None,
+        frame_detections: list | None = None) -> dict:
     out = Path(out_dir); out.mkdir(parents=True, exist_ok=True)
     masks = [m for m in masks if m[2] >= min_conf]
     vols = volumes_from_masks(surface.dsm, masks, surface.gsd_m)
@@ -63,7 +64,8 @@ def run(surface: Surface, masks: MaskList, out_dir: str | Path, *, wet: bool = F
 
     # HTML 리포트 (외부 의존성 없음)
     from .report_html import build_report
-    build_report(surface, masks, masses, plan, out / "report.html", title=title, site=site, truth_kg=truth_kg, cell_m=pp.cell_m)
+    build_report(surface, masks, masses, plan, out / "report.html", title=title, site=site, truth_kg=truth_kg,
+                 cell_m=pp.cell_m, vols=vols, frames=frame_detections)
 
     # 요약
     tk = total_kg(masses)
@@ -103,9 +105,31 @@ def draw_overlay(ortho_bgr: np.ndarray, masks: MaskList, masses: list[ObjectMass
     cv2.imwrite(str(path), img)
 
 
+def detect_frames(frames_dir: str | Path, weights: str | Path | None, max_frames: int = 6) -> list:
+    """원본 프레임 폴더에서 몇 장을 골라 분할 모델(없으면 색 기반)을 돌린다 → 리포트 갤러리용."""
+    from .segment import YoloSegmenter, color_baseline
+    paths = sorted(p for p in Path(frames_dir).iterdir() if p.suffix.lower() in {".jpg", ".jpeg", ".png"})
+    if not paths:
+        return []
+    step = max(len(paths) // max_frames, 1)
+    picked = paths[::step][:max_frames]
+    seg = YoloSegmenter(weights) if weights else None
+    out = []
+    for p in picked:
+        img = cv2.imread(str(p))
+        if img is None:
+            continue
+        dets = seg.predict(img) if seg else color_baseline(img)
+        out.append((p.name, img, dets))
+    return out
+
+
 def run_from_files(dsm_path: str | Path, out_dir: str | Path, ortho_path: str | Path | None = None,
-                   mask_png: str | Path | None = None, weights: str | Path | None = None, **kw) -> dict:
+                   mask_png: str | Path | None = None, weights: str | Path | None = None,
+                   frames_dir: str | Path | None = None, **kw) -> dict:
     surf = load_surface(dsm_path, ortho_path)
+    if frames_dir is not None and "frame_detections" not in kw:
+        kw["frame_detections"] = detect_frames(frames_dir, weights)
     if mask_png is not None:
         masks = masks_from_png(mask_png)
     elif weights is not None:
