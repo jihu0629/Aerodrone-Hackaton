@@ -25,6 +25,7 @@ litter3d/                파이썬 패키지 (자세한 설명: litter3d/README.
   mass.py                부피 × 겉보기 밀도 → 무게 (최소/대표/최대)
   gridmap.py             격자 kg 히트맵
   plan.py                수거 계획 (마대·톤백·트럭·23 kg 규칙·CVRP 경로)
+  report_html.py         결과 HTML 리포트 (검출 오버레이·차트·히트맵·수거 계획, 오프라인 동작)
   synthetic.py           검증용 합성 장면
   dataset.py             라벨 형식 판별·YOLO-seg 변환·train/val 분할
 scripts/

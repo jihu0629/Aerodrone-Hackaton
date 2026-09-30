@@ -18,7 +18,8 @@ from .volume import volumes_from_masks
 
 
 def run(surface: Surface, masks: MaskList, out_dir: str | Path, *, wet: bool = False,
-        plan_params: PlanParams | None = None, cell_m: float = 10.0, min_conf: float = 0.0) -> dict:
+        plan_params: PlanParams | None = None, cell_m: float = 10.0, min_conf: float = 0.0,
+        title: str = "붕붕이 무게 리포트", site: str = "", truth_kg: float | None = None) -> dict:
     out = Path(out_dir); out.mkdir(parents=True, exist_ok=True)
     masks = [m for m in masks if m[2] >= min_conf]
     vols = volumes_from_masks(surface.dsm, masks, surface.gsd_m)
@@ -60,6 +61,10 @@ def run(surface: Surface, masks: MaskList, out_dir: str | Path, *, wet: bool = F
     if surface.ortho is not None:
         draw_overlay(surface.ortho, masks, masses, out / "overlay.jpg")
 
+    # HTML 리포트 (외부 의존성 없음)
+    from .report_html import build_report
+    build_report(surface, masks, masses, plan, out / "report.html", title=title, site=site, truth_kg=truth_kg, cell_m=pp.cell_m)
+
     # 요약
     tk = total_kg(masses)
     by = summarize_by_class(masses)
@@ -81,7 +86,8 @@ def run(surface: Surface, masks: MaskList, out_dir: str | Path, *, wet: bool = F
               f"- 차량 경로 {len(plan.routes)}대 ({plan.routes[0]['solver'] if plan.routes else '-'})",
               "", "## 가정", ""] + [f"- {a}" for a in plan.assumptions] + ["", "## 겉보기 밀도표", "", density_table_markdown()]
     (out / "summary.md").write_text("\n".join(lines), encoding="utf-8")
-    return {"n_objects": len(masses), "total_kg": tk, "by_class": by, "plan": plan.to_dict(), "out_dir": str(out)}
+    return {"n_objects": len(masses), "total_kg": tk, "by_class": by, "plan": plan.to_dict(), "out_dir": str(out),
+            "report_html": str(out / "report.html")}
 
 
 def draw_overlay(ortho_bgr: np.ndarray, masks: MaskList, masses: list[ObjectMass], path: str | Path) -> None:
