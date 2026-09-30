@@ -20,11 +20,23 @@ from .volume import volumes_from_masks
 def run(surface: Surface, masks: MaskList, out_dir: str | Path, *, wet: bool = False,
         plan_params: PlanParams | None = None, cell_m: float = 10.0, min_conf: float = 0.0,
         title: str = "붕붕이 무게 리포트", site: str = "", truth_kg: float | None = None,
-        frame_detections: list | None = None, has_dsm: bool = True) -> dict:
+        frame_detections: list | None = None, has_dsm: bool = True, report_name: str = "report.html",
+        write_side_files: bool = True, related: list[tuple[str, str]] | None = None) -> dict:
+    """write_side_files=False 면 objects.csv·grid·plan·summary 를 만들지 않고 HTML 리포트만 쓴다 (사진 리포트용)."""
     out = Path(out_dir); out.mkdir(parents=True, exist_ok=True)
     masks = [m for m in masks if m[2] >= min_conf]
     vols = volumes_from_masks(surface.dsm, masks, surface.gsd_m)
     masses = estimate_masses(vols, wet=wet)
+
+    if not write_side_files:
+        pp = plan_params or PlanParams(cell_m=cell_m)
+        plan = make_plan(masses, surface.gsd_m, surface.transform, pp)
+        from .report_html import build_report
+        build_report(surface, masks, masses, plan, out / report_name, title=title, site=site, truth_kg=truth_kg,
+                     cell_m=pp.cell_m, vols=vols, frames=frame_detections, has_dsm=has_dsm, related=related)
+        tk = total_kg(masses)
+        return {"n_objects": len(masses), "total_kg": tk, "by_class": summarize_by_class(masses),
+                "plan": plan.to_dict(), "out_dir": str(out), "report_html": str(out / report_name)}
 
     # objects.csv
     with open(out / "objects.csv", "w", newline="", encoding="utf-8") as f:
@@ -64,8 +76,8 @@ def run(surface: Surface, masks: MaskList, out_dir: str | Path, *, wet: bool = F
 
     # HTML 리포트 (외부 의존성 없음)
     from .report_html import build_report
-    build_report(surface, masks, masses, plan, out / "report.html", title=title, site=site, truth_kg=truth_kg,
-                 cell_m=pp.cell_m, vols=vols, frames=frame_detections, has_dsm=has_dsm)
+    build_report(surface, masks, masses, plan, out / report_name, title=title, site=site, truth_kg=truth_kg,
+                 cell_m=pp.cell_m, vols=vols, frames=frame_detections, has_dsm=has_dsm, related=related)
 
     # 요약
     tk = total_kg(masses)
@@ -89,7 +101,7 @@ def run(surface: Surface, masks: MaskList, out_dir: str | Path, *, wet: bool = F
               "", "## 가정", ""] + [f"- {a}" for a in plan.assumptions] + ["", "## 겉보기 밀도표", "", density_table_markdown()]
     (out / "summary.md").write_text("\n".join(lines), encoding="utf-8")
     return {"n_objects": len(masses), "total_kg": tk, "by_class": by, "plan": plan.to_dict(), "out_dir": str(out),
-            "report_html": str(out / "report.html")}
+            "report_html": str(out / report_name)}
 
 
 def draw_overlay(ortho_bgr: np.ndarray, masks: MaskList, masses: list[ObjectMass], path: str | Path) -> None:
@@ -126,10 +138,20 @@ def detect_frames(frames_dir: str | Path, weights: str | Path | None, max_frames
 
 def run_from_files(dsm_path: str | Path, out_dir: str | Path, ortho_path: str | Path | None = None,
                    mask_png: str | Path | None = None, weights: str | Path | None = None,
-                   frames_dir: str | Path | None = None, **kw) -> dict:
+                   frames_dir: str | Path | None = None, photos_dir: str | Path | None = None,
+                   photo_width_m: float | None = None, photo_altitude_m: float | None = None, **kw) -> dict:
+    """DSM+정사영상 → report.html. photos_dir 를 주면 같은 폴더에 report_photos.html 도 함께 만든다."""
     surf = load_surface(dsm_path, ortho_path)
     if frames_dir is not None and "frame_detections" not in kw:
         kw["frame_detections"] = detect_frames(frames_dir, weights)
+    photo_result = None
+    if photos_dir is not None:
+        from .photos import run_photo_report
+        photo_result = run_photo_report(photos_dir, out_dir, weights=weights, width_m=photo_width_m,
+                                        altitude_m=photo_altitude_m, site=kw.get("site", ""),
+                                        related=[("3D 리포트", "report.html")])
+        if photo_result:
+            kw.setdefault("related", [("사진 리포트", "report_photos.html")])
     if mask_png is not None:
         masks = masks_from_png(mask_png)
     elif weights is not None:
@@ -141,7 +163,11 @@ def run_from_files(dsm_path: str | Path, out_dir: str | Path, ortho_path: str | 
         if surf.ortho is None:
             raise ValueError("마스크 PNG, 모델 가중치, 정사영상 중 하나는 있어야 합니다")
         masks = color_baseline(surf.ortho)
-    return run(surf, masks, out_dir, **kw)
+    result = run(surf, masks, out_dir, **kw)
+    if photo_result:
+        result["photo_report_html"] = photo_result["report_html"]
+        result["photos"] = photo_result["photos"]
+    return result
 
 
 def run_image_only(image_bgr: np.ndarray, masks: MaskList, gsd_m: float, out_dir: str | Path, **kw) -> dict:

@@ -46,6 +46,7 @@ DSM 없이 사진만 있을 때는 `pipeline.run_image_only()` (면적·개수 �
 | `mass.py` | m = V·ρ_app (최소/대표/최대). 유리·금속·미확인은 개수×평균무게, 소형은 면적×0.4 cm×1.2 g/cm³(W3) 또는 클래스 소형무게, 식생 제외, 젖음 계수 |
 | `leirosa.py` · `baselines.py` | Andriolo 2024 실측 표(1,505개·24,720 g)와 기존 방식 W1/W2/W3 구현 → `scripts/15_leirosa_validation.py` 로 검증 |
 | `gridmap.py` | 격자 kg (CSV·PNG·GeoTIFF) |
+| `photos.py` | 원본 사진 폴더 → 검출 → 2D 추정 → `report_photos.html` (GSD: widths.json / --photo-width / DJI EXIF 고도 + 화각) |
 | `report_html.py` | 결과를 한 장의 HTML 리포트로 (총 무게·타일·검출 오버레이·원본 프레임 검출 갤러리·물체별 추정 근거 카드(사진 조각+폴리곤, DSM 높이, 계산식)·종류별 막대·격자 히트맵·기존 방식 비교·수거 계획·물체 표). 외부 라이브러리·인터넷 불필요, 다크 모드·툴팁·표 보기 지원 |
 | `plan.py` | 마대·톤백·트럭(무게 vs 부피 중 먼저 차는 쪽), NIOSH 23 kg 초과 물체, 인·시간, CVRP 경로(OR-Tools 있으면 사용, 없으면 greedy) |
 | `synthetic.py` | 경사 모래 + 크기를 아는 상자/원기둥/돔 합성 장면 |

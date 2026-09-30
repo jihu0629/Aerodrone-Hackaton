@@ -60,7 +60,7 @@ for name, wm in WIDTH_M.items():
 main = "crop_fig3c_left"
 img, masks, gsd_cm, wm, src = sets[main]
 frames = [(f"{n} · {v[3]} m 폭 · {v[4]}", v[0], v[1]) for n, v in sets.items() if n != main]
-r = run_image_only(img, masks, gsd_cm / 100, a.out, frame_detections=frames,
+r = run_image_only(img, masks, gsd_cm / 100, a.out, frame_detections=frames, report_name="report_photos.html",
                    title="붕붕이 사진 리포트", site=f"Leirosa 해변 (Andriolo et al. 2024 그림 3c, {wm} m 폭, {src})")
 lo, ty, hi = r["total_kg"]
 print(f"메인 사진: {r['n_objects']}개, {ty * 1000:.0f} g (범위 {lo * 1000:.0f}–{hi * 1000:.0f}) → {r['report_html']}")

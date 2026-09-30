@@ -259,3 +259,22 @@ def test_report_html_sections(tmp_path):
     for key in ("추정 근거 (물체별)", "원본 프레임 검출", "종류별 무게", "격자별 무게 지도", "기존 방식과 비교", "수거 계획", "data-tip=", "실측 대비"):
         assert key in html, key
     assert html.count('<article class="ev') == sum(1 for m in masks if m[0] != "vegetation" and m[1].any())
+
+
+def test_photo_report_from_folder(tmp_path):
+    import json, cv2
+    from litter3d.photos import load_photos, photo_gsd_m, run_photo_report
+    d = tmp_path / "photos"; d.mkdir()
+    for n in ("a.jpg", "b.jpg"):
+        img = np.full((300, 400, 3), (150, 190, 215), np.uint8); img[100:140, 100:160] = (60, 60, 200)
+        cv2.imwrite(str(d / n), img)
+    (d / "widths.json").write_text(json.dumps({"a.jpg": 2.0}), encoding="utf-8")
+    ph = load_photos(d)
+    assert ph[0]["gsd_m"] == pytest.approx(2.0 / 400) and "폭" in ph[0]["gsd_note"]
+    assert ph[1]["gsd_note"].startswith("기본값")            # 폭·고도 정보 없음
+    gsd, note = photo_gsd_m(d / "b.jpg", 8192, altitude_m=28.4)  # 고도 + Mini 5 Pro 화각
+    assert 0.0048 < gsd < 0.0052 and "고도" in note
+    r = run_photo_report(d, tmp_path / "out", site="테스트")
+    html = (tmp_path / "out" / "report_photos.html").read_text(encoding="utf-8")
+    assert r["photos"][0]["n"] >= 1 and "DSM 없음" in html and "원본 프레임 검출" in html
+    assert not (tmp_path / "out" / "objects.csv").exists()   # 사진 리포트는 부속 파일을 만들지 않음
