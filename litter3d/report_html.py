@@ -116,7 +116,7 @@ def _overlay_block(img_bgr: np.ndarray, items: list[tuple[np.ndarray, str, str, 
 def build_report(surface, masks: MaskList, masses: list[ObjectMass], plan: CollectionPlan, out_path: str | Path,
                  *, title: str = "붕붕이 무게 리포트", site: str = "", truth_kg: float | None = None,
                  cell_m: float | None = None, vols=None, frames: list[tuple[str, np.ndarray, MaskList]] | None = None,
-                 n_evidence: int = 12, has_dsm: bool = True) -> Path:
+                 n_evidence: int = 12, has_dsm: bool = True, related: list[tuple[str, str]] | None = None) -> Path:
     litter = [m for m in masses if m.method != "excluded"]
     tk = total_kg(litter)
     by = summarize_by_class(litter)
@@ -383,6 +383,7 @@ def build_report(surface, masks: MaskList, masses: list[ObjectMass], plan: Colle
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.5}
 .wrap{max-width:1100px;margin:0 auto;padding-inline:16px;padding-block:24px 48px;display:grid;gap:20px}
 header h1{font-size:22px;margin:0 0 4px;font-weight:600;text-wrap:balance}header p{margin:0;color:var(--ink2)}
+header .rel{display:inline-block;margin:0 12px 6px 0;color:var(--accent);text-decoration:none;font-size:13px;border:1px solid var(--border);border-radius:999px;padding:2px 10px}header .rel:hover{text-decoration:underline}
 .hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,2fr);gap:20px}
 @media (max-width:720px){.hero{grid-template-columns:1fr}}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px;min-width:0}
@@ -448,7 +449,7 @@ var b=document.getElementById('ev-more');if(b){b.addEventListener('click',functi
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600&display=swap">
 {css}
 <div class="wrap">
-<header><h1>{_esc(title)}</h1><p>{_esc(site) + ' · ' if site else ''}{'드론 영상 → 종류별 분할 → 3D 부피 → 겉보기 밀도 → 수거 계획' if has_dsm else '사진 → 분할 → 면적·개수 기반 무게 (DSM 없음, 2D 추정)'} · GSD {gsd * 100:.2f} cm/px</p></header>
+<header><h1>{_esc(title)}</h1>{''.join(f'<a class="rel" href="{_esc(h)}">{_esc(l)} →</a>' for l, h in (related or []))}<p>{_esc(site) + ' · ' if site else ''}{'드론 영상 → 종류별 분할 → 3D 부피 → 겉보기 밀도 → 수거 계획' if has_dsm else '사진 → 분할 → 면적·개수 기반 무게 (DSM 없음, 2D 추정)'} · GSD {gsd * 100:.2f} cm/px</p></header>
 <div class="hero">
   <div class="card big"><span class="lab">추정 총 무게 (대표값)</span><span class="num">{_esc(_fmt_kg(tk[1]))}</span>
     <div class="range">범위 {_esc(_fmt_kg(tk[0]))} – {_esc(_fmt_kg(tk[2]))}</div>

@@ -17,8 +17,15 @@ ap.add_argument("--out", default="outputs/mass")
 ap.add_argument("--cell", type=float, default=10.0)
 ap.add_argument("--wet", action="store_true", help="젖은 상태 → 최대값에 젖음 계수 적용")
 ap.add_argument("--frames", default=None, help="원본 프레임 폴더 (리포트에 검출 갤러리 추가, 최대 6장)")
+ap.add_argument("--photos", default=None, help="원본 사진 폴더 → report_photos.html 도 함께 출력 (widths.json 또는 EXIF 고도로 GSD)")
+ap.add_argument("--photo-width", type=float, default=None, help="사진 폭(m) 직접 지정")
+ap.add_argument("--photo-alt", type=float, default=None, help="촬영 고도(m) 직접 지정 (EXIF 없을 때)")
 a = ap.parse_args()
 
-r = run_from_files(a.dsm, a.out, a.ortho, a.mask, a.weights, frames_dir=a.frames, cell_m=a.cell, wet=a.wet)
+r = run_from_files(a.dsm, a.out, a.ortho, a.mask, a.weights, frames_dir=a.frames, photos_dir=a.photos,
+                   photo_width_m=a.photo_width, photo_altitude_m=a.photo_alt, cell_m=a.cell, wet=a.wet)
 lo, ty, hi = r["total_kg"]
-print(f"물체 {r['n_objects']}개, 총 {ty:.1f} kg (범위 {lo:.1f}–{hi:.1f}) → {r['out_dir']}/summary.md")
+print(f"물체 {r['n_objects']}개, 총 {ty:.1f} kg (범위 {lo:.1f}–{hi:.1f}) → {r['report_html']}")
+if "photo_report_html" in r:
+    photos_txt = ", ".join(f"{p['name']} {p['n']}개" for p in r["photos"])
+    print(f"사진 리포트 → {r['photo_report_html']}  ({photos_txt})")
