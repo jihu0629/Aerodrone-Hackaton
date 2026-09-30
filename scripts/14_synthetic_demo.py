@@ -32,7 +32,13 @@ for o, v in zip(objs, vols):
 
 true_kg = sum(o.true_volume_m3 * CLASSES[o.cls].rho_typ for o in objs if CLASSES[o.cls].is_litter and o.cls != "styrofoam_fragment") \
     + (CLASSES["styrofoam_fragment"].mean_item_g or 0) / 1000
-r = run(surf, masks, out, site="합성 장면 (30 × 20 m, 검증용)", truth_kg=true_kg)
+# 리포트 갤러리용 예시 프레임: 정사영상 일부를 잘라 프레임처럼 사용 (실제 영상에서는 scripts/13 --frames 로 원본 프레임 사용)
+frames = []
+for name, (y0, y1, x0, x1) in {"예시 프레임 A (x 0–15 m, y 0–10 m)": (0, dsm.shape[0] // 2, 0, dsm.shape[1] // 2),
+                                "예시 프레임 B (x 15–30 m, y 10–20 m)": (dsm.shape[0] // 2, dsm.shape[0], dsm.shape[1] // 2, dsm.shape[1])}.items():
+    sub = [(c, m[y0:y1, x0:x1], conf) for c, m, conf in masks if m[y0:y1, x0:x1].any()]
+    frames.append((name, ortho[y0:y1, x0:x1], sub))
+r = run(surf, masks, out, site="합성 장면 (30 × 20 m, 검증용)", truth_kg=true_kg, frame_detections=frames)
 lo, ty, hi = r["total_kg"]
 n_litter = sum(1 for o in objs if CLASSES[o.cls].is_litter)
 print()
