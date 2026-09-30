@@ -204,3 +204,45 @@ def test_dataset_labelme(tmp_path):
     assert detect_format(root) == "labelme"
     r = prepare_dataset(root, tmp_path / "out")
     assert r["per_class"] == {"net": 2}
+
+
+def test_reproduce_andriolo2024_tables():
+    """논문 표 3·4·5 의 숫자를 baselines 로 재현한다 (데이터 입력 검증)."""
+    from litter3d import leirosa as L
+    from litter3d.baselines import w1_by_type, w2_count, w3_area, w3_dsm
+    # 표 1 합계
+    assert sum(r.n for r in L.TABLE1) == 1505 and sum(r.total_g for r in L.TABLE1) == 24720
+    # 표 3: W1 4가지
+    n = sum(t[1] for t in L.TABLE3); assert abs(n - L.TABLE3_TOTALS["n"]) <= 3
+    for col, key in ((2, "census"), (3, "lower"), (4, "mean"), (5, "upper")):
+        est = w1_by_type([(t[0], t[1], t[col]) for t in L.TABLE3])
+        assert abs(est - L.TABLE3_TOTALS[key]) / L.TABLE3_TOTALS[key] < 0.01, (key, est)
+    # 표 4: W2 (표 4 는 1445개 기준)
+    assert abs(w2_count(1445, 19480 / 1445) - 19480) < 1
+    assert abs(w2_count(899, 5.7) - 5079) < 60 and abs(w2_count(899, 25.1) - 22565) < 60
+    assert abs(w2_count(1445, 13.5) - 19480) / 19480 < 0.005
+    # 표 5: W3 / W3'
+    for (t, s), g in L.TABLE5_EXPECTED.items():
+        assert abs(w3_area(L.OBJ_SEG_AREA_CM2, t, s) - g) < 2
+    for s, g in L.TABLE5_DSM_EXPECTED.items():
+        assert abs(w3_dsm(L.SEM_SEG_VOLUME_CM3, s) - g) < 2
+
+
+def test_new_material_classes_and_small_rule():
+    from litter3d.classes import CLASSES, map_class
+    from litter3d.volume import ObjectVolume
+    from litter3d.mass import estimate_mass
+    for k in ("wood", "cloth", "rubber", "ceramic"):
+        assert k in CLASSES and CLASSES[k].is_litter
+    assert map_class("나무") == "wood" and map_class("의류") == "cloth" and map_class("고무") == "rubber"
+    # 소형 플라스틱 조각 4×1.5 cm → 면적 기반 W3 (6 cm² × 0.4 × 1.2 = 2.88 g), 클래스 평균 16.4 g 아님
+    ov = ObjectVolume(0, "other_plastic", 6e-4, 6e-4 * 0.004, 0, 0.004, 0.004, 0, 0.005, 10, 10, 40, 40)
+    m = estimate_mass(ov)
+    assert m.method == "count" and abs(m.kg_typ * 1000 - 2.88) < 0.01
+    # 스티로폼 소형은 3.1 g 고정
+    ov2 = ObjectVolume(1, "styrofoam_fragment", 16e-4, 16e-4 * 0.03, 0, 0.03, 0.03, 0, 0.005, 10, 10, 60, 60)
+    assert abs(estimate_mass(ov2).kg_typ * 1000 - 3.1) < 1e-6
+    # 나무는 부피 기반
+    ov3 = ObjectVolume(2, "wood", 0.1, 0.0038, 0, 0.038, 0.038, 0, 0.005, 10, 10, 1000, 1000)
+    m3 = estimate_mass(ov3)
+    assert m3.method == "volume" and abs(m3.kg_typ - 1.9) < 0.01

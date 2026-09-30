@@ -33,6 +33,9 @@ scripts/
   12_reconstruct.py      ODM 으로 DSM + 정사영상
   13_estimate_mass.py    DSM + 정사영상 (+마스크/모델) → 무게·격자·수거계획
   14_synthetic_demo.py   합성 장면으로 전체 파이프라인 검증
+  15_leirosa_validation.py  Andriolo 2024 실측 데이터로 검증 (표 재현·시뮬레이션·사진 검출 비교)
+docs/validation_leirosa.md  검증 결과와 해석
+data/andriolo2024/        논문 그림 크롭 (CC BY)
 notebooks/
   colab_train_yoloseg.ipynb  Google Colab 에서 YOLO-seg 학습 (라벨 형식 자동 판별·변환·분할·학습·평가)
 tests/test_litter3d.py   자동 테스트 (실제 데이터 없이 실행 가능)

@@ -2,15 +2,18 @@
 
 규칙
   1. 클래스가 is_litter=False (식생) → 제외.
-  2. 소형(면적 ≤ 5×5 cm 또는 최대 높이 ≤ 3 cm) 또는 prefer_count 클래스 → 개당 평균무게(W1) 사용.
-     평균무게가 없으면 중앙값 13.4 g (Andriolo & Gonçalves 2024).
-  3. 그 외 → 부피 × 겉보기 밀도. 젖음 계수(가정값) 로 최대값 확장.
+  2. prefer_count 클래스(유리·금속·미확인) → 개당 평균무게(W1). 없으면 중앙값 13.4 g.
+  3. 소형(면적 ≤ 5×5 cm 또는 최대 높이 ≤ 3 cm, DSM 으로 못 잼) →
+     클래스에 small_item_g 가 있으면 그 값, 없으면 면적 × 0.4 cm × 1.2 g/cm³ (W3, Andriolo 2024 표 5 최적값).
+     (레이로자 검증: 소형 조각 265개에 16 g 씩 주면 78 g 이 4,300 g 이 된다 → 면적 기반이 안전)
+  4. 그 외 → 부피 × 겉보기 밀도. 젖음 계수(가정값) 로 최대값 확장.
 """
 from __future__ import annotations
 
 from dataclasses import dataclass, asdict
 
-from .classes import CLASSES, MEDIAN_ITEM_G, SMALL_OBJECT_MAX_AREA_M2, SMALL_OBJECT_MAX_HEIGHT_M, KO_NAMES
+from .classes import (CLASSES, MEDIAN_ITEM_G, SMALL_OBJECT_MAX_AREA_M2, SMALL_OBJECT_MAX_HEIGHT_M, KO_NAMES,
+                      SMALL_W3_THICKNESS_CM, SMALL_W3_SPECIFIC_WEIGHT)
 from .volume import ObjectVolume
 
 
@@ -45,10 +48,18 @@ def estimate_mass(ov: ObjectVolume, wet: bool = False) -> ObjectMass:
         return ObjectMass(method="excluded", kg_min=0, kg_typ=0, kg_max=0, note="쓰레기 아님", **base)
 
     small = ov.area_m2 <= SMALL_OBJECT_MAX_AREA_M2 or ov.h_max_m <= SMALL_OBJECT_MAX_HEIGHT_M
-    if small or spec.prefer_count:
+    if spec.prefer_count:
         g = spec.mean_item_g if spec.mean_item_g is not None else MEDIAN_ITEM_G
         # 개당 무게의 불확실성: 0.5–2배 (가정값)
-        note = ("소형 → 개수×평균무게" if small else "속 빈 물체 → 개수×평균무게") + f" ({g} g)"
+        return ObjectMass(method="count", kg_min=g * 0.5 / 1000, kg_typ=g / 1000, kg_max=g * 2 / 1000,
+                          note=f"속 빈/미확인 → 개수×평균무게 ({g} g)", **base)
+    if small:
+        if spec.small_item_g is not None:
+            g = spec.small_item_g
+            note = f"소형 → 개수×클래스 소형무게 ({g} g)"
+        else:
+            g = ov.area_m2 * 1e4 * SMALL_W3_THICKNESS_CM * SMALL_W3_SPECIFIC_WEIGHT
+            note = f"소형 → 면적×{SMALL_W3_THICKNESS_CM} cm×{SMALL_W3_SPECIFIC_WEIGHT} g/cm³ (W3)"
         return ObjectMass(method="count", kg_min=g * 0.5 / 1000, kg_typ=g / 1000, kg_max=g * 2 / 1000,
                           note=note, **base)
 
