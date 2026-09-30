@@ -26,12 +26,15 @@ litter3d/                파이썬 패키지 (자세한 설명: litter3d/README.
   gridmap.py             격자 kg 히트맵
   plan.py                수거 계획 (마대·톤백·트럭·23 kg 규칙·CVRP 경로)
   synthetic.py           검증용 합성 장면
+  dataset.py             라벨 형식 판별·YOLO-seg 변환·train/val 분할
 scripts/
   10_flight_design.py    고도별 GSD 표, 목표 GSD 촬영 계획
   11_extract_frames.py   영상(+SRT) → 프레임 + geo.txt
   12_reconstruct.py      ODM 으로 DSM + 정사영상
   13_estimate_mass.py    DSM + 정사영상 (+마스크/모델) → 무게·격자·수거계획
   14_synthetic_demo.py   합성 장면으로 전체 파이프라인 검증
+notebooks/
+  colab_train_yoloseg.ipynb  Google Colab 에서 YOLO-seg 학습 (라벨 형식 자동 판별·변환·분할·학습·평가)
 tests/test_litter3d.py   자동 테스트 (실제 데이터 없이 실행 가능)
 outputs/                 결과물 (git 제외)
 ```

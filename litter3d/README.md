@@ -26,7 +26,7 @@ pytest tests/test_litter3d.py -q
 |---|---|---|
 | 1. 프레임 추출 | `python scripts/11_extract_frames.py DJI_0001.MP4 --out outputs/frames` | 영상 + 같은 이름의 `.SRT` (DJI Fly '영상 자막' 켜기) |
 | 2. 3D 복원 | `python scripts/12_reconstruct.py outputs/frames --project outputs/odm --gsd 0.5` | docker + OpenDroneMap (`--dry` 로 명령만 출력) |
-| 3. 분할 학습 | `segment.coco_to_yolo_seg()` → `segment.train_yolo_seg()` | `pip install ultralytics`, 기업 라벨 데이터 |
+| 3. 분할 학습 | **Colab**: `notebooks/colab_train_yoloseg.ipynb` (형식 점검→변환→학습→평가→best.pt 저장) | Google Drive 에 라벨 데이터, T4 GPU |
 | 4. 무게·계획 | `python scripts/13_estimate_mass.py --dsm ... --ortho ... --weights best.pt` | 2·3 결과 |
 
 마스크 PNG(클래스 인덱스)가 이미 있으면 `--mask masks.png`, 둘 다 없으면 색 기반 베이스라인(Kako 2020 방식)으로 돌아간다.
@@ -46,6 +46,7 @@ pytest tests/test_litter3d.py -q
 | `gridmap.py` | 격자 kg (CSV·PNG·GeoTIFF) |
 | `plan.py` | 마대·톤백·트럭(무게 vs 부피 중 먼저 차는 쪽), NIOSH 23 kg 초과 물체, 인·시간, CVRP 경로(OR-Tools 있으면 사용, 없으면 greedy) |
 | `synthetic.py` | 경사 모래 + 크기를 아는 상자/원기둥/돔 합성 장면 |
+| `dataset.py` | 라벨 형식 자동 판별(COCO·YOLO·LabelMe·AI Hub식 JSON·VOC) → YOLO-seg 변환 → train/val 분할 |
 
 ## 숫자의 신뢰도
 
