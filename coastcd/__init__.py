@@ -8,6 +8,9 @@ raster_io   COG 오버뷰·윈도우·타일 읽기, 알파(유효영역) 마스
 water_mask  RGB 밝기+질감 베이스라인 수륙분할 (타일 단위), Sentinel-2 NDWI 마스크
 coastline   마스크 -> 폴리곤/해안선 GeoJSON (영상 좌표계 UTM, EPSG:4326)
 register    특징점 정합(SIFT/ORB + MAGSAC++), 위상상관 전역 이동, 합성 변환 벤치마크
+dji         DJI 영상(.MP4+.SRT) -> 프레임 JPEG + GPS EXIF (3D 재구성 입력)
+odm         OpenDroneMap 도커 실행·결과 수집 (점군, 메시, DSM/DTM, 정사영상)
+volume      라벨 폴리곤 + DSM/DTM -> 면적·부피·무게 (쓰레기 양 추정)
 
 `import coastcd` 만 해도 환경변수(GDAL_FILENAME_IS_UTF8 등)가 설정됩니다.
 """
@@ -16,5 +19,5 @@ from .config import setup_env as _setup_env
 
 _setup_env()
 
-__all__ = ["config", "raster_io", "water_mask", "coastline", "register"]
+__all__ = ["config", "raster_io", "water_mask", "coastline", "register", "dji", "odm", "volume"]
 __version__ = "0.1.0"

@@ -6,6 +6,7 @@ shapely>=2.0
 pyproj
 pillow
 scipy
+piexif                        # 05: 프레임 JPEG 에 GPS EXIF 쓰기 (DJI SRT -> ODM)
 
 # Sentinel-2 다운로드 (항공드론 해커톤/s2_download.py)
 pystac-client
