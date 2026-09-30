@@ -88,7 +88,8 @@ def main() -> None:
     land = remove_thin_objects(land, px_m, max_width_m=args.max_wake_width_m)
     if not args.keep_lakes:
         land = fill_enclosed_water(land, valid_mask)
-    land = clean_mask(land, int(args.min_area_m2 / px_m**2))
+    # 가는 물길로 바다와 이어져 살아남은 작은 구멍(5000 m² 미만) 도 메움
+    land = clean_mask(land, int(args.min_area_m2 / px_m**2), fill_holes_px=int(5000 / px_m**2))
     write_geotiff(out / "land_mask.tif", land, transform, crs, nodata=0)
     print(f"  육지 비율 {100 * (land > 0).mean():.2f}%  -> land_mask.tif")
 
