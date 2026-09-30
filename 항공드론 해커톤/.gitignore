@@ -1,0 +1,21 @@
+# 가상환경 / 캐시
+.venv/
+venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# 대용량 영상·데이터 (GitHub 100MB 제한, 기업 배포 원본은 공유 금지 가능성)
+*.tif
+*.tiff
+*.jpg
+*.jp2
+S2_GYD/
+기업 배포 자료/SkySatCollect/full_resolution.jpg
+
+# 논문 PDF (저작권)
+선행조사/Paper/
+
+# 기타
+.vscode/
+*.log

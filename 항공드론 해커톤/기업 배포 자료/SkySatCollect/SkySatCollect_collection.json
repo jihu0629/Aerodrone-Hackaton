@@ -1,0 +1,45 @@
+{
+  "type": "Collection",
+  "id": "35d5c2bc-b5c9-479f-baf4-7ca0f43d260f: SkySatCollect",
+  "stac_version": "1.0.0",
+  "description": "SkySatCollect",
+  "links": [
+    {
+      "rel": "root",
+      "href": "../catalog.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "item",
+      "href": "./20260817_231616_ssc1_u0002.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "../catalog.json",
+      "type": "application/json"
+    }
+  ],
+  "pl:item_type": "SkySatCollect",
+  "extent": {
+    "spatial": {
+      "bbox": [
+        [
+          125.86785175781714,
+          37.1385345161507,
+          126.06020923019716,
+          37.24898865570899
+        ]
+      ]
+    },
+    "temporal": {
+      "interval": [
+        [
+          "2026-08-17T23:16:16.387000Z",
+          "2026-08-17T23:16:16.387000Z"
+        ]
+      ]
+    }
+  },
+  "license": "proprietary"
+}

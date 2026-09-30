@@ -1,0 +1,19 @@
+# pip install pystac-client odc-stac rioxarray
+from pystac_client import Client
+import odc.stac, rioxarray
+
+bbox = [125.868, 37.139, 126.060, 37.249]   # 기업 SkySat AOI
+cat = Client.open("https://earth-search.aws.element84.com/v1")
+items = cat.search(
+    collections=["sentinel-2-l2a"], bbox=bbox,
+    datetime="2016-06-01/2026-09-30",
+    query={"eo:cloud_cover": {"lt": 10}},
+).item_collection()
+print(len(items), "장 검색됨")
+
+ds = odc.stac.load(items, bands=["blue", "green", "red", "nir"],
+                   bbox=bbox, crs="EPSG:32651", resolution=10, groupby="solar_day")
+
+for t in ds.time.values:
+    d = str(t)[:10]
+    ds.sel(time=t).to_array().rio.to_raster(f"S2_GYD_{d}.tif")   # 날짜별 4밴드 GeoTIFF
