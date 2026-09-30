@@ -106,6 +106,47 @@ def clean_mask(mask: np.ndarray, min_area_px: int, fill_holes_px: int = 0) -> np
     return out
 
 
+def fill_enclosed_water(land: np.ndarray, valid: np.ndarray) -> np.ndarray:
+    """
+    바다와 이어지지 않은 '물' 은 전부 육지로 채웁니다.
+
+    실제 영상에서 그늘진 숲·풀밭·도로는 어둡고 매끈해서 물로 분류되어 섬 안에 구멍이 생깁니다.
+    섬에는 호수가 없으므로(굴업도 기준) 바다 = "유효영역 가장자리와 이어진 물 덩어리" 로 정의하고
+    그 밖의 물은 모두 육지로 봅니다. 저수지가 있는 지역이면 이 단계를 끄세요.
+    """
+    water = (land == 0) & valid
+    n, labels = cv2.connectedComponents(water.astype(np.uint8), connectivity=4)
+    if n <= 1:
+        return land
+    # 유효영역의 바깥 테두리(여백과 맞닿은 곳 + 이미지 경계) 에 닿는 물 라벨 = 바다
+    # borderValue=0 이어야 이미지 가장자리도 '테두리' 로 잡힘 (기본값은 가장자리를 침식하지 않음)
+    eroded = cv2.erode(valid.astype(np.uint8), np.ones((3, 3), np.uint8), borderType=cv2.BORDER_CONSTANT, borderValue=0)
+    edge = valid & ~eroded.astype(bool)
+    sea_labels = np.unique(labels[edge & water])
+    sea_labels = sea_labels[sea_labels > 0]
+    sea = np.isin(labels, sea_labels)
+    out = land.copy()
+    out[valid & ~sea] = 255
+    return out
+
+
+def remove_thin_objects(mask: np.ndarray, px_m: float, max_width_m: float = 20.0, min_elongation: float = 4.0) -> np.ndarray:
+    """
+    배 항적, 선박, 파도 줄처럼 '가늘고 긴' 덩어리를 제거합니다.
+    최소 외접 회전사각형의 짧은 변이 max_width_m 보다 짧고, 긴 변/짧은 변 비율이 min_elongation 이상이면 제거.
+    """
+    contours, _ = cv2.findContours((mask > 0).astype(np.uint8), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    out = mask.copy()
+    for c in contours:
+        if len(c) < 5:
+            continue
+        (_, _), (w, h), _ = cv2.minAreaRect(c)
+        short, long_ = sorted([w, h])
+        if short * px_m < max_width_m and long_ >= min_elongation * max(short, 1e-6):
+            cv2.drawContours(out, [c], -1, 0, thickness=cv2.FILLED)
+    return out
+
+
 def _remove_small(mask: np.ndarray, min_area_px: int) -> np.ndarray:
     n, labels, stats, _ = cv2.connectedComponentsWithStats((mask > 0).astype(np.uint8), connectivity=8)
     keep = np.zeros(n, dtype=bool)

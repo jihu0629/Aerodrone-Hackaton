@@ -34,7 +34,7 @@ AOI_CLOUD_MAX = 5.0                         # 2차 필터: AOI 안 구름+그림
 AOI_VALID_MIN = 95.0                        # AOI 중 영상이 실제로 찍힌 비율 % (타일 가장자리 대비)
 ONE_PER_YEAR = True                         # True: 해마다 가장 맑은 날 1장만 (10년 ≈ 10장)
                                             # False: 조건 맞는 날 전부 (10년이면 100장+, 1 GB 이상)
-CRS = "EPSG:32651"                          # UTM 51N (굴업도). SkySat 좌표계와 맞출 것
+CRS = "EPSG:32652"                          # SkySat 파일의 실제 좌표계 (UTM 52N). 재투영 없이 겹치도록 맞춤
 RES = 10                                    # m
 OUT_DIR = Path("S2_GYD")                    # 저장 폴더
 

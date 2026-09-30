@@ -22,7 +22,10 @@ import coastcd  # noqa: E402
 from coastcd.coastline import mask_to_polygons, polygons_to_coastlines, save_geojson  # noqa: E402
 from coastcd.raster_io import export_crop, find_land_bbox, iter_tiles, read_overview, read_window  # noqa: E402
 from coastcd.register import register, synthetic_benchmark  # noqa: E402
-from coastcd.water_mask import apply_land_mask, clean_mask, estimate_thresholds, ndwi_water_mask, tiled_land_mask  # noqa: E402
+from coastcd.water_mask import (  # noqa: E402
+    apply_land_mask, clean_mask, estimate_thresholds, fill_enclosed_water, ndwi_water_mask,
+    remove_thin_objects, tiled_land_mask,
+)
 
 CRS = "EPSG:32651"
 
@@ -56,6 +59,12 @@ def _synthetic_island(w=3000, h=2000, seed=1):
         if island[y, x]:
             r = rng.integers(3, 12)
             rgb[max(0, y - r):y + r, max(0, x - r):x + r] = rng.uniform(60, 220)
+    # 섬 안 그늘진 풀밭: 어둡고 매끈 -> 베이스라인이 물로 오인하는 구멍
+    hole = ((xx - cx - 200) / 60) ** 2 + ((yy - cy - 60) / 40) ** 2 < 1
+    rgb[hole] = np.array([38, 58, 68]) + rng.normal(0, 1.5, (hole.sum(), 3))
+    # 배 항적: 바다 위 가늘고 긴 밝은 줄 (폭 6 px = 3 m, 길이 400 px = 200 m)
+    wake = (np.abs((yy - h * 0.2) - 0.3 * (xx - w * 0.15)) < 3) & (xx > w * 0.15) & (xx < w * 0.15 + 400)
+    rgb[wake] = 200
     rgb = np.clip(rgb, 0, 255).astype(np.uint8)
     # nodata: 왼쪽 위 삼각형
     alpha = np.where(xx + yy < 900, 0, 255).astype(np.uint8)
@@ -117,15 +126,18 @@ def test_find_island_and_tiled_mask(skysat_like, tmp_path):
 
     thr = estimate_thresholds(ov.rgb, ov.valid)
     land, valid, ref = tiled_land_mask(crop, Window(0, 0, int(window.width), int(window.height)), thr, tile=1024, overlap=32, progress=False)
-    land = clean_mask(land, 2000, 2000)
+    land = clean_mask(land, 2000)
+    land = remove_thin_objects(land, 0.5)
+    land = fill_enclosed_water(land, valid)
     # 정답과 IoU 비교 (원본 픽셀 좌표로 잘라서)
     truth = island[int(window.row_off):int(window.row_off + window.height), int(window.col_off):int(window.col_off + window.width)]
     pred = land > 0
     iou = (pred & truth).sum() / (pred | truth).sum()
-    assert iou > 0.9, f"IoU {iou:.3f}"
+    assert iou > 0.95, f"IoU {iou:.3f}"
 
     polys = mask_to_polygons(land, ref.transform, min_area_m2=500, simplify_m=1.0)
-    assert len(polys) >= 1
+    assert len(polys) == 1, "항적이 섬으로 남았거나 섬이 갈라짐"
+    assert len(polys[0].interiors) == 0, "섬 안 구멍이 남아 있음"
     assert abs(polys[0].area - truth.sum() * 0.25) / (truth.sum() * 0.25) < 0.1
     lines = polygons_to_coastlines(polys)
     out = save_geojson(lines, ref.crs, tmp_path / "c.geojson", wgs84=True)
@@ -143,6 +155,9 @@ def test_synthetic_registration(skysat_like):
         assert r.n_inliers >= 20
         assert r.after_rmse_px < 1.0, r
         assert r.after_rmse_px < r.before_rmse_px / 10
+    hard = synthetic_benchmark(gray, ov.valid, land, n_trials=2, seed=1, max_shift_px=25, max_rot_deg=1.5, hard=True)
+    for r in hard:
+        assert r.after_rmse_px < 1.5, r
 
 
 def test_ndwi(tmp_path):

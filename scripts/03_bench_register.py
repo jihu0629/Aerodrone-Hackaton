@@ -47,6 +47,7 @@ def main() -> None:
     ap.add_argument("--max-rot", type=float, default=2.0, help="합성 회전 최대 (도)")
     ap.add_argument("--max-scale", type=float, default=0.02, help="합성 축척 편차 최대")
     ap.add_argument("--no-land-mask", action="store_true", help="특징점 탐색에 육지 마스크를 쓰지 않음")
+    ap.add_argument("--hard", action="store_true", help="해상도 차이·블러·가림·밝기 그라데이션까지 넣은 어려운 조건")
     ap.add_argument("--seed", type=int, default=0)
     args = ap.parse_args()
 
@@ -74,10 +75,10 @@ def main() -> None:
         land = cv2.dilate(land, np.ones((15, 15), np.uint8))  # 해안선 근처 특징점도 허용
         print(f"    특징점 탐색 영역(육지+완충) 비율 {100 * (land > 0).mean():.1f}%")
 
-    print(f"[2] 벤치마크 {args.trials}회 (model={args.model}, method={args.method})")
+    print(f"[2] 벤치마크 {args.trials}회 (model={args.model}, method={args.method}, {'hard' if args.hard else 'easy'})")
     results = synthetic_benchmark(
         gray, chunk.valid, land, n_trials=args.trials, seed=args.seed, model=args.model, method=args.method,
-        max_shift_px=args.max_shift, max_rot_deg=args.max_rot, max_scale_dev=args.max_scale,
+        max_shift_px=args.max_shift, max_rot_deg=args.max_rot, max_scale_dev=args.max_scale, hard=args.hard,
     )
     rows = [r.row(px_m) for r in results]
     keys = list(rows[0].keys())
@@ -89,8 +90,9 @@ def main() -> None:
     print(f"\n    정합 전 RMSE 평균 {before.mean():.2f} px ({before.mean() * px_m:.2f} m)")
     print(f"    정합 후 RMSE 평균 {after.mean():.3f} px ({after.mean() * px_m:.3f} m), 최악 {after.max():.3f} px")
     print(f"    참고: SkySat 실제 GSD 0.78 m 이므로 0.5 m/px 기준 1 px 이하는 '센서 해상도 한계 이내' 로 해석")
+    print(f"    주의: easy 모드는 같은 영상을 변형한 것이라 이상적입니다. 발표에는 --hard 결과와 inlier RMSE 를 함께 쓰세요.")
 
-    with open(out / "bench_register.csv", "w", newline="", encoding="utf-8-sig") as f:
+    with open(out / "bench_register_hard.csv" if args.hard else out / "bench_register.csv", "w", newline="", encoding="utf-8-sig") as f:
         w = csv.DictWriter(f, fieldnames=keys)
         w.writeheader()
         w.writerows(rows)
@@ -100,7 +102,7 @@ def main() -> None:
 
     rng = np.random.default_rng(args.seed + 999)
     gb, vb, M_true, p = make_synthetic_pair(gray, chunk.valid, rng, max_shift_px=args.max_shift,
-                                            max_rot_deg=args.max_rot, max_scale_dev=args.max_scale)
+                                            max_rot_deg=args.max_rot, max_scale_dev=args.max_scale, hard=args.hard)
     mask_b = None if land is None else cv2.warpAffine(land, M_true, gray.shape[::-1], flags=cv2.INTER_NEAREST) > 0
     reg = register(gray, gb, land, mask_b, model=args.model, method=args.method)
     gb_reg = reg.warp(gb, gray.shape)

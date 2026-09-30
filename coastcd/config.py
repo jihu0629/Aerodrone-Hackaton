@@ -116,4 +116,6 @@ DEFAULT_OUT_DIR = Path(os.environ.get("COASTCD_OUT", REPO_ROOT / "outputs"))
 SKYSAT_PIXEL_M = 0.5        # 리샘플 픽셀 크기 (m)
 SKYSAT_NATIVE_GSD_M = 0.78  # 실제 GSD (m). 정확도 주장은 이 값을 기준으로
 SENTINEL2_PIXEL_M = 10.0
-WORKING_CRS = "EPSG:32651"  # UTM 51N. SkySat, Sentinel-2 모두 이 좌표계로 옴
+# 실제 SkySat 파일을 열어 확인한 좌표계: EPSG:32652 (UTM 52N). 굴업도(126°E) 는 51/52 경계 근처라
+# Planet 이 52N 을 골랐습니다. Sentinel-2 도 이 좌표계로 받아야 재투영 없이 겹칩니다 (s2_download.py CRS 참고).
+WORKING_CRS = "EPSG:32652"

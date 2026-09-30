@@ -9,7 +9,7 @@ coastcd/                 파이썬 패키지 (영문 경로, import coastcd 만 
   config.py              한글 경로 우회(safe_path), 기본 경로, 상수
   raster_io.py           COG 오버뷰·윈도우·타일 읽기, 알파 마스크, 섬 영역 자동 탐색, GeoTIFF 쓰기
   water_mask.py          RGB 밝기+질감 수륙분할(타일 단위), Sentinel-2 NDWI
-  coastline.py           마스크 -> 폴리곤 -> 해안선 GeoJSON (EPSG:32651 / 4326)
+  coastline.py           마스크 -> 폴리곤 -> 해안선 GeoJSON (영상 UTM / 4326)
   register.py            SIFT/ORB + MAGSAC++ 정합, 위상상관, 합성 변환 벤치마크, LoFTR(선택)
 scripts/
   01_find_island.py      원본 tif 에서 섬 bbox 자동 탐색 -> island_crop.tif (원본 해상도, 좌표계 유지)
@@ -62,12 +62,26 @@ pytest tests -q
 
 실제 SkySat 영상에서는 그림자·젖은 모래·파도 거품 때문에 마스크 정확도가 이보다 떨어집니다. 이 숫자는 "코드가 맞게 동작한다" 는 확인이지 실제 성능이 아닙니다.
 
+## 실제 SkySat 영상 1차 결과 (2026-09-30)
+
+| 항목 | 값 |
+|---|---|
+| 좌표계 | EPSG:32652 (UTM 52N). 제안서의 32651 가정은 틀렸음. Sentinel-2 도 32652 로 받도록 수정 |
+| 오버뷰 | 3, 9, 27, 81 배 |
+| 섬 크롭 | 8847 x 7004 px (4.42 x 3.50 km) |
+| 밝기 / 질감 임계값 | 90 / 5.49 |
+| 최대 섬 면적 | 1.627 km² (위키 기준 굴업도 1.71 km², 확인 필요) |
+| 정합 벤치마크 (easy) | 정합 후 RMSE 0.013 px, inlier RMSE 0.32 px |
+
+1차 결과에서 고친 것: 섬 안 그늘진 숲·풀밭이 물로 빠지는 구멍 -> 바다와 안 이어진 물은 육지로 채움(`fill_enclosed_water`),
+바다 위 배 항적이 섬으로 잡힘 -> 가늘고 긴 객체 제거(`remove_thin_objects`), 벤치마크에 `--hard` 모드 추가.
+
 ## 기존 스크립트(항공드론 해커톤/) 검토 메모
 
 - `read_skysat_tif.py`: 미리보기 2000 px 는 약 17 m/px 로 Sentinel-2 보다 거칩니다. 베이스라인 해안선이 이 축소본에서 나온 것이므로 해빈(폭 40 m) 이 2 px 입니다. `full` 모드는 2.5 GB 를 메모리에 올리니 쓰지 마세요. 01 단계의 크롭으로 대체됩니다.
 - `extract_coastline.py`: 검은 픽셀을 여백으로 추정하는 방식은 그림자를 여백으로 오인할 수 있어 알파 밴드로 바꿨습니다. 임계값 논리(밝기 OR 질감)는 그대로 `water_mask.py` 에 옮겼습니다.
 - `fix_georeferencing.py`: 구글지도 좌표는 국내에서 수 m 오프셋이 있을 수 있습니다 (확인 필요). 800 MB 를 다시 쓰는 대신 `rasterio.open(path, "r+")` 로 transform 만 고치면 수 초에 끝납니다. 변화탐지에서 중요한 것은 절대 위치가 아니라 시기 간 상대 정합이며, 그 부분은 `register.py` 가 담당합니다.
-- `s2_download.py`: 구조 좋습니다. 결과가 나오면 04 단계에 바로 넣을 수 있습니다.
+- `s2_download.py`: 구조 좋습니다. 좌표계만 SkySat 과 같은 EPSG:32652 로 바꿨습니다. 이미 32651 로 받은 파일이 있어도 04 단계가 재투영하므로 그대로 쓸 수 있습니다.
 - 원본 크기는 34447(가로) x 23973(세로) 입니다. 메모의 "24000 x 34000" 은 가로세로가 바뀐 표기입니다.
 
 ## 다음 단계

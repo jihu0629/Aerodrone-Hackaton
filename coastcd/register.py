@@ -246,9 +246,15 @@ def make_synthetic_pair(
     gain_range: tuple[float, float] = (0.8, 1.2),
     bias_range: tuple[float, float] = (-20, 20),
     noise_sigma: float = 4.0,
+    hard: bool = False,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray, dict]:
     """
     원본(A) 에 알려진 similarity 변환 + 밝기 변화 + 잡음을 걸어 "다른 시기처럼 보이는" B 를 만듭니다.
+    hard=True 면 추가로
+      - 해상도 차이: 1.6배 축소 후 복원 (0.5 m 리샘플 vs 0.78 m 실제 GSD 흉내)
+      - 블러: 시그마 0.5~1.5 px (초점·대기 차이)
+      - 가림: 육지의 일부를 밝은 얼룩(구름·파도 거품 흉내) 으로 덮음
+      - 국소 밝기 변화: 넓은 그라데이션 (태양각 차이)
     반환: (gray_b, valid_b, M_true (A px -> B px, 2x3), params)
     """
     h, w = gray.shape
@@ -264,9 +270,20 @@ def make_synthetic_pair(
     gain = rng.uniform(*gain_range)
     bias = rng.uniform(*bias_range)
     g = g.astype(np.float32) * gain + bias + rng.normal(0, noise_sigma, g.shape).astype(np.float32)
+    if hard:
+        small = cv2.resize(g, (max(1, int(w / 1.6)), max(1, int(h / 1.6))), interpolation=cv2.INTER_AREA)
+        g = cv2.resize(small, (w, h), interpolation=cv2.INTER_LINEAR)
+        g = cv2.GaussianBlur(g, (0, 0), float(rng.uniform(0.5, 1.5)))
+        yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+        g = g * (1.0 + 0.15 * (xx / w - 0.5) * rng.choice([-1, 1]) + 0.15 * (yy / h - 0.5) * rng.choice([-1, 1]))
+        n_blobs = int(rng.integers(3, 8))
+        for _ in range(n_blobs):
+            cx, cy = int(rng.integers(0, w)), int(rng.integers(0, h))
+            ax, ay = int(rng.integers(w // 40, w // 12)), int(rng.integers(h // 40, h // 12))
+            cv2.ellipse(g, (cx, cy), (ax, ay), float(rng.uniform(0, 180)), 0, 360, 235.0, -1)
     g = np.clip(g, 0, 255).astype(np.uint8)
     g[~v] = 0
-    return g, v, M, dict(dx=dx, dy=dy, rot=rot, scale=scale, gain=gain, bias=bias)
+    return g, v, M, dict(dx=dx, dy=dy, rot=rot, scale=scale, gain=gain, bias=bias, hard=hard)
 
 
 def synthetic_benchmark(
