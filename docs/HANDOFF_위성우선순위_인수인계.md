@@ -75,3 +75,12 @@
 6. 발표 한 장: 그림 20(곡선)·21(지도) + 위 문장. 노션 스토리 9장(하와이) 뒤에 넣는다.
 
 ---
+
+---
+
+## 추가 (2026-10-02 로컬 세션)
+
+- 패치 3개 적용(브랜치 `claude/upbeat-dijkstra-hdho2d`), `pytest tests` 통과, 니하우 재현 결과가 `docs/examples/niihau/` 와 바이트 단위 일치 (Sentinel-2 는 `tools/fetch_s2_aws.py` 로 `input/s2_niihau/` 에 받음, git 제외).
+- 문갑도: 인수인계의 "dohun415 main `data/raw/` 52SBG 를 바로 쓸 수 있다" 는 **틀림** — 그 AOI(경도 125.87~126.06)에 문갑도(126.09~126.11) 라벨이 0개. AWS 에서 창 `238790 4114800 246300 4122010`(EPSG:32652) 을 06-15·08-04·09-16 장면으로 새로 받아(`input/s2_mungap/`) 돌림: 해안 12.3 km, 라벨 42개 count 기준 상위 30 % → 만입도만 62 %, 기본 점수 60 %, 노출만(195°) 52 %; 315° 가정이면 노출만 36 %. 결과 `outputs/mungap*` (git 제외). 사용자 지시로 문갑도는 여기서 멈춤.
+- **새 작업: 핫스팟 vs 전체 지그재그 정량 비교 모델** — `litter3d/strategy.py`, `scripts/19_strategy_compare.py`, `tests/test_strategy.py`, `docs/전략비교_핫스팟_vs_전체커버리지.md`, 그림 22~24, 표 `docs/examples/niihau_strategy/`. 핵심 숫자는 문서 0절.
+- 하와이 원본(Zenodo 8381113, `chips.csv`)은 이 PC 어느 체크아웃에도 없음 → 라벨 기반 재검증·섬별 비교는 내려받은 뒤에.

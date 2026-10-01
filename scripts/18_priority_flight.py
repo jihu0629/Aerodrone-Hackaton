@@ -20,7 +20,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from litter3d import priority as P  # noqa: E402
 
-SERIES = [("#2a78d6", "만입도만"), ("#eb6834", "만입도 + 노출 + 띠 폭 (기본 점수)"), ("#1baf7a", "노출만 (북동 무역풍)")]
+SERIES = [("#2a78d6", "만입도만"), ("#eb6834", "만입도 + 노출 + 띠 폭 (기본 점수)"), ("#1baf7a", "노출만 (풍향 {wind:.0f}°)")]
 
 
 def load_density(a, crs):
@@ -41,7 +41,7 @@ def load_density(a, crs):
     return None, None, None
 
 
-def curve_png(path, coast, variants, density_xy, w, label, fp_note):
+def curve_png(path, coast, variants, density_xy, w, label, fp_note, wind_from=60.0):
     import matplotlib; matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     from matplotlib import font_manager as fm
@@ -57,6 +57,7 @@ def curve_png(path, coast, variants, density_xy, w, label, fp_note):
     ax.plot([0, 100], [0, 100], color="#9b9a95", linewidth=1.5, linestyle=(0, (4, 3)), label="무작위 순서 (전체 커버리지)")
     out = {}
     for (col, name), sc in zip(SERIES, variants):
+        name = name.format(wind=wind_from)
         xs, ys = P.capture_curve(coast, sc, density_xy, w)
         ax.plot(xs * 100, ys * 100, color=col, linewidth=2, label=name)
         out[name] = {f"{int(x * 100)}%": round(float(ys[int(x * 100)]) * 100, 1) for x in (.1, .2, .3, .5)}
@@ -172,7 +173,7 @@ def main():
         variants = [sm(bay_only), coast.score, sm(exp_only)]
         note = (f"만입도 = 1 - 반경 {a.bay_radius:.0f} m 물 비율 (Sentinel-2 NDWI 10 m, 장면 {', '.join(scenes)} 최댓값 합성). "
                 f"노출 = 법선·풍향({a.wind_from:.0f}°) 코사인.\n검증 밀도: {dlabel}. 칩이 있는 해안만 포함되므로 '순위' 로만 해석.")
-        curves = curve_png(out / "예산대비포착률.png", coast, variants, density_xy, w, a.label, note)
+        curves = curve_png(out / "예산대비포착률.png", coast, variants, density_xy, w, a.label, note, a.wind_from)
         print("포착률(kg 기준):", json.dumps(curves, ensure_ascii=False))
         # 만입도·노출 효과 표
         q = np.percentile(coast.feats["bay"], [33, 66])
