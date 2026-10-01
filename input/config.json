@@ -1,0 +1,13 @@
+{
+  "site": "문갑도",
+  "crs": "EPSG:5186",
+  "labels": "labels.json",
+  "photos": "crops",
+  "ortho": "ortho/overview.jpg",
+  "depot": {
+    "lon": 126.11139948,
+    "lat": 37.17081007,
+    "name": "문갑도 선착장"
+  },
+  "_note": "depot 는 정사영상에서 읽은 선착장 위치(확인 필요). ortho 는 GeoTIFF 또는 월드파일(.jgw/.pgw/.wld) 이 붙은 jpg/png"
+}
