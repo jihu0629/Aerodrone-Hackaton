@@ -9,7 +9,8 @@
   models/hawaii_ground/   칩 타일 모델 (텍스처 포함)
   worlds/hawaii.sdf       월드
   ground_truth.json       라벨 박스의 로컬 좌표(m, 동/북)
-  mission.json            커버리지 비행 경로 (mission_runner 입력 형식)
+  mission_coverage.json   전체 커버리지 경로 (mission_runner 입력 형식)
+  mission_hotspot.json    핫스팟 우선 경로 (같은 형식)
   meta.json               원점 UTM·위경도, 카메라·경로 설정
 
 사용: python ros_sim/hawaii/build_world.py [--alt 20] [--overlap 0.6]
@@ -30,7 +31,8 @@ LABEL_CSVS = [ROOT / "hotspot/data/imagery_and_labels/training_data.csv",
               ROOT / "hotspot/data/imagery_and_labels/evaluation_data.csv"]
 OUT = Path(__file__).resolve().parent / "generated"
 sys.path.insert(0, str(ROOT / "path_planning"))
-from coverage import boustrophedon_path, swath_width  # noqa: E402
+from coverage import boustrophedon_path, path_length, swath_width  # noqa: E402
+from hotspot_route import Cell, plan_route  # noqa: E402
 
 EPSG = 26904                       # NAD83 / UTM 4N (니하우·카우아이)
 BBOX = (388700, 2427900, 389100, 2428300)  # 칩 밀집 구간(200 m 격자 1위, 칩 40장)
@@ -55,10 +57,38 @@ def load_chips():
 def load_labels(names):
     out = []
     for p in LABEL_CSVS:
+        split = "train" if "training" in p.name else "eval"
         for r in csv.DictReader(open(p)):
             if r["filename"] in names:
-                out.append(r)
+                out.append(dict(r, split=split))
     return out
+
+
+def hotspot_mission(gt, coverage_len, alt, budget_frac, cell_m):
+    """과거 조사(학습 분할 라벨)만 보고 칸별 기대량을 매겨, 예산 안에서 가치가 큰 칸을 도는 경로.
+
+    평가 분할 라벨은 경로 계획에 쓰지 않는다 — 계획이 못 본 쓰레기를 얼마나 잡는지 따로 잰다.
+    한 칸은 위를 한 번 지나가면 촬영 범위(고도 20 m에서 약 36 × 27 m) 안에 다 들어온다.
+    """
+    counts = {}
+    for g in gt:
+        if g["split"] == "train":
+            k = (int(g["east"] // cell_m), int(g["north"] // cell_m))
+            counts[k] = counts.get(k, 0) + 1
+    cells = [Cell(f"{i}_{j}", (i + 0.5) * cell_m, (j + 0.5) * cell_m, mean=float(v))
+             for (i, j), v in counts.items()]
+    base = (0.0, 0.0)
+    budget = budget_frac * coverage_len
+    order = plan_route(cells, base, budget, values=[c.mean for c in cells])
+    wps = [{"x": 0.0, "y": 0.0, "z": float(alt), "phase": "mapping", "note": "start"}]
+    for i in order:
+        c = cells[i]
+        wps.append({"x": round(c.x, 2), "y": round(c.y, 2), "z": float(alt), "phase": "mapping",
+                    "note": f"cell {c.id} prior {int(c.mean)}"})
+    wps.append({"x": 0.0, "y": 0.0, "z": float(alt), "phase": "mapping", "note": "return"})
+    info = {"cells_with_prior": len(cells), "cells_visited": len(order), "budget_m": round(budget, 1),
+            "prior_value_share": round(sum(cells[i].mean for i in order) / sum(c.mean for c in cells), 3)}
+    return wps, info
 
 
 def tile_visual(i, cx, cy, tex):
@@ -130,6 +160,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--alt", type=float, default=20.0, help="맵핑 고도 (m)")
     ap.add_argument("--overlap", type=float, default=0.6, help="옆줄 겹침 비율")
+    ap.add_argument("--budget", type=float, default=0.35, help="핫스팟 경로 예산 (전체 커버리지 길이 대비)")
+    ap.add_argument("--cell", type=float, default=20.0, help="핫스팟 칸 크기 (m)")
     a = ap.parse_args()
 
     chips = load_chips()
@@ -162,7 +194,8 @@ def main():
         xmin, ymin, xmax, ymax = (float(r[k]) for k in ("xmin", "ymin", "xmax", "ymax"))
         e = c["x0"] - ox + (xmin + xmax) / 2 * c["res"]
         n = c["y0"] - oy - (ymin + ymax) / 2 * c["res"]
-        gt.append({"chip": r["filename"], "label": r["label"], "east": round(e, 3), "north": round(n, 3),
+        gt.append({"chip": r["filename"], "label": r["label"], "split": r["split"],
+                   "east": round(e, 3), "north": round(n, 3),
                    "w_m": round((xmax - xmin) * c["res"], 3), "h_m": round((ymax - ymin) * c["res"], 3)})
 
     (OUT / "models/hawaii_ground/model.config").write_text(
@@ -178,7 +211,11 @@ def main():
     # 띠가 남북으로 길어서 줄을 남북 방향으로 깐다 (회전 횟수 최소화)
     path = boustrophedon_path(0, 0, ey, ex, a.alt, fov_deg=CAM_HFOV_DEG, overlap=a.overlap)
     wps = [{"x": float(round(w.y, 2)), "y": float(round(w.x, 2)), "z": float(w.z), "phase": "mapping", "note": w.note} for w in path]
-    (OUT / "mission.json").write_text(json.dumps({"mapping_orbit_path": wps}, ensure_ascii=False, indent=1))
+    (OUT / "mission_coverage.json").write_text(json.dumps({"mapping_orbit_path": wps}, ensure_ascii=False, indent=1))
+    from coverage import Waypoint
+    cov_len = path_length([Waypoint(w["x"], w["y"], w["z"], "mapping") for w in wps])
+    hwps, hinfo = hotspot_mission(gt, cov_len, a.alt, a.budget, a.cell)
+    (OUT / "mission_hotspot.json").write_text(json.dumps({"mapping_orbit_path": hwps}, ensure_ascii=False, indent=1))
     (OUT / "ground_truth.json").write_text(json.dumps(gt, ensure_ascii=False, indent=1))
 
     lon, lat = Transformer.from_crs(EPSG, 4326, always_xy=True).transform(ox + ex / 2, oy + ey / 2)
@@ -186,7 +223,8 @@ def main():
             "center_latlon": [lat, lon], "chips": len(chips), "labels": len(gt),
             "alt_m": a.alt, "overlap": a.overlap, "cam_hfov_deg": CAM_HFOV_DEG, "cam_px": [1280, 960],
             "swath_m": round(swath_width(a.alt, CAM_HFOV_DEG), 2), "waypoints": len(wps),
-            "spawn": [wps[0]["x"], wps[0]["y"]]}
+            "spawn": [wps[0]["x"], wps[0]["y"]],
+            "coverage_len_m": round(cov_len, 1), "hotspot": hinfo}
     (OUT / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1))
     print(json.dumps(meta, ensure_ascii=False))
 

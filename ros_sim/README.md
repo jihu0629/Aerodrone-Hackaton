@@ -141,9 +141,14 @@ docker build -t aerodrone-px4-sim .
 잴 수 있다.
 
 ```bash
-python ros_sim/hawaii/build_world.py        # 월드·정답·경로 생성 (generated/, git 제외)
-ros_sim/run_hawaii.sh                        # 비행 (실시간 화면 http://localhost:6080/vnc.html)
-python ros_sim/hawaii/evaluate.py            # 평가 → ros_sim/out_hawaii/eval/
+python ros_sim/hawaii/build_world.py        # 월드·정답·두 경로 생성 (generated/, git 제외)
+ros_sim/run_hawaii.sh coverage               # 전체 커버리지 비행 (화면: http://localhost:6080/vnc.html)
+python ros_sim/hawaii/evaluate.py --route coverage
+ros_sim/run_hawaii.sh hotspot                # 핫스팟 우선 경로 비행
+python ros_sim/hawaii/evaluate.py --route hotspot
+python ros_sim/hawaii/compare_routes.py      # 비교 → ros_sim/out_hawaii_compare/
+
+# 주의: run_gui.sh는 빈 기본 월드에서 미션 없이 대기하는 디버그용이다. 하와이 비행은 run_hawaii.sh.
 ```
 
 - 구간: 칩 밀집 1위 구간 123 × 338 m, 칩 40장, 정답 라벨 889개. 칩이 없는 곳은 무늬 없는 모래색.
@@ -161,9 +166,27 @@ python ros_sim/hawaii/evaluate.py            # 평가 → ros_sim/out_hawaii/eva
 | 지상 해상도 | 2.81 cm/px (텍스처 원본 2 cm/px) |
 | 라벨 크기 | 중앙값 24.9 px |
 
-관찰: 쓰레기는 해안선을 따라 좁은 띠에 몰려 있어서 10줄 중 3~4줄만 라벨 위를
-지난다. 구역 전체를 도는 대신 밀집 구간 위주로 도는 `path_planning/hotspot_route.py`의
-근거로 쓸 수 있다.
+### 전체 커버리지 vs 핫스팟 우선 (같은 월드, 실제 비행)
+
+핫스팟 경로는 **과거 조사로 가정한 학습 분할 라벨(713개)만** 보고 20 m 칸별 기대량을 매겨,
+전체 커버리지 길이의 35% 예산 안에서 `path_planning/hotspot_route.py`로 짰다. 평가 분할
+라벨(176개)은 경로 계획에 쓰지 않았다.
+
+| 항목 | 전체 커버리지 | 핫스팟 우선 |
+|---|---|---|
+| 비행거리 | 3,524 m | **732 m (−79%)** |
+| 비행시간 | 12.5분 | **3.2분** |
+| 사진 수 | 683 | 157 |
+| 라벨 3장 이상 촬영 (889개) | 100% | 100% |
+| └ 경로 계획에 안 쓴 라벨 (176개) | 100% | 100% |
+| 비행 1 km당 확보 라벨 | 252 | **1,215 (4.8배)** |
+
+**해석할 때 주의**: 이 월드는 칩이 있는 곳에만 쓰레기가 있고 나머지는 빈 모래라서,
+핫스팟 밖에서 새로 생긴 쓰레기를 놓치는 위험은 이 시뮬레이션으로 잴 수 없다(구조상 0).
+"계획에 안 쓴 라벨"도 같은 해안 띠 안에 섞여 있어 사실상 같은 핫스팟이다. 실제 반복조사
+데이터(NOAA MDMAP, `hotspot/README.md`)에서는 이전 상위 20% 지점만 다시 갔을 때 다음
+기간 쓰레기의 **56%**를 덮었다 — 핫스팟 경로의 실전 기대치는 이 값에 가깝고, 놓치는 몫은
+주기적인 전체 커버리지(또는 `hotspot_route.py`의 탐색 보너스)로 메워야 한다.
 
 ### 겪은 문제
 

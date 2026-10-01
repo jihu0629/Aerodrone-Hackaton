@@ -26,7 +26,7 @@ import matplotlib.pyplot as plt
 
 HERE = Path(__file__).resolve().parent
 GEN = HERE / "generated"
-OUT = HERE.parent / "out_hawaii"
+OUT = HERE.parent / "out_hawaii_coverage"  # main()에서 --route로 바꿈
 EDGE = 0.05  # 프레임 가장자리 5%는 왜곡·잘림으로 보고 제외
 # 파일 저장 시각이 실제 촬영보다 늦게 찍힌다. 칩 원본과의 상관을 시간 이동별로 재서
 # +0.2 s에서 최대(0.42→0.49)였음 — 5 m/s 비행 기준 약 1 m 위치 차이.
@@ -52,7 +52,19 @@ def project(px_e, px_n, pose, meta):
     return W / 2 + right / gsd, H / 2 - fwd / gsd, gsd
 
 
+def flown(log):
+    """실제 비행거리(m)와 시간(s) — 위치 로그를 그대로 적분."""
+    pts = [(float(r["actual_x"]), float(r["actual_y"]), float(r["actual_z"])) for r in log]
+    dist = sum(math.dist(a, b) for a, b in zip(pts, pts[1:]))
+    return dist, float(log[-1]["t"]) - float(log[0]["t"])
+
+
 def main():
+    import argparse
+    global OUT
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--route", default="coverage", choices=["coverage", "hotspot"])
+    OUT = HERE.parent / f"out_hawaii_{ap.parse_args().route}"
     meta = json.loads((GEN / "meta.json").read_text())
     gt = json.loads((GEN / "ground_truth.json").read_text())
     log = list(csv.DictReader(open(OUT / "flight_log.csv")))
@@ -82,7 +94,13 @@ def main():
         gsds.append(project(0, 0, pose, meta)[2])
 
     n = len(gt)
+    dist, dur = flown(log)
+    split = {sp: [v for g, v in zip(gt, views) if g.get("split") == sp] for sp in ("train", "eval")}
     summary = {
+        "route": OUT.name.replace("out_hawaii_", ""),
+        "flown_m": round(dist, 1), "flight_s": round(dur, 1),
+        "imaged_ge3_prior_labels": round(sum(v >= 3 for v in split["train"]) / max(len(split["train"]), 1), 3),
+        "imaged_ge3_unseen_labels": round(sum(v >= 3 for v in split["eval"]) / max(len(split["eval"]), 1), 3),
         "frames_used": len(frames), "labels": n,
         "imaged_ge1": round(sum(v >= 1 for v in views) / n, 3),
         "imaged_ge3": round(sum(v >= 3 for v in views) / n, 3),

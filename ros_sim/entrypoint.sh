@@ -31,7 +31,7 @@ if [ "$MODE" == "hawaii" ]; then
   SPAWN=$(python3 -c "import json;m=json.load(open('/workspace/sim/meta.json'));print(f\"{m['spawn'][0]},{m['spawn'][1]},0.3,0,0,0\")")
   LATLON=($(python3 -c "import json;m=json.load(open('/workspace/sim/meta.json'));print(*m['center_latlon'])"))
   export PX4_GZ_MODEL=x500_down_cam PX4_GZ_MODEL_POSE="$SPAWN" PX4_HOME_LAT=${LATLON[0]} PX4_HOME_LON=${LATLON[1]} PX4_HOME_ALT=2
-  export MISSION_JSON=/workspace/sim/mission.json
+  export MISSION_JSON=/workspace/sim/${MISSION_FILE:-mission_coverage.json}
 fi
 
 echo "[entrypoint] PX4 SITL(gz_x500${DISPLAY:+, GUI on $DISPLAY}) 시작..."
