@@ -44,6 +44,25 @@ python -m litter.objvol    --orbit runs/orbit/0007 --srt ../0007.SRT --ply runs/
 python -m litter.fromvideo run --objvol runs/orbit/0007/objvol/objvol.json --objects runs/map/0007/objects.csv --out runs/plan/0007
 ```
 
+## 학습 가중치 (저장소에 포함)
+| 파일 | 용도 | 비고 |
+|---|---|---|
+| `runs/seg/aihub_gsd_det_s/weights/best.pt` | **주력 탐지 모델** (AI Hub 한국 해안쓰레기, 11클래스, 1024 px) | 문갑도 재현율 0.72 |
+| `runs/seg/hawaii_ft8/weights/best.pt` | 하와이 8클래스·1024 px 미세조정 | 하와이 AP50 0.62 |
+| `runs/seg/hawaii_ft/weights/best.pt` | 하와이 단일클래스 640 px 미세조정 | |
+| `runs/seg/aihub_gsd_colab/weights/best.pt` | AI Hub 30 에폭 (Colab) | 검증은 높지만 현장 전이 약함 — 비교용 |
+| `runs/seg/uavvaste_det_s/weights/best.pt` | UAVVaste(도시 쓰레기) 모델 | 범용 백업 |
+| `yolo11s.pt`, `yolov8s-worldv2.pt` | COCO 기본 / 개방형(YOLO-World) | 장애물 탐지 / 클래스 글로 지정 |
+| (없음) `sam2.1_b.pt` | SAM 2 (부피 마스크) | 155 MB라 제외 — `objvol` 첫 실행 때 ultralytics가 자동 다운로드 |
+
+바로 써 보기:
+```python
+from ultralytics import YOLO
+m = YOLO("runs/seg/aihub_gsd_det_s/weights/best.pt")
+r = m.predict("사진.jpg", imgsz=1024, conf=0.25)[0]; r.show()
+```
+결과물(3D 뷰어·지도 HTML·작업카드·시뮬 영상)은 `runs/` 아래 그대로 있음 — 브라우저로 열면 됨. 원본 프레임·조밀 점구름(`*.ply`)·학습 데이터는 용량 때문에 제외(인수인계 문서로 재생성).
+
 ## 저장소에 없는 것
 데이터(`data/`, 약 30 GB)·학습 가중치·3D 결과(`runs/`)·외부 도구(`tools/`)는 용량·저작권 때문에 제외. 위치와 재생성 방법은 인수인계 문서 참고.
 원래 과제(위성-드론 정합·변화탐지) 코드는 방향 전환 후 저장소에서 제외(로컬 보관).
