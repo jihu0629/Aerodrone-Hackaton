@@ -595,8 +595,8 @@ function renderTiles(R){ const t=R.totals;
     ['일정',`${Math.max(0,...R.teams.map(x=>x.days))}일`,`팀당 ${R.o.workers}명 · 하루 ${R.o.hours}시간`],['이동 거리',`${(R.routeLen/1000).toFixed(1)} km`,(T?'지형 최단경로(걷기 환산)':'직선×우회')+(t.returns?` · 복귀 ${t.returns}회`:'')+(R.nTeams>1?' · 전 팀 합':'')],['2인 운반 물체',`${t.heavy}개`,'23 kg 넘을 수 있음'],
     ['진행',`${t.all?Math.round(t.done/t.all*100):0} %`,`완료 ${t.done}/${t.all}개 · ${fmtKg(t.doneKg)} kg`]];
   $('#tiles').innerHTML=tiles.map(([l,v,s])=>`<div class="tile"><div class="lab">${l}</div><div class="val">${v}</div><div class="sub">${s}</div></div>`).join('');
-  $('#daybtns').innerHTML='<button onclick="fitAll()">전체 보기</button>'+R.days.map(d=>`<button onclick="showDay(${d.team},${d.day})" style="border-color:${R.nTeams>1?TEAMC[(d.team-1)%TEAMC.length]:DAYC[(d.day-1)%DAYC.length]}">${R.nTeams>1?teamName(d.team)+'팀 ':''}${d.day}일차</button>`).join('')+'<button onclick="locateMe()">📍 내 위치</button>';
-  $('#legend').innerHTML=Object.entries(R.byCode).sort((a,b)=>b[1].count-a[1].count).map(([c,d])=>`<span><i class="dot" style="background:${d.color}"></i>${esc(d.ko)} ${d.count}개</span>`).join('')+'<span><i class="dot" style="background:#b9f0d8;border-color:#1baf7a"></i>완료</span><span><i class="dot" style="background:#bbb;border-color:#777"></i>제외</span><span><i class="dia"></i>2인 운반(무거움)</span><span>★ 출발·집결지 (끌어서 변경)</span><span>점선 = 구역 접근 / 복귀</span>'+(R.nTeams>1?R.teams.map(x=>`<span><i style="display:inline-block;width:22px;height:4px;background:${TEAMC[(x.team-1)%TEAMC.length]};vertical-align:middle;margin-right:4px"></i>${teamName(x.team)}팀 경로</span>`).join(''):R.days.map(d=>`<span><i style="display:inline-block;width:22px;height:4px;background:${DAYC[(d.day-1)%DAYC.length]};vertical-align:middle;margin-right:4px"></i>${d.day}일차 경로</span>`).join(''));
+  $('#daybtns').innerHTML='<button onclick="fitAll()">전체 보기</button>'+R.days.map(d=>`<button onclick="showDay(${d.team},${d.day})" style="border-color:${R.nTeams>1?TEAMC[(d.team-1)%TEAMC.length]:DAYC[(d.day-1)%DAYC.length]}">${R.nTeams>1?teamName(d.team)+'팀 ':''}${d.day}일차</button>`).join('')+'<button onclick="locateMe()">📍 내 위치</button>'+(D.supabase?`<button id="posbtn" onclick="togglePosShare()" style="${POS_ON?'border-color:#e34948':''}">${POS_ON?'📡 내 위치 공유 끄기':'📡 내 위치 공유 켜기'}</button><span id="people" class="sub" style="align-self:center;margin:0 0 0 4px"></span>`:'');
+  $('#legend').innerHTML=Object.entries(R.byCode).sort((a,b)=>b[1].count-a[1].count).map(([c,d])=>`<span><i class="dot" style="background:${d.color}"></i>${esc(d.ko)} ${d.count}개</span>`).join('')+(D.supabase?'<span><i class="dot" style="background:#e34948;border-color:#fff"></i>작업자 위치 (공유 켠 사람, 5분 지나면 사라짐)</span>':'')+'<span><i class="dot" style="background:#b9f0d8;border-color:#1baf7a"></i>완료</span><span><i class="dot" style="background:#bbb;border-color:#777"></i>제외</span><span><i class="dia"></i>2인 운반(무거움)</span><span>★ 출발·집결지 (끌어서 변경)</span><span>점선 = 구역 접근 / 복귀</span>'+(R.nTeams>1?R.teams.map(x=>`<span><i style="display:inline-block;width:22px;height:4px;background:${TEAMC[(x.team-1)%TEAMC.length]};vertical-align:middle;margin-right:4px"></i>${teamName(x.team)}팀 경로</span>`).join(''):R.days.map(d=>`<span><i style="display:inline-block;width:22px;height:4px;background:${DAYC[(d.day-1)%DAYC.length]};vertical-align:middle;margin-right:4px"></i>${d.day}일차 경로</span>`).join(''));
   $('#status').textContent=`${Math.round(R.ms)} ms 에 다시 계산 · ${R.mode==='boat'?'보트 지원':'도보'} · ${R.o.carry==='carry'?'들고 이동':'현장 적치'} · ${R.o.objective==='weight'?'무게 우선':'최단 이동'}${R.nTeams>1?` · ${R.nTeams}팀`:''}${R.unreachable?` · 경로 없음 ${R.unreachable}쌍(직선 대체)`:''}`;
 }
 function renderSteps(R){
@@ -669,7 +669,7 @@ try{ if(localStorage.getItem(LS_KEY+':side')==='1') $('#layout').classList.add('
 // 완료 체크·실측 보정 계수·출발지를 모든 접속자가 같이 본다. 다른 사람이 바꾸면 onSnapshot 으로 바로 반영.
 let SHDOC=null, SH_READONLY=false, SH_LAST='', SH_TIMER=null, SH_WRITING=null, SH_USER=null, SH_NAMES={};
 const sharedState=()=>({done:[...ST.done].sort(), calib:ST.calib, depot:{lon:depot.lon,lat:depot.lat,name:depot.name}});
-const sharedSig=(o)=>JSON.stringify([o.done, o.calib, o.depot&&[+o.depot.lon.toFixed(6), +o.depot.lat.toFixed(6)]]);
+const sharedSig=(o)=>JSON.stringify([[...(o.done||[])].sort(), Object.keys(o.calib||{}).sort().filter(k=>+(o.calib[k])!==1).map(k=>[k,+o.calib[k]]), o.depot&&[+(+o.depot.lon).toFixed(6), +(+o.depot.lat).toFixed(6)]]);
 function syncStatus(msg, ok){ const el=$('#sync'); if(!el) return; el.textContent=msg; el.style.color = ok===false ? '#c0392b' : ''; }
 // Supabase 백엔드 (GitHub Pages 등 일반 호스팅): 테이블 shared_state(site, data jsonb, updated_at, updated_by)
 let SB=null, SB_ROW=null, SB_POLL=null;
@@ -705,8 +705,46 @@ async function initSupabase(){
   SHDOC = { set: async (body)=>{ const {error}=await SB.from(cfg.table).upsert({site, data:{done:body.done, calib:body.calib, depot:body.depot}, updated_at:new Date().toISOString(), updated_by: myName()||'이름 없음'}, {onConflict:'site'}); if (error){ const err=new Error(error.message); err.code = /permission|policy|row-level/i.test(error.message)?'invalid_argument':'unavailable'; throw err; } } };
   return true;
 }
+
+// ───────── 작업자 위치 공유 (Supabase worker_positions): 켠 사람만, 10 초마다, 5 분 지나면 사라짐 ─────────
+let POS_WATCH=null, POS_LAST=0, POS_TIMER=null, POS_LAYER=null, POS_MARK={}, POS_ON=false;
+const DEV_ID=(()=>{ try{ let v=localStorage.getItem('shoresweep:dev'); if(!v){ v='d_'+Math.random().toString(36).slice(2,12); localStorage.setItem('shoresweep:dev',v); } return v; }catch(e){ return 'd_'+Math.random().toString(36).slice(2,12); } })();
+const POS_COLORS=['#e34948','#2a78d6','#1baf7a','#8e44ad','#eda100','#0097a7','#6d4c41','#eb6834'];
+const posColor=(id)=>{ let h=0; for(const ch of id) h=(h*31+ch.charCodeAt(0))>>>0; return POS_COLORS[h%POS_COLORS.length]; };
+function renderPeople(rows){
+  if(!map) return; if(!POS_LAYER){ POS_LAYER=L.layerGroup().addTo(map); }
+  const now=Date.now(); const seen=new Set();
+  for(const r of rows){ if(!r||r.id===DEV_ID||!isFinite(r.lat)||!isFinite(r.lon)) continue; const age=now-Date.parse(r.updated_at||0); if(age>5*60*1000) continue; seen.add(r.id);
+    const name=r.name||'이름 없음'; const col=posColor(r.id); const mins=Math.max(0,Math.round(age/60000));
+    const html=`<div style="display:flex;align-items:center;gap:4px"><div style="width:16px;height:16px;border-radius:50%;background:${col};border:2px solid #fff;box-shadow:0 1px 4px #0008"></div><span style="background:#fffd;color:#111;font-size:12px;font-weight:700;padding:1px 6px;border-radius:999px;border:1px solid ${col};white-space:nowrap">${esc(name)}${mins?` · ${mins}분 전`:''}</span></div>`;
+    const ic=L.divIcon({className:'',html,iconSize:[0,0],iconAnchor:[8,8]});
+    if(POS_MARK[r.id]){ POS_MARK[r.id].setLatLng([r.lat,r.lon]); POS_MARK[r.id].setIcon(ic); }
+    else { POS_MARK[r.id]=L.marker([r.lat,r.lon],{icon:ic,zIndexOffset:1500}).addTo(POS_LAYER); }
+    POS_MARK[r.id].bindTooltip(`${esc(name)} · 정확도 ±${Math.round(r.acc||0)} m · ${new Date(r.updated_at).toLocaleTimeString('ko',{hour:'2-digit',minute:'2-digit'})}`); }
+  for(const id of Object.keys(POS_MARK)){ if(!seen.has(id)){ POS_LAYER.removeLayer(POS_MARK[id]); delete POS_MARK[id]; } }
+  const n=Object.keys(POS_MARK).length; const el=$('#people'); if(el) el.textContent = n?`지도에 작업자 ${n}명 표시 중`:'표시 중인 다른 작업자 없음';
+}
+let POS_ROWS={};
+async function loadPeople(){ if(!SB) return; const since=new Date(Date.now()-10*60*1000).toISOString(); const {data,error}=await SB.from('worker_positions').select('id,name,lat,lon,acc,updated_at').gt('updated_at',since); if(error){ const el=$('#people'); if(el) el.textContent='작업자 위치 테이블 없음 (tools/supabase_setup.sql 다시 실행)'; return; } POS_ROWS={}; for(const r of data||[]) POS_ROWS[r.id]=r; renderPeople(Object.values(POS_ROWS)); }
+function initPeople(){ if(!SB) return;
+  loadPeople(); setInterval(loadPeople, 20000);
+  try { SB.channel('worker_positions_live').on('postgres_changes',{event:'*',schema:'public',table:'worker_positions'},payload=>{ const r=payload.new&&payload.new.id?payload.new:null; if(payload.eventType==='DELETE'&&payload.old){ delete POS_ROWS[payload.old.id]; } else if(r){ POS_ROWS[r.id]=r; } renderPeople(Object.values(POS_ROWS)); }).subscribe(); } catch(e){}
+  const btn=$('#posbtn'); if(btn){ btn.style.display='inline-block'; try{ if(localStorage.getItem('shoresweep:posShare')==='1') togglePosShare(true); }catch(e){} }
+}
+async function pushMyPos(pos){ if(!SB) return; const now=Date.now(); if(now-POS_LAST<10000) return; POS_LAST=now;
+  const row={id:DEV_ID, name:myName()||'이름 없음', lat:pos.coords.latitude, lon:pos.coords.longitude, acc:Math.round(pos.coords.accuracy||0), updated_at:new Date().toISOString()};
+  const {error}=await SB.from('worker_positions').upsert(row,{onConflict:'id'}); const el=$('#people'); if(error){ if(el) el.textContent='내 위치 저장 실패: '+error.message; }
+  if(map){ if(!meMarker){ meMarker=L.circleMarker([row.lat,row.lon],{radius:9,color:'#fff',weight:3,fillColor:'#e34948',fillOpacity:1}).addTo(map); meMarker.bindTooltip('내 위치'); } else meMarker.setLatLng([row.lat,row.lon]); }
+}
+window.togglePosShare=(force)=>{ const on = (typeof force==='boolean') ? force : !POS_ON; const btn=$('#posbtn');
+  if(on){ if(!navigator.geolocation){ $('#status').textContent='이 기기에서는 위치를 쓸 수 없습니다'; return; }
+    POS_ON=true; try{ localStorage.setItem('shoresweep:posShare','1'); }catch(e){} if(btn){ btn.textContent='📡 내 위치 공유 끄기'; btn.style.borderColor='#e34948'; }
+    POS_WATCH=navigator.geolocation.watchPosition(pushMyPos, err=>{ $('#status').textContent='위치를 가져오지 못했습니다 ('+err.message+'). HTTPS 주소에서, 위치 권한을 허용해야 합니다'; }, {enableHighAccuracy:true, maximumAge:5000, timeout:15000});
+  } else { POS_ON=false; try{ localStorage.setItem('shoresweep:posShare','0'); }catch(e){} if(btn){ btn.textContent='📡 내 위치 공유 켜기'; btn.style.borderColor=''; }
+    if(POS_WATCH!==null){ navigator.geolocation.clearWatch(POS_WATCH); POS_WATCH=null; } POS_LAST=0; if(SB) SB.from('worker_positions').delete().eq('id',DEV_ID).then(()=>{}).catch(()=>{}); } };
+window.addEventListener('pagehide',()=>{ if(POS_ON&&SB){ try{ navigator.sendBeacon && 0; }catch(e){} } });
 async function initShared(){
-  if (D.supabase){ await initSupabase(); return; }
+  if (D.supabase){ await initSupabase(); initPeople(); return; }
   if (!D.shared || !window.claude || typeof window.claude.use!=='function'){ return; }
   syncStatus('공유 저장소 연결 중…');
   let db=null, user=null;
