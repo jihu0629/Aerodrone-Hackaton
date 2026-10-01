@@ -14,6 +14,16 @@ DJI Mini 5 Pro 영상 → 쓰레기 검출·분할(종류별) → 3D 복원(DSM)
 ## 폴더 구조
 
 ```
+dronecap/                실시간 수집 패키지 (자세한 설명: docs/dronecap/README.md)
+  config.py · timeutil.py · session.py        설정, UTC/monotonic 시각 규칙, 세션 폴더·CSV
+  stream.py · recorder.py · frames.py         RTSP 수신 스레드(재접속), ffmpeg copy 녹화, 간격 프레임 저장
+  capture_app.py                              1단계 메인 루프(HUD·키 조작)
+  ocr/ (parse, roi, engine, sources, runner)  화면 숫자 OCR (RapidOCR CPU / Tesseract), ROI 선택, 입력 소스
+  sync.py · sfm.py                            프레임↔OCR 시간 매칭, 프레임 선별·COLMAP 명령
+config/dronecap.yml      dronecap 설정 (RTSP 주소, 재접속, 녹화, OCR 필드, 동기화 오프셋)
+scripts/20~29_*.py       dronecap 실행 스크립트 (20 수신, 21 ROI, 22 OCR, 23 매칭, 24 선별, 25 COLMAP, 29 테스트 송출)
+tests/test_dronecap.py   dronecap 자동 테스트 (드론 없이 실행 가능)
+
 litter3d/                파이썬 패키지 (자세한 설명: litter3d/README.md)
   drone.py               DJI Mini 5 Pro 스펙, 고도↔GSD, 촬영 설계
   srt.py                 DJI .SRT 자막 텔레메트리 파서
@@ -46,15 +56,18 @@ outputs/                 결과물 (git 제외)
 
 ## 빠른 시작 (Windows, VS Code)
 
-```bat
-py -m venv .venv
-.venv\Scripts\activate
-pip install -r requirements.txt
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\activate
 
 python scripts\10_flight_design.py --gsd 0.5
 python scripts\14_synthetic_demo.py --out outputs\synthetic
 pytest tests -q
 ```
+
+실시간 드론 영상 수집(RTMP→MediaMTX→RTSP)·화면 OCR·3D 복원 준비는 [docs/dronecap/README.md](docs/dronecap/README.md) 참고
+(`python scripts\20_capture.py`).
 
 실제 데이터 흐름과 각 숫자의 신뢰도(출처 있음 / 가정값 / 확인 필요)는 [litter3d/README.md](litter3d/README.md) 참고.
 

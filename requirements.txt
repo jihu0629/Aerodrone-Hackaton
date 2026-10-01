@@ -1,7 +1,7 @@
 # litter3d — 드론 영상 → 해안쓰레기 분할 → 3D 부피 → 무게 → 수거 계획
 numpy
 scipy
-opencv-python-headless>=4.8   # GUI 가 필요하면 opencv-python 으로 교체
+opencv-python>=4.8            # dronecap 미리보기 창(imshow) 때문에 headless 대신 full 버전. litter3d 도 그대로 동작
 rasterio>=1.3
 shapely>=2.0
 pyproj
@@ -14,3 +14,6 @@ pytest
 # ultralytics          # YOLO-seg 학습·추론 (litter3d/segment.py)
 # ortools              # 수거 경로 CVRP (litter3d/plan.py). 없으면 greedy 로 동작
 # torch                # ultralytics 가 함께 설치
+
+# dronecap (실시간 수신·OCR). 같은 가상환경에서 함께 설치
+-r requirements-dronecap.txt

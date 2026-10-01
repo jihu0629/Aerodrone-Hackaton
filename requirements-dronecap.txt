@@ -1,0 +1,12 @@
+# dronecap — RTSP 수신·저장·OCR·3D 준비 (Windows, CPU 기준)
+opencv-python>=4.8        # 창 표시(imshow) 가 필요하므로 headless 가 아닌 버전. headless 와 같이 설치하지 말 것
+numpy
+pyyaml                    # 설정 파일
+
+# 2단계 OCR
+rapidocr_onnxruntime      # CPU OCR (PaddleOCR 모델을 ONNX 로 변환). pip 만으로 설치, 결과마다 점수 제공
+mss                       # 화면 캡처 (미러링 창 OCR)
+# pytesseract             # 선택: tesseract.exe 를 따로 설치했을 때
+
+# 테스트
+pytest

@@ -17,3 +17,8 @@ outputs/
 
 # 논문 PDF (저작권)
 **/선행조사/Paper/
+
+# dronecap 세션 데이터·합성 테스트 영상
+data/sessions/
+data/synthetic_test.mp4
+data/ocr_debug/

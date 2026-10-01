@@ -1,0 +1,63 @@
+# dronecap 설정. 모든 키의 기본값과 설명은 dronecap/config.py 의 DEFAULTS 참고.
+# 여기에 없는 키는 기본값이 쓰인다. 바꾼 이유를 주석으로 남겨 두는 것을 권장.
+
+stream:
+  url: rtsp://127.0.0.1:8554/live/drone   # MediaMTX 가 같은 PC 에 있을 때. DJI Fly 송신 주소(rtmp://<PC IPv4>:1935/live/drone)와 다름
+  rtsp_transport: tcp        # 깨진 프레임을 줄이기 위해 tcp. 지연이 더 중요하면 udp 로 바꿔 비교
+  low_latency: true          # 미리보기용 디코더 버퍼 최소화. 기록 품질과 무관
+  reconnect_min_s: 1.0       # 끊긴 뒤 첫 재접속 대기
+  reconnect_max_s: 10.0      # 대기 상한 (1,2,4,8,10,10,...). 서버를 계속 두드리지 않도록
+  stall_timeout_s: 5.0       # 이 시간 동안 프레임이 없으면 끊김으로 판단
+  open_timeout_s: 10.0
+
+session:
+  root: data/sessions        # 세션마다 하위 폴더 생성. .gitignore 에 포함
+  id_prefix: drone
+
+record:
+  enabled_on_start: false    # r 키 또는 --record 로 시작
+  backend: ffmpeg            # ffmpeg: 재인코딩 없음·오디오 포함(권장) / opencv: 재인코딩·오디오 없음
+  ffmpeg_path: ffmpeg        # PATH 에 없으면 예: C:\ffmpeg\bin\ffmpeg.exe
+  container: mp4             # 조각 mp4 (비정상 종료에도 재생 가능)
+
+frames:
+  enabled_on_start: true
+  interval_s: 1.0            # 3D 복원용 프레임 간격. 비행 속도가 빠르면 줄이고, 느리면 늘린다 (나중에 24_select_frames 로 다시 고름)
+  format: jpg
+  jpeg_quality: 95
+  queue_size: 30
+
+display:
+  enabled: true
+  window_name: dronecap
+  max_width: 1280            # 미리보기 창만 축소. 저장은 원본 크기
+  hud: true
+
+ocr:
+  engine: rapidocr           # CPU 로 동작, pip 만으로 설치. tesseract 를 쓰려면 tesseract.exe 설치 후 'tesseract'
+  rapidocr_detect: false     # 좁은 숫자 ROI 는 인식만 돌리는 쪽이 정확 (검출이 12.3 을 1 / 2.3 으로 쪼개는 일 있음)
+  roi_file: config/ocr_roi.json
+  interval_s: 0.5            # 초당 2회. CPU 가 부족하면 늘린다
+  upscale: 3.0
+  invert: false
+  threshold: false
+  debug_every: 20
+  # fields: 실제 DJI Fly 화면을 확인한 뒤 수정. 기본값은 config.py 참고 (H, D, HS, VS)
+  screen:
+    monitor: 1               # mss 모니터 번호 (1 = 주 모니터)
+    region: null             # [left, top, width, height]. 미러링 창 위치로 좁히면 캡처가 빨라짐
+
+sync:
+  offset_s: 0.0              # OCR 시각 + offset = 영상 시각. 실측으로 결정 (docs 참고)
+  tolerance_ms: 500
+  field_map:
+    relative_altitude_m: H
+    home_distance_m: D
+    horizontal_speed_mps: HS
+    vertical_speed_mps: VS
+
+sfm:
+  blur_min: 60.0
+  min_change: 0.03
+  max_frames: 400
+  use_gpu: false             # GPU·VRAM 확인 전
