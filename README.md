@@ -16,6 +16,8 @@
 
 > 위성 우선순위 → 핫스팟 비행 경로 → 전략 비교(핫스팟 vs 전체 지그재그)의 전체 정리는 **`docs/ROUTE_OPTIMIZATION.md`**, 인터랙티브 한 장은 `docs/route_optimization.html`, 인천·강화 집적 예상 지도 적용은 `incheon/README.md`, 해류 데이터 수집과 OpenDrift 좌초 시뮬은 `ocean_current_data/README.md`, 문갑도 라벨과의 비교는 `mungap_opendrift/README.md` (브랜치 `route-optimization`).
 
+> **결론 한 문장(위성 우선순위·경로 최적화)**: 쌓이는 자리는 지형과 조석이 정하므로 잘 바뀌지 않는다. 위성 해안 형상과 해류·바람 방향으로 그 자리를 골라(상위 30 % 구간에 쓰레기의 절반 이상: 니하우 65~67 %, 문갑도 62~67 %) 드론을 반복 투입하고 수거 계획을 세우며, 전체는 가끔 전수·무작위로 확인한다. 근거 범위와 피할 표현은 `docs/ROUTE_OPTIMIZATION.md` 8.4절.
+
 ## 빠른 시작 (Windows, VS Code)
 
 ```bat
