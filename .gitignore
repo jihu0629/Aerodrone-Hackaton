@@ -23,3 +23,7 @@ input/labels.json
 input/crops/
 input/ortho/
 input/s2_mungap/labels_*.csv
+
+# API 키 (절대 커밋 금지)
+.secrets/
+**/.secrets/
