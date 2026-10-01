@@ -623,7 +623,7 @@ function renderSteps(R){
   $('#assume-params').textContent=`구역 묶기 ${P.link_m} m · 걷기 ${P.walk_kmh} km/h · 물체당 ${P.item_min}분 + ${P.min_per_m2}분/m² · 마대 ${P.bag_kg} kg / ${P.bag_l} L · 1인 운반 ${P.carry_kg_per_person} kg·${P.carry_bags_per_person}마대 · 숲 통과 ×${P.veg_cost} · 보트 ×${P.boat_cost}${T?'':' · 우회 ×'+P.detour}`+(Object.values(ST.calib).some(v=>v!==1)?` · 실측 보정 ${Object.entries(ST.calib).filter(([c,v])=>v!==1).map(([c,v])=>`${D.mats[c]?D.mats[c].ko:c} ×${v.toFixed(2)}`).join(', ')}`:'')+' (가정값)';
 }
 let CUR=null, timer=null;
-function recompute(){ const busy=$('#busy'); busy.style.display='flex'; setTimeout(()=>{ try{ readControls(); CUR=computePlan(opts()); renderTiles(CUR); renderMap(CUR); renderSteps(CUR); } catch(e){ console.error(e); $('#status').textContent='계산 오류: '+e.message; } busy.style.display='none'; },10); }
+function recompute(){ const busy=$('#busy'); busy.style.display='flex'; setTimeout(()=>{ try{ readControls(); CUR=computePlan(opts()); renderTiles(CUR); renderMap(CUR); renderSteps(CUR); if (typeof maybePush==='function') maybePush(false); } catch(e){ console.error(e); $('#status').textContent='계산 오류: '+e.message; } busy.style.display='none'; },10); }
 window.recompute=recompute;
 window.scheduleRecompute=()=>{ clearTimeout(timer); timer=setTimeout(recompute,150); };
 window.resetAll=()=>{ for(const [id,v] of Object.entries(D.control_defaults)){ const el=document.getElementById(id); if(!el)continue; if(el.type==='checkbox') el.checked=v; else el.value=v; } document.querySelectorAll('.codes input').forEach(e=>e.checked=true); for(const [n,v] of Object.entries(D.seg_defaults)) setSeg(n,v); depot=Object.assign({},defaultDepot); recompute(); if(map) fitAll(); };
@@ -664,6 +664,50 @@ document.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',(
 for (const [c,v] of Object.entries(ST.calib)) { const el=$('#c-cal-'+c); if (el) el.value=v; }
 window.toggleSide=()=>{ const l=$('#layout'); l.classList.toggle('collapsed'); try{ localStorage.setItem(LS_KEY+':side', l.classList.contains('collapsed')?'1':'0'); }catch(e){} setTimeout(()=>{ if(map){ map.invalidateSize(); } },250); };
 try{ if(localStorage.getItem(LS_KEY+':side')==='1') $('#layout').classList.add('collapsed'); }catch(e){}
+
+// ───────── 공유 동기화 (claude.ai 공개 링크: db 캐퍼빌리티) ─────────
+// 완료 체크·실측 보정 계수·출발지를 모든 접속자가 같이 본다. 다른 사람이 바꾸면 onSnapshot 으로 바로 반영.
+let SHDOC=null, SH_READONLY=false, SH_LAST='', SH_TIMER=null, SH_WRITING=null, SH_USER=null, SH_NAMES={};
+const sharedState=()=>({done:[...ST.done].sort(), calib:ST.calib, depot:{lon:depot.lon,lat:depot.lat,name:depot.name}});
+const sharedSig=(o)=>JSON.stringify([o.done, o.calib, o.depot&&[+o.depot.lon.toFixed(6), +o.depot.lat.toFixed(6)]]);
+function syncStatus(msg, ok){ const el=$('#sync'); if(!el) return; el.textContent=msg; el.style.color = ok===false ? '#c0392b' : ''; }
+async function initShared(){
+  if (!D.shared || !window.claude || typeof window.claude.use!=='function'){ return; }
+  syncStatus('공유 저장소 연결 중…');
+  let db=null, user=null;
+  try { [db, user] = await Promise.all([window.claude.use('db'), window.claude.use('user')]); } catch(e){ db=null; }
+  if (!db){ syncStatus('공유 저장 사용 불가 (로그인 필요) · 이 브라우저에만 저장', false); return; }
+  SH_USER=user;
+  try { if (user && user.can) { const w = await user.can('data.write'); if (w===false){ SH_READONLY=true; } } } catch(e){}
+  SHDOC = db.doc('state/shared');
+  SHDOC.onSnapshot(snap=>{
+    if (!snap.exists){ syncStatus('공유 동기화 켜짐 (아직 저장된 변경 없음)'+(SH_READONLY?' · 읽기 전용':'')); if(!SH_READONLY) maybePush(true); return; }
+    const d=snap.data(); const sig=sharedSig({done:d.done||[], calib:d.calib||{}, depot:d.depot||depot});
+    const when = d.updatedAt ? new Date(d.updatedAt).toLocaleTimeString('ko',{hour:'2-digit',minute:'2-digit'}) : '';
+    const byName = d.by ? (SH_NAMES[d.by] || '다른 사용자') : '';
+    syncStatus(`공유 동기화 켜짐${when?' · 마지막 변경 '+when:''}${byName?' · '+byName:''}${SH_READONLY?' · 읽기 전용(변경은 이 브라우저에만)':''}${snap.metadata&&snap.metadata.hasPendingWrites?' · 저장 중':''}`);
+    if (d.by && SH_USER && SH_USER.profiles && !SH_NAMES[d.by]) { SH_USER.profiles([d.by]).then(ps=>{ const nm=(ps&&ps[d.by]&&ps[d.by].name)||''; if(nm){ SH_NAMES[d.by]=nm; syncStatus(`공유 동기화 켜짐${when?' · 마지막 변경 '+when:''} · ${nm}${SH_READONLY?' · 읽기 전용':''}`); } }).catch(()=>{}); }
+    if (sig===SH_LAST) return;                       // 내가 보낸 것 또는 이미 반영된 것
+    SH_LAST=sig;
+    ST.done=new Set(d.done||[]); ST.calib=Object.assign({}, d.calib||{});
+    for (const c of Object.keys(D.mats)) { const el=$('#c-cal-'+c); if (el) el.value = ST.calib[c]||1; }
+    if (d.depot && isFinite(d.depot.lon) && isFinite(d.depot.lat)) { depot={lon:d.depot.lon, lat:d.depot.lat, name:d.depot.name||'지정 출발지'}; if (depotMarker) depotMarker.setLatLng([depot.lat,depot.lon]); }
+    persist(); recompute();
+  }, err=>{ syncStatus('공유 동기화 중단 ('+(err&&err.code||'오류')+') · 이 브라우저에만 저장', false); SHDOC=null; });
+}
+function maybePush(force){
+  if (!SHDOC || SH_READONLY) return;
+  const st=sharedState(); const sig=sharedSig(st);
+  if (!force && sig===SH_LAST) return;
+  SH_LAST=sig; clearTimeout(SH_TIMER);
+  SH_TIMER=setTimeout(async()=>{
+    const body=Object.assign({}, st, {updatedAt: Date.now(), by: null});
+    try { if (SH_USER && SH_USER.id) body.by = await SH_USER.id(); } catch(e){}
+    const run=async()=>{ try { await SHDOC.set(body); } catch(e){ const code=e&&e.code; if (code==='invalid_argument'){ SH_READONLY=true; syncStatus('읽기 전용: 공유 변경 권한이 없어 이 브라우저에만 저장됩니다 (공유 메뉴에서 Contributor 이상으로 초대 필요)', false); } else if (code==='unavailable'){ setTimeout(()=>{ SHDOC && SHDOC.set(body).catch(()=>{}); }, 800+Math.random()*700); } else { syncStatus('공유 저장 실패: '+(code||e), false); } } };
+    SH_WRITING = (SH_WRITING||Promise.resolve()).then(run, run);
+  }, 400);
+}
+initShared();
 initMap(); recompute();
 })();
 """
@@ -680,7 +724,7 @@ def _control_panel(d: dict, mats: dict, terrain: bool, present_codes: list[str],
                   for c in present_codes)
     travel_opts = [("walk", "도보"), ("boat", "보트 지원")] if terrain else [("walk", "도보 (지형 없음)")]
     return f"""
-<div class="panel"><h2><span>조건 바꾸기 → 바로 다시 계산</span><span><span id="status">…</span><button class="fold" onclick="toggleSide()" title="설정 접기">◀ 접기</button></span></h2>
+<div class="panel"><h2><span>조건 바꾸기 → 바로 다시 계산</span><span><span id="status">…</span><span id="sync" style="display:block;font-size:12px;color:var(--ok);font-weight:600"></span><button class="fold" onclick="toggleSide()" title="설정 접기">◀ 접기</button></span></h2>
 <div class="ctrl">
  <label><b>팀당 인원</b><input type="number" id="c-workers" min="1" max="30" step="1" value="{d['workers']}"></label>
  <label><b>팀 수 (동시 투입)</b><input type="number" id="c-teams" min="1" max="6" step="1" value="{d['teams']}"></label>
@@ -774,7 +818,7 @@ def build_collect_html(plan: CollectPlan, out_html: str | Path, *, photos_dir: s
             "terrain": terrain_js, "terrain_png": terrain_png, "affine": affine, "basemap": bm, "day_colors": DAY_COLORS,
             "center": {"x": center_xy[0], "y": center_xy[1]},
             "bag": {"bulk": pp["bag"]["bulk_factor"], "tonbag_kg": pp["bag"]["tonbag_kg"], "tonbag_m3": pp["bag"]["tonbag_m3"]},
-            "defaults": defaults, "control_defaults": control_defaults, "seg_defaults": seg_defaults, "no_tiles": artifact}
+            "defaults": defaults, "control_defaults": control_defaults, "seg_defaults": seg_defaults, "no_tiles": artifact, "shared": artifact}
     fallback = _b64_file(Path(static_png), max_px=2200) if static_png and Path(static_png).exists() else None
     leaflet_css = Path(__file__).with_name("assets") / "leaflet.css"
     if artifact:
@@ -800,7 +844,7 @@ def build_collect_html(plan: CollectPlan, out_html: str | Path, *, photos_dir: s
          f'<div id="map"><img id="fallback" class="fallback" style="display:none" src="{fallback or ""}" alt="수거 지도"><div class="busy" id="busy">계산 중…</div><div class="zpanel" id="zpanel"></div></div>',
          '<div class="legend" id="legend"></div></div>',
          '<div class="card"><h2>작업 순서</h2><p class="sub">출발지에서 번호 순서대로 돕니다. 시간은 이동 + 줍기·담기 예상값입니다. 카드를 누르면 지도가 그 구역으로 가고, 완료 ✓ 를 누르면 남은 구역만으로 다시 계산됩니다. 길찾기 링크는 휴대폰에서 지도 앱으로 열립니다.</p><div id="steps"></div></div>',
-         '<div class="card"><h2>진행 현황</h2><p class="sub">구역 카드의 "완료 ✓" 를 누르면 그 구역이 완료 처리되고(이 휴대폰·브라우저에 저장), 남은 구역만으로 경로·시간이 다시 계산됩니다. 지도의 점을 눌러 물체 하나씩 완료할 수도 있습니다.</p><div id="progress"></div></div>\n<div class="card"><h2>실측 보정</h2><p class="sub">현장에서 한 구역의 마대를 저울로 재면, 예상 무게와 비교해 그 재질의 보정 계수를 자동으로 구하고 모든 구역에 적용합니다 (우리 추정 무게에만 곱함, 이 브라우저에 저장).</p>\n<div class="cal"><label><b>실측한 구역</b><select id="cal-zone"></select></label><label><b>실측 무게 (kg)</b><input type="number" id="cal-kg" min="0" step="0.1" placeholder="예: 12.5"></label><label><b>&nbsp;</b><button class="primary" style="font:inherit;padding:8px 12px;border-radius:9px;border:0;background:var(--accent);color:#fff;cursor:pointer" onclick="applyMeasured()">보정 계수 계산·적용</button></label><label><b>&nbsp;</b><button style="font:inherit;padding:8px 12px;border-radius:9px;border:1px solid var(--border);background:var(--card);color:var(--ink);cursor:pointer" onclick="resetCalib()">보정 해제</button></label></div><div id="cal-msg"></div></div>\n<div class="card"><h2>시나리오 비교 · 민감도</h2><p class="sub">버튼을 누르면 현재 설정에서 조건을 하나씩 바꾼 결과를 한 표로 보여 줍니다.</p><div class="btns" style="margin:0 0 10px"><button class="primary" onclick="compareScenarios()">시나리오 비교 계산</button></div><div id="scen" style="overflow:auto"></div></div>',
+         '<div class="card"><h2>진행 현황</h2><p class="sub">구역 카드의 "완료 ✓" 를 누르면 그 구역이 완료 처리되고(이 브라우저에 저장; claude.ai 공개 링크에서는 접속한 모두에게 바로 공유), 남은 구역만으로 경로·시간이 다시 계산됩니다. 지도의 점을 눌러 물체 하나씩 완료할 수도 있습니다.</p><div id="progress"></div></div>\n<div class="card"><h2>실측 보정</h2><p class="sub">현장에서 한 구역의 마대를 저울로 재면, 예상 무게와 비교해 그 재질의 보정 계수를 자동으로 구하고 모든 구역에 적용합니다 (우리 추정 무게에만 곱함, 이 브라우저에 저장).</p>\n<div class="cal"><label><b>실측한 구역</b><select id="cal-zone"></select></label><label><b>실측 무게 (kg)</b><input type="number" id="cal-kg" min="0" step="0.1" placeholder="예: 12.5"></label><label><b>&nbsp;</b><button class="primary" style="font:inherit;padding:8px 12px;border-radius:9px;border:0;background:var(--accent);color:#fff;cursor:pointer" onclick="applyMeasured()">보정 계수 계산·적용</button></label><label><b>&nbsp;</b><button style="font:inherit;padding:8px 12px;border-radius:9px;border:1px solid var(--border);background:var(--card);color:var(--ink);cursor:pointer" onclick="resetCalib()">보정 해제</button></label></div><div id="cal-msg"></div></div>\n<div class="card"><h2>시나리오 비교 · 민감도</h2><p class="sub">버튼을 누르면 현재 설정에서 조건을 하나씩 바꾼 결과를 한 표로 보여 줍니다.</p><div class="btns" style="margin:0 0 10px"><button class="primary" onclick="compareScenarios()">시나리오 비교 계산</button></div><div id="scen" style="overflow:auto"></div></div>',
          '<div class="card"><h2>준비물 체크리스트</h2><ul class="check" id="equip"></ul></div>',
          '<div class="card"><h2>종류별 요약과 다루는 법</h2><table><thead><tr><th>종류</th><th class="num">개수</th><th class="num">면적 m²</th><th class="num">예상 kg</th><th class="num">범위 kg</th><th class="num">기업 제공 kg</th><th>다루는 법</th></tr></thead><tbody id="bycode"></tbody></table></div>',
          '<div class="card"><details><summary>전체 쓰레기 목록 (수거 순서)</summary><div style="overflow:auto;max-height:520px"><table><thead><tr><th>순서</th><th>ID</th><th>종류</th><th class="num">가로×세로 m</th><th class="num">면적 m²</th><th class="num">예상 kg</th><th class="num">범위</th><th class="num">기업 kg</th><th>비고</th></tr></thead><tbody id="objtab"></tbody></table></div></details></div>',
