@@ -27,3 +27,29 @@ begin
 end $$;
 
 -- 확인: select * from public.shared_state;
+
+-- ─────────────────────────────────────────────────────────────
+-- 작업자 위치 공유 (선택): "내 위치 공유 켜기" 를 누른 사람의 GPS 위치를 10 초마다 저장, 다른 사람 지도에 핀으로 표시
+create table if not exists public.worker_positions (
+  id          text primary key,          -- 기기별 임의 id (브라우저에 저장)
+  name        text,
+  lat         double precision not null,
+  lon         double precision not null,
+  acc         double precision,          -- GPS 정확도 (m)
+  updated_at  timestamptz not null default now()
+);
+alter table public.worker_positions enable row level security;
+drop policy if exists "worker_positions read"   on public.worker_positions;
+drop policy if exists "worker_positions insert" on public.worker_positions;
+drop policy if exists "worker_positions update" on public.worker_positions;
+drop policy if exists "worker_positions delete" on public.worker_positions;
+create policy "worker_positions read"   on public.worker_positions for select to anon, authenticated using (true);
+create policy "worker_positions insert" on public.worker_positions for insert to anon, authenticated with check (true);
+create policy "worker_positions update" on public.worker_positions for update to anon, authenticated using (true) with check (true);
+create policy "worker_positions delete" on public.worker_positions for delete to anon, authenticated using (true);
+do $$
+begin
+  if not exists (select 1 from pg_publication_tables where pubname = 'supabase_realtime' and tablename = 'worker_positions') then
+    alter publication supabase_realtime add table public.worker_positions;
+  end if;
+end $$;
