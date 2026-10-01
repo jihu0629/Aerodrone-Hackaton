@@ -7,6 +7,7 @@ pyproj
 pillow
 scipy
 piexif                        # 05: 프레임 JPEG 에 GPS EXIF 쓰기 (DJI SRT -> ODM)
+imageio-ffmpeg                # 05: Mini 시리즈 MP4 내장 자막(GPS) 추출용 ffmpeg 바이너리
 
 # Sentinel-2 다운로드 (항공드론 해커톤/s2_download.py)
 pystac-client

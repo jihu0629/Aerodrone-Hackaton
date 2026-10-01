@@ -31,6 +31,13 @@ DJI 기체(Mini/Air/Mavic/Matrice 계열)는 영상(.MP4)을 찍을 때 같은 �
 
 세 형식을 모두 정규식으로 파싱합니다. 필드가 없으면 None 으로 둡니다.
 
+Mini 시리즈 주의
+----------------
+Mini 2/3/4/5 Pro 는 '영상 자막' 을 켜도 별도 .SRT 파일을 만들지 않고 MP4 안에 자막 트랙으로
+넣습니다. `extract_embedded_srt()` 가 ffmpeg 로 꺼냅니다(`find_or_extract_srt()` 가 자동 호출).
+사진은 설정과 무관하게 EXIF 에 GPS 가 항상 들어가고, DJI Fly 앱 비행 기록(Flight Record) 에도
+0.1 초 단위 위치가 남습니다. 어느 쪽도 없을 때만 지상기준점(GCP) 으로 좌표를 부여합니다.
+
 프레임 선택
 -----------
 영상 30 fps 를 전부 쓰면 사진이 수천 장이 되고, 인접 프레임은 거의 같은 위치라 재구성에 도움이 안 됩니다.
@@ -163,13 +170,75 @@ def parse_srt(path: str | Path) -> list[SrtRecord]:
 
 
 def find_srt_for_video(video: str | Path) -> Path | None:
-    """영상과 같은 이름의 .SRT/.srt 를 찾습니다."""
+    """영상과 같은 이름의 .SRT/.srt 를 찾습니다 (Mavic/Air/Matrice 계열 방식)."""
     video = Path(video)
     for ext in (".SRT", ".srt"):
         cand = video.with_suffix(ext)
         if cand.exists():
             return cand
     return None
+
+
+def _ffmpeg_exe() -> str | None:
+    """시스템 ffmpeg 또는 pip 패키지 imageio-ffmpeg 가 내려받은 정적 바이너리."""
+    import shutil
+
+    exe = shutil.which("ffmpeg")
+    if exe:
+        return exe
+    try:
+        import imageio_ffmpeg
+
+        return imageio_ffmpeg.get_ffmpeg_exe()
+    except Exception:  # noqa: BLE001 - 패키지 없음/바이너리 못 받음
+        return None
+
+
+def extract_embedded_srt(video: str | Path, out_path: str | Path | None = None, log=print) -> Path | None:
+    """
+    MP4 안에 내장된 DJI 자막 트랙을 .SRT 파일로 꺼냅니다.
+
+    DJI Mini 시리즈(Mini 2/3/4/5 Pro)는 '영상 자막' 을 켜도 별도 .SRT 를 만들지 않고
+    MP4 의 자막 스트림(mov_text) 에 텔레메트리를 넣습니다. 탐색기에서 .SRT 가 안 보여
+    "GPS 를 제공하지 않는다" 고 오해하기 쉽지만, ffmpeg 로 꺼내면 같은 형식의 SRT 가 나옵니다.
+
+        ffmpeg -i DJI_0001.MP4 -map 0:s:0 -f srt DJI_0001.SRT
+
+    반환값: 만들어진 SRT 경로. 자막 트랙이 없거나 ffmpeg 가 없으면 None.
+    """
+    import subprocess
+
+    video = Path(video)
+    out_path = Path(out_path) if out_path else video.with_suffix(".SRT")
+    if out_path.exists() and out_path.stat().st_size > 0:
+        return out_path
+    exe = _ffmpeg_exe()
+    if exe is None:
+        log("[dji] ffmpeg 가 없어 내장 자막을 꺼낼 수 없습니다. `pip install imageio-ffmpeg` 또는 ffmpeg 설치 후 다시 실행하세요.")
+        return None
+    cmd = [exe, "-y", "-v", "error", "-i", str(video), "-map", "0:s:0", "-f", "srt", str(out_path)]
+    try:
+        r = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
+    except (OSError, subprocess.TimeoutExpired) as e:
+        log(f"[dji] ffmpeg 실행 실패: {e}")
+        return None
+    if r.returncode != 0 or not out_path.exists() or out_path.stat().st_size == 0:
+        if out_path.exists():
+            out_path.unlink()
+        err = (r.stderr or "").strip().splitlines()
+        hint = err[-1] if err else ""
+        log(f"[dji] {video.name}: 내장 자막 트랙이 없습니다 ({hint}). 촬영 전에 DJI Fly > 카메라 > 고급 촬영 설정 > '영상 자막' 을 켜야 합니다.")
+        return None
+    log(f"[dji] 내장 자막 추출 -> {out_path.name}")
+    return out_path
+
+
+def find_or_extract_srt(video: str | Path, log=print) -> Path | None:
+    """옆에 있는 .SRT 를 먼저 찾고, 없으면 MP4 내장 자막을 꺼냅니다."""
+    found = find_srt_for_video(video)
+    if found is not None:
+        return found
+    return extract_embedded_srt(video, log=log)
 
 
 def telemetry_at(recs: list[SrtRecord], t_s: float) -> SrtRecord | None:
@@ -320,11 +389,12 @@ def extract_frames(
     prefix = prefix or video.stem
 
     if srt is None:
-        srt = find_srt_for_video(video)
+        srt = find_or_extract_srt(video, log=log)
     recs = parse_srt(srt) if srt else []
     if not recs:
         log(f"[dji] SRT 없음 또는 비어 있음: GPS 없이 프레임만 뽑습니다 ({video.name}). "
-            "재구성은 되지만 지리참조가 안 됩니다. DJI Fly/Pilot 앱에서 '영상 자막' 을 켜고 다시 촬영하세요.")
+            "재구성은 되지만 지리참조가 안 됩니다. DJI Fly/Pilot 앱에서 '영상 자막' 을 켜고 다시 촬영하거나, "
+            "비행 기록(Flight Record) 또는 사진 EXIF 를 쓰세요.")
     elif not any(r.has_gps for r in recs):
         log("[dji] SRT 에 GPS 가 없습니다 (실내 또는 GPS 미수신).")
 

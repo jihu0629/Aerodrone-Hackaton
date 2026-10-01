@@ -85,9 +85,11 @@ pytest tests -q
 
 ## 드론 영상 -> 3D 지도 -> 쓰레기 양 측정 (05~07)
 
-DJI 기체로 찍은 영상 한 편이 입력입니다. DJI Fly/Pilot 앱에서 **카메라 설정 > 영상 자막(Video Caption)** 을 켜면
-영상 옆에 같은 이름의 `.SRT` 가 생기고, 여기에 프레임별 위도·경도·고도가 있습니다. 이 값을 프레임 EXIF 에 넣어
-OpenDroneMap(ODM) 에 주면 별도 지상기준점 없이 미터 단위로 지리참조된 3D 결과가 나옵니다 (정확도는 기체 GNSS 수준, 수 m).
+DJI 기체로 찍은 영상 한 편이 입력입니다. DJI Fly/Pilot 앱에서 **카메라 설정 > 고급 촬영 설정 > 영상 자막(Video Caption)** 을 켜면
+프레임별 위도·경도·고도 자막이 기록됩니다. Mavic/Air/Matrice 는 영상 옆에 같은 이름의 `.SRT` 파일로, **Mini 시리즈(Mini 5 Pro 포함)는
+MP4 안의 자막 트랙으로** 저장되므로 탐색기에서는 안 보입니다. 05 단계가 둘 다 자동으로 읽습니다(내장 자막은 ffmpeg 로 추출).
+이 값을 프레임 EXIF 에 넣어 OpenDroneMap(ODM) 에 주면 별도 지상기준점 없이 미터 단위로 지리참조된 3D 결과가 나옵니다
+(정확도는 기체 GNSS 수준, 수 m). 자막이 없으면 사진 EXIF(항상 GPS 포함), DJI Fly 비행 기록(Flight Record), 지상기준점 순으로 대체합니다.
 
 ```bat
 :: 0) 한 번만: Docker Desktop 설치 후  docker pull opendronemap/odm

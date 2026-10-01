@@ -344,3 +344,64 @@ def test_height_candidates_finds_pile(tmp_path):
     far = box(cx + 3, cy + 3, cx + 4, cy + 4)
     polys2, _, _ = height_candidates(dsm_p, dtm_p, aoi=far)
     assert polys2 == []
+
+
+# ------------------------------------------------------------------ Mini 시리즈: MP4 내장 자막
+
+def _make_video_with_embedded_srt(tmp_path: Path, n: int = 90, fps: float = 30.0) -> Path:
+    """DJI Mini 처럼 자막 트랙(mov_text) 이 MP4 안에 들어 있는 영상을 ffmpeg 로 만듭니다."""
+    import subprocess
+
+    from coastcd.dji import _ffmpeg_exe
+
+    exe = _ffmpeg_exe()
+    if exe is None:
+        pytest.skip("ffmpeg 없음")
+    raw = tmp_path / "raw.mp4"
+    _make_video(raw, n=n, fps=fps)
+    srt = tmp_path / "telemetry.srt"
+    srt.write_text(SRT_NEW, encoding="utf-8")
+    out = tmp_path / "DJI_0005.MP4"
+    subprocess.run([exe, "-y", "-v", "error", "-i", str(raw), "-i", str(srt), "-map", "0:v", "-map", "1:0",
+                    "-c:v", "copy", "-c:s", "mov_text", str(out)], check=True, capture_output=True)
+    assert out.exists()
+    return out
+
+
+def test_extract_embedded_srt_roundtrip(tmp_path):
+    from coastcd.dji import extract_embedded_srt, find_or_extract_srt
+
+    video = _make_video_with_embedded_srt(tmp_path)
+    assert not video.with_suffix(".SRT").exists()  # Mini 처럼 옆에 SRT 파일이 없음
+    msgs = []
+    srt = find_or_extract_srt(video, log=msgs.append)
+    assert srt is not None and srt.exists()
+    recs = parse_srt(srt)
+    assert len(recs) == 3
+    assert recs[0].lat == pytest.approx(37.194120)
+    assert recs[0].abs_alt_m == pytest.approx(95.2)
+    # 두 번째 호출은 이미 꺼낸 파일을 재사용
+    assert extract_embedded_srt(video, log=msgs.append) == srt
+
+
+def test_extract_embedded_srt_no_track(tmp_path):
+    from coastcd.dji import _ffmpeg_exe, extract_embedded_srt
+
+    if _ffmpeg_exe() is None:
+        pytest.skip("ffmpeg 없음")
+    video = tmp_path / "plain.MP4"
+    _make_video(video, n=30)
+    msgs = []
+    assert extract_embedded_srt(video, log=msgs.append) is None
+    assert not video.with_suffix(".SRT").exists()
+    assert any("영상 자막" in m for m in msgs)
+
+
+def test_extract_frames_uses_embedded_srt(tmp_path):
+    video = _make_video_with_embedded_srt(tmp_path)
+    out = tmp_path / "frames"
+    frames = extract_frames(video, out, every_sec=1.0, min_blur=0.0, log=lambda *a: None)
+    assert len(frames) == 3
+    assert all(f.lat is not None for f in frames)
+    lat, lon, alt = read_gps_exif(out / frames[0].file)
+    assert lat == pytest.approx(37.194120, abs=1e-5)

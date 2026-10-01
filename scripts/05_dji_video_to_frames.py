@@ -1,9 +1,12 @@
 """
 5단계: DJI 드론 영상(.MP4 + .SRT) -> 3D 재구성용 프레임 JPEG (GPS EXIF 포함).
 
-DJI Fly/Pilot 앱에서 카메라 설정 > '영상 자막(Video Caption/Subtitles)' 을 켜고 촬영하면
-영상 옆에 같은 이름의 .SRT 파일이 생깁니다. 이 파일의 위도·경도·고도를 각 프레임의 EXIF 에 넣습니다.
-SRT 가 없으면 프레임만 뽑습니다 (3D 는 되지만 축척·위치가 임의라 부피 계산이 틀어집니다).
+DJI Fly/Pilot 앱에서 카메라 설정 > 고급 촬영 설정 > '영상 자막(Video Caption/Subtitles)' 을 켜고 촬영하면
+Mavic/Air/Matrice 는 영상 옆에 같은 이름의 .SRT 파일을, **Mini 시리즈(Mini 5 Pro 포함)는 MP4 안에 자막 트랙**을
+만듭니다. 둘 다 자동으로 읽습니다(내장 자막은 ffmpeg 로 추출, `pip install imageio-ffmpeg` 면 충분).
+이 자막의 위도·경도·고도를 각 프레임의 EXIF 에 넣습니다.
+자막이 전혀 없으면 프레임만 뽑습니다 (3D 는 되지만 축척·위치가 임의라 부피 계산이 틀어집니다).
+그 경우 사진 EXIF(항상 GPS 포함) 또는 DJI Fly 비행 기록(Flight Record) 을 쓰거나 지상기준점을 두세요.
 
 사용
 ----
@@ -37,7 +40,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import coastcd  # noqa: E402
 from coastcd.config import DEFAULT_OUT_DIR  # noqa: E402
-from coastcd.dji import extract_frames, find_srt_for_video, flight_summary, parse_srt, spacing_for_overlap  # noqa: E402
+from coastcd.dji import extract_frames, find_or_extract_srt, flight_summary, parse_srt, spacing_for_overlap  # noqa: E402
 
 
 def main() -> None:
@@ -62,7 +65,7 @@ def main() -> None:
         video = Path(v)
         if not video.exists():
             sys.exit(f"영상 없음: {video}")
-        srt = Path(args.srt[i]) if args.srt and i < len(args.srt) else find_srt_for_video(video)
+        srt = Path(args.srt[i]) if args.srt and i < len(args.srt) else find_or_extract_srt(video)
         recs = parse_srt(srt) if srt else []
         summ = flight_summary(recs)
         summaries[video.name] = summ
