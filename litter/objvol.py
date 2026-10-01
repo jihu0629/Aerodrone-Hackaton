@@ -144,16 +144,24 @@ def height_mode(h, bin_m=0.01, min_frac=0.2):
     return float(edges[i] + bin_m / 2)
 
 
-def sam_mask(sam, img, uv, crop=260, max_frac=0.6, device=""):
+def sam_mask(sam, img, uv, crop=260, max_frac=0.6, device="", box=None):
     """uv(물체 중심 픽셀)을 점 프롬프트로 물체 마스크. 주변을 잘라서(crop) 빠르게.
-    마스크가 잘린 영역의 max_frac 이상이면 바닥을 통째로 딴 것 → 실패로 본다."""
+    마스크가 잘린 영역의 max_frac 이상이면 바닥을 통째로 딴 것 → 실패로 본다.
+    box(xyxy, 탐지 상자)를 주면 점 대신 상자 프롬프트 — 상자가 화면에 크게 찍히면 점 프롬프트는 덮개·라벨 조각만 따므로."""
     H, W = img.shape[:2]
     x, y = int(uv[0]), int(uv[1])
+    if box is not None:
+        crop = int(max(crop, 0.75 * max(box[2] - box[0], box[3] - box[1])))
+        x, y = int((box[0] + box[2]) / 2), int((box[1] + box[3]) / 2)
     x0, y0 = max(x - crop, 0), max(y - crop, 0)
     x1, y1 = min(x + crop, W), min(y + crop, H)
     sub = img[y0:y1, x0:x1]
     kw = {"device": device} if device else {}
-    r = sam(sub, points=[[x - x0, y - y0]], labels=[1], verbose=False, **kw)[0]
+    if box is not None:
+        bb = [max(box[0] - x0, 0), max(box[1] - y0, 0), min(box[2] - x0, x1 - x0), min(box[3] - y0, y1 - y0)]
+        r = sam(sub, bboxes=[[float(v) for v in bb]], verbose=False, **kw)[0]
+    else:
+        r = sam(sub, points=[[x - x0, y - y0]], labels=[1], verbose=False, **kw)[0]
     if r.masks is None or len(r.masks.data) == 0:
         return None
     m = r.masks.data[0].cpu().numpy().astype(np.uint8)
@@ -169,9 +177,21 @@ def sam_mask(sam, img, uv, crop=260, max_frac=0.6, device=""):
     return full
 
 
+def pick_box(boxes, uv, max_dist=None):
+    """프롬프트 점 uv를 품은 탐지 상자 중 가장 작은 것 (없으면 None)."""
+    best = None
+    for b in boxes:
+        if b[0] <= uv[0] <= b[2] and b[1] <= uv[1] <= b[3]:
+            a = (b[2] - b[0]) * (b[3] - b[1])
+            if best is None or a < best[0]:
+                best = (a, b)
+    return None if best is None else best[1]
+
+
 def measure_object(sc, sam, center_xy, Pm, n_views=24, search_r=0.8, vote=0.7, h_min=0.03, height="mode", hm_agg="median",
-                   min_cam_h=0.3, max_tilt=85.0, min_nadir=0.7, device="", out_dir=None, tag="obj"):
-    """Pm: 지면 좌표(m)의 3D 점 (N,3). 반환 (결과 dict, 물체 점 (x, y, 평면 기준 높이))."""
+                   min_cam_h=0.3, max_tilt=85.0, min_nadir=0.7, device="", out_dir=None, tag="obj", det=None):
+    """Pm: 지면 좌표(m)의 3D 점 (N,3). 반환 (결과 dict, 물체 점 (x, y, 평면 기준 높이)).
+    det: 프레임 이미지 → 탐지 상자 xyxy 목록 (주면 SAM 상자 프롬프트, 점을 품은 상자가 없으면 점 프롬프트)."""
     center0 = np.asarray(center_xy, float)
 
     def local(cxy):
@@ -225,13 +245,15 @@ def measure_object(sc, sam, center_xy, Pm, n_views=24, search_r=0.8, vote=0.7, h
     views = views[::max(1, len(views) // n_views)][:n_views]
     inside = np.zeros(len(X))
     seen = np.zeros(len(X))
-    best_area, used, gallery, used_names, used_tilts = None, 0, [], [], []
+    best_area, used, gallery, used_names, used_tilts, n_box_prompt = None, 0, [], [], [], 0
     for _, im, uv, k in views:
         img = _imread(sc.dir / "frames" / im.name)
-        m = sam_mask(sam, img, uv, device=device)
+        box = pick_box(det(img), uv) if det else None
+        m = sam_mask(sam, img, uv, device=device, box=box)
         if m is None:
             continue
         used += 1
+        n_box_prompt += box is not None
         used_names.append(im.name)
         used_tilts.append(float(sc.tilt_deg[k]))
         p = sc.project(im, X)
@@ -267,6 +289,7 @@ def measure_object(sc, sam, center_xy, Pm, n_views=24, search_r=0.8, vote=0.7, h
     keep = (seen >= 3) & (inside / np.maximum(seen, 1) >= vote) & (h > h_min)
     O = np.c_[Pm[cand[keep], :2], h[keep]]
     res = {"tag": tag, "views_used": used, "views_candidates": int(len(views)), "n_views_excluded": int(bad.sum()),
+           "views_box_prompt": int(n_box_prompt),
            "views_tilt_deg": [round(t, 1) for t in used_tilts], "views_names": used_names,
            "points_candidate": int(len(cand)), "points_voted": int(((seen >= 3) & (inside / np.maximum(seen, 1) >= vote)).sum()),
            "points_object": int(len(O)),
@@ -322,7 +345,18 @@ def main(argv=None):
     ap.add_argument("--search-r", type=float, default=0.8, help="물체 점 탐색 반경(m). 옆에 연석·벽이 있으면 줄일 것")
     ap.add_argument("--min-track", type=float, default=10.0,
                     help="GPS 수평 이동이 이 거리(m) 이상이면 SRT 고도 대신 GPS 경로로 축척 (SRT 고도가 틀릴 때 낮춰서 강제)")
+    ap.add_argument("--det-weights", help="탐지 모델(예: yolov8s-worldv2.pt) — 탐지 상자를 SAM 프롬프트로 (상자가 크게 찍힐 때 필수)")
+    ap.add_argument("--det-classes", help="YOLO-World 클래스 이름 (쉼표 구분)")
+    ap.add_argument("--det-conf", type=float, default=0.25)
     a = ap.parse_args(argv)
+    det = None
+    if a.det_weights:
+        from ultralytics import YOLO
+        ym = YOLO(a.det_weights)
+        if a.det_classes and hasattr(ym, "set_classes"):
+            ym.set_classes([c.strip() for c in a.det_classes.split(",")])
+        dkw = {"device": a.device} if a.device else {}
+        det = lambda img: ym.predict(img, conf=a.det_conf, imgsz=1600, verbose=False, **dkw)[0].boxes.xyxy.cpu().numpy()
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
     sc = Scene(a.orbit, a.srt, min_track_m=a.min_track)
@@ -346,7 +380,7 @@ def main(argv=None):
         seen_tags[base] = seen_tags.get(base, 0) + 1
         tag = base if seen_tags[base] == 1 else f"{base}_{seen_tags[base]}"  # 같은 클래스·프레임수가 여럿이면 _2, _3
         r, _ = measure_object(sc, sam, (float(o["local_x_m"]), float(o["local_y_m"])), Pm, n_views=a.n_views, search_r=a.search_r,
-                              h_min=a.h_min, height=a.height, hm_agg=a.hm_agg, device=a.device, out_dir=out, tag=tag)
+                              h_min=a.h_min, height=a.height, hm_agg=a.hm_agg, device=a.device, out_dir=out, tag=tag, det=det)
         r["lat"], r["lon"] = o["lat"], o["lon"]
         r["csv_local_xy"] = [float(o["local_x_m"]), float(o["local_y_m"])]
         if base in truth:
@@ -355,7 +389,7 @@ def main(argv=None):
             r["truth_cm"] = truth[base]
         results.append(r)
         msg = (f"{tag} ({o['local_x_m']},{o['local_y_m']}): 프레임 {r['views_used']}/{r['views_candidates']}장"
-               f"(제외 {r['n_views_excluded']}) · 평면 기울기 {r['ground_plane_tilt_deg']:.1f}° · 중심 이동 {r['center_shift_m']:.2f} m"
+               f"(제외 {r['n_views_excluded']}, 상자 프롬프트 {r['views_box_prompt']}) · 평면 기울기 {r['ground_plane_tilt_deg']:.1f}° · 중심 이동 {r['center_shift_m']:.2f} m"
                f" · 물체 점 {r['points_object']}개")
         if "volume_heightmap_L" in r:
             msg += (f" · {r['length_m']*100:.0f}×{r['width_m']*100:.0f}×{r['height_m']*100:.0f} cm"
