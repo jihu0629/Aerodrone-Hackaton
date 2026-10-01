@@ -284,10 +284,20 @@ def _thumb(img, b, size=140, pad=1.0):
     return base64.b64encode(buf).decode() if ok else None
 
 
-def detections_to_objects(pred_json, island, conf, thumbs=True, max_thumbs=600):
-    """예측 COCO → 섬 하나의 물체 목록 (위경도·면적 m²·재질)."""
+def detections_to_objects(pred_json, island, conf, thumbs=True, max_thumbs=600, material_pred=None):
+    """예측 COCO → 섬 하나의 물체 목록 (위경도·면적 m²·재질).
+    material_pred: 단일 클래스(litter) 모델일 때 재질을 빌려올 다른 예측 COCO (겹치는 AI Hub 박스의 클래스, IoU≥0.3)"""
+    from .seg import _iou
     P = json.loads(Path(pred_json).read_text(encoding="utf-8"))
     cat = {c["id"]: c["name"] for c in P["categories"]}
+    mat = {}
+    if material_pred:
+        M = json.loads(Path(material_pred).read_text(encoding="utf-8"))
+        mcat = {c["id"]: c["name"] for c in M["categories"]}
+        mname = {im["id"]: im["file_name"] for im in M["images"]}
+        for an in M["annotations"]:
+            x, y, w, h = an["bbox"]
+            mat.setdefault(mname[an["image_id"]], []).append(((x, y, x + w, y + h), mcat[an["category_id"]], an["score"]))
     ims = {im["id"]: im for im in P["images"] if im.get("island") == island}
     by_im = {}
     for an in P["annotations"]:
@@ -304,6 +314,9 @@ def detections_to_objects(pred_json, island, conf, thumbs=True, max_thumbs=600):
             lat, lon = g.to_latlon(x + w / 2, y + h / 2)
             corners = [g.to_latlon(cx, cy) for cx, cy in ((x, y), (x + w, y), (x + w, y + h), (x, y + h))]
             raw = cat[an["category_id"]]
+            if raw in ("litter", "item") and mat:  # 재질: 겹치는 AI Hub 박스 중 점수 높은 것, 없으면 플라스틱
+                cand = [(sc, nm) for bb, nm, sc in mat.get(im["file_name"], []) if _iou((x, y, x + w, y + h), bb) >= 0.3]
+                raw = max(cand)[1] if cand else "plastic debris"
             o = {"item_id": f"{Path(im['file_name']).stem.split('_', 1)[1]}_{an['id']}", "image": im["file_name"],
                  "cls_raw": raw, "cls": LABEL_TO_CLS.get(raw) or map_class(raw, cfg), "score": float(an["score"]),
                  "lat": float(lat), "lon": float(lon), "corners": [[float(a), float(b)] for a, b in corners],
@@ -464,7 +477,7 @@ def cmd_demo(a):
         files = [r["filename"] for r in load_chips() if r["island"] == a.island]
         predict(a.model, files, pred, conf=0.05, batch=a.batch, device=a.device, wait=not a.no_wait, scale=a.scale)
     print(f"[1] 탐지 → 위경도 (conf≥{a.conf})")
-    objs = detections_to_objects(pred, a.island, a.conf)
+    objs = detections_to_objects(pred, a.island, a.conf, material_pred=a.material_pred)
     if not objs:
         raise SystemExit("물체 없음")
     geo = Geo(lon=objs[0]["lon"])
@@ -530,14 +543,9 @@ def cmd_ft(a):
             for r in by_f.get(f, []):
                 x0, y0, x1, y1 = (float(r[k]) for k in ("xmin", "ymin", "xmax", "ymax"))
                 lines.append(f"0 {(x0 + x1) / 2 / 640:.5f} {(y0 + y1) / 2 / 640:.5f} {(x1 - x0) / 640:.5f} {(y1 - y0) / 640:.5f}")
-            (ds / "labels" / part / (Path(f).stem + ".txt")).write_text("
-".join(lines))
-    (ds / "data.yaml").write_text(f"path: {ds.resolve().as_posix()}
-train: images/train
-val: images/val
-names:
-  0: litter
-", encoding="utf-8")
+            (ds / "labels" / part / (Path(f).stem + ".txt")).write_text("\n".join(lines))
+    (ds / "data.yaml").write_text(f"path: {ds.resolve().as_posix()}\ntrain: images/train\nval: images/val\nnames:\n  0: litter\n",
+                                  encoding="utf-8")
     print(f"데이터셋 train {len(parts['train'])} / val {len(parts['val'])} → {ds}")
     wait_gpu()
     m = YOLO(str(MODELS["aihub"]))
@@ -637,6 +645,7 @@ def main(argv=None):
     p.add_argument("--r95", type=float, default=3.0, help="위치 95%% 반경 m (항공 정사영상 지오참조 오차 가정)")
     p.add_argument("--max_cards", type=int, default=60)
     p.add_argument("--out_name", help="runs/hawaii/<이름> (기본: 섬 이름)")
+    p.add_argument("--material_pred", help="단일클래스 모델용: 재질을 빌려올 AI Hub 예측 COCO")
     p.add_argument("--batch", type=int, default=8)
     p.add_argument("--device", default="0")
     p.add_argument("--no_wait", action="store_true")
