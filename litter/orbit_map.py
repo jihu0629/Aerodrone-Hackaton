@@ -39,7 +39,7 @@ def fit_rigid2d(A, B):
     return Rt, t, float(np.sqrt(np.mean(res ** 2)))
 
 
-def run(orbit_dir, srt, out, litter_w, obstacle_w=None, conf=0.3, merge_m=0.5, min_hits=3):
+def run(orbit_dir, srt, out, litter_w, obstacle_w=None, conf=0.3, merge_m=0.5, min_hits=3, classes=None, min_track_m=10.0):
     import pycolmap
     from ultralytics import YOLO
 
@@ -55,7 +55,7 @@ def run(orbit_dir, srt, out, litter_w, obstacle_w=None, conf=0.3, merge_m=0.5, m
     alt = np.array([tel[fidx[i.name]]["alt"] for i in imgs])
     geo = Geo(None, lon=tel[fidx[imgs[0].name]]["lon"])
     gps = np.array([geo.to_xy(tel[fidx[i.name]]["lat"], tel[fidx[i.name]]["lon"]) for i in imgs])
-    T, Rg, s, info = to_metric_auto(P, C, D, alt, gps)
+    T, Rg, s, info = to_metric_auto(P, C, D, alt, gps, min_track_m=min_track_m)
     Cm = T(C)
     R2, t2, rms = fit_rigid2d(Cm[:, :2], gps)
     to_map = lambda q: np.asarray(q)[..., :2] @ R2.T + t2
@@ -63,6 +63,8 @@ def run(orbit_dir, srt, out, litter_w, obstacle_w=None, conf=0.3, merge_m=0.5, m
 
     cam = rec.cameras[imgs[0].camera_id]
     models = [("litter", YOLO(str(litter_w)))] + ([("obstacle", YOLO(str(obstacle_w)))] if obstacle_w else [])
+    if classes and hasattr(models[0][1], "set_classes"):  # YOLO-World: 클래스 이름 글로 지정
+        models[0][1].set_classes(classes)
     hits = []
     sheet = []
     for k, im in enumerate(imgs):
@@ -162,8 +164,11 @@ def main(argv=None):
     ap.add_argument("--litter", required=True, help="쓰레기 탐지 모델")
     ap.add_argument("--obstacle", help="장애물(사람 등) 탐지 모델, 예: yolo11s.pt")
     ap.add_argument("--conf", type=float, default=0.3)
+    ap.add_argument("--classes", help="YOLO-World용 클래스 이름 (쉼표 구분)")
+    ap.add_argument("--min-track", type=float, default=10.0, help="GPS 수평 이동이 이 거리(m) 이상이면 GPS 경로로 축척 (SRT 고도가 틀릴 때 낮춰서 강제)")
     a = ap.parse_args(argv)
-    run(a.orbit, a.srt, a.out, a.litter, a.obstacle, a.conf)
+    run(a.orbit, a.srt, a.out, a.litter, a.obstacle, a.conf,
+        classes=[c.strip() for c in a.classes.split(",")] if a.classes else None, min_track_m=a.min_track)
 
 
 if __name__ == "__main__":

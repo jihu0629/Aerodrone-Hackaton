@@ -55,7 +55,7 @@ def read_ply(path):
 
 
 class Scene:
-    def __init__(self, orbit_dir, srt):
+    def __init__(self, orbit_dir, srt, min_track_m=10.0):
         import pycolmap
 
         self.dir = Path(orbit_dir)
@@ -71,7 +71,7 @@ class Scene:
         from .geometry import Geo
         geo = Geo(None, lon=tel[fidx[self.imgs[0].name]]["lon"])
         gps = np.array([geo.to_xy(tel[fidx[i.name]]["lat"], tel[fidx[i.name]]["lon"]) for i in self.imgs])
-        self.T, self.R, self.s, self.info = to_metric_auto(P, C, D, alt, gps)
+        self.T, self.R, self.s, self.info = to_metric_auto(P, C, D, alt, gps, min_track_m=min_track_m)
         self.p0 = self.info["p0"]
         self.sparse = P
         self.D = D
@@ -319,10 +319,13 @@ def main(argv=None):
     ap.add_argument("--hm-agg", default="median", choices=["median", "max"], help="높이지도 칸 집계 (기본 중앙값)")
     ap.add_argument("--n-views", type=int, default=24)
     ap.add_argument("--h-min", type=float, default=0.03, help="바닥 평면 기준 이 높이(m) 아래 점은 바닥으로 본다")
+    ap.add_argument("--search-r", type=float, default=0.8, help="물체 점 탐색 반경(m). 옆에 연석·벽이 있으면 줄일 것")
+    ap.add_argument("--min-track", type=float, default=10.0,
+                    help="GPS 수평 이동이 이 거리(m) 이상이면 SRT 고도 대신 GPS 경로로 축척 (SRT 고도가 틀릴 때 낮춰서 강제)")
     a = ap.parse_args(argv)
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
-    sc = Scene(a.orbit, a.srt)
+    sc = Scene(a.orbit, a.srt, min_track_m=a.min_track)
     pts = read_ply(a.ply)[0] if a.ply else sc.sparse
     Pm = sc.T(pts).astype(np.float32)   # 지면 좌표(m)로 한 번만 변환
     del pts
@@ -342,7 +345,7 @@ def main(argv=None):
         base = f"{o['cls']}_{o['seen_frames']}"
         seen_tags[base] = seen_tags.get(base, 0) + 1
         tag = base if seen_tags[base] == 1 else f"{base}_{seen_tags[base]}"  # 같은 클래스·프레임수가 여럿이면 _2, _3
-        r, _ = measure_object(sc, sam, (float(o["local_x_m"]), float(o["local_y_m"])), Pm, n_views=a.n_views,
+        r, _ = measure_object(sc, sam, (float(o["local_x_m"]), float(o["local_y_m"])), Pm, n_views=a.n_views, search_r=a.search_r,
                               h_min=a.h_min, height=a.height, hm_agg=a.hm_agg, device=a.device, out_dir=out, tag=tag)
         r["lat"], r["lon"] = o["lat"], o["lon"]
         r["csv_local_xy"] = [float(o["local_x_m"]), float(o["local_y_m"])]

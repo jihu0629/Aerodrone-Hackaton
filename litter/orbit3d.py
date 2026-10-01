@@ -208,7 +208,9 @@ def main(argv=None):
     s = export(rec, out, len(names), highlight=hl)
     if vol:
         s["volume"] = vol
-        (out / "summary.json").write_text(json.dumps(s, ensure_ascii=False, indent=2), encoding="utf-8")
+        (out / "summary.json").write_text(
+            json.dumps(s, ensure_ascii=False, indent=2, default=lambda o: o.tolist() if hasattr(o, "tolist") else str(o)),
+            encoding="utf-8")
     print(f"3D 복원: 프레임 {s['frames_registered']}/{s['frames_extracted']} 등록 · 점 {s['points3D']:,}개 · "
           f"재투영 오차 {s['mean_reproj_error_px']:.2f}px")
     if vol and "error" not in vol:
