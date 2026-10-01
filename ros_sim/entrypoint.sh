@@ -4,7 +4,7 @@ source /opt/ros/iron/setup.bash
 source /workspace/install/setup.bash
 
 MODE="${1:-default}"
-GUI_MODES="gui gui-mission"
+GUI_MODES="gui gui-mission hawaii"
 HEADLESS_FLAG="HEADLESS=1"
 
 if [[ " $GUI_MODES " == *" $MODE "* ]]; then
@@ -17,6 +17,21 @@ if [[ " $GUI_MODES " == *" $MODE "* ]]; then
   websockify --web=/usr/share/novnc 6080 localhost:5900 > /tmp/novnc.log 2>&1 &
   echo "[entrypoint] 브라우저에서 http://localhost:6080/vnc.html 로 접속하면 실시간 3D 화면이 보임"
   HEADLESS_FLAG="HEADLESS=0"
+fi
+
+if [ "$MODE" == "hawaii" ]; then
+  # 하와이 칩 월드(/workspace/sim, build_world.py 출력)를 먼저 띄우면 PX4가
+  # "이미 떠 있는 월드"에 붙어서 PX4_GZ_MODEL 기체를 생성한다 (PX4 원본 수정 없음).
+  # 카메라 렌더링에 GL이 필요해서 위의 Xvfb(DISPLAY=:99)를 그대로 쓴다.
+  export GZ_SIM_RESOURCE_PATH=/workspace/sim/models:/workspace/hawaii_models:/opt/PX4-Autopilot/Tools/simulation/gz/models
+  mkdir -p /workspace/out/frames
+  echo "[entrypoint] 하와이 월드 기동..."
+  gz sim -r -s /workspace/sim/worlds/hawaii.sdf > /tmp/gz_server.log 2>&1 &
+  for i in $(seq 1 60); do gz topic -l 2>/dev/null | grep -q "/world/hawaii/clock" && break; sleep 1; done
+  SPAWN=$(python3 -c "import json;m=json.load(open('/workspace/sim/meta.json'));print(f\"{m['spawn'][0]},{m['spawn'][1]},0.3,0,0,0\")")
+  LATLON=($(python3 -c "import json;m=json.load(open('/workspace/sim/meta.json'));print(*m['center_latlon'])"))
+  export PX4_GZ_MODEL=x500_down_cam PX4_GZ_MODEL_POSE="$SPAWN" PX4_HOME_LAT=${LATLON[0]} PX4_HOME_LON=${LATLON[1]} PX4_HOME_ALT=2
+  export MISSION_JSON=/workspace/sim/mission.json
 fi
 
 echo "[entrypoint] PX4 SITL(gz_x500${DISPLAY:+, GUI on $DISPLAY}) 시작..."
@@ -48,6 +63,10 @@ if [[ " $GUI_MODES " == *" $MODE "* ]]; then
   # 구조를 그대로 활용한 것.
   echo "[entrypoint] 이미 떠 있는 gz sim 서버에 GUI 클라이언트 연결..."
   gz sim -g > /tmp/gz_gui.log 2>&1 &
+fi
+if [ "$MODE" == "hawaii" ]; then
+  # gz 카메라는 구독자가 없으면 렌더링을 안 해서 <save> 저장도 멈춘다 → 구독자를 붙여 둔다
+  gz topic -e -t /down_cam/image > /dev/null 2>&1 &
 fi
 
 echo "[entrypoint] MAVROS 시작..."
@@ -81,7 +100,7 @@ case "$MODE" in
     echo "[entrypoint] GUI 모드 — http://localhost:6080/vnc.html 에서 확인, 미션은 'docker exec'로 수동 실행"
     wait $PX4_PID $MAVROS_PID
     ;;
-  gui-mission)
+  gui-mission|hawaii)
     echo "[entrypoint] GUI + 미션 실행..."
     exec ros2 run mission_runner fly_mission
     ;;
