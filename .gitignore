@@ -17,3 +17,8 @@ outputs/
 
 # 논문 PDF (저작권)
 **/선행조사/Paper/
+
+# 기업 배포 자료 (공유 제한 가능성, 공개 저장소) — input/.gitignore 참고
+input/labels.json
+input/crops/
+input/ortho/
