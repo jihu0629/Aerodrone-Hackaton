@@ -43,3 +43,51 @@
 
 - 헤드리스 Chromium 으로 열어 콘솔 오류 없이 42개 물체 · 13구역 계산 (지도 라이브러리는 네트워크 없이 인쇄용 지도로 대체).
 - 병합 로직 단위 테스트 7건 (합집합 유지, 늦은 취소 우선, 예전 형식 수용, 보정 계수 최신 우선, 만조 해제 우선, 재병합 멱등).
+
+## 직접 고치고 싶을 때: `src/` 와 `build.py`
+
+1.4 MB 단일 HTML 은 이미지가 base64 로 들어 있어 편집기에서 다루기 힘들다. 그래서 네 조각으로 나눠 두었다.
+
+| 파일 | 내용 | 고칠 때 |
+|---|---|---|
+| `src/app.js` (약 2,000줄) | 계산·표시·동기화 로직 전부 | 무게 공식, 경로, 카드 내용, 동기화 |
+| `src/styles.css` | 모양 | 색, 글자 크기, 인쇄 |
+| `src/index.src.html` | 화면 구조 (설정 입력, 카드, 표 머리글, 가정 설명) | 입력 항목 추가, 문구 |
+| `src/plan.json` | 데이터 (물체 42개, 재질 가정값, 지형 격자, 이미지) | 밀도·두께 가정값, 기본값 |
+
+고친 뒤 합치기:
+
+```bash
+cd "항공드론 해커톤/수거계획"
+python3 build.py        # → 문갑도_수거계획_v2.html 을 다시 만든다
+```
+
+`build.py` 는 `plan.json` 이 올바른 JSON 인지 먼저 확인하고, 세 자리표시자(`<!--@@STYLES@@-->`, `<!--@@PLAN@@-->`, `<!--@@APP@@-->`) 에 끼워 넣는다.
+분리 직후 다시 합친 결과는 원본과 바이트 단위로 같았다.
+
+### `src/app.js` 에서 자주 손댈 곳
+
+| 줄 (대략) | 함수 | 역할 |
+|---|---|---|
+| 25–74 | `LS_KEY`, `deriveSets`, `markEv`, `persist` | 완료·만조 상태 저장 (물체별 변경 시각) |
+| 76 | `dupInfo` | 중복 의심 판정 (같은 종류, 거리 임계값) |
+| 206 | `dijkstra`, `pathCells` | 지형 격자 최단경로 |
+| 292 | `readControls` | 설정 입력값 → `P` (새 입력을 추가하면 여기서 읽는다) |
+| 366 | `bagsOf` | 마대 수 (무게/부피 중 큰 쪽) |
+| 377 | `tourOrder` | 구역 순회 순서 (8개 이하 완전탐색, 그 위는 2-opt) |
+| 462 | `computePlan` | **무게·구역·순서·팀·일정 계산의 중심** (부표 모드, 중복·만조 제외도 여기) |
+| 638 | `traverse` | 한 팀이 구역을 도는 시뮬레이션 (이동 시간, 복귀, 구역 경고문) |
+| 998 | `initMap`, 1152 `renderMap` | Leaflet 지도, 마커, 팝업 문구 |
+| 1297 | `openZone` | 구역 패널 (물체 목록, 버튼) |
+| 1328 | `renderTiles`, 1337 `renderSteps` | 상단 타일, 구역 카드, 표, 진행률, 가정 요약 줄 |
+| 1434–1468 | `toggleDone`, `toggleTide`, `doneZone`, `resetDone` | 완료·만조 버튼 동작 |
+| 1538 | `applyMeasured` | 실측 무게 → 보정 계수 |
+| 1581 | `compareScenarios` | 시나리오 표 |
+| 1620 | `downloadCsv`, `downloadJson` | 내보내기 열 구성 |
+| 1721–1783 | `sharedState`, `sharedSig`, `mergeRemote` | 공유 상태 형식과 병합 규칙 |
+| 1828 | `initSupabase`, 1909 `initShared`, 1983 `maybePush` | Supabase / claude.ai db 연결과 저장 |
+
+### 확인 방법
+
+- 문법: `node -e "new Function(require('fs').readFileSync('src/app.js','utf8'))"`
+- 동작: 합친 HTML 을 브라우저에서 열고 상단 "… ms 에 다시 계산" 이 뜨는지, 빨간 "계산 오류" 가 없는지 본다. 개발자 도구(F12) Console 에 오류가 있으면 줄 번호가 `app.js` 기준이 아니라 합친 HTML 기준이므로, 합친 파일에서 `(function() {` 가 시작하는 줄을 빼면 `app.js` 줄이 된다.
