@@ -17,21 +17,45 @@ from pathlib import Path
 #   thick_m   : 2D만 있을 때 쓰는 "유효 두께" (면적 × 두께 = 부피 근사, Andriolo W3 방식)
 #   kg_per_m  : 선형 물체(로프)용 단위길이당 무게 — 있으면 길이 모델도 같이 계산
 #   aliases   : 업체 클래스 이름에 이 문자열이 들어 있으면 이 클래스로 매핑 (소문자 비교)
+#   thick_range_m : 현실적인 두께 범위 [최소, 최대] — 업체 "면적×계수" 방식과 비교할 때 사용 (가정)
+#   compress  : 마대에 담을 때 압축비 (겉 부피 ÷ 압축비 = 마대 적재 부피). EPS 5~10×, 어망 2~3×, PET 4× (가정)
+#   wet       : 젖었을 때 무게 배수 (어망·로프는 물 머금어 1.5~2.5×, 나머지 ~1) (가정)
 CLASSES = {
-    "eps_buoy":      {"rho_app": 25,  "thick_m": 0.35, "aliases": ["스티로폼 부표", "스티로폼부표", "eps_buoy", "styrofoam buoy", "foam buoy"]},
-    "eps_box":       {"rho_app": 8,   "thick_m": 0.30, "aliases": ["스티로폼 박스", "스티로폼박스", "eps_box", "styrofoam box", "foam box"]},
-    "eps_fragment":  {"rho_app": 20,  "thick_m": 0.03, "aliases": ["스티로폼", "styrofoam", "eps", "foam"]},  # EPS 11–32 kg/m³ (Wikipedia)
-    "plastic_buoy":  {"rho_app": 60,  "thick_m": 0.30, "aliases": ["플라스틱 부표", "플라스틱부표", "plastic buoy", "buoy", "부표"]},
-    "pet_bottle":    {"rho_app": 33,  "thick_m": 0.06, "aliases": ["pet", "페트", "bottle", "병"]},
-    "net":           {"rho_app": 150, "thick_m": 0.12, "aliases": ["어망", "그물", "net"]},
-    "rope":          {"rho_app": 400, "thick_m": 0.03, "kg_per_m": 0.25, "aliases": ["로프", "밧줄", "rope"]},
-    "glass":         {"rho_app": 600, "thick_m": 0.07, "aliases": ["유리", "glass"]},
-    "metal":         {"rho_app": 100, "thick_m": 0.10, "aliases": ["금속", "캔", "metal", "can"]},
-    "wood":          {"rho_app": 500, "thick_m": 0.05, "aliases": ["목재", "나무", "wood"]},
-    "tire":          {"rho_app": 125, "thick_m": 0.20, "aliases": ["타이어", "tire", "tyre"]},
-    "plastic_other": {"rho_app": 80,  "thick_m": 0.03, "aliases": ["플라스틱", "plastic", "비닐", "vinyl"]},
-    "other":         {"rho_app": 100, "thick_m": 0.03, "aliases": []},
+    "eps_buoy":      {"rho_app": 25,  "thick_m": 0.35, "thick_range_m": [0.15, 0.40], "compress": 5, "wet": 1.1,
+                      "aliases": ["스티로폼 부표", "스티로폼부표", "eps_buoy", "styrofoam buoy", "foam buoy"]},
+    "eps_box":       {"rho_app": 8,   "thick_m": 0.30, "thick_range_m": [0.20, 0.35], "compress": 8, "wet": 1.1,
+                      "aliases": ["스티로폼 박스", "스티로폼박스", "eps_box", "styrofoam box", "foam box"]},
+    "eps_fragment":  {"rho_app": 20,  "thick_m": 0.03, "thick_range_m": [0.02, 0.10], "compress": 10, "wet": 1.1,
+                      "aliases": ["스티로폼", "styrofoam", "eps", "foam", "sty"]},  # EPS 11–32 kg/m³ (Wikipedia); 압축·젖음은 가정
+    "plastic_buoy":  {"rho_app": 60,  "thick_m": 0.30, "thick_range_m": [0.15, 0.40], "compress": 1, "wet": 1.0,
+                      "aliases": ["플라스틱 부표", "플라스틱부표", "plastic buoy", "buoy", "부표"]},  # 단단해서 압축 안 됨
+    "pet_bottle":    {"rho_app": 33,  "thick_m": 0.06, "thick_range_m": [0.05, 0.10], "compress": 4, "wet": 1.0,
+                      "aliases": ["pet", "페트", "bottle", "병"]},  # PET 4× (가정: 발로 밟아 찌그러뜨림)
+    "net":           {"rho_app": 150, "thick_m": 0.12, "thick_range_m": [0.05, 0.30], "compress": 2.5, "wet": 2.0,
+                      "aliases": ["어망", "그물", "net", "fis"]},  # 젖음 1.5~2.5× (가정)
+    "rope":          {"rho_app": 400, "thick_m": 0.03, "thick_range_m": [0.02, 0.05], "kg_per_m": 0.25, "compress": 2, "wet": 1.8,
+                      "aliases": ["로프", "밧줄", "rope", "rop"]},  # 젖음 1.5~2.5× (가정)
+    "glass":         {"rho_app": 600, "thick_m": 0.07, "thick_range_m": [0.05, 0.10], "compress": 1, "wet": 1.0,
+                      "aliases": ["유리", "glass"]},
+    "metal":         {"rho_app": 100, "thick_m": 0.10, "thick_range_m": [0.05, 0.15], "compress": 2, "wet": 1.0,
+                      "aliases": ["금속", "캔", "metal", "can"]},
+    "wood":          {"rho_app": 500, "thick_m": 0.05, "thick_range_m": [0.03, 0.10], "compress": 1, "wet": 1.3,
+                      "aliases": ["목재", "나무", "wood"]},
+    "tire":          {"rho_app": 125, "thick_m": 0.20, "thick_range_m": [0.15, 0.25], "compress": 1, "wet": 1.0,
+                      "aliases": ["타이어", "tire", "tyre"]},
+    "cardboard":     {"rho_app": 30,  "thick_m": 0.10, "thick_range_m": [0.05, 0.30], "compress": 6, "wet": 2.0,
+                      "aliases": ["골판지", "종이상자", "cardboard", "carton", "paper box"]},  # 빈 골판지 상자 겉보기밀도 ~30 (가정)
+    "plastic_other": {"rho_app": 80,  "thick_m": 0.03, "thick_range_m": [0.02, 0.10], "compress": 3, "wet": 1.0,
+                      "aliases": ["플라스틱", "plastic", "비닐", "vinyl", "pla"]},
+    "other":         {"rho_app": 100, "thick_m": 0.03, "thick_range_m": [0.02, 0.10], "compress": 1.5, "wet": 1.0, "aliases": []},
 }
+
+# 업체(문갑도 라벨) 방식: 박스 면적(m²) × 고정 계수(kg/m²) = 무게. 실측이 아니라 계산값.
+COMPANY_KG_PER_M2 = {"STY": 0.012, "ROP": 0.024, "FIS": 0.024, "PLA": 0.020}
+# 내부 클래스 → 업체 재질 코드 (비교 그림용)
+COMPANY_CODE = {"eps_buoy": "STY", "eps_box": "STY", "eps_fragment": "STY", "rope": "ROP", "net": "FIS",
+                "plastic_buoy": "PLA", "pet_bottle": "PLA", "plastic_other": "PLA"}
+COMPANY_CODE_NAME = {"STY": "스티로폼", "ROP": "로프", "FIS": "어망", "PLA": "플라스틱"}
 
 DEFAULT = {
     "classes": CLASSES,

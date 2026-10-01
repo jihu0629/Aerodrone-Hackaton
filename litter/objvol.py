@@ -23,7 +23,7 @@ import numpy as np
 from .orbit3d import _center, _viewdir
 from .seg import _imread, _imwrite
 from .telemetry import read_srt
-from .volume import fit_ground, to_metric, volume_heightmap, volume_hull
+from .volume import fit_ground, to_metric, to_metric_auto, volume_heightmap, volume_hull
 
 
 def read_ply(path):
@@ -60,8 +60,11 @@ class Scene:
         C = np.array([_center(i) for i in self.imgs])
         D = np.array([_viewdir(i) for i in self.imgs])
         alt = np.array([tel[fidx[i.name]]["alt"] for i in self.imgs])
-        self.T, self.R, self.s, self.info = to_metric(P, C, D, alt)
-        self.p0, _ = fit_ground(P)
+        from .geometry import Geo
+        geo = Geo(None, lon=tel[fidx[self.imgs[0].name]]["lon"])
+        gps = np.array([geo.to_xy(tel[fidx[i.name]]["lat"], tel[fidx[i.name]]["lon"]) for i in self.imgs])
+        self.T, self.R, self.s, self.info = to_metric_auto(P, C, D, alt, gps)
+        self.p0 = self.info["p0"]
         self.sparse = P
         self.D = D
 
@@ -165,10 +168,15 @@ def measure_object(sc, sam, center_xy, pts_sfm, n_views=24, search_r=0.8, vote=0
     res = {"tag": tag, "views_used": used, "points_candidate": int(len(cand)), "points_object": int(len(O)),
            "ground_z": g}
     if len(O) >= 10:
+        # 윗면 높이: 발자국 안쪽(중심에서 가까운 절반)의 중앙값 — 모서리 잡음 영향 제거
+        c = np.median(O[:, :2], axis=0)
+        r = np.linalg.norm(O[:, :2] - c, axis=1)
+        h_top = float(np.median(O[r <= np.percentile(r, 50), 2]))
+        O = O[O[:, 2] <= h_top * 1.3 + 0.02]   # 윗면보다 크게 튄 점 제거
         rect = cv2.minAreaRect(O[:, :2].astype(np.float32))
         L, W = sorted(rect[1], reverse=True)
-        h_top = float(np.percentile(O[:, 2], 90))
-        v_hm, foot, _ = volume_heightmap(O)
+        dense = len(O) > 300
+        v_hm, foot, _ = volume_heightmap(O, agg="median" if dense else "max")
         res.update(length_m=float(L), width_m=float(W), height_m=h_top, volume_heightmap_L=v_hm * 1000,
                    volume_hull_L=volume_hull(O) * 1000)
         if best_area:

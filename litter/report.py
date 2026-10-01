@@ -180,10 +180,18 @@ def fig_ablation(out, rows):
 def _crop_b64(images_dir, it, ctx=3.0, size=260):
     import cv2
 
+    from .seg import _imread  # 한글 경로 대응
+    if it.get("thumb"):  # 미리 만들어 둔 썸네일(objvol *_masks.jpg 등)이 있으면 그대로 사용
+        img = _imread(it["thumb"])
+        if img is None:
+            return None
+        s = min(1.0, size * 3 / max(img.shape[1], 1))
+        img = cv2.resize(img, None, fx=s, fy=s, interpolation=cv2.INTER_AREA) if s < 1 else img
+        ok, buf = cv2.imencode(".jpg", img, [cv2.IMWRITE_JPEG_QUALITY, 80])
+        return base64.b64encode(buf).decode() if ok else None
     if not images_dir:
         return None
     p = Path(images_dir) / it["image"]
-    from .seg import _imread  # 한글 경로 대응
     img = _imread(p) if p.exists() else None
     if img is None:
         return None

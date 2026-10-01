@@ -22,7 +22,7 @@ from .orbit3d import _center, _viewdir
 from .orbit_map import fit_rigid2d
 from .seg import _imread, _imwrite
 from .telemetry import read_srt
-from .volume import fit_ground, to_metric
+from .volume import fit_ground, to_metric, to_metric_auto
 
 
 def build(orbit_dir, srt, out, objects_csv=None, res=0.01, margin=5.0):
@@ -38,11 +38,11 @@ def build(orbit_dir, srt, out, objects_csv=None, res=0.01, margin=5.0):
     C = np.array([_center(i) for i in imgs])
     D = np.array([_viewdir(i) for i in imgs])
     alt = np.array([tel[fidx[i.name]]["alt"] for i in imgs])
-    T, R, s, _ = to_metric(P, C, D, alt)
-    p0, _ = fit_ground(P)
-    Cm = T(C)
     geo = Geo(None, lon=tel[fidx[imgs[0].name]]["lon"])
     gps = np.array([geo.to_xy(tel[fidx[i.name]]["lat"], tel[fidx[i.name]]["lon"]) for i in imgs])
+    T, R, s, info0 = to_metric_auto(P, C, D, alt, gps)
+    p0 = info0["p0"]
+    Cm = T(C)
     R2, t2, rms = fit_rigid2d(Cm[:, :2], gps)
 
     # UTM 격자 (북쪽이 위): 카메라 위치 범위 + margin

@@ -47,6 +47,7 @@
 | `video_map.py` | SRT만으로 지도 (방향 정보 없어 부정확 — orbit_map 사용 권장) |
 | `weight.py`, `plan.py`, `report.py`, `geometry.py`, `camera.py` | 무게(물리+학습+구간), 수거계획·작업카드, 위치 계산 (합성 데이터로 검증됨) |
 | `live.py` | 실시간 미러링 탐지(scrcpy+adb) — **실시간은 접었으므로 참고용** |
+| `sim_ortho.py` | **실시간 드론 운용 시뮬레이터** — 정사영상 MGD.tif를 가상 세계로 (윈도우 읽기만), 지그재그 커버리지 → 가상 카메라 프레임 → YOLO(CPU) → 지도 클러스터링 → 애매한 후보 저고도 재방문 → 업체 라벨 재현율. `--model aihub|uavvaste`, `--no-revisit`. 결과 `runs/sim/<name>/` (map.png, map.html, flight.mp4/gif, detections.csv, objects.csv, summary.json). 100×100 m 라벨 밀집 구간 기준 3분 |
 | `synth.py` | 합성 해변 데이터 생성 (파이프라인 검증용) |
 
 ## 4. 지금까지 결과 (숫자)
@@ -67,7 +68,26 @@
 | 작은 | 23×17×8, 3.1 L | 15 L | 21×14×12 cm, 1.8~2.0 L (점 11개뿐, 불안정) |
 | 큰 | 60×45×12, 32.4 L | 26~55 L | 64×41×14 cm, 27.9~30.8 L (−14 ~ −5%) |
 
-- 남은 오차 원인: 높이 2~4 cm 과대(수직 촬영), 작은 물체 점 부족
+- **조밀 복원 완료** (COLMAP GPU, 점 243만 개 → `runs/orbit/0007/fused_dense.ply`, 결과 `runs/orbit/0007/objvol_dense/`)
+  + 높이를 '최댓값'이 아닌 **중앙값 기준**으로 바꿈 (모서리 잡음 제거):
+
+| 상자 | 정답 | 조밀+마스크+중앙값 (높이지도 / 마스크면적×높이) |
+|---|---|---|
+| 작은 | 23×17×8 cm, 3.1 L | 27×19×7 cm, **3.0 L (−3%) / 3.4 L (+10%)** |
+| 큰 | 60×45×12 cm, 32.4 L | 62×49×13 cm, **38.7 L (+19%) / 39.2 L (+21%)** |
+
+- 남은 오차: 큰 상자 바닥면이 약 10% 크게(가장자리 그림자 경계), 높이 +1 cm. 볼록껍질 부피는 +60%로 과대 → 높이지도 방식 사용 권장
+- 조밀 복원은 위 '진행 중' 1번 명령으로 재현 가능 (100프레임 약 30분)
+
+**시뮬레이터 (`sim_ortho`, 라벨 밀집 100×100 m, 고도 20 m / 재방문 8 m, CPU, 라벨 7개)**
+
+| 실행 | 확정 물체 | 재현율 | 비행 |
+|---|---|---|---|
+| `runs/sim/aihub_cov` (커버리지만) | 8 | 0.71 (5/7) | 679 m · 136 s |
+| `runs/sim/aihub_rv` (재방문 25회) | 14 | **0.86 (6/7)** | 1718 m · 498 s (+697 m) |
+| `runs/sim/uav_cov` / `uav_rv` (UAVVaste) | 2 / 15 | 0.14 (1/7) | — |
+
+- 재방문은 애매한 후보(0.25~0.5) 25개 중 22개 기각·3개 확정 — 한 프레임에서만 잡힌 불안정 탐지 거르기 효과. 정밀도는 미라벨 쓰레기 때문에 참고용.
 
 ## 5. 진행 중이던 작업 (새 세션에서 이어서)
 
@@ -90,6 +110,21 @@
 2. **AI Hub 모델 학습 이어하기** (5/12 에폭):
    `.venv/Scripts/python.exe -c "from ultralytics import YOLO; YOLO('runs/seg/aihub_gsd_det_s/weights/last.pt').train(resume=True)"`
    끝나면 문갑도 칩 재현율 재측정 (`seg.predict` → `seg.eval --iou 0.3`, 이전 0.28과 비교).
+
+## 5-1. 영상 0010 (2026-10-01 17:17 촬영, 골목 왕복 비행) — 세션과 별개로 돌고 있음
+
+- 영상: `..\DJI_20261001171735_0010_D.MP4` + `.SRT` (40.7초, 실제 높이 약 2 m, 카메라 앞쪽 약 30° 아래, 25 m 왕복)
+- 3D: 순차 매칭은 왕복 때문에 3조각으로 쪼개짐 → `--exhaustive`로 100/100 한 덩어리 (`runs/orbit/0010x`, 점 91,282)
+- **SRT 고도(3.7 m)가 실제 바닥 높이와 안 맞음**(이륙 지점이 높았던 듯) → `volume.to_metric_auto`가 수평 이동 10 m 이상이면
+  **GPS 경로로 축척**을 맞추도록 수정 (3D↔GPS 잔차 8.07 m → 0.51 m). 0007은 고도 기준 그대로(편차 2.8%)
+- 지도·정사영상: `runs/map/0010/` (map.html, mosaic_objects.jpg 24×33 m, sheet.jpg, objects.csv)
+- **조밀 복원 + 부피**: `C:\work\dense0010\run_all.bat`을 별도 프로세스로 실행해 둠 (세션 종료와 무관)
+  - 진행 확인: `C:\work\dense0010\status.txt` (START → STEREO DONE → FUSION DONE → VOLUME DONE)
+  - 세부 진행: `C:\work\dense0010\log_pm.txt`의 마지막 "Processing view N / 100" (1차·2차 두 번 돎)
+  - 결과: `runs/orbit/0010x/objvol_dense/objvol.json` (쓰레기 후보 전부의 크기·부피), 마스크 그림 `*_masks.jpg`
+  - 실패 시 다시: `cmd /c C:\work\dense0010\run_all.bat`
+  - `C:\work\drone`은 `드론` 폴더로 가는 연결(junction) — 배치 파일에서 한글 경로를 피하려고 만든 것
+- 상자 실제 크기는 아직 못 받음 → 사용자에게 받아서 `--truth`로 비교
 
 ## 6. 다음 할 일 후보 (사용자에게 제안만, 먼저 묻기)
 

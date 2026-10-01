@@ -1,0 +1,236 @@
+{
+ "name": "uav_rv",
+ "model": "C:\\Users\\user\\Desktop\\드론\\aerodrone_hackathon\\runs\\seg\\uavvaste_det_s\\weights\\best.pt",
+ "device": "cpu",
+ "bbox_epsg5186": [
+  120809.67317919373,
+  508050.2324007016,
+  120909.67317919373,
+  508150.2324007016
+ ],
+ "area_m2": 10000.0,
+ "covered_m2": 10000.0,
+ "coverage_frac": 1.0,
+ "alt_m": 20.0,
+ "alt_revisit_m": 8.0,
+ "gsd_cm": 2.93,
+ "gsd_revisit_cm": 1.17,
+ "camera": {
+  "w": 1024,
+  "h": 768,
+  "hfov": 73.7
+ },
+ "speed_mps": 5.0,
+ "dt_s": 1.0,
+ "overlap_side": 0.3,
+ "plan": {
+  "lines": 6,
+  "spacing_m": 15.7386078603263,
+  "footprint_m": [
+   29.978300686335814,
+   22.48372551475186
+  ]
+ },
+ "wind": [
+  0.0,
+  0.0
+ ],
+ "gust": 0.0,
+ "jitter": 0.3,
+ "conf_lo": 0.25,
+ "conf_hi": 0.5,
+ "merge_m": 1.0,
+ "match_tol_m": 1.0,
+ "flight_time_s": 491.5,
+ "flight_dist_m": 1880.9,
+ "coverage_only_dist_m": 1261.6,
+ "revisit_extra_dist_m": 619.4,
+ "frames": 544,
+ "frames_detected": 254,
+ "detections_raw": 153,
+ "objects_total": 34,
+ "revisits": 19,
+ "revisit_log": [
+  {
+   "oid": 10,
+   "x": 120900.45,
+   "y": 508055.05,
+   "cov_max": 0.382,
+   "rv_max": -1.0,
+   "result": "rejected"
+  },
+  {
+   "oid": 9,
+   "x": 120882.8,
+   "y": 508075.72,
+   "cov_max": 0.298,
+   "rv_max": 0.255,
+   "result": "rejected"
+  },
+  {
+   "oid": 8,
+   "x": 120873.67,
+   "y": 508072.61,
+   "cov_max": 0.262,
+   "rv_max": -1.0,
+   "result": "rejected"
+  },
+  {
+   "oid": 6,
+   "x": 120870.54,
+   "y": 508074.56,
+   "cov_max": 0.252,
+   "rv_max": -1.0,
+   "result": "rejected"
+  },
+  {
+   "oid": 7,
+   "x": 120869.95,
+   "y": 508071.87,
+   "cov_max": 0.264,
+   "rv_max": 0.657,
+   "result": "confirmed"
+  },
+  {
+   "oid": 3,
+   "x": 120853.24,
+   "y": 508070.15,
+   "cov_max": 0.357,
+   "rv_max": 0.521,
+   "result": "confirmed"
+  },
+  {
+   "oid": 5,
+   "x": 120849.23,
+   "y": 508068.24,
+   "cov_max": 0.399,
+   "rv_max": -1.0,
+   "result": "rejected"
+  },
+  {
+   "oid": 2,
+   "x": 120842.44,
+   "y": 508061.02,
+   "cov_max": 0.316,
+   "rv_max": -1.0,
+   "result": "rejected"
+  },
+  {
+   "oid": 4,
+   "x": 120843.9,
+   "y": 508056.06,
+   "cov_max": 0.361,
+   "rv_max": -1.0,
+   "result": "rejected"
+  },
+  {
+   "oid": 20,
+   "x": 120862.28,
+   "y": 508077.84,
+   "cov_max": 0.252,
+   "rv_max": -1.0,
+   "result": "rejected"
+  },
+  {
+   "oid": 19,
+   "x": 120868.04,
+   "y": 508081.63,
+   "cov_max": 0.465,
+   "rv_max": 0.654,
+   "result": "confirmed"
+  },
+  {
+   "oid": 17,
+   "x": 120894.89,
+   "y": 508080.54,
+   "cov_max": 0.309,
+   "rv_max": -1.0,
+   "result": "rejected"
+  },
+  {
+   "oid": 23,
+   "x": 120835.51,
+   "y": 508077.34,
+   "cov_max": 0.286,
+   "rv_max": 0.588,
+   "result": "confirmed"
+  },
+  {
+   "oid": 27,
+   "x": 120822.83,
+   "y": 508113.5,
+   "cov_max": 0.361,
+   "rv_max": 0.791,
+   "result": "confirmed"
+  },
+  {
+   "oid": 26,
+   "x": 120840.01,
+   "y": 508100.73,
+   "cov_max": 0.34,
+   "rv_max": -1.0,
+   "result": "rejected"
+  },
+  {
+   "oid": 25,
+   "x": 120865.2,
+   "y": 508100.81,
+   "cov_max": 0.263,
+   "rv_max": 0.317,
+   "result": "rejected"
+  },
+  {
+   "oid": 29,
+   "x": 120856.24,
+   "y": 508105.12,
+   "cov_max": 0.254,
+   "rv_max": 0.421,
+   "result": "rejected"
+  },
+  {
+   "oid": 30,
+   "x": 120850.66,
+   "y": 508103.93,
+   "cov_max": 0.274,
+   "rv_max": 0.385,
+   "result": "rejected"
+  },
+  {
+   "oid": 32,
+   "x": 120870.53,
+   "y": 508104.16,
+   "cov_max": 0.354,
+   "rv_max": 0.447,
+   "result": "rejected"
+  }
+ ],
+ "eval": {
+  "labels_in_area": 7,
+  "coverage_only": {
+   "confirmed": 5,
+   "candidates": 20,
+   "rejected": 0,
+   "tp": 1,
+   "recall": 0.14285714285714285,
+   "precision": 0.2,
+   "recall_incl_candidates": 0.5714285714285714,
+   "hit_label_seqs": [
+    82
+   ]
+  },
+  "with_revisit": {
+   "confirmed": 15,
+   "candidates": 6,
+   "rejected": 13,
+   "tp": 1,
+   "recall": 0.14285714285714285,
+   "precision": 0.06666666666666667,
+   "recall_incl_candidates": 0.2857142857142857,
+   "hit_label_seqs": [
+    82
+   ]
+  }
+ },
+ "wall_time_s": 146.7,
+ "detect_time_s": 52.5
+}

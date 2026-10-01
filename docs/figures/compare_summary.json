@@ -1,0 +1,45 @@
+{
+  "boxes": [
+    {
+      "item_id": "Plastic_Buoy_55",
+      "cls": "eps_fragment",
+      "company_code": "STY",
+      "area_m2": 0.046533881323098214,
+      "volume_m3": 0.0030416601695210667,
+      "truth_m3": 0.003128,
+      "rho_app": 20,
+      "company_kg": 0.0005584065758771786,
+      "weight_est_kg": 0.060833203390421337,
+      "weight_lo_kg": 0.030416601695210668,
+      "weight_hi_kg": 0.12166640678084267,
+      "truth_kg": 0.06256
+    },
+    {
+      "item_id": "Styrofoam_Buoy_22",
+      "cls": "eps_fragment",
+      "company_code": "STY",
+      "area_m2": 0.29934377067866436,
+      "volume_m3": 0.03870271190302783,
+      "truth_m3": 0.0324,
+      "rho_app": 20,
+      "company_kg": 0.003592125248143972,
+      "weight_est_kg": 0.7740542380605565,
+      "weight_lo_kg": 0.38702711903027825,
+      "weight_hi_kg": 1.548108476121113,
+      "truth_kg": 0.6479999999999999
+    }
+  ],
+  "company_labels": {
+    "n": 42,
+    "sum_kg": 1.3188,
+    "max_kg": 0.2498,
+    "realistic_lo_kg": 114.5922,
+    "realistic_hi_kg": 1355.1019999999999,
+    "codes": {
+      "ROP": 3,
+      "FIS": 1,
+      "STY": 37,
+      "PLA": 1
+    }
+  }
+}

@@ -23,7 +23,7 @@ from .orbit3d import _center, _viewdir
 from .seg import _imread, _imwrite
 from .telemetry import read_srt
 from .video_map import OBSTACLE, _map_html, _thumb
-from .volume import to_metric
+from .volume import to_metric, to_metric_auto
 
 
 def fit_rigid2d(A, B):
@@ -53,13 +53,13 @@ def run(orbit_dir, srt, out, litter_w, obstacle_w=None, conf=0.3, merge_m=0.5, m
     C = np.array([_center(i) for i in imgs])
     D = np.array([_viewdir(i) for i in imgs])
     alt = np.array([tel[fidx[i.name]]["alt"] for i in imgs])
-    T, Rg, s, info = to_metric(P, C, D, alt)
-    Cm = T(C)
     geo = Geo(None, lon=tel[fidx[imgs[0].name]]["lon"])
     gps = np.array([geo.to_xy(tel[fidx[i.name]]["lat"], tel[fidx[i.name]]["lon"]) for i in imgs])
+    T, Rg, s, info = to_metric_auto(P, C, D, alt, gps)
+    Cm = T(C)
     R2, t2, rms = fit_rigid2d(Cm[:, :2], gps)
     to_map = lambda q: np.asarray(q)[..., :2] @ R2.T + t2
-    print(f"3D ↔ GPS 맞춤: 카메라 {len(imgs)}대 · 잔차 {rms:.2f} m (GPS 흔들림 수준) · 축척 편차 {info['scale_spread_pct']:.1f}%")
+    print(f"3D ↔ GPS 맞춤: 카메라 {len(imgs)}대 · 잔차 {rms:.2f} m · 크기 기준 {info.get('scale_source')} · 고도 축척 편차 {info['scale_spread_pct']:.1f}%")
 
     cam = rec.cameras[imgs[0].camera_id]
     models = [("litter", YOLO(str(litter_w)))] + ([("obstacle", YOLO(str(obstacle_w)))] if obstacle_w else [])
