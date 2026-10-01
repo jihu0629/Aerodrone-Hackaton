@@ -53,3 +53,19 @@ tools/
 # 업체 배포 SkySat(상용 위성) 영상이 보이는 그림 — 공개 저장소에 올리지 않는다 (수치 결과 JSON은 포함)
 results/figures/*skysat*.png
 results/skysat_vs_s2_*/*.png
+
+# ---- 2026-10-01: 원래 과제(위성-드론 정합·변화탐지) 코드·결과는 저장소에서 제외 (로컬에는 보관) ----
+pipeline/
+results/
+data/raw/
+data/interim/
+run_all.ps1
+README_WINDOWS.md
+setup_windows.ps1
+check_env.py
+requirements-windows.txt
+litter/live.py
+litter/ingest.py
+
+# 데이터 전체 (용량·저작권)
+data/

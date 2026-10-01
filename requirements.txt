@@ -1,21 +1,18 @@
-arosics==1.13.2
-itk-core==5.4.7
-itk-elastix==0.23.0
-itk-filtering==5.4.7
-itk-io==5.4.7
-itk-numerics==5.4.7
-itk-registration==5.4.7
-itk-segmentation==5.4.7
-itk==5.4.7
-kornia==0.8.2
-kornia_rs==0.2.0
-matplotlib==3.9.4
-numpy==2.0.2
-opencv-python-headless==5.0.0.93
-planetary-computer==1.0.0
-pystac-client==0.8.3
-pystac==1.10.1
-rasterio==1.4.3
-scikit-image==0.24.0
-shapely==2.0.7
-torch==2.8.0
+# 해안쓰레기 드론 파이프라인 (litter/) — Python 3.12, Windows + NVIDIA GPU 기준
+# torch는 CUDA 빌드로: pip install torch==2.8.0 torchvision==0.23.0 --index-url https://download.pytorch.org/whl/cu128
+ultralytics==8.4.170          # YOLO11 · YOLO-World · SAM 2
+pycolmap==4.2.1               # SfM (CPU). 조밀 복원은 COLMAP CUDA 바이너리(tools/colmap) 별도
+opencv-python>=4.10
+numpy>=2.0
+scipy>=1.14
+scikit-learn>=1.5
+matplotlib>=3.9
+pandas>=2.2
+pyproj>=3.6
+rasterio>=1.4                 # 정사영상(GeoTIFF) 창 단위 읽기 (sim_ortho, ortho)
+shapely>=2.0
+folium>=0.17
+pillow>=10
+tqdm
+pyyaml
+# YOLO-World 텍스트 인코더(CLIP)는 ultralytics가 첫 실행 때 자동 설치 (git+https://github.com/ultralytics/CLIP)
