@@ -1,0 +1,79 @@
+{
+ "coast_km": 12.33,
+ "n_segments": 62,
+ "n_selected": 18,
+ "selected_km": 3.6,
+ "selected_frac": 0.292,
+ "n_sorties": 1,
+ "launch": "mobile",
+ "unreachable_segments": [],
+ "flight_km_total": 8.8,
+ "flight_min_total": 21.3,
+ "sorties": [
+  {
+   "id": 0,
+   "segments": [
+    37,
+    38,
+    39,
+    40,
+    49,
+    50,
+    51,
+    52,
+    59,
+    2,
+    3,
+    6,
+    7,
+    8,
+    14,
+    16,
+    19,
+    32
+   ],
+   "km": 8.8,
+   "min": 21.3,
+   "waypoints": 109,
+   "launch_lonlat": [
+    126.110634,
+    37.170471
+   ]
+  }
+ ],
+ "params": {
+  "altitude_m": 60.0,
+  "swath_m": 86.0,
+  "inland_offset_frac": 0.3,
+  "passes": 1,
+  "side_overlap": 0.3,
+  "speed_mps": 5.0,
+  "transit_mps": 10.0,
+  "battery_min": 25.0,
+  "wp_step_m": 50.0,
+  "simplify_m": 4.0,
+  "gimbal_pitch": -90.0
+ },
+ "_note": "고도·촬영폭·속도·배터리·코리더 offset·점수 가중치는 가정값. 만입도 창은 정사각 근사.",
+ "captured_kg_frac": 0.5,
+ "curves": {
+  "만입도만": {
+   "10%": 42.9,
+   "20%": 47.6,
+   "30%": 61.9,
+   "50%": 76.2
+  },
+  "만입도 + 노출 + 띠 폭 (기본 점수)": {
+   "10%": 33.3,
+   "20%": 50.0,
+   "30%": 59.5,
+   "50%": 73.8
+  },
+  "노출만 (풍향 315°)": {
+   "10%": 7.1,
+   "20%": 21.4,
+   "30%": 35.7,
+   "50%": 42.9
+  }
+ }
+}
