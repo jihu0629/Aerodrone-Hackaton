@@ -11,6 +11,7 @@ DJI Mini 5 Pro → (아이폰 DJI Fly, RTMP) → MediaMTX(PC) → RTSP → **이
        scripts/27_photo_meta.py    사진 XMP/EXIF → GPS·고도·짐벌각 CSV·COLMAP GPS 기준
 3단계  scripts/24_select_frames.py 흐림·중복 프레임 제거
        scripts/25_colmap_cmds.py   COLMAP sparse 복원 명령 생성/실행 (--ref 로 미터 축척 정렬)
+       scripts/30_orbit_volume.py  물체 주위를 돈 영상 → SfM(CPU) → 바닥 평면 → visual hull → 길이·넓이·높이·부피  ← 실제 영상으로 동작 확인
 시험   scripts/29_test_publish.py  드론 없이 로컬 영상을 RTMP 로 송출해 전체 경로 시험
 ```
 
@@ -217,6 +218,45 @@ RTMP 와 미러링이 아이폰 업로드 대역폭을 나눠 쓰므로, 미러�
 
 ---
 
+## 5.5 물체 하나의 부피: `30_orbit_volume.py` (실제 영상으로 확인)
+
+아이폰으로 바닥 위 상자를 한 바퀴 돌며 찍은 8 초 영상(1080p, 242 프레임)으로 전체 흐름이 동작한다.
+
+```powershell
+.\.venv\Scripts\python.exe scripts\30_orbit_volume.py IMG_6571.MOV --out data\objects\box1 --camera-height-m 1.0      # 대략 축척
+.\.venv\Scripts\python.exe scripts\30_orbit_volume.py IMG_6571.MOV --out data\objects\box1 --pick-ref img005.jpg img020.jpg --ref-length-m 0.60   # 기준 길이로 축척 (권장)
+```
+
+흐름과 각 단계가 그렇게 된 이유:
+
+| 단계 | 방법 | 이유 |
+|---|---|---|
+| 프레임 | 영상에서 40 장, 긴 변 1080 px | 41 장 모두 등록됨. 더 많으면 느려지기만 함 |
+| SfM | pycolmap: SIFT → 순차 매칭(overlap 12) → 증분 SfM, **CPU** | 이 환경(4 스레드)에서 추출+매칭+SfM 약 1.5 분. 희소 점 43,000 개(대부분 얼룩무늬 바닥), 상자 위에는 28 개뿐 |
+| 바닥 | RANSAC 평면 (내점 95 %) | 바닥이 가장 큰 평면. 높이의 기준 |
+| 축척 | 기준 길이(두 이미지에서 같은 두 점 클릭) 또는 카메라 높이 | SfM 은 단위가 없다. 기준 길이가 없으면 결과는 상대값 |
+| 마스크 | rembg(U2Net, CPU) → 물체 중심을 포함하는 성분 → 품질 필터(면적·중심 이상치 제외) | 밝기 휴리스틱은 그늘진 옆면을 놓쳐 바닥 쪽이 깎여 나갔다(역피라미드). U2Net 은 41 장 모두 온전한 실루엣 |
+| 부피 | **visual hull**: 복셀 96³, 모든 뷰의 실루엣 안에 든 복셀만 남김(엄밀 교차) | 흰 상자는 특징점이 없어 점군 기반 부피가 불가능. 실루엣은 질감과 무관 |
+| 높이 | 희소 점(윗면 로고·글자) 90 % 높이 ×1.2 로 복셀 영역 상한 + 단면적 90 % 높이 | 위에서만 찍은 orbit 은 실루엣 교차가 윗면 위로 '지붕' 을 남겨 height_max 가 1.4 배 이상 과대(합성 실험) |
+
+결과(카메라 높이 1.0 m 가정 → **축척은 미확정**): 길이 0.239 × 너비 0.178 × 높이 0.069 m, 바닥 면적 0.042 m², 부피 2.7 L.
+실제 상자를 자로 재서 비교하면 축척·오차를 바로 확인할 수 있다 (`--ref` 로 상자 한 변을 기준 길이로 주면 나머지 두 치수가 검증값이 된다).
+
+합성 상자(0.30 × 0.20 × 0.12 m, 24 뷰)로 잰 정확도:
+- 단일 링(고도각 35°): 길이·너비 +5~8 % (스치는 광선이 윗모서리를 지나는 기하 한계 + 복셀 1 칸), 단면적 90 % 높이 ±8 %, 부피 +3~7 %
+- 높은 링 + 낮은 링(15°): height_max 의 '지붕' 이 사라짐. **촬영 권장: 높은 궤도 한 바퀴 + 낮은 궤도(20~40°) 한 바퀴**
+- 틀린 마스크 3 장을 섞어도 품질 필터가 걸러 부피 ±12 % 안
+
+출력: `metrics.json`(모든 수치·진단), `report.md`, `masks/`, `overlay/`(hull 을 원본에 투영한 확인 이미지), `sparse_points.ply`·`hull_surface.ply`(CloudCompare/MeshLab).
+
+한계:
+- visual hull 은 오목한 부분을 못 깎는다 → 부피 상한. 상자·부표·통처럼 볼록한 물체에 적합. 그물·로프 더미는 과대.
+- 바닥에 닿은 면은 바닥 평면으로 가정. 모래에 파묻힌 부분은 못 본다.
+- 축척 오차 ×3 ≈ 부피 오차. 드론 영상이면 .SRT 의 GPS(26_srt_telemetry.py → geo_gps.txt) 나 알려진 길이로 축척을 잡는다.
+- dense(패치매치)는 CUDA 가 필요해 쓰지 않았다. GPU 가 확인되면 COLMAP dense 로 질감 있는 물체의 메시를 만들 수 있다.
+
+---
+
 ## 6. 검증 상태 (2026-10-01)
 
 **이 환경(Linux 컨테이너, 드론 없음)에서 실제로 돌려 확인한 것**
@@ -233,6 +273,7 @@ RTMP 와 미러링이 아이폰 업로드 대역폭을 나눠 쓰므로, 미러�
 - COLMAP 실행 (명령 생성만 테스트).
 
 - `--ocr-screen` 통합: 가짜 화면 소스·가짜 엔진으로 수신과 OCR 이 동시에 돌며 telemetry.csv 와 HUD 문구가 생기는 것, ROI 파일이 없을 때 OCR 만 꺼지고 수신은 계속되는 것을 테스트로 확인. 실제 mss 화면 캡처는 Windows 에서 확인 필요.
+- `30_orbit_volume.py`: 사용자가 올린 실제 orbit 영상(아이폰, 상자)으로 프레임 추출 → pycolmap CPU SfM(41/41 등록) → 평면 → rembg 마스크 → visual hull → 치수·부피·overlay 까지 동작 확인. 축척은 미확정(기준 길이 없음). 합성 상자 기하 테스트 8개 통과.
 - SRT/XMP 파서: 공개 예시 형식의 SRT 2블록과 합성 XMP 패킷으로 CSV·geo_gps.txt 생성, 영상 프레임↔SRT 매칭(테스트 5개)을 확인. **실제 Mini 5 Pro 파일로는 아직 확인하지 못함.**
 
 **다음에 필요한 정보**: ① 비행 자막 ON 상태로 찍은 짧은 영상의 .SRT 앞 20줄과 사진 1장(파서 확정) ② DJI Fly 비행 화면 스크린샷 1장(OCR 을 쓸 경우) ③ PC 의 GPU/VRAM/RAM (`dxdiag` 또는 작업 관리자 → 성능) ④ 조종기 모델명(참고용).

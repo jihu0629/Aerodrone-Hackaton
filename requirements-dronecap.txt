@@ -8,5 +8,9 @@ rapidocr_onnxruntime      # CPU OCR (PaddleOCR 모델을 ONNX 로 변환). pip �
 mss                       # 화면 캡처 (미러링 창 OCR)
 # pytesseract             # 선택: tesseract.exe 를 따로 설치했을 때
 
+# 3단계 물체 3D 복원·부피 (scripts/30_orbit_volume.py)
+pycolmap>=3.11            # COLMAP 파이썬 패키지. CPU 로 SIFT·매칭·SfM 동작 (Windows wheel 제공). dense 는 CUDA 필요라 사용 안 함
+rembg[cpu]                # U2Net 전경 분리 (실루엣 마스크). 첫 실행 때 모델 약 170 MB 다운로드. 없으면 밝기 휴리스틱으로 대체
+
 # 테스트
 pytest
