@@ -1,0 +1,4 @@
+outputs/*.npy
+outputs_prior1000/
+!outputs_prior1000/summary.json
+!outputs_prior1000/비교표.md
