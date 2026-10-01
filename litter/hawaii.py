@@ -575,6 +575,9 @@ def cmd_figs(a):
     figs = ROOT / "docs/figures"
     gt = _boxes_of(OUT / "labels_all.json")
     preds = {k: _boxes_of(OUT / f"pred_{k}_eval{a.suffix}.json", a.conf) for k in ("world", "aihub")}
+    ft_path = OUT / "pred_hawaii_ft_eval_x1.json"  # 하와이 미세조정 모델(원 해상도, conf 0.3)
+    if ft_path.exists():
+        preds["ft"] = _boxes_of(ft_path, 0.3)
     chips = [r for r in load_chips() if r["split"] == "eval" and int(r["n_labels"]) >= 2]
     chips.sort(key=lambda r: -(len(preds["world"].get(r["filename"], [])) + len(preds["aihub"].get(r["filename"], []))))
     # 섬 골고루: 라벨 많은 칩 중 섬별 최대 2장
@@ -586,7 +589,9 @@ def cmd_figs(a):
     n = len(pick)
     rows = [("라벨 (정답)", gt, "#2ec27e"), (f"YOLO-World (텍스트 클래스, conf≥{a.conf})", preds["world"], "#e63946"),
             (f"AI Hub 학습 모델 (conf≥{a.conf})", preds["aihub"], "#2a78d6")]
-    fig, axes = plt.subplots(3, n, figsize=(2.9 * n, 9.4))
+    if "ft" in preds:
+        rows.append(("AI Hub → 하와이 10분 미세조정 (conf≥0.3)", preds["ft"], "#f4a261"))
+    fig, axes = plt.subplots(len(rows), n, figsize=(2.9 * n, 3.1 * len(rows) + 0.4))
     for i, r in enumerate(pick):
         img = _imread(CHIPS / r["filename"])[:, :, ::-1]
         for j, (title, src, col) in enumerate(rows):
@@ -603,7 +608,7 @@ def cmd_figs(a):
                 ax.set_ylabel(title, fontsize=9, color=col)
             if j == 0:
                 ax.set_title(f"{r['island']} · 라벨 {r['n_labels']}", fontsize=8)
-    fig.suptitle("하와이 공개 항공영상(2 cm/px) 칩: 라벨 vs 탐지 — 재학습 없이 우리 파이프라인 적용", fontsize=12)
+    fig.suptitle("하와이 공개 항공영상(2 cm/px) 칩: 라벨 vs 탐지 — 재학습 없음(0.24) → 현지 사진 10분 미세조정(0.58)", fontsize=12)
     fig.tight_layout(rect=(0, 0, 1, 0.97))
     p = figs / "17_하와이_칩_라벨vs탐지.png"
     fig.savefig(p, dpi=140)
