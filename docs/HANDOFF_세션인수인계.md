@@ -89,7 +89,20 @@
 
 - 재방문은 애매한 후보(0.25~0.5) 25개 중 22개 기각·3개 확정 — 한 프레임에서만 잡힌 불안정 탐지 거르기 효과. 정밀도는 미라벨 쓰레기 때문에 참고용.
 
-## 5-0. 2026-10-01 밤 (대회 D-1, 마감 10-02 아침) 현재 상태 — **먼저 읽을 것**
+## 5-0-0. 2026-10-02 02:45 최신 상태 (리눅스 재부팅 전 기록) — **먼저 읽을 것**
+
+- **탐지 모델 확정 수치** (`docs/figures/21_다중현장_통합모델_비교.png`, `cross_eval_multi.json`, `multi_site_data_table.md`):
+  - 문갑도(우리 현장): **AI Hub 5에폭 모델이 최고** 재현율 0.74 / AP50 0.54 (`runs/seg/aihub_gsd_det_s`)
+  - 하와이: 8클래스·1024 미세조정 AP50 0.62 (`runs/seg/hawaii_ft8`), 통합 모델 0.52
+  - 튀니지: 통합 모델 AP50 0.69 (`runs/seg/multi_site`, AI Hub+하와이+튀니지 5,405장 12에폭)
+  - Colab 30에폭 AI Hub 모델은 현장 전이 악화(문갑도 0.34) → 데이터 다양성이 핵심이라는 근거
+  - 발표 프레이밍: "해안쓰레기 데이터 부족 → 여러 지역 합쳐 학습. 국내 유지, 해외 2~3배"
+- **최종 학습(YOLO11-m 1280, 통합 데이터)**: 노트북에서 돌리다 리눅스 재부팅으로 중단 → **Colab**으로 이관. 패키지 `C:\work\colab\{seg_multi.zip(727 MB), multi_train_colab.ipynb, evalpack.zip, eval_models.py}` (저장소 `docs/colab/`에도 있음). 결과 `Drive/aerodrone/out/multi_m1280_best.pt` + `cross_eval.md`가 생기면 `runs/seg/multi_m1280/weights/best.pt`로 받아 `crosseval`·`hawaii eval`로 재측정.
+- **0015 상자 30개 일괄 3D**: 3D 25/25, 위치 26/30, 부피 11/30(정답 42×32×39, 높이는 ±6 cm 4개, 발자국 흔들림). `runs/orbit/0015_all/`.
+- **GitHub**: 결과물 1,920개·가중치 7개·코드·문서 전부 `feature/coastal-litter-pipeline`에 푸시됨. SAM2(155 MB)만 제외(자동 다운로드).
+- **다음**: ROS 2/Gazebo 시뮬(리눅스, 4절 조사 참고 — 6시간 안엔 PX4 SITL+gz 기본 월드+카메라 토픽+YOLO 정도가 현실적, 안 되면 `sim_ortho` 영상으로 대체), 발표 슬라이드(`docs/발표_스토리라인.md` 12장).
+
+## 5-0. 2026-10-01 밤 (대회 D-1, 마감 10-02 아침) 현재 상태
 
 전체 결과·수치는 **`docs/파이프라인_결과정리.md`** 에 정리돼 있음(발표용). 아래는 밤 작업 요약과 돌고 있는 것.
 
