@@ -477,7 +477,7 @@ def cmd_demo(a):
         files = [r["filename"] for r in load_chips() if r["island"] == a.island]
         predict(a.model, files, pred, conf=0.05, batch=a.batch, device=a.device, wait=not a.no_wait, scale=a.scale)
     print(f"[1] 탐지 → 위경도 (conf≥{a.conf})")
-    objs = detections_to_objects(pred, a.island, a.conf, material_pred=a.material_pred)
+    objs = detections_to_objects(pred, a.island, a.conf, material_pred=a.material_pred, max_thumbs=a.max_thumbs)
     if not objs:
         raise SystemExit("물체 없음")
     geo = Geo(lon=objs[0]["lon"])
@@ -651,6 +651,7 @@ def main(argv=None):
     p.add_argument("--max_cards", type=int, default=60)
     p.add_argument("--out_name", help="runs/hawaii/<이름> (기본: 섬 이름)")
     p.add_argument("--material_pred", help="단일클래스 모델용: 재질을 빌려올 AI Hub 예측 COCO")
+    p.add_argument("--max_thumbs", type=int, default=600, help="지도 팝업 썸네일을 넣을 물체 수 (전부 넣으면 HTML 커짐)")
     p.add_argument("--batch", type=int, default=8)
     p.add_argument("--device", default="0")
     p.add_argument("--no_wait", action="store_true")
