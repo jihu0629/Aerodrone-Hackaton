@@ -19,7 +19,7 @@ import random
 import time
 from pathlib import Path
 
-os.environ.setdefault("CUDA_VISIBLE_DEVICES", "")  # GPU 사용 금지
+DEVICE = "cpu"  # 단독 실행(main)은 CPU. multisite.eval에서 "0"으로 바꿔 GPU 사용
 import cv2
 import numpy as np
 
@@ -33,6 +33,8 @@ MODELS = {
     "uavvaste": {"label": "UAVVaste 모델", "weights": ROOT / "runs/seg/uavvaste_det_s/weights/best.pt"},
     "aihub": {"label": "AI Hub 모델", "weights": ROOT / "runs/seg/aihub_gsd_det_s/weights/best.pt"},
     "colab": {"label": "AI Hub 모델 (Colab 30에폭)", "weights": ROOT / "runs/seg/aihub_gsd_colab/weights/best.pt"},
+    "hawaii_ft8": {"label": "AI Hub→하와이 미세조정(8클래스)", "weights": ROOT / "runs/seg/hawaii_ft8/weights/best.pt"},
+    "multi": {"label": "다중 현장 통합 모델", "weights": ROOT / "runs/seg/multi_site/weights/best.pt"},
     "world": {"label": "YOLO-World (개방형)", "weights": ROOT / "yolov8s-worldv2.pt",
               "classes": {"tunisia": ["plastic bottle", "plastic bag", "cardboard", "glass bottle", "metal can",
                                       "fabric", "wood debris", "litter"],
@@ -97,7 +99,7 @@ def _load(key, dataset):
     return m
 
 
-def _run_tiles(m, img, tile, overlap, conf, merge_ios=0.6, batch=4):
+def _run_tiles(m, img, tile, overlap, conf, merge_ios=0.6, batch=4, augment=False):
     """seg.predict와 같은 타일 추론·병합이되 device='cpu'. 반환: [(x0,y0,x1,y1,cls,score)]"""
     H, W = img.shape[:2]
     tl = _tiles(W, H, tile, overlap) if (W > tile or H > tile) else [(0, 0, W, H)]
@@ -106,7 +108,7 @@ def _run_tiles(m, img, tile, overlap, conf, merge_ios=0.6, batch=4):
     for s in range(0, len(tl), batch):
         chunk = tl[s:s + batch]
         res = m.predict([img[y:y + h, x:x + w] for x, y, w, h in chunk], conf=conf, imgsz=imgsz,
-                        device="cpu", verbose=False)
+                        device=DEVICE, verbose=False, augment=augment)
         for (x, y, w, h), r in zip(chunk, res):
             if r.boxes is None or len(r.boxes) == 0:
                 continue
@@ -123,7 +125,7 @@ def _run_tiles(m, img, tile, overlap, conf, merge_ios=0.6, batch=4):
     return kept
 
 
-def predict_coco(key, dataset, gt, img_dir, tile=1024, overlap=0.2, conf=0.25):
+def predict_coco(key, dataset, gt, img_dir, tile=1024, overlap=0.2, conf=0.25, augment=False):
     m = _load(key, dataset)
     names = m.names
     anns = []
@@ -132,7 +134,7 @@ def predict_coco(key, dataset, gt, img_dir, tile=1024, overlap=0.2, conf=0.25):
         img = _imread(img_dir / im["file_name"])
         if img is None:
             continue
-        for dt in _run_tiles(m, img, tile, overlap, conf):
+        for dt in _run_tiles(m, img, tile, overlap, conf, augment=augment):
             x0, y0, x1, y1 = [float(v) for v in dt["box"]]
             anns.append({"id": len(anns) + 1, "image_id": im["id"], "category_id": dt["cls"] + 1,
                          "segmentation": [[x0, y0, x1, y0, x1, y1, x0, y1]],
@@ -243,6 +245,7 @@ def main(argv=None):
     ap.add_argument("--fig", default="docs/figures/19_튀니지_교차평가.jpg")
     ap.add_argument("--fig_json", default="docs/figures/cross_eval.json")
     a = ap.parse_args(argv)
+    os.environ.setdefault("CUDA_VISIBLE_DEVICES", "")  # 단독 실행은 GPU 사용 금지
     out = ROOT / a.out
     out.mkdir(parents=True, exist_ok=True)
     keys = a.models.split(",")

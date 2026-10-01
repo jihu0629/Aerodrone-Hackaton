@@ -51,7 +51,8 @@ WORLD_CLASSES = ["buoy", "fishing net", "rope", "tire", "wood debris", "plastic 
 MODELS = {"world": ROOT / "yolov8s-worldv2.pt", "aihub": ROOT / "runs/seg/aihub_gsd_det_s/weights/best.pt",
           "hawaii_ft": ROOT / "runs/seg/hawaii_ft/weights/best.pt",
           "colab": ROOT / "runs/seg/aihub_gsd_colab/weights/best.pt",  # Colab 30에폭 AI Hub 모델
-          "hawaii_ft8": ROOT / "runs/seg/hawaii_ft8/weights/best.pt"}  # 8클래스·1024px 미세조정 (ft --classes 8)  # 하와이 학습분할로 미세조정 (ft 명령)
+          "hawaii_ft8": ROOT / "runs/seg/hawaii_ft8/weights/best.pt",
+          "multi": ROOT / "runs/seg/multi_site/weights/best.pt"}  # 다중 현장 통합 모델 (multisite.py)
 CLS_COLOR = {"plastic_buoy": "#e63946", "eps_buoy": "#e63946", "net": "#f4a261", "rope": "#e9c46a", "tire": "#6d597a",
              "wood": "#8d6e63", "metal": "#577590", "plastic_other": "#2a9d8f", "eps_fragment": "#2a9d8f",
              "pet_bottle": "#2a9d8f", "eps_box": "#e63946", "glass": "#577590", "other": "#999999"}
@@ -195,7 +196,7 @@ def _select(a):
     return [r["filename"] for r in sel]
 
 
-def predict(model_key, files, out, conf=0.05, batch=8, device=0, wait=True, scale=1.0):
+def predict(model_key, files, out, conf=0.05, batch=8, device=0, wait=True, scale=1.0, augment=False):
     """칩(640)은 타일 없이 그대로. seg.predict와 같은 COCO 형식으로 저장 (eval·지도에 공용)."""
     from ultralytics import YOLO
 
@@ -219,7 +220,7 @@ def predict(model_key, files, out, conf=0.05, batch=8, device=0, wait=True, scal
             imgs = [cv2.resize(im_, None, fx=scale, fy=scale, interpolation=cv2.INTER_CUBIC) for im_ in imgs]
         sz = int(640 * scale)
         try:
-            res = m.predict(imgs, conf=conf, imgsz=sz, verbose=False, device=dev)
+            res = m.predict(imgs, conf=conf, imgsz=sz, verbose=False, device=dev, augment=augment)
         except RuntimeError as e:  # CUDA OOM → CPU
             if "out of memory" not in str(e).lower() or dev == "cpu":
                 raise
@@ -227,7 +228,7 @@ def predict(model_key, files, out, conf=0.05, batch=8, device=0, wait=True, scal
             import torch
             torch.cuda.empty_cache()
             dev = "cpu"
-            res = m.predict(imgs, conf=conf, imgsz=sz, verbose=False, device=dev)
+            res = m.predict(imgs, conf=conf, imgsz=sz, verbose=False, device=dev, augment=augment)
         for im, r in zip(chunk, res):
             if r.boxes is None or len(r.boxes) == 0:
                 continue
