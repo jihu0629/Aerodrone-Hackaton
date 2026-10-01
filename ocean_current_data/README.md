@@ -78,6 +78,30 @@
 - 상위 15 % 길이(166 km)는 좌초가 있는 88 km 를 다 포함하고도 남는다. 실제 비행 예산은 좌초 90 % 가 드는 54 km(약 5 %)부터 잡아도 된다.
 
 
+## 4.5 국립해양조사원 조류예보 API — 고해상 조류의 첫 연결 (2026-10-02 추가)
+
+공공데이터포털 "해양수산부 국립해양조사원_조류예보(시계열)"(https://www.data.go.kr/data/15156024/openapi.do, KOGL 제1유형) 키를 받아 붙였다. `scripts/03_fetch_khoa_tidal_current.py`.
+
+| 항목 | 값 |
+|---|---|
+| 엔드포인트 | `GET https://apis.data.go.kr/1192136/crntFcstTime/GetCrntFcstTimeApiService` |
+| 파라미터 | `serviceKey`, `obsCode`(예보 지점), `reqDate`(YYYYMMDD), `dataType`(요청해도 응답은 XML), `pageNo`, `numOfRows`(**최대 300**) |
+| 응답 | 지점명·경위도, `predcDt`(KST, **1분 간격, 하루 1,440행**), `crdir`(16방위 한글), `crsp`(유속, cm/s 로 해석) |
+| 호출량 | 지점·일당 5회. 개발계정 일 한도가 있으니 필요한 지점·날짜만 |
+| 키 보관 | 환경변수 `KHOA_API_KEY` 또는 `ocean_current_data/.secrets/khoa_api_key.txt` — **둘 다 git 제외**. 저장소에는 키가 없다 |
+| 지점 찾기 | 지점 목록 API 가 없어 코드(`NNLTCMM`)를 훑어 찾았다 → `data/khoa/stations_found.csv`. 경기만: **17LTC04 문갑도동측**(126.147 E, 37.184 N), 15LTC01 염하수도, 17LTC01 인천신항입구, 17LTC03 자월도남측, 18LTC01 난지도북측 |
+
+**Open-Meteo(Copernicus 1/12°) 해류 검증 — 2026-07-28~29, 정시 벡터 평균 48시각** (`data/khoa/compare_open_meteo.md`)
+
+| 지점 | KHOA 유속 중앙값 | Open-Meteo | 유속 상관 | 방향차 중앙값 | 위상차 |
+|---|---|---|---|---|---|
+| 문갑도동측 (17LTC04, 외해 섬 옆) | 0.45 m/s (최대 0.80) | 0.54 m/s | −0.08 | **31°** | −1 h |
+| 염하수도 (15LTC01, 강화 동쪽 좁은 수로) | 0.87 m/s (최대 1.57) | **0.17 m/s** | −0.58 | **113°** | −4 h |
+
+- 외해 섬 옆(문갑도)에서는 8 km 모형이 유속 크기와 큰 방향을 대체로 맞추고 위상이 1시간쯤 어긋난다. 섬 둘레 어느 구간인지 못 가른 것(`mungap_opendrift/`)은 이 자료의 격자 한계이지 조석 자체가 틀린 것은 아니다.
+- 하구 수로(염하수도)에서는 유속이 1/5, 방향이 거의 직각으로 틀린다. 인천 상위 해안 1·2·4(한강하구·조강·염하수로)의 OpenDrift 결과는 이 이유로 믿을 수 없고, 조석 모델 지도(원본 격자)나 KHOA 지점 자료로 바꿔야 한다.
+- 다음 단계: KHOA 지점 시계열은 격자가 아니라 **점**이라 OpenDrift 에 바로 넣을 수 없다. (1) 여러 지점을 받아 수로별 1차원 보정(크기·위상)으로 Open-Meteo 격자를 넛지하거나, (2) 조석 모델 격자(원본)를 받는 것이 순서다. 받은 CSV 는 `u,v` 성분(m/s, UTC)으로 저장해 두어 어느 쪽이든 바로 쓴다.
+
 ## 5. 한계
 
 - 해류 격자 1/12°(≈8 km)는 **하구 수로(염하·조강)와 섬 사이 수로를 해상하지 못한다.** 좌초가 큰 수로 입구·곶에 몰리는 경향은 격자 효과일 수 있다. 국립해양조사원 조류 예보(수백 m) 로 바꾸면 달라진다.
@@ -95,7 +119,9 @@ ocean_current_data/
   requirements.txt                       opendrift==1.14.11 외
   scripts/01_fetch_open_meteo_currents.py
   scripts/02_opendrift_stranding.py
+  scripts/03_fetch_khoa_tidal_current.py   국립해양조사원 조류예보(시계열) API → CSV + Open-Meteo 비교 (키는 git 제외)
   data/currents_*.nc, wind_*.nc, manifest.json
+  data/khoa/stations_found.csv, <obsCode>_<기간>.csv, compare_open_meteo.md, manifest.json
   outputs/stranded_particles.csv         입자별 방출·좌초 위치·시각·표류일
   outputs/segments_stranding_density.csv 위성 해안 200 m 구간별 좌초 수·밀도·순위·상위 15 %·조석 지도 핫스팟 여부·형상 점수
   outputs/40_stranding_density_map.png, 41_opendrift_vs_tidalmap_curve.png, 비교표.md, summary.json
