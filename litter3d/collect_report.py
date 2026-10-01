@@ -671,7 +671,42 @@ let SHDOC=null, SH_READONLY=false, SH_LAST='', SH_TIMER=null, SH_WRITING=null, S
 const sharedState=()=>({done:[...ST.done].sort(), calib:ST.calib, depot:{lon:depot.lon,lat:depot.lat,name:depot.name}});
 const sharedSig=(o)=>JSON.stringify([o.done, o.calib, o.depot&&[+o.depot.lon.toFixed(6), +o.depot.lat.toFixed(6)]]);
 function syncStatus(msg, ok){ const el=$('#sync'); if(!el) return; el.textContent=msg; el.style.color = ok===false ? '#c0392b' : ''; }
+// Supabase 백엔드 (GitHub Pages 등 일반 호스팅): 테이블 shared_state(site, data jsonb, updated_at, updated_by)
+let SB=null, SB_ROW=null, SB_POLL=null;
+const myName=()=>{ try{ return localStorage.getItem('shoresweep:name')||''; }catch(e){ return ''; } };
+window.setMyName=(v)=>{ try{ localStorage.setItem('shoresweep:name', v||''); }catch(e){} };
+function applyRemoteBody(d, meta){
+  const sig=sharedSig({done:d.done||[], calib:d.calib||{}, depot:d.depot||depot});
+  const when = d.updatedAt ? new Date(d.updatedAt).toLocaleTimeString('ko',{hour:'2-digit',minute:'2-digit'}) : '';
+  syncStatus(`공유 동기화 켜짐 (${meta})${when?' · 마지막 변경 '+when:''}${d.byName?' · '+d.byName:''}`);
+  if (sig===SH_LAST) return;
+  SH_LAST=sig;
+  ST.done=new Set(d.done||[]); ST.calib=Object.assign({}, d.calib||{});
+  for (const c of Object.keys(D.mats)) { const el=$('#c-cal-'+c); if (el) el.value = ST.calib[c]||1; }
+  if (d.depot && isFinite(d.depot.lon) && isFinite(d.depot.lat)) { depot={lon:d.depot.lon, lat:d.depot.lat, name:d.depot.name||'지정 출발지'}; if (depotMarker) depotMarker.setLatLng([depot.lat,depot.lon]); }
+  persist(); recompute();
+}
+async function initSupabase(){
+  const cfg=D.supabase; if(!cfg) return false;
+  if (typeof supabase==='undefined' || !supabase.createClient){ syncStatus('Supabase 라이브러리를 불러오지 못했습니다 (인터넷 확인) · 이 브라우저에만 저장', false); return true; }
+  try { SB=supabase.createClient(cfg.url, cfg.key); } catch(e){ syncStatus('Supabase 연결 실패: '+e.message, false); return true; }
+  const site=D.site||'site';
+  syncStatus('Supabase 연결 중…');
+  const load=async()=>{ const {data,error}=await SB.from(cfg.table).select('data,updated_at,updated_by').eq('site',site).maybeSingle();
+    if (error){ syncStatus('Supabase 읽기 실패: '+error.message+' (tools/supabase_setup.sql 실행·권한 확인)', false); return; }
+    if (!data){ syncStatus('공유 동기화 켜짐 (Supabase) · 아직 저장된 변경 없음'); maybePush(true); return; }
+    const body=Object.assign({}, data.data||{}, {updatedAt: data.updated_at ? Date.parse(data.updated_at) : null, byName: data.updated_by||''});
+    applyRemoteBody(body, 'Supabase'); };
+  await load();
+  try {
+    SB.channel('shared_state_'+site).on('postgres_changes', {event:'*', schema:'public', table:cfg.table, filter:'site=eq.'+site}, payload=>{ const r=payload.new; if(!r||!r.data) return; applyRemoteBody(Object.assign({}, r.data, {updatedAt: r.updated_at?Date.parse(r.updated_at):null, byName:r.updated_by||''}), 'Supabase 실시간'); }).subscribe();
+  } catch(e){}
+  SB_POLL=setInterval(load, 15000);          // 실시간이 꺼져 있어도 15 초마다 맞춤
+  SHDOC = { set: async (body)=>{ const {error}=await SB.from(cfg.table).upsert({site, data:{done:body.done, calib:body.calib, depot:body.depot}, updated_at:new Date().toISOString(), updated_by: myName()||'이름 없음'}, {onConflict:'site'}); if (error){ const err=new Error(error.message); err.code = /permission|policy|row-level/i.test(error.message)?'invalid_argument':'unavailable'; throw err; } } };
+  return true;
+}
 async function initShared(){
+  if (D.supabase){ await initSupabase(); return; }
   if (!D.shared || !window.claude || typeof window.claude.use!=='function'){ return; }
   syncStatus('공유 저장소 연결 중…');
   let db=null, user=null;
@@ -708,6 +743,7 @@ function maybePush(force){
   }, 400);
 }
 initShared();
+if (D.supabase){ const ni=$('#c-name'); if(ni){ ni.style.display='block'; ni.value=myName(); } }
 initMap(); recompute();
 })();
 """
@@ -724,7 +760,7 @@ def _control_panel(d: dict, mats: dict, terrain: bool, present_codes: list[str],
                   for c in present_codes)
     travel_opts = [("walk", "도보"), ("boat", "보트 지원")] if terrain else [("walk", "도보 (지형 없음)")]
     return f"""
-<div class="panel"><h2><span>조건 바꾸기 → 바로 다시 계산</span><span><span id="status">…</span><span id="sync" style="display:block;font-size:12px;color:var(--ok);font-weight:600"></span><button class="fold" onclick="toggleSide()" title="설정 접기">◀ 접기</button></span></h2>
+<div class="panel"><h2><span>조건 바꾸기 → 바로 다시 계산</span><span><span id="status">…</span><span id="sync" style="display:block;font-size:12px;color:var(--ok);font-weight:600"></span><input id="c-name" placeholder="내 이름 (변경 표시용)" style="display:none;font:inherit;font-size:12px;padding:3px 8px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--ink);width:150px;margin-top:4px" oninput="setMyName(this.value)"><button class="fold" onclick="toggleSide()" title="설정 접기">◀ 접기</button></span></h2>
 <div class="ctrl">
  <label><b>팀당 인원</b><input type="number" id="c-workers" min="1" max="30" step="1" value="{d['workers']}"></label>
  <label><b>팀 수 (동시 투입)</b><input type="number" id="c-teams" min="1" max="6" step="1" value="{d['teams']}"></label>
@@ -760,10 +796,12 @@ def _control_panel(d: dict, mats: dict, terrain: bool, present_codes: list[str],
 def build_collect_html(plan: CollectPlan, out_html: str | Path, *, photos_dir: str | Path | None = None,
                        basemap: Basemap | None = None, static_png: str | Path | None = None, terrain=None,
                        center_xy: tuple[float, float] | None = None, title: str | None = None,
-                       crs_m: str = "EPSG:5186", artifact: bool = False) -> Path:
+                       crs_m: str = "EPSG:5186", artifact: bool = False, shared_cfg: dict | None = None) -> Path:
     """plan 은 기본 파라미터로 만든 계획 (초기값·가정 문구용). 실제 숫자는 브라우저에서 다시 계산한다.
     artifact=True: 인터넷 공개용(claude.ai 아티팩트) 변형 — 문서 뼈대 없이, Leaflet CSS 인라인, 외부 타일 없이 드론 정사영상만,
-    인쇄·내려받기 버튼 없음 (공개 뷰어에서 막힘)."""
+    인쇄·내려받기 버튼 없음 (공개 뷰어에서 막힘). 공유 저장은 claude.ai db 캐퍼빌리티.
+    shared_cfg: {"provider": "supabase", "url": ..., "anon_key": ..., "table": "shared_state"} 이면 일반(GitHub Pages) 버전에서
+    Supabase 로 완료 체크·보정·출발지를 모든 접속자에게 실시간 공유 (tools/supabase_setup.sql 로 테이블 생성)."""
     title = title or f"{plan.site} 해안쓰레기 수거 작업 계획"
     photos_dir = Path(photos_dir) if photos_dir else None
     pp = plan.params
@@ -818,7 +856,9 @@ def build_collect_html(plan: CollectPlan, out_html: str | Path, *, photos_dir: s
             "terrain": terrain_js, "terrain_png": terrain_png, "affine": affine, "basemap": bm, "day_colors": DAY_COLORS,
             "center": {"x": center_xy[0], "y": center_xy[1]},
             "bag": {"bulk": pp["bag"]["bulk_factor"], "tonbag_kg": pp["bag"]["tonbag_kg"], "tonbag_m3": pp["bag"]["tonbag_m3"]},
-            "defaults": defaults, "control_defaults": control_defaults, "seg_defaults": seg_defaults, "no_tiles": artifact, "shared": artifact}
+            "defaults": defaults, "control_defaults": control_defaults, "seg_defaults": seg_defaults, "no_tiles": artifact, "shared": artifact,
+            "supabase": ({"url": shared_cfg["url"], "key": shared_cfg["anon_key"], "table": shared_cfg.get("table", "shared_state")}
+                         if (shared_cfg and not artifact and shared_cfg.get("provider") == "supabase" and shared_cfg.get("url") and shared_cfg.get("anon_key")) else None)}
     fallback = _b64_file(Path(static_png), max_px=2200) if static_png and Path(static_png).exists() else None
     leaflet_css = Path(__file__).with_name("assets") / "leaflet.css"
     if artifact:
@@ -832,6 +872,7 @@ def build_collect_html(plan: CollectPlan, out_html: str | Path, *, photos_dir: s
 <title>{_esc(title)}</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+{'<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" crossorigin=""></script>' if data.get("supabase") else ''}
 <style>{CSS}</style></head><body><div class="wrap">""")
         tail = "</body></html>"
 
