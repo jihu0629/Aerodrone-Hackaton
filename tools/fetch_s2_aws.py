@@ -92,7 +92,7 @@ def window_cloud(scene: str, bounds):
         return {"cloud_win": None, "nodata_win": None, "err": str(e)[:80]}
 
 
-def fetch(scene: str, bounds, out: Path, prefix: str, bands=("B03", "B08", "B04", "B02", "TCI", "SCL")):
+def fetch(scene: str, bounds, out: Path, prefix: str, bands=("B03", "B08", "B04", "B02", "TCI", "SCL"), res_m: float = 10.0):
     import rasterio
     from rasterio.enums import Resampling
     from rasterio.windows import from_bounds
@@ -105,13 +105,15 @@ def fetch(scene: str, bounds, out: Path, prefix: str, bands=("B03", "B08", "B04"
         url = "/vsicurl/" + BUCKET + scene_dir(scene) + band + ".tif"
         with rasterio.open(url) as src:
             win = from_bounds(L, B, R, T, src.transform)
-            if band == "SCL" and ref_shape is not None:          # 20 m → 10 m 격자에 맞춤
-                arr = src.read(window=win, out_shape=(1, *ref_shape), resampling=Resampling.nearest)
+            if ref_shape is None:                                # 목표 해상도 격자 (res_m > 10 이면 오버뷰로 줄여 읽음 → 넓은 창도 가볍다)
+                ref_shape = (int(round((T - B) / res_m)), int(round((R - L) / res_m)))
+            native = abs(src.transform.a)
+            if band == "SCL" or abs(native - res_m) > 1e-6:      # SCL(20 m) 또는 해상도 변환이 필요한 밴드
+                arr = src.read(window=win, out_shape=(src.count, *ref_shape),
+                               resampling=Resampling.nearest if band == "SCL" else Resampling.average)
                 tr = rasterio.transform.from_origin(L, T, (R - L) / ref_shape[1], (T - B) / ref_shape[0])
             else:
                 arr = src.read(window=win); tr = src.window_transform(win)
-                if band == "B03":
-                    ref_shape = arr.shape[1:]
             prof = src.profile
             prof.update(height=arr.shape[1], width=arr.shape[2], count=arr.shape[0], transform=tr, driver="GTiff", compress="deflate")
             dst_path = out / f"{prefix}_{band}_{date}.tif"
@@ -128,6 +130,8 @@ def main():
     ap.add_argument("--bounds", type=float, nargs=4, metavar=("L", "B", "R", "T"), help="타일 UTM 좌표 m")
     ap.add_argument("--scenes", help="쉼표 구분 장면 id")
     ap.add_argument("--out", default="s2"); ap.add_argument("--prefix", default="site")
+    ap.add_argument("--res", type=float, default=10.0, help="출력 해상도 m (20 이면 오버뷰로 줄여 받아 4배 가볍다)")
+    ap.add_argument("--bands", default="B03,B08,B04,B02,TCI,SCL", help="받을 밴드 (쉼표)")
     a = ap.parse_args()
     if a.list:
         rows = list_scenes(a.tile, a.list, a.bounds if a.check else None)
@@ -138,7 +142,7 @@ def main():
         raise SystemExit("--bounds 와 --scenes 가 필요")
     for sc in a.scenes.split(","):
         print(sc)
-        fetch(sc, a.bounds, Path(a.out), a.prefix)
+        fetch(sc, a.bounds, Path(a.out), a.prefix, tuple(a.bands.split(",")), a.res)
 
 
 if __name__ == "__main__":
