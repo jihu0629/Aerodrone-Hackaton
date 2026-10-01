@@ -1,0 +1,7 @@
+# 이 저장소는 macOS·Windows에서 같이 개발된다. 텍스트 파일 개행을
+# LF로 통일해서 "내용은 같은데 전부 바뀐 것처럼 보이는" diff를 막는다.
+* text=auto eol=lf
+*.ps1 text eol=crlf
+*.tif binary
+*.png binary
+*.whl binary
