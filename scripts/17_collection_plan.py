@@ -205,6 +205,16 @@ def main() -> None:
         save_class_png(terrain, out / "지형분류.png")
     png = draw_static_map(plan, out / "수거계획_지도.png", basemap=basemap, crs_m=crs)
     shared_cfg = cfg.get("shared")
+    if shared_cfg:                      # "NEXT_PUBLIC_SUPABASE_URL=https://..." 처럼 이름=값 으로 붙여 넣어도 값만 쓴다
+        for key in ("url", "anon_key"):
+            v = str(shared_cfg.get(key, "")).strip().strip('"').strip("'")
+            if "=" in v and v.split("=", 1)[0].isupper():
+                v = v.split("=", 1)[1].strip().strip('"').strip("'")
+            shared_cfg[key] = v.rstrip("/")
+    if shared_cfg and (str(shared_cfg.get("url", "")).startswith("<") or str(shared_cfg.get("anon_key", "")).startswith("<")
+                       or not str(shared_cfg.get("url", "")).startswith("https://")):
+        print("    공유 저장: config.json 의 shared.url / anon_key 가 아직 자리값(<...>) 이라 끄고 진행 (Supabase 값을 넣으면 켜짐)")
+        shared_cfg = None
     if shared_cfg and shared_cfg.get("provider") == "supabase" and shared_cfg.get("url") and shared_cfg.get("anon_key"):
         print(f"    공유 저장: Supabase {shared_cfg['url']} (테이블 {shared_cfg.get('table', 'shared_state')})")
     build_collect_html(plan, out / "수거계획.html", photos_dir=photos if photos.exists() else None, basemap=basemap,
