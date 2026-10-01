@@ -7,8 +7,10 @@ DJI Mini 5 Pro → (아이폰 DJI Fly, RTMP) → MediaMTX(PC) → RTSP → **이
 2단계  scripts/21_select_roi.py   OCR 영역 선택 (스크린샷/화면녹화/미러링 화면)
        scripts/22_ocr_run.py      OCR → telemetry.csv (원문·점수·상태 보존)
        scripts/23_sync.py         프레임 ↔ OCR 시간 매칭 → matched.csv
+기록   scripts/26_srt_telemetry.py 녹화 영상 + .SRT → 비행 데이터 CSV·프레임·COLMAP GPS 기준   ← 비행 데이터 **주 경로**
+       scripts/27_photo_meta.py    사진 XMP/EXIF → GPS·고도·짐벌각 CSV·COLMAP GPS 기준
 3단계  scripts/24_select_frames.py 흐림·중복 프레임 제거
-       scripts/25_colmap_cmds.py   COLMAP sparse 복원 명령 생성/실행
+       scripts/25_colmap_cmds.py   COLMAP sparse 복원 명령 생성/실행 (--ref 로 미터 축척 정렬)
 시험   scripts/29_test_publish.py  드론 없이 로컬 영상을 RTMP 로 송출해 전체 경로 시험
 ```
 
@@ -110,7 +112,34 @@ VLC 로 보려면: 미디어 → 네트워크 스트림 열기 → `rtsp://127.0
 
 ---
 
-## 4. 2단계: 화면 OCR
+## 3.5 비행 데이터는 어디서 받나 — 결정
+
+| 경로 | 실시간 | 얻는 값 | 상태 |
+|---|---|---|---|
+| **A. 촬영 파일에 기록된 메타데이터** (영상 .SRT 자막, 사진 XMP) | 아니오 (비행 후 파일 복사) | 프레임/장마다 위도·경도·상대고도·절대고도·초점거리, 사진은 짐벌·기체 자세각까지 | **채택 (주 경로)**. 공식 기능, OCR 오차 없음, 영상과 같은 타임라인이라 동기화 문제 없음, GPS 가 있어 COLMAP 미터 축척·방향 기준으로 바로 쓸 수 있음 |
+| B. 화면 미러링/녹화 → OCR | 가능 (미러링 시) | H·D·속도 (화면에 보이는 것만, GPS 없음) | **보조 (실시간이 꼭 필요할 때만)**. 미러링 앱·지연·OCR 오차·오프셋 보정 필요 |
+| C. SDK 로 직접 수신 | — | — | **불가**. Mini 5 Pro 는 2026-10 현재 DJI MSDK 미지원. 역공학은 범위 밖 |
+| D. DJI Fly 비행 기록(.txt) | 아니오 | 0.1~0.2 초 간격 전체 텔레메트리 | 참고용. 최신 버전은 암호화돼 복호화 키를 DJI 서버에서 받는 외부 도구가 필요(pydjirecord, dji-log-parser, PhantomHelp). 영상과 시각을 따로 맞춰야 함 |
+
+최종 목표가 **오프라인 3D 복원**이므로 A 가 필요한 것을 가장 정확하게 준다. B(OCR)는 1·2단계 코드가 이미 있으니 라이브 모니터링 용도로 남겨 둔다.
+
+```powershell
+# 비행 전: DJI Fly 카메라 설정 → 영상 자막(Video Caption/Subtitles) ON. 사진은 기본으로 메타데이터가 들어간다.
+# 비행 후: SD 카드/아이폰에서 DJI_0001.MP4 + DJI_0001.SRT (사진은 DJI_*.JPG) 를 PC 로 복사
+.\.venv\Scripts\python.exe scripts\26_srt_telemetry.py D:\DCIM\100MEDIA\DJI_0001.MP4 --out data\flights\f1 --interval 1.0
+.\.venv\Scripts\python.exe scripts\27_photo_meta.py D:\DCIM\100MEDIA --out data\flights\p1
+# 3D: 선별 → COLMAP sparse → GPS 로 미터 축척 정렬
+.\.venv\Scripts\python.exe scripts\24_select_frames.py data\flights\f1 --frames data\flights\f1\frames --out data\flights\f1\sfm\images
+.\.venv\Scripts\python.exe scripts\25_colmap_cmds.py data\flights\f1 --images data\flights\f1\sfm\images --work data\flights\f1\sfm\colmap --ref data\flights\f1\geo_gps.txt
+```
+- `telemetry_srt.csv`: SRT 블록마다 1행. `frames_srt.csv`: 저장한 프레임 + 그 시각의 값(`srt_dt_ms` = 프레임 시각과 자막 블록 시작의 차이, 보통 수십 ms).
+- `geo_gps.txt`: `파일명 lat lon rel_alt`. COLMAP `model_aligner --ref_is_gps 1 --alignment_type enu` 가 읽어 상대 좌표를 동·북·상 미터로 맞춘다. 상대 거리는 미터가 되지만 절대 위치는 GPS 정밀도(수 m) 안에서만 맞다. 격자 비행처럼 기준점이 한 직선에 몰리지 않아야 한다.
+- 축척 정확도를 더 올리려면 장면 안에 길이를 아는 물체(줄자, 1 m 보드)를 두고 복원 후 재서 보정한다. GPS 정렬은 그 전 단계의 대략적 축척·방향이다.
+- **확인 필요**: Mini 5 Pro 의 실제 .SRT 필드와 사진 XMP 필드. 파서는 공개 예시(Format 3b) 기준이며 없는 필드는 빈칸으로 둔다. 첫 비행 파일을 받으면 `26_srt_telemetry.py --only-csv` 로 `GPS 있음` 수가 블록 수와 같은지 본다.
+
+---
+
+## 4. 2단계: 화면 OCR (실시간이 필요할 때의 보조 경로)
 
 ### 4-1. 아이폰 화면을 PC 로 가져오는 방법 (아직 검증 안 됨)
 
@@ -192,4 +221,6 @@ DJI 지원 문서 기준 DJI Fly 왼쪽 아래 표시: `H` = 홈포인트(이륙
 - 실제 DJI Fly 화면 레이아웃·글꼴에서의 OCR 정확도, 미러링 앱 지연, 아이폰 화면 녹화가 DJI Fly 와 동시에 되는지.
 - COLMAP 실행 (명령 생성만 테스트).
 
-**다음에 필요한 정보**: ① DJI Fly 비행 화면 스크린샷 1장(ROI·필드 확정) ② PC 의 GPU/VRAM/RAM (`dxdiag` 또는 작업 관리자 → 성능) ③ 조종기 모델명(참고용).
+- SRT/XMP 파서: 공개 예시 형식의 SRT 2블록과 합성 XMP 패킷으로 CSV·geo_gps.txt 생성, 영상 프레임↔SRT 매칭(테스트 5개)을 확인. **실제 Mini 5 Pro 파일로는 아직 확인하지 못함.**
+
+**다음에 필요한 정보**: ① 비행 자막 ON 상태로 찍은 짧은 영상의 .SRT 앞 20줄과 사진 1장(파서 확정) ② DJI Fly 비행 화면 스크린샷 1장(OCR 을 쓸 경우) ③ PC 의 GPU/VRAM/RAM (`dxdiag` 또는 작업 관리자 → 성능) ④ 조종기 모델명(참고용).

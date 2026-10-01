@@ -17,7 +17,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from dronecap.config import load_config  # noqa: E402
-from dronecap.sfm import colmap_sparse_commands  # noqa: E402
+from dronecap.sfm import colmap_align_commands, colmap_sparse_commands  # noqa: E402
 
 
 def main() -> int:
@@ -28,12 +28,16 @@ def main() -> int:
     ap.add_argument("--work", help="작업 폴더 (기본: 세션/sfm/colmap)")
     ap.add_argument("--gpu", action="store_true"); ap.add_argument("--exhaustive", action="store_true")
     ap.add_argument("--colmap", default="colmap"); ap.add_argument("--run", action="store_true")
+    ap.add_argument("--ref", help="GPS 기준 파일(image_name lat lon alt). 26/27 스크립트가 만든 geo_gps.txt. 주면 model_aligner 로 미터 축척 정렬 명령을 추가")
+    ap.add_argument("--max-error", type=float, default=3.0, help="--ref 정렬 허용 오차(m). GPS 정밀도보다 약간 크게")
     a = ap.parse_args()
     c = load_config(a.config)["sfm"]
     s = Path(a.session)
     images = Path(a.images) if a.images else s / "sfm" / "images"
     work = Path(a.work) if a.work else s / "sfm" / "colmap"
     cmds = colmap_sparse_commands(images, work, use_gpu=(a.gpu or c["use_gpu"]), sequential=not a.exhaustive, colmap=a.colmap)
+    if a.ref:
+        cmds += colmap_align_commands(work, a.ref, a.max_error, colmap=a.colmap)
     for cmd in cmds:
         print(" ".join(f'"{x}"' if " " in x else x for x in cmd))
     if a.run:

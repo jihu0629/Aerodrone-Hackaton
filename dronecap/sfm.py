@@ -99,3 +99,23 @@ def colmap_sparse_commands(images_dir: str | Path, work_dir: str | Path, use_gpu
     cmds.append([colmap, "model_converter", "--input_path", str(work_dir / "sparse" / "0"),
                  "--output_path", str(work_dir / "sparse" / "0"), "--output_type", "TXT"])
     return cmds
+
+
+def colmap_align_commands(work_dir: str | Path, ref_txt: str | Path, max_error_m: float = 3.0,
+                          colmap: str = "colmap") -> list[list[str]]:
+    """sparse 모델을 GPS 기준(image_name lat lon alt)으로 ENU 미터 좌표에 맞춘다 → 축척이 미터가 된다.
+
+    - ref_is_gps 1 + alignment_type enu: COLMAP 이 위경도를 첫 이미지 기준 동·북·상(m) 으로 바꿔 유사변환(회전·이동·축척)을 푼다.
+    - robust_alignment_max_error: GPS 오차(보통 수 m)보다 조금 큰 값. 너무 작으면 정렬 실패, 너무 크면 튄 GPS 가 축척을 망친다.
+    - 결과 좌표의 **상대 거리**는 미터지만, 절대 위치는 GPS 정밀도(수 m) 안에서만 맞다.
+    - 기준 이미지가 3장 이상, 그리고 한 직선 위에 있지 않아야 한다(격자 비행 권장). 고도 변화가 없으면 Z 축척은 X·Y 에서 따라온다.
+    - 옵션 이름은 COLMAP 3.8~3.11 기준. 다른 버전이면 `colmap model_aligner -h` 로 확인.
+    """
+    work_dir = Path(work_dir)
+    aligned = work_dir / "sparse_aligned"
+    return [
+        [colmap, "model_aligner", "--input_path", str(work_dir / "sparse" / "0"), "--output_path", str(aligned),
+         "--ref_images_path", str(ref_txt), "--ref_is_gps", "1", "--alignment_type", "enu",
+         "--robust_alignment", "1", "--robust_alignment_max_error", f"{max_error_m}"],
+        [colmap, "model_converter", "--input_path", str(aligned), "--output_path", str(aligned), "--output_type", "TXT"],
+    ]

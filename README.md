@@ -19,9 +19,10 @@ dronecap/                실시간 수집 패키지 (자세한 설명: docs/dron
   stream.py · recorder.py · frames.py         RTSP 수신 스레드(재접속), ffmpeg copy 녹화, 간격 프레임 저장
   capture_app.py                              1단계 메인 루프(HUD·키 조작)
   ocr/ (parse, roi, engine, sources, runner)  화면 숫자 OCR (RapidOCR CPU / Tesseract), ROI 선택, 입력 소스
-  sync.py · sfm.py                            프레임↔OCR 시간 매칭, 프레임 선별·COLMAP 명령
+  media_meta.py                               녹화 .SRT / 사진 XMP 의 GPS·고도 읽기, COLMAP GPS 기준 파일 (비행 데이터 주 경로)
+  sync.py · sfm.py                            프레임↔OCR 시간 매칭, 프레임 선별·COLMAP 명령·GPS 미터 정렬
 config/dronecap.yml      dronecap 설정 (RTSP 주소, 재접속, 녹화, OCR 필드, 동기화 오프셋)
-scripts/20~29_*.py       dronecap 실행 스크립트 (20 수신, 21 ROI, 22 OCR, 23 매칭, 24 선별, 25 COLMAP, 29 테스트 송출)
+scripts/20~29_*.py       dronecap 실행 스크립트 (20 수신, 21 ROI, 22 OCR, 23 매칭, 24 선별, 25 COLMAP, 26 SRT, 27 사진 메타, 29 테스트 송출)
 tests/test_dronecap.py   dronecap 자동 테스트 (드론 없이 실행 가능)
 
 litter3d/                파이썬 패키지 (자세한 설명: litter3d/README.md)

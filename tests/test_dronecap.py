@@ -206,3 +206,75 @@ def test_colmap_commands_cpu():
     assert cmds[0][1] == "feature_extractor" and "--SiftExtraction.use_gpu" in cmds[0] and cmds[0][-1] == "0"
     assert cmds[1][1] == "sequential_matcher"
     assert cmds[2][1] == "mapper"
+
+
+# ---------- 기록된 비행 데이터 (SRT / XMP) ----------
+SRT_SAMPLE = """1
+00:00:00,000 --> 00:00:00,033
+FrameCnt: 1, DiffTime: 33ms
+2026-09-25 16:23:55.467
+[iso: 200] [shutter: 1/2500.0] [fnum: 1.8] [ev: 0] [color_md: default] [focal_len: 24.00] [latitude: 37.500000] [longitude: 127.000000] [rel_alt: 0.000 abs_alt: 65.972] [ct: 4711]
+
+2
+00:00:00,033 --> 00:00:00,066
+FrameCnt: 2, DiffTime: 33ms
+2026-09-25 16:23:55.500
+[iso: 200] [shutter: 1/2500.0] [fnum: 1.8] [ev: 0] [color_md: default] [focal_len: 24.00] [latitude: 37.500090] [longitude: 127.000000] [rel_alt: 10.000 abs_alt: 75.972] [ct: 4711]
+"""
+
+
+def test_srt_csv_and_colmap_ref(tmp_path):
+    from dronecap import media_meta as mm
+    srt = tmp_path / "DJI_0001.SRT"; srt.write_text(SRT_SAMPLE, encoding="utf-8")
+    tel = mm.srt_to_csv(srt, tmp_path / "t.csv")
+    assert len(tel) == 2 and tel[1].rel_alt_m == 10.0 and tel[0].lat == 37.5
+    rows = list(csv.DictReader(open(tmp_path / "t.csv", encoding="utf-8")))
+    assert rows[0]["timestamp"].startswith("2026-09-25") and rows[1]["abs_alt_m"] == "75.972"
+    assert mm.srt_health(tel)["warning"] == ""
+    frame_rows = [{"file": "a.jpg", "lat": 37.5, "lon": 127.0, "rel_alt_m": 0.0}, {"file": "b.jpg", "lat": None, "lon": 1, "rel_alt_m": 1}]
+    n = mm.write_colmap_ref(frame_rows, tmp_path / "geo.txt")
+    assert n == 1 and (tmp_path / "geo.txt").read_text().strip() == "a.jpg 37.50000000 127.00000000 0.000"
+
+
+def test_frames_with_srt(tmp_path):
+    from dronecap import media_meta as mm
+    video = _make_video(tmp_path / "DJI_0001.mp4", seconds=2, fps=20)
+    # 2초 영상 전체를 덮는 SRT (블록 2개를 1초씩으로)
+    srt_text = SRT_SAMPLE.replace("00:00:00,000 --> 00:00:00,033", "00:00:00,000 --> 00:00:01,000") \
+                         .replace("00:00:00,033 --> 00:00:00,066", "00:00:01,000 --> 00:00:02,000")
+    (tmp_path / "DJI_0001.SRT").write_text(srt_text, encoding="utf-8")
+    assert mm.find_srt(video) is not None
+    rows = mm.frames_with_srt(video, mm.find_srt(video), tmp_path / "out", interval_s=0.5)
+    assert len(rows) == 4 and rows[0]["rel_alt_m"] == 0.0 and rows[3]["rel_alt_m"] == 10.0   # t=1.5s → 두 번째 블록
+    assert (tmp_path / "out" / "frames" / rows[0]["file"]).exists()
+    assert (tmp_path / "out" / "frames_srt.csv").exists()
+
+
+def test_enu():
+    from dronecap.media_meta import latlon_to_enu
+    e, n, u = latlon_to_enu(37.50009, 127.0, 10.0, 37.5, 127.0, 0.0)
+    assert abs(e) < 0.01 and n == pytest.approx(10.0, abs=0.05) and u == 10.0
+
+
+def test_photo_xmp_parse(tmp_path):
+    from dronecap import media_meta as mm
+    xmp = ('<x:xmpmeta xmlns:x="adobe:ns:meta/"><rdf:RDF><rdf:Description xmlns:drone-dji="http://www.dji.com/drone-dji/1.0/" '
+           'drone-dji:GpsLatitude="+37.50000000" drone-dji:GpsLongitude="+127.00000000" drone-dji:AbsoluteAltitude="+65.97" '
+           'drone-dji:RelativeAltitude="+28.30" drone-dji:GimbalPitchDegree="-89.90" xmp:CreateDate="2026-09-25T16:23:55"/>'
+           '</rdf:RDF></x:xmpmeta>')
+    d = mm.parse_dji_xmp(xmp)
+    assert d["RelativeAltitude"] == "+28.30"
+    # JPEG 흉내: 아무 바이트 + XMP 패킷
+    img = tmp_path / "DJI_0001.JPG"
+    img.write_bytes(b"\xff\xd8\xff\xe1" + b"\x00" * 50 + xmp.encode() + b"\x00" * 10)
+    r = mm.read_photo_meta(img)
+    assert r["source"] == "xmp" and r["RelativeAltitude"] == 28.3 and r["GpsLatitude"] == 37.5 and r["GimbalPitchDegree"] == -89.9
+    assert r["DateTime"] == "2026-09-25T16:23:55"
+    plain = tmp_path / "plain.jpg"
+    cv2.imwrite(str(plain), np.zeros((8, 8, 3), np.uint8))
+    assert mm.read_photo_meta(plain)["source"] == "none"
+
+
+def test_colmap_align_commands():
+    cmds = sfm.colmap_align_commands("work", "geo_gps.txt", 3.0)
+    assert cmds[0][1] == "model_aligner" and "--ref_is_gps" in cmds[0] and "enu" in cmds[0]
