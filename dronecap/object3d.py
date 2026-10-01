@@ -33,12 +33,53 @@ import numpy as np
 
 
 # ----------------------------------------------------------------------------- 1. 프레임
+def _extract_with_ffmpeg(video: Path, out_dir: Path, target_count: int, max_size: int) -> list[Path]:
+    """OpenCV 가 영상을 못 열 때(아이폰 HEVC 등) ffmpeg 로 프레임을 뽑는다. 회전 메타데이터는 ffmpeg 가 자동 적용."""
+    import shutil
+    import subprocess
+    ff = shutil.which("ffmpeg")
+    if not ff:
+        raise RuntimeError(f"OpenCV 로 영상을 열 수 없고 ffmpeg 도 PATH 에 없습니다: {video}\n"
+                           f"  해결 1) ffmpeg 설치(winget install Gyan.FFmpeg) 후 새 터미널에서 다시 실행\n"
+                           f"  해결 2) 미리 변환: ffmpeg -i \"{video}\" -c:v libx264 -crf 18 \"{video.with_suffix('.mp4')}\"")
+    n = 0
+    fp = shutil.which("ffprobe")
+    if fp:
+        try:
+            out = subprocess.run([fp, "-v", "error", "-select_streams", "v:0", "-count_packets", "-show_entries",
+                                  "stream=nb_read_packets", "-of", "csv=p=0", str(video)], capture_output=True, text=True, timeout=120)
+            n = int(out.stdout.strip().splitlines()[0]) if out.stdout.strip() else 0
+        except Exception:
+            n = 0
+    step = max(1, n // target_count) if n else 6
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for f in out_dir.glob("img*.jpg"):
+        f.unlink()
+    vf = f"select='not(mod(n\\,{step}))',scale='if(gt(iw,ih),min({max_size},iw),-2)':'if(gt(iw,ih),-2,min({max_size},ih))'"
+    cmd = [ff, "-hide_banner", "-loglevel", "error", "-y", "-i", str(video), "-vf", vf, "-vsync", "vfr",
+           "-q:v", "2", "-start_number", "0", str(out_dir / "img%03d.jpg")]
+    rc = subprocess.run(cmd, capture_output=True, text=True)
+    files = sorted(out_dir.glob("img*.jpg"))
+    if rc.returncode != 0 or not files:
+        raise RuntimeError(f"ffmpeg 프레임 추출 실패 (rc={rc.returncode}): {rc.stderr.strip()[:500]}")
+    return files
+
+
 def extract_orbit_frames(video: str | Path, out_dir: str | Path, target_count: int = 40, max_size: int = 1080,
                          blur_min: float = 0.0) -> list[Path]:
+    video = Path(video)
+    if not video.exists():
+        raise FileNotFoundError(f"영상 파일이 없습니다: {video.resolve()}  (현재 폴더: {Path.cwd()})")
     out_dir = Path(out_dir); out_dir.mkdir(parents=True, exist_ok=True)
     cap = cv2.VideoCapture(str(video))
-    if not cap.isOpened():
-        raise FileNotFoundError(video)
+    ok_probe = cap.isOpened()
+    if ok_probe:
+        ok_probe, _ = cap.read()          # 열리기만 하고 디코드가 안 되는 경우(코덱 없음)도 걸러낸다
+        cap.release()
+        cap = cv2.VideoCapture(str(video))
+    if not ok_probe:
+        print(f"[안내] OpenCV 가 영상을 디코드하지 못해 ffmpeg 로 프레임을 뽑습니다 (아이폰 HEVC 등): {video.name}")
+        return _extract_with_ffmpeg(video, out_dir, target_count, max_size)
     n = int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) or 0
     step = max(1, n // target_count) if n else 1
     files: list[Path] = []
