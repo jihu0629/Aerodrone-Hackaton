@@ -13,7 +13,7 @@ __pycache__/
 *.tiff
 *.jp2
 S2_GYD/
-outputs/
+/outputs/
 
 # 논문 PDF (저작권)
 **/선행조사/Paper/
