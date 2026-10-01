@@ -1,0 +1,271 @@
+{
+ "conf": 0.25,
+ "iou": 0.3,
+ "device": "cpu",
+ "class_agnostic": true,
+ "note": "세그 폴리곤→바운딩박스. 튀니지 640 통째 추론, 문갑도 2048 칩은 1024 타일.",
+ "results": {
+  "tunisia": {
+   "uavvaste": {
+    "dataset_label": "튀니지 TUN-MarineLitter test",
+    "eval": {
+     "images": 179,
+     "gt": 360,
+     "pred@conf": 179,
+     "conf": 0.25,
+     "iou": 0.3,
+     "precision": 0.6703910614525139,
+     "recall": 0.3333333333333333,
+     "f1": 0.44526901669758817,
+     "ap50": 0.3516101378865252,
+     "count_ratio": 0.49722222222222223,
+     "area_ratio_median": 1.6145514661061948,
+     "mask_iou_median": 0.589812167010364,
+     "recall_by_class": {
+      "Plastic": {
+       "recall": 0.34946236559139787,
+       "n": 186
+      },
+      "Other": {
+       "recall": 0.10810810810810811,
+       "n": 37
+      },
+      "Fabric": {
+       "recall": 0.14285714285714285,
+       "n": 35
+      },
+      "Metal": {
+       "recall": 0.7142857142857143,
+       "n": 28
+      },
+      "Cardboard": {
+       "recall": 0.6071428571428571,
+       "n": 28
+      },
+      "Glass": {
+       "recall": 0.3333333333333333,
+       "n": 27
+      },
+      "Wood": {
+       "recall": 0.0,
+       "n": 19
+      }
+     }
+    },
+    "sec": 20.293724536895752,
+    "pred": "C:\\Users\\user\\Desktop\\드론\\aerodrone_hackathon\\runs\\eval\\tunisia\\pred_tunisia_uavvaste.json"
+   },
+   "aihub": {
+    "dataset_label": "튀니지 TUN-MarineLitter test",
+    "eval": {
+     "images": 179,
+     "gt": 360,
+     "pred@conf": 89,
+     "conf": 0.25,
+     "iou": 0.3,
+     "precision": 0.550561797752809,
+     "recall": 0.1361111111111111,
+     "f1": 0.21826280623608016,
+     "ap50": 0.25129053687788344,
+     "count_ratio": 0.24722222222222223,
+     "area_ratio_median": 1.7031548685259383,
+     "mask_iou_median": 0.577601562684798,
+     "recall_by_class": {
+      "Plastic": {
+       "recall": 0.16666666666666666,
+       "n": 186
+      },
+      "Other": {
+       "recall": 0.08108108108108109,
+       "n": 37
+      },
+      "Fabric": {
+       "recall": 0.0,
+       "n": 35
+      },
+      "Metal": {
+       "recall": 0.17857142857142858,
+       "n": 28
+      },
+      "Cardboard": {
+       "recall": 0.25,
+       "n": 28
+      },
+      "Glass": {
+       "recall": 0.1111111111111111,
+       "n": 27
+      },
+      "Wood": {
+       "recall": 0.0,
+       "n": 19
+      }
+     }
+    },
+    "sec": 17.448362588882446,
+    "pred": "C:\\Users\\user\\Desktop\\드론\\aerodrone_hackathon\\runs\\eval\\tunisia\\pred_tunisia_aihub.json"
+   },
+   "world": {
+    "dataset_label": "튀니지 TUN-MarineLitter test",
+    "eval": {
+     "images": 179,
+     "gt": 360,
+     "pred@conf": 6,
+     "conf": 0.25,
+     "iou": 0.3,
+     "precision": 1.0,
+     "recall": 0.016666666666666666,
+     "f1": 0.03278688524590164,
+     "ap50": 0.06526086782347702,
+     "count_ratio": 0.016666666666666666,
+     "area_ratio_median": 1.6992326457605145,
+     "mask_iou_median": 0.5877921529517636,
+     "recall_by_class": {
+      "Plastic": {
+       "recall": 0.010752688172043012,
+       "n": 186
+      },
+      "Other": {
+       "recall": 0.0,
+       "n": 37
+      },
+      "Fabric": {
+       "recall": 0.0,
+       "n": 35
+      },
+      "Metal": {
+       "recall": 0.10714285714285714,
+       "n": 28
+      },
+      "Cardboard": {
+       "recall": 0.03571428571428571,
+       "n": 28
+      },
+      "Glass": {
+       "recall": 0.0,
+       "n": 27
+      },
+      "Wood": {
+       "recall": 0.0,
+       "n": 19
+      }
+     }
+    },
+    "sec": 22.720121145248413,
+    "pred": "C:\\Users\\user\\Desktop\\드론\\aerodrone_hackathon\\runs\\eval\\tunisia\\pred_tunisia_world.json"
+   }
+  },
+  "mgd": {
+   "uavvaste": {
+    "dataset_label": "문갑도 업체 칩",
+    "eval": {
+     "images": 48,
+     "gt": 47,
+     "pred@conf": 71,
+     "conf": 0.25,
+     "iou": 0.3,
+     "precision": 0.18309859154929578,
+     "recall": 0.2765957446808511,
+     "f1": 0.22033898305084745,
+     "ap50": 0.0807142398248918,
+     "count_ratio": 1.5106382978723405,
+     "area_ratio_median": 1.0102875998140208,
+     "mask_iou_median": 0.5601136110358478,
+     "recall_by_class": {
+      "스티로폼": {
+       "recall": 0.2619047619047619,
+       "n": 42
+      },
+      "로프": {
+       "recall": 0.0,
+       "n": 3
+      },
+      "플라스틱": {
+       "recall": 1.0,
+       "n": 1
+      },
+      "어망": {
+       "recall": 1.0,
+       "n": 1
+      }
+     }
+    },
+    "sec": 84.55092120170593,
+    "pred": "C:\\Users\\user\\Desktop\\드론\\aerodrone_hackathon\\runs\\eval\\tunisia\\pred_mgd_uavvaste.json"
+   },
+   "aihub": {
+    "dataset_label": "문갑도 업체 칩",
+    "eval": {
+     "images": 48,
+     "gt": 47,
+     "pred@conf": 94,
+     "conf": 0.25,
+     "iou": 0.3,
+     "precision": 0.3617021276595745,
+     "recall": 0.723404255319149,
+     "f1": 0.4822695035460993,
+     "ap50": 0.535433690538058,
+     "count_ratio": 2.0,
+     "area_ratio_median": 1.219506546420458,
+     "mask_iou_median": 0.8200057451341684,
+     "recall_by_class": {
+      "스티로폼": {
+       "recall": 0.8095238095238095,
+       "n": 42
+      },
+      "로프": {
+       "recall": 0.0,
+       "n": 3
+      },
+      "플라스틱": {
+       "recall": 0.0,
+       "n": 1
+      },
+      "어망": {
+       "recall": 0.0,
+       "n": 1
+      }
+     }
+    },
+    "sec": 126.83574509620667,
+    "pred": "C:\\Users\\user\\Desktop\\드론\\aerodrone_hackathon\\runs\\eval\\tunisia\\pred_mgd_aihub.json"
+   },
+   "world": {
+    "dataset_label": "문갑도 업체 칩",
+    "eval": {
+     "images": 48,
+     "gt": 47,
+     "pred@conf": 0,
+     "conf": 0.25,
+     "iou": 0.3,
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "ap50": 0.0594059405940594,
+     "count_ratio": 0.0,
+     "area_ratio_median": null,
+     "mask_iou_median": null,
+     "recall_by_class": {
+      "스티로폼": {
+       "recall": 0.0,
+       "n": 42
+      },
+      "로프": {
+       "recall": 0.0,
+       "n": 3
+      },
+      "플라스틱": {
+       "recall": 0.0,
+       "n": 1
+      },
+      "어망": {
+       "recall": 0.0,
+       "n": 1
+      }
+     }
+    },
+    "sec": 157.01730632781982,
+    "pred": "C:\\Users\\user\\Desktop\\드론\\aerodrone_hackathon\\runs\\eval\\tunisia\\pred_mgd_world.json"
+   }
+  }
+ }
+}
