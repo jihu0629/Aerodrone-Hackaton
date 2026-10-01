@@ -1,6 +1,6 @@
 # 실제 시뮬레이션 엔진 연동 (PX4 SITL + Gazebo + ROS2/MAVROS)
 
-> 현재 검증 기록은 선회 경로가 포함된 이전 미션(커밋 `cffc25f`의 `archive/path_planning_v1/`, 지금은 삭제됨)으로
+> 현재 검증 기록은 선회 경로가 포함된 이전 미션(커밋 `ef84d02`의 `archive/path_planning_v1/`, 지금은 삭제됨)으로
 > 비행한 결과다. 지금 방향(핫스팟 우선 + 커버리지)의 경로로 다시 돌리려면
 > `mission_runner/mission.json`의 `mapping_orbit_path`를 새 경로로 바꾸면 된다
 > (형식: x·y·z 미터, phase, note 리스트).
