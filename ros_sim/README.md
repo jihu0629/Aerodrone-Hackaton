@@ -1,6 +1,6 @@
 # 실제 시뮬레이션 엔진 연동 (PX4 SITL + Gazebo + ROS2/MAVROS)
 
-> 현재 검증 기록은 선회 경로가 포함된 이전 미션(`archive/path_planning_v1/`)으로
+> 현재 검증 기록은 선회 경로가 포함된 이전 미션(커밋 `cffc25f`의 `archive/path_planning_v1/`, 지금은 삭제됨)으로
 > 비행한 결과다. 지금 방향(핫스팟 우선 + 커버리지)의 경로로 다시 돌리려면
 > `mission_runner/mission.json`의 `mapping_orbit_path`를 새 경로로 바꾸면 된다
 > (형식: x·y·z 미터, phase, note 리스트).
@@ -26,7 +26,7 @@
 - **ROS2 Iron + MAVROS** — PX4의 MAVLink 텔레메트리/명령을 ROS2
   토픽/서비스로 변환. (Humble은 arm64용 MAVROS 바이너리가 없어서 Iron 사용.)
 - **mission_runner** (직접 작성한 ROS2 노드) — 이전 버전 미션 생성기
-  (`archive/path_planning_v1/mission.py`)가 만든 `mission.json`의 `mapping_orbit_path`(맵핑+궤도 촬영 구간)를
+  (이전 `path_planning/mission.py`)가 만든 `mission.json`의 `mapping_orbit_path`(맵핑+궤도 촬영 구간)를
   `/mavros/setpoint_position/local`에 순서대로 흘려보내고, 실제로
   날아간 위치를 `flight_log.csv`로 기록.
 
@@ -85,7 +85,7 @@ docker build -t aerodrone-px4-sim .
 컨트롤러로도 문제없이 날 수 있다"는 뜻이고, 특정 구간(특히 궤도
 촬영처럼 급격한 방향 전환이 많은 구간)에서 반복적으로 타임아웃이
 나면 그 구간의 경로가 드론이 실제로 따라가기엔 너무 촘촘하거나
-급하다는 신호 — `archive/path_planning_v1/orbit.py`의 반지름/뷰 개수를 조정해야
+급하다는 신호 — 이전 `orbit.py`의 반지름/뷰 개수를 조정해야
 한다는 뜻이다.
 
 ## 검증 결과 (실제로 돌려본 기록)

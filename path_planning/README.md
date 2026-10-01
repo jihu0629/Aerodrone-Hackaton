@@ -27,7 +27,6 @@ route = plan_route(cells, base=(0, 0), budget=0.3 * full_tour_cost(cells, (0, 0)
 
 ## 이전 버전
 
-비행 중 물체를 만나면 이탈해 선회하는 경로(`orbit.py`)와 그 통합 미션
-(`mission.py`, `collection_route.py`, `data/mission.json`)은 2차 비행·선회 논의를
-범위에서 빼면서 `../archive/path_planning_v1/`로 옮겼다. 수거 경로는
-지형 최단경로를 쓰는 `../shoresweep_planner/`가 대신한다.
+비행 중 물체를 만나면 이탈해 선회하는 경로(`orbit.py`)와 그 통합 미션은 범위에서
+빼면서 삭제했다(커밋 `cffc25f`의 `archive/path_planning_v1/`). 수거 경로는 지형
+최단경로를 쓰는 `../shoresweep_planner/`가 맡는다.
