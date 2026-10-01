@@ -268,6 +268,8 @@ def ground_footprint_m(alt_m: float, sensor_width_mm: float = 9.65, focal_mm: fl
     """
     (지상 촬영 폭 m, GSD m/px). 기본값은 DJI Mini 3/4 (1/1.3", 24 mm 환산) 근사치. 확인 필요.
     Mavic 3 (4/3", 17.7x13.3 mm, 12.3 mm) 이면 sensor_width_mm=17.7, focal_mm=12.3.
+    Mini 5 Pro (1", 13.2x8.8 mm, 84° 대각 FOV -> 실초점 약 8.8 mm) 이면 sensor_width_mm=13.2, focal_mm=8.8,
+    image_width_px 는 4K 영상 3840 / 12 MP 사진 4096 / 50 MP 사진 8192 (쿼드 베이어라 실효 해상도는 12 MP 수준).
     """
     width_m = alt_m * sensor_width_mm / focal_mm
     return width_m, width_m / image_width_px
