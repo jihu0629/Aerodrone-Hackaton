@@ -1,0 +1,10 @@
+
+$ C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Scripts\python.exe -m litter.objvol --orbit runs\orbit\0015_all\seg22_b27 --srt ../DJI_20261001205404_0015_D.SRT --objects runs\orbit\0015_all\seg22_b27\map\objects.csv --out runs\orbit\0015_all\seg22_b27\objvol --min-track 4.0 --search-r 0.45 --device 0 --det-weights yolov8s-worldv2.pt --det-classes cardboard box --ply runs\orbit\0015_all\seg22_b27\fused_dense.ply
+3D 점 485,715개 (조밀) · 축척 편차 -11.4% · 카메라 기울기 중앙값 62° · SAM 장치 0
+cardboard box_8 (-5.07,0.93): 프레임 0/0장(제외 40, 상자 프롬프트 0) · 평면 기울기 8.2° · 중심 이동 0.00 m · 물체 점 0개
+cardboard box_7 (-5.70,0.93): 프레임 0/0장(제외 40, 상자 프롬프트 0) · 평면 기울기 8.1° · 중심 이동 0.00 m · 물체 점 0개
+
+$ C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Scripts\python.exe -m litter.objvol --orbit runs\orbit\0015_all\seg22_b27 --srt ../DJI_20261001205404_0015_D.SRT --objects runs\orbit\0015_all\seg22_b27\map\objects.csv --out runs\orbit\0015_all\seg22_b27\objvol_r2 --min-track 4.0 --search-r 0.8 --device 0 --det-weights yolov8s-worldv2.pt --det-classes cardboard box --ply runs\orbit\0015_all\seg22_b27\fused_dense.ply
+3D 점 485,715개 (조밀) · 축척 편차 -11.4% · 카메라 기울기 중앙값 62° · SAM 장치 0
+cardboard box_8 (-5.07,0.93): 프레임 0/0장(제외 40, 상자 프롬프트 0) · 평면 기울기 8.2° · 중심 이동 0.00 m · 물체 점 0개
+cardboard box_7 (-5.70,0.93): 프레임 0/0장(제외 40, 상자 프롬프트 0) · 평면 기울기 8.2° · 중심 이동 0.00 m · 물체 점 0개

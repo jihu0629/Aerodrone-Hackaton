@@ -1,0 +1,52 @@
+  4/420 · 4s · 탐지 7
+  84/420 · 35s · 탐지 173
+  164/420 · 64s · 탐지 361
+  244/420 · 99s · 탐지 507
+  324/420 · 132s · 탐지 683
+  404/420 · 165s · 탐지 1099
+예측 1133개 · 칩 420장 · 171s (cpu) → runs/hawaii/pred_colab_eval_x2.json
+
+[pred_colab_eval_x2.json · conf≥0.05 · IoU≥0.3]
+원본 이미지 420장 · 정답 3195 · 예측(conf≥0.05) 1133
+  정밀도 0.500 · 재현율 0.177 · F1 0.262 · AP50 0.119
+  개수 비율(예측/정답) 0.35
+  맞힌 물체의 면적 비율 중앙값 0.62 · 마스크 IoU 중앙값 0.60
+  클래스별 재현율:
+    unidentified object  0.19  (n=1551)
+    buoy                 0.16  (n=867)
+    net cloth            0.21  (n=223)
+    processed wood       0.10  (n=217)
+    tire                 0.27  (n=144)
+    metal                0.17  (n=102)
+    line fragment        0.05  (n=81)
+    vessel               0.10  (n=10)
+
+[pred_colab_eval_x2.json · conf≥0.1 · IoU≥0.3]
+원본 이미지 420장 · 정답 3195 · 예측(conf≥0.1) 642
+  정밀도 0.590 · 재현율 0.119 · F1 0.198 · AP50 0.119
+  개수 비율(예측/정답) 0.20
+  맞힌 물체의 면적 비율 중앙값 0.63 · 마스크 IoU 중앙값 0.62
+  클래스별 재현율:
+    unidentified object  0.14  (n=1551)
+    buoy                 0.09  (n=867)
+    net cloth            0.15  (n=223)
+    processed wood       0.05  (n=217)
+    tire                 0.20  (n=144)
+    metal                0.09  (n=102)
+    line fragment        0.01  (n=81)
+    vessel               0.10  (n=10)
+
+[pred_colab_eval_x2.json · conf≥0.2 · IoU≥0.3]
+원본 이미지 420장 · 정답 3195 · 예측(conf≥0.2) 329
+  정밀도 0.699 · 재현율 0.072 · F1 0.131 · AP50 0.119
+  개수 비율(예측/정답) 0.10
+  맞힌 물체의 면적 비율 중앙값 0.63 · 마스크 IoU 중앙값 0.63
+  클래스별 재현율:
+    unidentified object  0.09  (n=1551)
+    buoy                 0.05  (n=867)
+    net cloth            0.09  (n=223)
+    processed wood       0.02  (n=217)
+    tire                 0.15  (n=144)
+    metal                0.06  (n=102)
+    line fragment        0.01  (n=81)
+    vessel               0.00  (n=10)

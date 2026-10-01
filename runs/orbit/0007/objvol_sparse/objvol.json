@@ -1,0 +1,36 @@
+[
+ {
+  "tag": "Plastic_Buoy_55",
+  "views_used": 24,
+  "points_candidate": 669,
+  "points_object": 11,
+  "ground_z": -0.011843251977968107,
+  "length_m": 0.21097922325134277,
+  "width_m": 0.14316163957118988,
+  "height_m": 0.11624869067656281,
+  "volume_heightmap_L": 1.993077621812294,
+  "volume_hull_L": 1.8260746399734138,
+  "mask_area_m2": 0.0461502067753754,
+  "volume_mask_box_L": 5.3649011120900285,
+  "lat": "37.3842486",
+  "lon": "126.6570694",
+  "truth_L": 3.128
+ },
+ {
+  "tag": "Styrofoam_Buoy_22",
+  "views_used": 24,
+  "points_candidate": 481,
+  "points_object": 27,
+  "ground_z": -0.015840049622047086,
+  "length_m": 0.6421064734458923,
+  "width_m": 0.4096479117870331,
+  "height_m": 0.1437396347354989,
+  "volume_heightmap_L": 27.92078271192606,
+  "volume_hull_L": 30.83489896980359,
+  "mask_area_m2": 0.29991394636631696,
+  "volume_mask_box_L": 43.109521102776405,
+  "lat": "37.3842818",
+  "lon": "126.6570618",
+  "truth_L": 32.4
+ }
+]

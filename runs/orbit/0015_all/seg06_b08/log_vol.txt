@@ -1,0 +1,123 @@
+
+$ C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Scripts\python.exe -m litter.objvol --orbit runs\orbit\0015_all\seg06_b08 --srt ../DJI_20261001205404_0015_D.SRT --objects runs\orbit\0015_all\seg06_b08\map\objects.csv --out runs\orbit\0015_all\seg06_b08\objvol --min-track 4.0 --search-r 0.45 --device 0 --det-weights yolov8s-worldv2.pt --det-classes cardboard box --ply runs\orbit\0015_all\seg06_b08\fused_dense.ply
+3D 점 272,924개 (조밀) · 축척 편차 95.5% · 카메라 기울기 중앙값 56° · SAM 장치 0
+cardboard box_15 (-0.52,0.01): 프레임 11/11장(제외 12, 상자 프롬프트 11) · 평면 기울기 16.7° · 중심 이동 0.00 m · 물체 점 2개
+
+$ C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Scripts\python.exe -m litter.objvol --orbit runs\orbit\0015_all\seg06_b08 --srt ../DJI_20261001205404_0015_D.SRT --objects runs\orbit\0015_all\seg06_b08\map\objects.csv --out runs\orbit\0015_all\seg06_b08\objvol_r2 --min-track 4.0 --search-r 0.8 --device 0 --det-weights yolov8s-worldv2.pt --det-classes cardboard box --ply runs\orbit\0015_all\seg06_b08\fused_dense.ply
+C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\torch\nn\modules\linear.py:125: UserWarning: gemm_and_bias error: CUBLAS_STATUS_EXECUTION_FAILED when calling cublasLtMatmul with transpose_mat1 1 transpose_mat2 0 m 448 n 4096 k 1792 mat1_ld 1792 mat2_ld 1792 result_ld 448 abType 0 cType 0 computeType 68 scaleType 0. Will attempt to recover by calling unfused cublas path. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\aten\src\ATen\cuda\CUDABlas.cpp:1736.)
+  return F.linear(input, self.weight, self.bias)
+Traceback (most recent call last):
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\ultralytics\engine\predictor.py", line 384, in stream_inference
+    preds = self.inference(im, *args, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\ultralytics\models\sam\predict.py", line 217, in inference
+    return self.prompt_inference(im, bboxes, points, labels, masks, multimask_output)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\ultralytics\models\sam\predict.py", line 245, in prompt_inference
+    features = self.get_im_features(im) if self.features is None else self.features
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\ultralytics\models\sam\predict.py", line 806, in get_im_features
+    backbone_out = self.model.forward_image(im)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\ultralytics\models\sam\modules\sam.py", line 607, in forward_image
+    backbone_out = self.image_encoder(img_batch)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\ultralytics\models\sam\modules\encoders.py", line 470, in forward
+    features, pos = self.neck(self.trunk(sample))
+                              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\ultralytics\models\sam\modules\encoders.py", line 798, in forward
+    x = blk(x)
+        ^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\ultralytics\models\sam\modules\blocks.py", line 662, in forward
+    x = x + self.drop_path(self.mlp(self.norm2(x)))
+                           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\ultralytics\nn\modules\transformer.py", line 414, in forward
+    x = getattr(self, "act", nn.ReLU())(layer(x)) if i < self.num_layers - 1 else layer(x)
+                                                                                  ^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\torch\nn\modules\linear.py", line 125, in forward
+    return F.linear(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.AcceleratorError: CUDA error: out of memory
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\litter\objvol.py", line 411, in <module>
+    main()
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\litter\objvol.py", line 382, in main
+    r, _ = measure_object(sc, sam, (float(o["local_x_m"]), float(o["local_y_m"])), Pm, n_views=a.n_views, search_r=a.search_r,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\litter\objvol.py", line 252, in measure_object
+    m = sam_mask(sam, img, uv, device=device, box=box)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\litter\objvol.py", line 164, in sam_mask
+    r = sam(sub, points=[[x - x0, y - y0]], labels=[1], verbose=False, **kw)[0]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\ultralytics\models\sam\model.py", line 135, in __call__
+    return self.predict(source, stream, bboxes, points, labels, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\ultralytics\models\sam\model.py", line 110, in predict
+    return super().predict(source, stream, prompts=prompts, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\ultralytics\engine\model.py", line 564, in predict
+    return self.predictor.predict_cli(source=source) if is_cli else self.predictor(source=source, stream=stream)
+                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\ultralytics\engine\predictor.py", line 262, in __call__
+    return list(self.stream_inference(source, model, *args, **kwargs))  # merge list of Results into one
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\torch\utils\_contextlib.py", line 38, in generator_context
+    response = gen.send(None)
+               ^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\ultralytics\engine\predictor.py", line 383, in stream_inference
+    with profilers[1]:
+         ~~~~~~~~~^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\ultralytics\utils\ops.py", line 64, in __exit__
+    self.dt = self.time() - self.start  # delta-time
+              ^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\ultralytics\utils\ops.py", line 74, in time
+    self.accelerator.synchronize(self.device)
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\torch\cuda\__init__.py", line 1085, in synchronize
+    return torch._C._cuda_synchronize()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.AcceleratorError: CUDA error: out of memory
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+3D 점 272,924개 (조밀) · 축척 편차 95.5% · 카메라 기울기 중앙값 56° · SAM 장치 0

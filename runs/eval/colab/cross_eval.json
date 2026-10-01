@@ -1,0 +1,185 @@
+{
+ "conf": 0.25,
+ "iou": 0.3,
+ "device": "cpu",
+ "class_agnostic": true,
+ "note": "세그 폴리곤→바운딩박스. 튀니지 640 통째 추론, 문갑도 2048 칩은 1024 타일.",
+ "results": {
+  "tunisia": {
+   "aihub": {
+    "dataset_label": "튀니지 TUN-MarineLitter test",
+    "eval": {
+     "images": 179,
+     "gt": 360,
+     "pred@conf": 89,
+     "conf": 0.25,
+     "iou": 0.3,
+     "precision": 0.550561797752809,
+     "recall": 0.1361111111111111,
+     "f1": 0.21826280623608016,
+     "ap50": 0.25129053687788344,
+     "count_ratio": 0.24722222222222223,
+     "area_ratio_median": 1.7031548685259383,
+     "mask_iou_median": 0.577601562684798,
+     "recall_by_class": {
+      "Plastic": {
+       "recall": 0.16666666666666666,
+       "n": 186
+      },
+      "Other": {
+       "recall": 0.08108108108108109,
+       "n": 37
+      },
+      "Fabric": {
+       "recall": 0.0,
+       "n": 35
+      },
+      "Metal": {
+       "recall": 0.17857142857142858,
+       "n": 28
+      },
+      "Cardboard": {
+       "recall": 0.25,
+       "n": 28
+      },
+      "Glass": {
+       "recall": 0.1111111111111111,
+       "n": 27
+      },
+      "Wood": {
+       "recall": 0.0,
+       "n": 19
+      }
+     }
+    },
+    "sec": 32.66831827163696,
+    "pred": "C:\\Users\\user\\Desktop\\드론\\aerodrone_hackathon\\runs\\eval\\colab\\pred_tunisia_aihub.json"
+   },
+   "colab": {
+    "dataset_label": "튀니지 TUN-MarineLitter test",
+    "eval": {
+     "images": 179,
+     "gt": 360,
+     "pred@conf": 109,
+     "conf": 0.25,
+     "iou": 0.3,
+     "precision": 0.5779816513761468,
+     "recall": 0.175,
+     "f1": 0.26865671641791045,
+     "ap50": 0.22241483844874368,
+     "count_ratio": 0.30277777777777776,
+     "area_ratio_median": 1.5549504533632512,
+     "mask_iou_median": 0.6131275920435553,
+     "recall_by_class": {
+      "Plastic": {
+       "recall": 0.22043010752688172,
+       "n": 186
+      },
+      "Other": {
+       "recall": 0.05405405405405406,
+       "n": 37
+      },
+      "Fabric": {
+       "recall": 0.0,
+       "n": 35
+      },
+      "Metal": {
+       "recall": 0.2857142857142857,
+       "n": 28
+      },
+      "Cardboard": {
+       "recall": 0.35714285714285715,
+       "n": 28
+      },
+      "Glass": {
+       "recall": 0.07407407407407407,
+       "n": 27
+      },
+      "Wood": {
+       "recall": 0.0,
+       "n": 19
+      }
+     }
+    },
+    "sec": 28.976518392562866,
+    "pred": "C:\\Users\\user\\Desktop\\드론\\aerodrone_hackathon\\runs\\eval\\colab\\pred_tunisia_colab.json"
+   }
+  },
+  "mgd": {
+   "aihub": {
+    "dataset_label": "문갑도 업체 칩",
+    "eval": {
+     "images": 48,
+     "gt": 47,
+     "pred@conf": 94,
+     "conf": 0.25,
+     "iou": 0.3,
+     "precision": 0.3617021276595745,
+     "recall": 0.723404255319149,
+     "f1": 0.4822695035460993,
+     "ap50": 0.535433690538058,
+     "count_ratio": 2.0,
+     "area_ratio_median": 1.219506546420458,
+     "mask_iou_median": 0.8200057451341684,
+     "recall_by_class": {
+      "스티로폼": {
+       "recall": 0.8095238095238095,
+       "n": 42
+      },
+      "로프": {
+       "recall": 0.0,
+       "n": 3
+      },
+      "플라스틱": {
+       "recall": 0.0,
+       "n": 1
+      },
+      "어망": {
+       "recall": 0.0,
+       "n": 1
+      }
+     }
+    },
+    "sec": 123.21113395690918,
+    "pred": "C:\\Users\\user\\Desktop\\드론\\aerodrone_hackathon\\runs\\eval\\colab\\pred_mgd_aihub.json"
+   },
+   "colab": {
+    "dataset_label": "문갑도 업체 칩",
+    "eval": {
+     "images": 48,
+     "gt": 47,
+     "pred@conf": 66,
+     "conf": 0.25,
+     "iou": 0.3,
+     "precision": 0.24242424242424243,
+     "recall": 0.3404255319148936,
+     "f1": 0.2831858407079646,
+     "ap50": 0.19020817447297472,
+     "count_ratio": 1.4042553191489362,
+     "area_ratio_median": 0.9964382261239646,
+     "mask_iou_median": 0.899286554945723,
+     "recall_by_class": {
+      "스티로폼": {
+       "recall": 0.3333333333333333,
+       "n": 42
+      },
+      "로프": {
+       "recall": 0.0,
+       "n": 3
+      },
+      "플라스틱": {
+       "recall": 1.0,
+       "n": 1
+      },
+      "어망": {
+       "recall": 1.0,
+       "n": 1
+      }
+     }
+    },
+    "sec": 94.46442604064941,
+    "pred": "C:\\Users\\user\\Desktop\\드론\\aerodrone_hackathon\\runs\\eval\\colab\\pred_mgd_colab.json"
+   }
+  }
+ }
+}

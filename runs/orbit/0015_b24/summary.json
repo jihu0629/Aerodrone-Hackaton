@@ -1,0 +1,9 @@
+{
+  "frames_extracted": 60,
+  "frames_registered": 60,
+  "points3D": 62282,
+  "mean_reproj_error_px": 0.8966774180031157,
+  "mean_track_length": 6.148726758935166,
+  "orbit_radius_rel": 3.6782828009918918,
+  "note": "스케일 미정 (상대 단위) — GPS/기준물체로 m 단위 보정은 다음 단계"
+}

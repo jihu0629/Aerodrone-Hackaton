@@ -1,0 +1,2 @@
+﻿visit_order,stop_id,lat,lon,n_items,kg_est,kg_hi,max_item_kg_hi,crew,tools,bulk_m3,r95_m,buried_suspect,classes
+1,S001,37.3842652,126.6570656,2,0.8348874414509778,1.6697748829019556,1.548108476121113,1인,,0.00417443720725489,1.2,False,eps_fragment

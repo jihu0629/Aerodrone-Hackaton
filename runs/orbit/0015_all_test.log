@@ -1,0 +1,56 @@
+상자 30개 → 구간 2개
+  seg15_b19: 335.9~343.9s n=40 상자 [19]
+  seg19_b24: 430.4~438.4s n=40 상자 [24]
+[2026-10-01 23:10:36] seg15_b19 sfm: 시작
+[2026-10-01 23:10:38] seg19_b24 sfm: 시작
+[2026-10-01 23:13:02] seg15_b19 sfm: 완료 145s reg=27 ext=40 pts=9398 reproj=0.34
+[2026-10-01 23:13:02] seg15_b19 dense: 시작
+[2026-10-01 23:14:58] seg15_b19 dense: 완료 116s dense_pts=368151
+[2026-10-01 23:14:58] seg15_b19 map: 시작
+[2026-10-01 23:15:27] seg15_b19 map: 완료 29s gps_rms_m=0.08 scale_src=GPS n_obj=1
+[2026-10-01 23:15:27] seg15_b19 vol: 시작
+[2026-10-01 23:15:42] seg15_b19 vol: 완료 16s n_measured=0 n_obj=1 dense=True
+[2026-10-01 23:17:08] seg19_b24 sfm: 완료 389s reg=40 ext=40 pts=48001 reproj=0.89
+[2026-10-01 23:17:08] seg19_b24 dense: 시작
+[2026-10-01 23:19:29] seg19_b24 dense: 완료 141s dense_pts=235136
+[2026-10-01 23:19:29] seg19_b24 map: 시작
+[2026-10-01 23:19:46] seg19_b24 map: 완료 17s gps_rms_m=1.02 scale_src=GPS n_obj=1
+[2026-10-01 23:19:46] seg19_b24 vol: 시작
+[2026-10-01 23:20:00] seg19_b24 vol: 완료 14s n_measured=1 n_obj=1 dense=True
+[2026-10-01 23:20:00] 전체 완료 9.4분
+{
+ "segments": 2,
+ "boxes": 2,
+ "stage_success": {
+  "sfm": {
+   "ok": 2,
+   "of": 2,
+   "mean_sec": 267.5
+  },
+  "dense": {
+   "ok": 2,
+   "of": 2,
+   "mean_sec": 128.5
+  },
+  "map": {
+   "ok": 2,
+   "of": 2,
+   "mean_sec": 23.1
+  },
+  "vol": {
+   "ok": 2,
+   "of": 2,
+   "mean_sec": 14.8
+  }
+ },
+ "boxes_located_3d": 2,
+ "boxes_volume_ok": 1,
+ "failure_reasons": {
+  "점": 1
+ },
+ "total_sec": 563.8,
+ "generated": "2026-10-01 23:20:00"
+}
+#19  339.9s seg15_b19        등록 27/40 조밀 368151 ×× cm  L  부피 실패 점 부족(물체 점 0)
+#24  434.5s seg19_b24        등록 40/40 조밀 235136 17.3×6.5×65.5 cm 6.5 L  부피 OK 
+→ runs\orbit\0015_all\objects3d.csv · map.html · map.png · summary.json · masks_sheet.jpg

@@ -1,0 +1,10 @@
+
+$ C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Scripts\python.exe -m litter.objvol --orbit runs\orbit\0015_all\seg11_b13-14 --srt ../DJI_20261001205404_0015_D.SRT --objects runs\orbit\0015_all\seg11_b13-14\map\objects.csv --out runs\orbit\0015_all\seg11_b13-14\objvol --min-track 4.0 --search-r 0.45 --device 0 --det-weights yolov8s-worldv2.pt --det-classes cardboard box --ply runs\orbit\0015_all\seg11_b13-14\fused_dense.ply
+3D 점 551,165개 (조밀) · 축척 편차 40.0% · 카메라 기울기 중앙값 64° · SAM 장치 0
+cardboard box_8 (2.71,-0.27): 프레임 0/1장(제외 30, 상자 프롬프트 0) · 평면 기울기 76.8° · 중심 이동 0.00 m · 물체 점 0개
+cardboard box_21 (2.08,-0.21): 프레임 1/24장(제외 30, 상자 프롬프트 0) · 평면 기울기 77.6° · 중심 이동 0.12 m · 물체 점 0개
+
+$ C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Scripts\python.exe -m litter.objvol --orbit runs\orbit\0015_all\seg11_b13-14 --srt ../DJI_20261001205404_0015_D.SRT --objects runs\orbit\0015_all\seg11_b13-14\map\objects.csv --out runs\orbit\0015_all\seg11_b13-14\objvol_r2 --min-track 4.0 --search-r 0.8 --device 0 --det-weights yolov8s-worldv2.pt --det-classes cardboard box --ply runs\orbit\0015_all\seg11_b13-14\fused_dense.ply
+3D 점 551,165개 (조밀) · 축척 편차 40.0% · 카메라 기울기 중앙값 64° · SAM 장치 0
+cardboard box_8 (2.71,-0.27): 프레임 2/24장(제외 30, 상자 프롬프트 0) · 평면 기울기 77.7° · 중심 이동 0.74 m · 물체 점 0개
+cardboard box_21 (2.08,-0.21): 프레임 3/24장(제외 11, 상자 프롬프트 0) · 평면 기울기 23.8° · 중심 이동 0.56 m · 물체 점 1060개 · 35×8×52 cm (p90 54.6 / 봉우리 52.5) · 윗면 35×8 · 높이지도 10.7 L(중앙값)/10.8 L(최대) · 볼록껍질 10.5 L · 마스크면적 0.052 m² × 높이 = 27.2 L

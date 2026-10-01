@@ -1,0 +1,67 @@
+  4/420 · 6s · 탐지 9
+  84/420 · 8s · 탐지 560
+  164/420 · 9s · 탐지 1130
+  244/420 · 12s · 탐지 2404
+  324/420 · 14s · 탐지 3475
+  404/420 · 16s · 탐지 5313
+예측 5378개 · 칩 420장 · 16s (0) → runs/hawaii/pred_hawaii_ft8_eval_x1.json
+
+[pred_hawaii_ft8_eval_x1.json · conf≥0.05 · IoU≥0.3]
+원본 이미지 420장 · 정답 3195 · 예측(conf≥0.05) 5378
+  정밀도 0.458 · 재현율 0.770 · F1 0.574 · AP50 0.619
+  개수 비율(예측/정답) 1.68
+  맞힌 물체의 면적 비율 중앙값 1.09 · 마스크 IoU 중앙값 0.79
+  클래스별 재현율:
+    unidentified object  0.82  (n=1551)
+    buoy                 0.87  (n=867)
+    net cloth            0.70  (n=223)
+    processed wood       0.44  (n=217)
+    tire                 0.72  (n=144)
+    metal                0.52  (n=102)
+    line fragment        0.21  (n=81)
+    vessel               0.80  (n=10)
+
+[pred_hawaii_ft8_eval_x1.json · conf≥0.1 · IoU≥0.3]
+원본 이미지 420장 · 정답 3195 · 예측(conf≥0.1) 3801
+  정밀도 0.577 · 재현율 0.686 · F1 0.627 · AP50 0.619
+  개수 비율(예측/정답) 1.19
+  맞힌 물체의 면적 비율 중앙값 1.10 · 마스크 IoU 중앙값 0.79
+  클래스별 재현율:
+    unidentified object  0.73  (n=1551)
+    buoy                 0.81  (n=867)
+    net cloth            0.61  (n=223)
+    processed wood       0.33  (n=217)
+    tire                 0.67  (n=144)
+    metal                0.41  (n=102)
+    line fragment        0.11  (n=81)
+    vessel               0.80  (n=10)
+
+[pred_hawaii_ft8_eval_x1.json · conf≥0.2 · IoU≥0.3]
+원본 이미지 420장 · 정답 3195 · 예측(conf≥0.2) 2382
+  정밀도 0.720 · 재현율 0.536 · F1 0.615 · AP50 0.619
+  개수 비율(예측/정답) 0.75
+  맞힌 물체의 면적 비율 중앙값 1.11 · 마스크 IoU 중앙값 0.80
+  클래스별 재현율:
+    unidentified object  0.56  (n=1551)
+    buoy                 0.67  (n=867)
+    net cloth            0.42  (n=223)
+    processed wood       0.19  (n=217)
+    tire                 0.60  (n=144)
+    metal                0.31  (n=102)
+    line fragment        0.06  (n=81)
+    vessel               0.40  (n=10)
+
+[pred_hawaii_ft8_eval_x1.json · conf≥0.3 · IoU≥0.3]
+원본 이미지 420장 · 정답 3195 · 예측(conf≥0.3) 1671
+  정밀도 0.804 · 재현율 0.420 · F1 0.552 · AP50 0.619
+  개수 비율(예측/정답) 0.52
+  맞힌 물체의 면적 비율 중앙값 1.12 · 마스크 IoU 중앙값 0.80
+  클래스별 재현율:
+    unidentified object  0.43  (n=1551)
+    buoy                 0.55  (n=867)
+    net cloth            0.28  (n=223)
+    processed wood       0.11  (n=217)
+    tire                 0.54  (n=144)
+    metal                0.25  (n=102)
+    line fragment        0.05  (n=81)
+    vessel               0.20  (n=10)

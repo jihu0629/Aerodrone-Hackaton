@@ -1,0 +1,70 @@
+[
+ {
+  "tag": "cardboard box_27",
+  "views_used": 17,
+  "views_candidates": 17,
+  "n_views_excluded": 0,
+  "views_box_prompt": 17,
+  "views_tilt_deg": [
+   79.3,
+   79.3,
+   79.3,
+   79.3,
+   79.3,
+   79.2,
+   79.3,
+   79.2,
+   79.2,
+   79.4,
+   79.2,
+   79.2,
+   79.1,
+   79.4,
+   79.1,
+   79.1,
+   79.1
+  ],
+  "views_names": [
+   "f0034.jpg",
+   "f0033.jpg",
+   "f0035.jpg",
+   "f0032.jpg",
+   "f0036.jpg",
+   "f0031.jpg",
+   "f0037.jpg",
+   "f0030.jpg",
+   "f0029.jpg",
+   "f0038.jpg",
+   "f0028.jpg",
+   "f0027.jpg",
+   "f0026.jpg",
+   "f0039.jpg",
+   "f0025.jpg",
+   "f0024.jpg",
+   "f0023.jpg"
+  ],
+  "points_candidate": 1191,
+  "points_voted": 0,
+  "points_object": 0,
+  "center_xy": [
+   3.38,
+   -0.27
+  ],
+  "center_shift_m": 0.0,
+  "ground_z": 0.01549244026334072,
+  "ground_plane_tilt_deg": 0.8595172374104434,
+  "ground_plane_inlier": 0.9992973690373956,
+  "height_method": "mode",
+  "h_min": 0.03,
+  "mask_area_m2": null,
+  "volume_mask_box_L": null,
+  "mask_nadir_score": null,
+  "lat": "37.3848489",
+  "lon": "126.6559105",
+  "csv_local_xy": [
+   3.38,
+   -0.27
+  ],
+  "search_r": 0.45
+ }
+]

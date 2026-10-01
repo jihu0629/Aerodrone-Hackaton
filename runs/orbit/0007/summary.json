@@ -1,0 +1,22 @@
+{
+  "frames_extracted": 100,
+  "frames_registered": 100,
+  "points3D": 28580,
+  "mean_reproj_error_px": 0.42262162259670405,
+  "mean_track_length": 19.253848845346397,
+  "orbit_radius_rel": 1.9345925716662355,
+  "note": "스케일 미정 (상대 단위) — GPS/기준물체로 m 단위 보정은 다음 단계",
+  "volume": {
+    "scale_m_per_unit": 0.5672013634676307,
+    "scale_spread_pct": 2.8006767632094602,
+    "n_frames_for_scale": 100,
+    "orbit_radius_m": 0.6286670905606306,
+    "orbit_height_m": 7.2339813402680235,
+    "center_xy": [
+      -0.13235874018722127,
+      0.07718458716544443
+    ],
+    "n_object_points": 4,
+    "error": "물체 점이 너무 적음 — 선회 중심에 물체가 없거나 점구름이 성김"
+  }
+}

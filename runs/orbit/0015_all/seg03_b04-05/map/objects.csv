@@ -1,0 +1,6 @@
+﻿kind,cls,lat,lon,seen_frames,best_score,local_x_m,local_y_m
+litter,cardboard box,37.3851445,126.6561591,4,0.86,2.45,6.48
+litter,cardboard box,37.3851634,126.6561657,3,0.68,4.63,6.65
+litter,cardboard box,37.3851548,126.6561630,3,0.68,3.65,6.55
+litter,cardboard box,37.3851711,126.6561684,4,0.66,5.51,6.72
+litter,cardboard box,37.3851676,126.6561678,11,0.65,5.13,6.64

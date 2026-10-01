@@ -1,0 +1,2 @@
+평가 칩 48장 제외 · 후보 타일 3502 (최대 900 검사, 350 저장)
+저장 7타일 · 라벨 8 {'styrofoam': 8} · 256s → C:\Users\user\Desktop\드론\aerodrone_hackathon\data\seg_multi\mgd_pseudo

@@ -1,0 +1,1173 @@
+
+$ C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Scripts\python.exe -m litter.batch3d sfm --video ../DJI_20261001205404_0015_D.MP4 --start 75.6 --end 83.6 --n 40 --out runs\orbit\0015_all\seg04_b06
+I20261001 23:27:50.001147 30288 feature_extraction.cc:498] === Feature extraction ===
+I20261001 23:27:50.011130  7576 sift.cc:764] Creating SIFT CPU feature extractor
+I20261001 23:27:50.011316  8308 sift.cc:764] Creating SIFT CPU feature extractor
+I20261001 23:27:50.012188 31032 sift.cc:764] Creating SIFT CPU feature extractor
+I20261001 23:27:50.012417 11444 sift.cc:764] Creating SIFT CPU feature extractor
+I20261001 23:27:50.016562 22516 sift.cc:764] Creating SIFT CPU feature extractor
+I20261001 23:27:50.016859  9584 sift.cc:764] Creating SIFT CPU feature extractor
+I20261001 23:27:53.055031  7788 feature_extraction.cc:270] Processed file [1/41]
+I20261001 23:27:53.055216  7788 feature_extraction.cc:273]   Name:            f0002.jpg
+I20261001 23:27:53.055262  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:27:53.055289  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:27:53.055317  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:27:53.055349  7788 feature_extraction.cc:294]   Features:        2732 (SIFT)
+I20261001 23:27:53.362336  7788 feature_extraction.cc:270] Processed file [2/41]
+I20261001 23:27:53.362541  7788 feature_extraction.cc:273]   Name:            f0001.jpg
+I20261001 23:27:53.362565  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:27:53.362581  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:27:53.362599  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:27:53.362628  7788 feature_extraction.cc:294]   Features:        2569 (SIFT)
+I20261001 23:27:53.440621  7788 feature_extraction.cc:270] Processed file [3/41]
+I20261001 23:27:53.440795  7788 feature_extraction.cc:273]   Name:            f0003.jpg
+I20261001 23:27:53.440829  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:27:53.440854  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:27:53.440879  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:27:53.440915  7788 feature_extraction.cc:294]   Features:        3059 (SIFT)
+I20261001 23:27:53.479404  7788 feature_extraction.cc:270] Processed file [4/41]
+I20261001 23:27:53.479547  7788 feature_extraction.cc:273]   Name:            f0005.jpg
+I20261001 23:27:53.479580  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:27:53.479606  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:27:53.479633  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:27:53.479664  7788 feature_extraction.cc:294]   Features:        3425 (SIFT)
+I20261001 23:27:53.625333  7788 feature_extraction.cc:270] Processed file [5/41]
+I20261001 23:27:53.625495  7788 feature_extraction.cc:273]   Name:            f0004.jpg
+I20261001 23:27:53.625520  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:27:53.625539  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:27:53.625560  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:27:53.625591  7788 feature_extraction.cc:294]   Features:        3264 (SIFT)
+I20261001 23:27:53.694285  7788 feature_extraction.cc:270] Processed file [6/41]
+I20261001 23:27:53.694457  7788 feature_extraction.cc:273]   Name:            f0006.jpg
+I20261001 23:27:53.694493  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:27:53.694512  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:27:53.694536  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:27:53.694567  7788 feature_extraction.cc:294]   Features:        3461 (SIFT)
+I20261001 23:27:55.246646  7788 feature_extraction.cc:270] Processed file [7/41]
+I20261001 23:27:55.246868  7788 feature_extraction.cc:273]   Name:            f0007.jpg
+I20261001 23:27:55.247046  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:27:55.247080  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:27:55.247108  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:27:55.248103  7788 feature_extraction.cc:294]   Features:        3711 (SIFT)
+I20261001 23:27:55.519828  7788 feature_extraction.cc:270] Processed file [8/41]
+I20261001 23:27:55.519981  7788 feature_extraction.cc:273]   Name:            f0009.jpg
+I20261001 23:27:55.520011  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:27:55.520033  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:27:55.520062  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:27:55.520093  7788 feature_extraction.cc:294]   Features:        3863 (SIFT)
+I20261001 23:27:55.567423  7788 feature_extraction.cc:270] Processed file [9/41]
+I20261001 23:27:55.567554  7788 feature_extraction.cc:273]   Name:            f0008.jpg
+I20261001 23:27:55.567588  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:27:55.567614  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:27:55.567640  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:27:55.567687  7788 feature_extraction.cc:294]   Features:        3831 (SIFT)
+I20261001 23:27:55.685943  7788 feature_extraction.cc:270] Processed file [10/41]
+I20261001 23:27:55.686063  7788 feature_extraction.cc:273]   Name:            f0010.jpg
+I20261001 23:27:55.686086  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:27:55.686106  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:27:55.686128  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:27:55.686154  7788 feature_extraction.cc:294]   Features:        4238 (SIFT)
+I20261001 23:27:55.800549  7788 feature_extraction.cc:270] Processed file [11/41]
+I20261001 23:27:55.800702  7788 feature_extraction.cc:273]   Name:            f0011.jpg
+I20261001 23:27:55.800733  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:27:55.800757  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:27:55.800781  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:27:55.800813  7788 feature_extraction.cc:294]   Features:        4543 (SIFT)
+I20261001 23:27:55.932554  7788 feature_extraction.cc:270] Processed file [12/41]
+I20261001 23:27:55.932673  7788 feature_extraction.cc:273]   Name:            f0012.jpg
+I20261001 23:27:55.932694  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:27:55.932709  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:27:55.932726  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:27:55.932747  7788 feature_extraction.cc:294]   Features:        4871 (SIFT)
+I20261001 23:27:58.106016  7788 feature_extraction.cc:270] Processed file [13/41]
+I20261001 23:27:58.106286  7788 feature_extraction.cc:273]   Name:            f0013.jpg
+I20261001 23:27:58.106313  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:27:58.106332  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:27:58.106357  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:27:58.106398  7788 feature_extraction.cc:294]   Features:        5029 (SIFT)
+I20261001 23:27:58.185622  7788 feature_extraction.cc:270] Processed file [14/41]
+I20261001 23:27:58.185741  7788 feature_extraction.cc:273]   Name:            f0014.jpg
+I20261001 23:27:58.185763  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:27:58.185782  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:27:58.185802  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:27:58.185825  7788 feature_extraction.cc:294]   Features:        5392 (SIFT)
+I20261001 23:27:58.347494  7788 feature_extraction.cc:270] Processed file [15/41]
+I20261001 23:27:58.347649  7788 feature_extraction.cc:273]   Name:            f0015.jpg
+I20261001 23:27:58.347677  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:27:58.347820  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:27:58.347845  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:27:58.347871  7788 feature_extraction.cc:294]   Features:        6662 (SIFT)
+I20261001 23:27:58.378124  7788 feature_extraction.cc:270] Processed file [16/41]
+I20261001 23:27:58.378274  7788 feature_extraction.cc:273]   Name:            f0016.jpg
+I20261001 23:27:58.378302  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:27:58.378323  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:27:58.378344  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:27:58.378372  7788 feature_extraction.cc:294]   Features:        6003 (SIFT)
+I20261001 23:27:58.590651  7788 feature_extraction.cc:270] Processed file [17/41]
+I20261001 23:27:58.590798  7788 feature_extraction.cc:273]   Name:            f0017.jpg
+I20261001 23:27:58.590819  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:27:58.590835  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:27:58.590854  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:27:58.590877  7788 feature_extraction.cc:294]   Features:        6333 (SIFT)
+I20261001 23:27:58.732773  7788 feature_extraction.cc:270] Processed file [18/41]
+I20261001 23:27:58.732889  7788 feature_extraction.cc:273]   Name:            f0018.jpg
+I20261001 23:27:58.732915  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:27:58.732936  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:27:58.732957  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:27:58.732982  7788 feature_extraction.cc:294]   Features:        6424 (SIFT)
+I20261001 23:28:00.610002  7788 feature_extraction.cc:270] Processed file [19/41]
+I20261001 23:28:00.610129  7788 feature_extraction.cc:273]   Name:            f0020.jpg
+I20261001 23:28:00.610161  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:28:00.610185  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:28:00.610210  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:28:00.610241  7788 feature_extraction.cc:294]   Features:        7832 (SIFT)
+I20261001 23:28:00.663923  7788 feature_extraction.cc:270] Processed file [20/41]
+I20261001 23:28:00.664056  7788 feature_extraction.cc:273]   Name:            f0019.jpg
+I20261001 23:28:00.664093  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:28:00.664117  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:28:00.664143  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:28:00.664173  7788 feature_extraction.cc:294]   Features:        7632 (SIFT)
+I20261001 23:28:01.010279  7788 feature_extraction.cc:270] Processed file [21/41]
+I20261001 23:28:01.010459  7788 feature_extraction.cc:273]   Name:            f0021.jpg
+I20261001 23:28:01.010500  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:28:01.010526  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:28:01.010553  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:28:01.010583  7788 feature_extraction.cc:294]   Features:        8706 (SIFT)
+I20261001 23:28:01.037559  7788 feature_extraction.cc:270] Processed file [22/41]
+I20261001 23:28:01.037712  7788 feature_extraction.cc:273]   Name:            f0022.jpg
+I20261001 23:28:01.037746  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:28:01.037772  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:28:01.037808  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:28:01.037846  7788 feature_extraction.cc:294]   Features:        9213 (SIFT)
+I20261001 23:28:01.116206  7788 feature_extraction.cc:270] Processed file [23/41]
+I20261001 23:28:01.116386  7788 feature_extraction.cc:273]   Name:            f0023.jpg
+I20261001 23:28:01.116421  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:28:01.116445  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:28:01.116470  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:28:01.116498  7788 feature_extraction.cc:294]   Features:        8735 (SIFT)
+I20261001 23:28:01.214156  7788 feature_extraction.cc:270] Processed file [24/41]
+I20261001 23:28:01.214327  7788 feature_extraction.cc:273]   Name:            f0024.jpg
+I20261001 23:28:01.214377  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:28:01.214405  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:28:01.214431  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:28:01.214463  7788 feature_extraction.cc:294]   Features:        8498 (SIFT)
+I20261001 23:28:02.624676  7788 feature_extraction.cc:270] Processed file [25/41]
+I20261001 23:28:02.624816  7788 feature_extraction.cc:273]   Name:            f0026.jpg
+I20261001 23:28:02.624834  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:28:02.624848  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:28:02.624862  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:28:02.624880  7788 feature_extraction.cc:294]   Features:        6991 (SIFT)
+I20261001 23:28:02.650784  7788 feature_extraction.cc:270] Processed file [26/41]
+I20261001 23:28:02.650874  7788 feature_extraction.cc:273]   Name:            f0025.jpg
+I20261001 23:28:02.650891  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:28:02.650905  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:28:02.650920  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:28:02.650939  7788 feature_extraction.cc:294]   Features:        8181 (SIFT)
+I20261001 23:28:02.802392  7788 feature_extraction.cc:270] Processed file [27/41]
+I20261001 23:28:02.802547  7788 feature_extraction.cc:273]   Name:            f0027.jpg
+I20261001 23:28:02.802578  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:28:02.802602  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:28:02.802627  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:28:02.802655  7788 feature_extraction.cc:294]   Features:        5629 (SIFT)
+I20261001 23:28:02.881162  7788 feature_extraction.cc:270] Processed file [28/41]
+I20261001 23:28:02.881285  7788 feature_extraction.cc:273]   Name:            f0028.jpg
+I20261001 23:28:02.881304  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:28:02.881317  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:28:02.881332  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:28:02.881351  7788 feature_extraction.cc:294]   Features:        5404 (SIFT)
+I20261001 23:28:02.935997  7788 feature_extraction.cc:270] Processed file [29/41]
+I20261001 23:28:02.936165  7788 feature_extraction.cc:273]   Name:            f0029.jpg
+I20261001 23:28:02.936197  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:28:02.936223  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:28:02.936250  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:28:02.936281  7788 feature_extraction.cc:294]   Features:        5551 (SIFT)
+I20261001 23:28:02.968413  7788 feature_extraction.cc:270] Processed file [30/41]
+I20261001 23:28:02.968583  7788 feature_extraction.cc:273]   Name:            f0030.jpg
+I20261001 23:28:02.968755  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:28:02.968797  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:28:02.968825  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:28:02.969014  7788 feature_extraction.cc:294]   Features:        4870 (SIFT)
+I20261001 23:28:04.193216  7788 feature_extraction.cc:270] Processed file [31/41]
+I20261001 23:28:04.193346  7788 feature_extraction.cc:273]   Name:            f0031.jpg
+I20261001 23:28:04.193382  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:28:04.193407  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:28:04.193434  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:28:04.193467  7788 feature_extraction.cc:294]   Features:        4133 (SIFT)
+I20261001 23:28:04.229966  7788 feature_extraction.cc:270] Processed file [32/41]
+I20261001 23:28:04.230151  7788 feature_extraction.cc:273]   Name:            f0032.jpg
+I20261001 23:28:04.230196  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:28:04.230224  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:28:04.230253  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:28:04.230289  7788 feature_extraction.cc:294]   Features:        4239 (SIFT)
+I20261001 23:28:04.387950  7788 feature_extraction.cc:270] Processed file [33/41]
+I20261001 23:28:04.388086  7788 feature_extraction.cc:273]   Name:            f0033.jpg
+I20261001 23:28:04.388105  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:28:04.388120  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:28:04.388137  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:28:04.388156  7788 feature_extraction.cc:294]   Features:        4243 (SIFT)
+I20261001 23:28:05.208041  7788 feature_extraction.cc:270] Processed file [34/41]
+I20261001 23:28:05.208167  7788 feature_extraction.cc:273]   Name:            f0034.jpg
+I20261001 23:28:05.208196  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:28:05.208217  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:28:05.208240  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:28:05.208266  7788 feature_extraction.cc:294]   Features:        4097 (SIFT)
+I20261001 23:28:05.213897  7788 feature_extraction.cc:270] Processed file [35/41]
+I20261001 23:28:05.214001  7788 feature_extraction.cc:273]   Name:            f0036.jpg
+I20261001 23:28:05.214022  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:28:05.214038  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:28:05.214057  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:28:05.214080  7788 feature_extraction.cc:294]   Features:        4370 (SIFT)
+I20261001 23:28:05.218158  7788 feature_extraction.cc:270] Processed file [36/41]
+I20261001 23:28:05.218246  7788 feature_extraction.cc:273]   Name:            f0035.jpg
+I20261001 23:28:05.218277  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:28:05.218301  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:28:05.218398  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:28:05.218521  7788 feature_extraction.cc:294]   Features:        4426 (SIFT)
+I20261001 23:28:05.224278  7788 feature_extraction.cc:270] Processed file [37/41]
+I20261001 23:28:05.224369  7788 feature_extraction.cc:273]   Name:            frames.json
+W20261001 23:28:05.224399  7788 feature_extraction.cc:277] frames.json BITMAP_ERROR: Failed to read the image file format.
+I20261001 23:28:05.642580  7788 feature_extraction.cc:270] Processed file [38/41]
+I20261001 23:28:05.642754  7788 feature_extraction.cc:273]   Name:            f0037.jpg
+I20261001 23:28:05.642791  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:28:05.642823  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:28:05.642852  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:28:05.642882  7788 feature_extraction.cc:294]   Features:        4061 (SIFT)
+I20261001 23:28:05.720262  7788 feature_extraction.cc:270] Processed file [39/41]
+I20261001 23:28:05.720394  7788 feature_extraction.cc:273]   Name:            f0038.jpg
+I20261001 23:28:05.720427  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:28:05.720450  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:28:05.720473  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:28:05.720498  7788 feature_extraction.cc:294]   Features:        3844 (SIFT)
+I20261001 23:28:05.750899  7788 feature_extraction.cc:270] Processed file [40/41]
+I20261001 23:28:05.750996  7788 feature_extraction.cc:273]   Name:            f0039.jpg
+I20261001 23:28:05.751014  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:28:05.751027  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:28:05.751044  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:28:05.751062  7788 feature_extraction.cc:294]   Features:        3944 (SIFT)
+I20261001 23:28:05.939272  7788 feature_extraction.cc:270] Processed file [41/41]
+I20261001 23:28:05.939384  7788 feature_extraction.cc:273]   Name:            f0040.jpg
+I20261001 23:28:05.939403  7788 feature_extraction.cc:282]   Dimensions:      1600 x 900
+I20261001 23:28:05.939417  7788 feature_extraction.cc:285]   Camera:          #1 - SIMPLE_RADIAL
+I20261001 23:28:05.939433  7788 feature_extraction.cc:289]   Focal Length:    1920.00px
+I20261001 23:28:05.939451  7788 feature_extraction.cc:294]   Features:        5395 (SIFT)
+I20261001 23:28:06.645960 30288 timer.cc:90] Elapsed time: 0.277 [minutes]
+I20261001 23:28:07.071904 23496 feature_matching.cc:196] === Feature matching & geometric verification ===
+I20261001 23:28:07.079401  6016 sift.cc:1685] Creating SIFT CPU feature matcher
+I20261001 23:28:07.081362 27640 sift.cc:1685] Creating SIFT CPU feature matcher
+I20261001 23:28:07.087496 27620 sift.cc:1685] Creating SIFT CPU feature matcher
+I20261001 23:28:07.091672 28116 sift.cc:1685] Creating SIFT CPU feature matcher
+I20261001 23:28:07.093350 32444 sift.cc:1685] Creating SIFT CPU feature matcher
+I20261001 23:28:07.093683  7400 sift.cc:1685] Creating SIFT CPU feature matcher
+I20261001 23:28:07.095626 30020 sift.cc:1685] Creating SIFT CPU feature matcher
+I20261001 23:28:07.096082 28700 sift.cc:1685] Creating SIFT CPU feature matcher
+I20261001 23:28:07.096919 16536 sift.cc:1685] Creating SIFT CPU feature matcher
+I20261001 23:28:07.097101 31332 sift.cc:1685] Creating SIFT CPU feature matcher
+I20261001 23:28:07.097223 25664 sift.cc:1685] Creating SIFT CPU feature matcher
+I20261001 23:28:07.097533 28860 sift.cc:1685] Creating SIFT CPU feature matcher
+I20261001 23:28:07.097781 32396 sift.cc:1685] Creating SIFT CPU feature matcher
+I20261001 23:28:07.099412 25576 sift.cc:1685] Creating SIFT CPU feature matcher
+I20261001 23:28:07.099980 30976 sift.cc:1685] Creating SIFT CPU feature matcher
+I20261001 23:28:07.100143 29592 sift.cc:1685] Creating SIFT CPU feature matcher
+I20261001 23:28:07.100277 27864 sift.cc:1685] Creating SIFT CPU feature matcher
+I20261001 23:28:07.100684 13684 sift.cc:1685] Creating SIFT CPU feature matcher
+I20261001 23:28:07.101136 10860 sift.cc:1685] Creating SIFT CPU feature matcher
+I20261001 23:28:07.101775 21664 sift.cc:1685] Creating SIFT CPU feature matcher
+I20261001 23:28:07.102026 27920 sift.cc:1685] Creating SIFT CPU feature matcher
+I20261001 23:28:07.102193 25680 sift.cc:1685] Creating SIFT CPU feature matcher
+I20261001 23:28:07.102323 23496 pairing.cc:438] Generating sequential image pairs...
+I20261001 23:28:07.103848 23496 pairing.cc:562] Processing image [1/40]
+I20261001 23:28:08.516751 23496 feature_matching.cc:218] in 1.413s
+I20261001 23:28:08.516837 23496 pairing.cc:562] Processing image [2/40]
+I20261001 23:28:09.679711 23496 feature_matching.cc:218] in 1.163s
+I20261001 23:28:09.679803 23496 pairing.cc:562] Processing image [3/40]
+I20261001 23:28:11.155274 23496 feature_matching.cc:218] in 1.475s
+I20261001 23:28:11.155356 23496 pairing.cc:562] Processing image [4/40]
+I20261001 23:28:12.556781 23496 feature_matching.cc:218] in 1.401s
+I20261001 23:28:12.556858 23496 pairing.cc:562] Processing image [5/40]
+I20261001 23:28:13.954446 23496 feature_matching.cc:218] in 1.398s
+I20261001 23:28:13.954541 23496 pairing.cc:562] Processing image [6/40]
+I20261001 23:28:15.467828 23496 feature_matching.cc:218] in 1.513s
+I20261001 23:28:15.467910 23496 pairing.cc:562] Processing image [7/40]
+I20261001 23:28:17.374310 23496 feature_matching.cc:218] in 1.906s
+I20261001 23:28:17.374409 23496 pairing.cc:562] Processing image [8/40]
+I20261001 23:28:19.146003 23496 feature_matching.cc:218] in 1.772s
+I20261001 23:28:19.146087 23496 pairing.cc:562] Processing image [9/40]
+I20261001 23:28:20.463037 23496 feature_matching.cc:218] in 1.317s
+I20261001 23:28:20.463144 23496 pairing.cc:562] Processing image [10/40]
+I20261001 23:28:21.815753 23496 feature_matching.cc:218] in 1.353s
+I20261001 23:28:21.815837 23496 pairing.cc:562] Processing image [11/40]
+I20261001 23:28:22.832770 23496 feature_matching.cc:218] in 1.017s
+I20261001 23:28:22.832891 23496 pairing.cc:562] Processing image [12/40]
+I20261001 23:28:23.786378 23496 feature_matching.cc:218] in 0.954s
+I20261001 23:28:23.786466 23496 pairing.cc:562] Processing image [13/40]
+I20261001 23:28:24.665168 23496 feature_matching.cc:218] in 0.879s
+I20261001 23:28:24.665261 23496 pairing.cc:562] Processing image [14/40]
+I20261001 23:28:25.767617 23496 feature_matching.cc:218] in 1.102s
+I20261001 23:28:25.767714 23496 pairing.cc:562] Processing image [15/40]
+I20261001 23:28:26.821529 23496 feature_matching.cc:218] in 1.054s
+I20261001 23:28:26.821609 23496 pairing.cc:562] Processing image [16/40]
+I20261001 23:28:27.694012 23496 feature_matching.cc:218] in 0.872s
+I20261001 23:28:27.694093 23496 pairing.cc:562] Processing image [17/40]
+I20261001 23:28:28.316430 23496 feature_matching.cc:218] in 0.622s
+I20261001 23:28:28.316517 23496 pairing.cc:562] Processing image [18/40]
+I20261001 23:28:28.920420 23496 feature_matching.cc:218] in 0.604s
+I20261001 23:28:28.920501 23496 pairing.cc:562] Processing image [19/40]
+I20261001 23:28:29.780048 23496 feature_matching.cc:218] in 0.860s
+I20261001 23:28:29.780144 23496 pairing.cc:562] Processing image [20/40]
+I20261001 23:28:30.644935 23496 feature_matching.cc:218] in 0.865s
+I20261001 23:28:30.645035 23496 pairing.cc:562] Processing image [21/40]
+I20261001 23:28:31.499278 23496 feature_matching.cc:218] in 0.854s
+I20261001 23:28:31.499373 23496 pairing.cc:562] Processing image [22/40]
+I20261001 23:28:32.252511 23496 feature_matching.cc:218] in 0.753s
+I20261001 23:28:32.252620 23496 pairing.cc:562] Processing image [23/40]
+I20261001 23:28:33.016562 23496 feature_matching.cc:218] in 0.764s
+I20261001 23:28:33.016636 23496 pairing.cc:562] Processing image [24/40]
+I20261001 23:28:33.746309 23496 feature_matching.cc:218] in 0.730s
+I20261001 23:28:33.746417 23496 pairing.cc:562] Processing image [25/40]
+I20261001 23:28:34.458941 23496 feature_matching.cc:218] in 0.713s
+I20261001 23:28:34.459034 23496 pairing.cc:562] Processing image [26/40]
+I20261001 23:28:35.014357 23496 feature_matching.cc:218] in 0.555s
+I20261001 23:28:35.014530 23496 pairing.cc:562] Processing image [27/40]
+I20261001 23:28:35.455061 23496 feature_matching.cc:218] in 0.441s
+I20261001 23:28:35.455156 23496 pairing.cc:562] Processing image [28/40]
+I20261001 23:28:35.833363 23496 feature_matching.cc:218] in 0.378s
+I20261001 23:28:35.833459 23496 pairing.cc:562] Processing image [29/40]
+I20261001 23:28:36.175498 23496 feature_matching.cc:218] in 0.342s
+I20261001 23:28:36.175568 23496 pairing.cc:562] Processing image [30/40]
+I20261001 23:28:36.459806 23496 feature_matching.cc:218] in 0.284s
+I20261001 23:28:36.459886 23496 pairing.cc:562] Processing image [31/40]
+I20261001 23:28:36.711622 23496 feature_matching.cc:218] in 0.252s
+I20261001 23:28:36.711707 23496 pairing.cc:562] Processing image [32/40]
+I20261001 23:28:36.980279 23496 feature_matching.cc:218] in 0.269s
+I20261001 23:28:36.980358 23496 pairing.cc:562] Processing image [33/40]
+I20261001 23:28:37.258679 23496 feature_matching.cc:218] in 0.278s
+I20261001 23:28:37.258774 23496 pairing.cc:562] Processing image [34/40]
+I20261001 23:28:37.546932 23496 feature_matching.cc:218] in 0.288s
+I20261001 23:28:37.547002 23496 pairing.cc:562] Processing image [35/40]
+I20261001 23:28:37.803572 23496 feature_matching.cc:218] in 0.257s
+I20261001 23:28:37.803642 23496 pairing.cc:562] Processing image [36/40]
+I20261001 23:28:38.045797 23496 feature_matching.cc:218] in 0.242s
+I20261001 23:28:38.045870 23496 pairing.cc:562] Processing image [37/40]
+I20261001 23:28:38.246980 23496 feature_matching.cc:218] in 0.201s
+I20261001 23:28:38.247057 23496 pairing.cc:562] Processing image [38/40]
+I20261001 23:28:38.527745 23496 feature_matching.cc:218] in 0.281s
+I20261001 23:28:38.527873 23496 pairing.cc:562] Processing image [39/40]
+I20261001 23:28:38.904452 23496 feature_matching.cc:218] in 0.377s
+I20261001 23:28:38.904528 23496 pairing.cc:562] Processing image [40/40]
+I20261001 23:28:38.904546 23496 feature_matching.cc:218] in 0.000s
+I20261001 23:28:38.904559 23496 timer.cc:90] Elapsed time: 0.531 [minutes]
+I20261001 23:28:38.938850  7128 incremental_pipeline.cc:353] Loading database
+I20261001 23:28:38.940335  7128 database_cache.cc:82] Loading rigs...
+I20261001 23:28:38.941279  7128 database_cache.cc:92]  1 in 0.001s
+I20261001 23:28:38.941340  7128 database_cache.cc:100] Loading cameras...
+I20261001 23:28:38.941381  7128 database_cache.cc:118]  1 in 0.000s
+I20261001 23:28:38.941397  7128 database_cache.cc:126] Loading frames...
+I20261001 23:28:38.941497  7128 database_cache.cc:136]  40 in 0.000s
+I20261001 23:28:38.941521  7128 database_cache.cc:144] Loading matches...
+I20261001 23:28:38.943243  7128 database_cache.cc:163]  159 in 0.002s
+I20261001 23:28:38.943287  7128 database_cache.cc:171] Loading images...
+I20261001 23:28:38.952288  7128 database_cache.cc:268]  40 in 0.009s (connected 40, loaded 40)
+I20261001 23:28:38.952395  7128 database_cache.cc:282] Loading pose priors...
+I20261001 23:28:38.952423  7128 database_cache.cc:290]  0 in 0.000s
+I20261001 23:28:38.952438  7128 database_cache.cc:298] Building correspondence graph...
+I20261001 23:28:38.969455  7128 database_cache.cc:327]  in 0.017s (ignored 0)
+I20261001 23:28:38.969585  7128 timer.cc:90] Elapsed time: 0.001 [minutes]
+I20261001 23:28:38.974860  7128 incremental_pipeline.cc:465] Finding good initial image pair
+I20261001 23:28:39.430250  7128 incremental_pipeline.cc:492] Registering initial image pair #20 and #27
+I20261001 23:28:39.430570  7128 incremental_pipeline.cc:791] Discarding reconstruction due to bad initial pair
+I20261001 23:28:39.434755  7128 incremental_pipeline.cc:465] Finding good initial image pair
+I20261001 23:28:39.533055  7128 incremental_pipeline.cc:492] Registering initial image pair #13 and #4
+I20261001 23:28:39.533505  7128 incremental_pipeline.cc:791] Discarding reconstruction due to bad initial pair
+I20261001 23:28:39.539744  7128 incremental_pipeline.cc:465] Finding good initial image pair
+I20261001 23:28:39.667714  7128 incremental_pipeline.cc:472] => No good initial image pair found.
+I20261001 23:28:39.667831  7128 incremental_pipeline.cc:800] Discarding reconstruction due to no initial pair
+I20261001 23:28:39.669244  7128 incremental_pipeline.cc:429] => Relaxing the initialization constraints.
+I20261001 23:28:39.672304  7128 incremental_pipeline.cc:465] Finding good initial image pair
+I20261001 23:28:40.253159  7128 incremental_pipeline.cc:472] => No good initial image pair found.
+I20261001 23:28:40.253257  7128 incremental_pipeline.cc:800] Discarding reconstruction due to no initial pair
+I20261001 23:28:40.254353  7128 incremental_pipeline.cc:442] => Relaxing the initialization constraints.
+I20261001 23:28:40.257215  7128 incremental_pipeline.cc:465] Finding good initial image pair
+I20261001 23:28:40.616119  7128 incremental_pipeline.cc:492] Registering initial image pair #20 and #27
+I20261001 23:28:40.616723  7128 incremental_pipeline.cc:791] Discarding reconstruction due to bad initial pair
+I20261001 23:28:40.622420  7128 incremental_pipeline.cc:465] Finding good initial image pair
+I20261001 23:28:40.707161  7128 incremental_pipeline.cc:492] Registering initial image pair #23 and #7
+I20261001 23:28:40.709360  7128 incremental_pipeline.cc:510] Global bundle adjustment
+I20261001 23:28:40.750100  7128 incremental_pipeline.cc:620] Registering image #15 (num_reg_frames=2)
+I20261001 23:28:40.750215  7128 incremental_pipeline.cc:623] => Image sees 32 / 2414 points
+I20261001 23:28:40.773719  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:28:40.822931  7128 incremental_pipeline.cc:620] Registering image #16 (num_reg_frames=3)
+I20261001 23:28:40.823100  7128 incremental_pipeline.cc:623] => Image sees 232 / 2293 points
+I20261001 23:28:40.838608  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:28:40.908806  7128 incremental_pipeline.cc:620] Registering image #17 (num_reg_frames=4)
+I20261001 23:28:40.908900  7128 incremental_pipeline.cc:623] => Image sees 223 / 2213 points
+I20261001 23:28:40.940546  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:28:40.965208  7128 incremental_pipeline.cc:620] Registering image #14 (num_reg_frames=5)
+I20261001 23:28:40.965296  7128 incremental_pipeline.cc:623] => Image sees 291 / 2094 points
+I20261001 23:28:41.006306  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:28:41.028302  7128 incremental_pipeline.cc:620] Registering image #18 (num_reg_frames=6)
+I20261001 23:28:41.028380  7128 incremental_pipeline.cc:623] => Image sees 285 / 2450 points
+I20261001 23:28:41.080615  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:28:41.331352  7128 incremental_pipeline.cc:620] Registering image #20 (num_reg_frames=7)
+I20261001 23:28:41.331457  7128 incremental_pipeline.cc:623] => Image sees 485 / 3099 points
+I20261001 23:28:41.408574  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:28:41.830203  7128 incremental_pipeline.cc:620] Registering image #19 (num_reg_frames=8)
+I20261001 23:28:41.830287  7128 incremental_pipeline.cc:623] => Image sees 1008 / 3321 points
+I20261001 23:28:41.920917  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:28:42.470575  7128 incremental_pipeline.cc:620] Registering image #22 (num_reg_frames=9)
+I20261001 23:28:42.470653  7128 incremental_pipeline.cc:623] => Image sees 884 / 4042 points
+I20261001 23:28:42.577317  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:28:43.357294  7128 incremental_pipeline.cc:620] Registering image #21 (num_reg_frames=10)
+I20261001 23:28:43.357390  7128 incremental_pipeline.cc:623] => Image sees 1500 / 3656 points
+I20261001 23:28:43.499221  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:28:44.535682  7128 incremental_pipeline.cc:620] Registering image #24 (num_reg_frames=11)
+I20261001 23:28:44.535763  7128 incremental_pipeline.cc:623] => Image sees 1087 / 3188 points
+I20261001 23:28:44.638025  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:28:45.757460  7128 incremental_pipeline.cc:620] Registering image #26 (num_reg_frames=12)
+I20261001 23:28:45.757541  7128 incremental_pipeline.cc:623] => Image sees 1056 / 2860 points
+I20261001 23:28:45.886457  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:28:47.386054  7128 incremental_pipeline.cc:620] Registering image #25 (num_reg_frames=13)
+I20261001 23:28:47.386134  7128 incremental_pipeline.cc:623] => Image sees 856 / 2380 points
+I20261001 23:28:47.560298  7128 incremental_pipeline.cc:620] Registering image #27 (num_reg_frames=14)
+I20261001 23:28:47.560390  7128 incremental_pipeline.cc:623] => Image sees 794 / 2089 points
+I20261001 23:28:47.654110  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:28:49.248618  7128 incremental_pipeline.cc:620] Registering image #28 (num_reg_frames=15)
+I20261001 23:28:49.248703  7128 incremental_pipeline.cc:623] => Image sees 710 / 1897 points
+I20261001 23:28:49.248895  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.248907  7128 incremental_pipeline.cc:620] Registering image #13 (num_reg_frames=15)
+I20261001 23:28:49.248918  7128 incremental_pipeline.cc:623] => Image sees 650 / 1934 points
+I20261001 23:28:49.249127  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.249138  7128 incremental_pipeline.cc:620] Registering image #12 (num_reg_frames=15)
+I20261001 23:28:49.249149  7128 incremental_pipeline.cc:623] => Image sees 600 / 1922 points
+I20261001 23:28:49.249309  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.249356  7128 incremental_pipeline.cc:620] Registering image #11 (num_reg_frames=15)
+I20261001 23:28:49.249368  7128 incremental_pipeline.cc:623] => Image sees 440 / 1666 points
+I20261001 23:28:49.249513  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.249523  7128 incremental_pipeline.cc:620] Registering image #29 (num_reg_frames=15)
+I20261001 23:28:49.249533  7128 incremental_pipeline.cc:623] => Image sees 396 / 2239 points
+I20261001 23:28:49.249684  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.249694  7128 incremental_pipeline.cc:620] Registering image #10 (num_reg_frames=15)
+I20261001 23:28:49.249705  7128 incremental_pipeline.cc:623] => Image sees 362 / 1446 points
+I20261001 23:28:49.249818  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.249828  7128 incremental_pipeline.cc:620] Registering image #30 (num_reg_frames=15)
+I20261001 23:28:49.249839  7128 incremental_pipeline.cc:623] => Image sees 295 / 2251 points
+I20261001 23:28:49.249962  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.249973  7128 incremental_pipeline.cc:620] Registering image #8 (num_reg_frames=15)
+I20261001 23:28:49.249983  7128 incremental_pipeline.cc:623] => Image sees 250 / 1528 points
+I20261001 23:28:49.250086  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.250095  7128 incremental_pipeline.cc:620] Registering image #9 (num_reg_frames=15)
+I20261001 23:28:49.250106  7128 incremental_pipeline.cc:623] => Image sees 247 / 1502 points
+I20261001 23:28:49.250207  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.250216  7128 incremental_pipeline.cc:620] Registering image #6 (num_reg_frames=15)
+I20261001 23:28:49.250227  7128 incremental_pipeline.cc:623] => Image sees 231 / 1251 points
+I20261001 23:28:49.250313  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.250327  7128 incremental_pipeline.cc:620] Registering image #31 (num_reg_frames=15)
+I20261001 23:28:49.250339  7128 incremental_pipeline.cc:623] => Image sees 182 / 1696 points
+I20261001 23:28:49.250433  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.250443  7128 incremental_pipeline.cc:620] Registering image #4 (num_reg_frames=15)
+I20261001 23:28:49.250453  7128 incremental_pipeline.cc:623] => Image sees 145 / 1189 points
+I20261001 23:28:49.250524  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.250534  7128 incremental_pipeline.cc:620] Registering image #3 (num_reg_frames=15)
+I20261001 23:28:49.250544  7128 incremental_pipeline.cc:623] => Image sees 131 / 1133 points
+I20261001 23:28:49.250609  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.250621  7128 incremental_pipeline.cc:620] Registering image #5 (num_reg_frames=15)
+I20261001 23:28:49.250632  7128 incremental_pipeline.cc:623] => Image sees 66 / 1090 points
+I20261001 23:28:49.250693  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.250703  7128 incremental_pipeline.cc:620] Registering image #1 (num_reg_frames=15)
+I20261001 23:28:49.250713  7128 incremental_pipeline.cc:623] => Image sees 69 / 857 points
+I20261001 23:28:49.250761  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.250770  7128 incremental_pipeline.cc:620] Registering image #2 (num_reg_frames=15)
+I20261001 23:28:49.250780  7128 incremental_pipeline.cc:623] => Image sees 65 / 663 points
+I20261001 23:28:49.250820  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.250830  7128 incremental_pipeline.cc:620] Registering image #34 (num_reg_frames=15)
+I20261001 23:28:49.250840  7128 incremental_pipeline.cc:623] => Image sees 51 / 1734 points
+I20261001 23:28:49.250925  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.250938  7128 incremental_pipeline.cc:620] Registering image #32 (num_reg_frames=15)
+I20261001 23:28:49.250949  7128 incremental_pipeline.cc:623] => Image sees 50 / 1752 points
+I20261001 23:28:49.251030  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.251040  7128 incremental_pipeline.cc:620] Registering image #33 (num_reg_frames=15)
+I20261001 23:28:49.251050  7128 incremental_pipeline.cc:623] => Image sees 40 / 1839 points
+I20261001 23:28:49.251130  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.251139  7128 incremental_pipeline.cc:620] Registering image #36 (num_reg_frames=15)
+I20261001 23:28:49.251149  7128 incremental_pipeline.cc:623] => Image sees 39 / 1776 points
+I20261001 23:28:49.251228  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.251245  7128 incremental_pipeline.cc:620] Registering image #28 (num_reg_frames=15)
+I20261001 23:28:49.251256  7128 incremental_pipeline.cc:623] => Image sees 710 / 1897 points
+I20261001 23:28:49.251266  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.251276  7128 incremental_pipeline.cc:631] => Image sees 2033 / 3610 correspondences
+I20261001 23:28:49.251390  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.251403  7128 incremental_pipeline.cc:620] Registering image #13 (num_reg_frames=15)
+I20261001 23:28:49.251414  7128 incremental_pipeline.cc:623] => Image sees 650 / 1934 points
+I20261001 23:28:49.251424  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.251434  7128 incremental_pipeline.cc:631] => Image sees 1976 / 4127 correspondences
+I20261001 23:28:49.251546  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.251556  7128 incremental_pipeline.cc:620] Registering image #12 (num_reg_frames=15)
+I20261001 23:28:49.251566  7128 incremental_pipeline.cc:623] => Image sees 600 / 1922 points
+I20261001 23:28:49.251576  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.251586  7128 incremental_pipeline.cc:631] => Image sees 1407 / 4147 correspondences
+I20261001 23:28:49.251692  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.251755  7128 incremental_pipeline.cc:620] Registering image #11 (num_reg_frames=15)
+I20261001 23:28:49.251779  7128 incremental_pipeline.cc:623] => Image sees 440 / 1666 points
+I20261001 23:28:49.251791  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.251801  7128 incremental_pipeline.cc:631] => Image sees 1134 / 3580 correspondences
+I20261001 23:28:49.251901  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.251914  7128 incremental_pipeline.cc:620] Registering image #29 (num_reg_frames=15)
+I20261001 23:28:49.251924  7128 incremental_pipeline.cc:623] => Image sees 396 / 2239 points
+I20261001 23:28:49.251934  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.251943  7128 incremental_pipeline.cc:631] => Image sees 918 / 4108 correspondences
+I20261001 23:28:49.252050  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.252062  7128 incremental_pipeline.cc:620] Registering image #6 (num_reg_frames=15)
+I20261001 23:28:49.252071  7128 incremental_pipeline.cc:623] => Image sees 231 / 1251 points
+I20261001 23:28:49.252081  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.252090  7128 incremental_pipeline.cc:631] => Image sees 846 / 2689 correspondences
+I20261001 23:28:49.252163  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.252184  7128 incremental_pipeline.cc:620] Registering image #9 (num_reg_frames=15)
+I20261001 23:28:49.252194  7128 incremental_pipeline.cc:623] => Image sees 247 / 1502 points
+I20261001 23:28:49.252203  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.252213  7128 incremental_pipeline.cc:631] => Image sees 784 / 3102 correspondences
+I20261001 23:28:49.252294  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.252303  7128 incremental_pipeline.cc:620] Registering image #8 (num_reg_frames=15)
+I20261001 23:28:49.252313  7128 incremental_pipeline.cc:623] => Image sees 250 / 1528 points
+I20261001 23:28:49.252323  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.252332  7128 incremental_pipeline.cc:631] => Image sees 739 / 3207 correspondences
+I20261001 23:28:49.252413  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.252423  7128 incremental_pipeline.cc:620] Registering image #10 (num_reg_frames=15)
+I20261001 23:28:49.252432  7128 incremental_pipeline.cc:623] => Image sees 362 / 1446 points
+I20261001 23:28:49.252441  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.252451  7128 incremental_pipeline.cc:631] => Image sees 736 / 3210 correspondences
+I20261001 23:28:49.252530  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.252540  7128 incremental_pipeline.cc:620] Registering image #30 (num_reg_frames=15)
+I20261001 23:28:49.252550  7128 incremental_pipeline.cc:623] => Image sees 295 / 2251 points
+I20261001 23:28:49.252560  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.252571  7128 incremental_pipeline.cc:631] => Image sees 490 / 4152 correspondences
+I20261001 23:28:49.252669  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.252680  7128 incremental_pipeline.cc:620] Registering image #4 (num_reg_frames=15)
+I20261001 23:28:49.252690  7128 incremental_pipeline.cc:623] => Image sees 145 / 1189 points
+I20261001 23:28:49.252700  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.252710  7128 incremental_pipeline.cc:631] => Image sees 489 / 2527 correspondences
+I20261001 23:28:49.252777  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.252787  7128 incremental_pipeline.cc:620] Registering image #3 (num_reg_frames=15)
+I20261001 23:28:49.252797  7128 incremental_pipeline.cc:623] => Image sees 131 / 1133 points
+I20261001 23:28:49.252809  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.252819  7128 incremental_pipeline.cc:631] => Image sees 431 / 2307 correspondences
+I20261001 23:28:49.252878  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.252890  7128 incremental_pipeline.cc:620] Registering image #31 (num_reg_frames=15)
+I20261001 23:28:49.252900  7128 incremental_pipeline.cc:623] => Image sees 182 / 1696 points
+I20261001 23:28:49.252910  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.252919  7128 incremental_pipeline.cc:631] => Image sees 357 / 3455 correspondences
+I20261001 23:28:49.252996  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.253006  7128 incremental_pipeline.cc:620] Registering image #5 (num_reg_frames=15)
+I20261001 23:28:49.253015  7128 incremental_pipeline.cc:623] => Image sees 66 / 1090 points
+I20261001 23:28:49.253025  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.253035  7128 incremental_pipeline.cc:631] => Image sees 90 / 2245 correspondences
+I20261001 23:28:49.253091  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.253110  7128 incremental_pipeline.cc:620] Registering image #1 (num_reg_frames=15)
+I20261001 23:28:49.253120  7128 incremental_pipeline.cc:623] => Image sees 69 / 857 points
+I20261001 23:28:49.253129  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.253138  7128 incremental_pipeline.cc:631] => Image sees 79 / 1587 correspondences
+I20261001 23:28:49.253184  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.253193  7128 incremental_pipeline.cc:620] Registering image #2 (num_reg_frames=15)
+I20261001 23:28:49.253202  7128 incremental_pipeline.cc:623] => Image sees 65 / 663 points
+I20261001 23:28:49.253212  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.253221  7128 incremental_pipeline.cc:631] => Image sees 75 / 1154 correspondences
+I20261001 23:28:49.253259  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.253269  7128 incremental_pipeline.cc:620] Registering image #34 (num_reg_frames=15)
+I20261001 23:28:49.253279  7128 incremental_pipeline.cc:623] => Image sees 51 / 1734 points
+I20261001 23:28:49.253291  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.253300  7128 incremental_pipeline.cc:631] => Image sees 73 / 3299 correspondences
+I20261001 23:28:49.253373  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.253384  7128 incremental_pipeline.cc:620] Registering image #32 (num_reg_frames=15)
+I20261001 23:28:49.253394  7128 incremental_pipeline.cc:623] => Image sees 50 / 1752 points
+I20261001 23:28:49.253403  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.253412  7128 incremental_pipeline.cc:631] => Image sees 63 / 3405 correspondences
+I20261001 23:28:49.253495  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.253506  7128 incremental_pipeline.cc:620] Registering image #36 (num_reg_frames=15)
+I20261001 23:28:49.253516  7128 incremental_pipeline.cc:623] => Image sees 39 / 1776 points
+I20261001 23:28:49.253528  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.253537  7128 incremental_pipeline.cc:631] => Image sees 54 / 3441 correspondences
+I20261001 23:28:49.253546  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.253556  7128 incremental_pipeline.cc:620] Registering image #33 (num_reg_frames=15)
+I20261001 23:28:49.253567  7128 incremental_pipeline.cc:623] => Image sees 40 / 1839 points
+I20261001 23:28:49.253578  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.253587  7128 incremental_pipeline.cc:631] => Image sees 51 / 3571 correspondences
+I20261001 23:28:49.253600  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.253611  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:28:49.418578  7128 incremental_pipeline.cc:620] Registering image #28 (num_reg_frames=15)
+I20261001 23:28:49.418669  7128 incremental_pipeline.cc:623] => Image sees 710 / 1897 points
+I20261001 23:28:49.418990  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.419083  7128 incremental_pipeline.cc:620] Registering image #13 (num_reg_frames=15)
+I20261001 23:28:49.419118  7128 incremental_pipeline.cc:623] => Image sees 650 / 1934 points
+I20261001 23:28:49.419449  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.419476  7128 incremental_pipeline.cc:620] Registering image #12 (num_reg_frames=15)
+I20261001 23:28:49.419502  7128 incremental_pipeline.cc:623] => Image sees 600 / 1922 points
+I20261001 23:28:49.419800  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.419865  7128 incremental_pipeline.cc:620] Registering image #11 (num_reg_frames=15)
+I20261001 23:28:49.419894  7128 incremental_pipeline.cc:623] => Image sees 440 / 1666 points
+I20261001 23:28:49.420179  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.420208  7128 incremental_pipeline.cc:620] Registering image #29 (num_reg_frames=15)
+I20261001 23:28:49.420234  7128 incremental_pipeline.cc:623] => Image sees 396 / 2239 points
+I20261001 23:28:49.420534  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.420571  7128 incremental_pipeline.cc:620] Registering image #10 (num_reg_frames=15)
+I20261001 23:28:49.420585  7128 incremental_pipeline.cc:623] => Image sees 362 / 1446 points
+I20261001 23:28:49.420694  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.420705  7128 incremental_pipeline.cc:620] Registering image #30 (num_reg_frames=15)
+I20261001 23:28:49.420716  7128 incremental_pipeline.cc:623] => Image sees 295 / 2251 points
+I20261001 23:28:49.420828  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.420839  7128 incremental_pipeline.cc:620] Registering image #8 (num_reg_frames=15)
+I20261001 23:28:49.420849  7128 incremental_pipeline.cc:623] => Image sees 250 / 1528 points
+I20261001 23:28:49.420956  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.420969  7128 incremental_pipeline.cc:620] Registering image #9 (num_reg_frames=15)
+I20261001 23:28:49.420981  7128 incremental_pipeline.cc:623] => Image sees 247 / 1502 points
+I20261001 23:28:49.421074  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.421085  7128 incremental_pipeline.cc:620] Registering image #6 (num_reg_frames=15)
+I20261001 23:28:49.421096  7128 incremental_pipeline.cc:623] => Image sees 231 / 1251 points
+I20261001 23:28:49.421178  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.421189  7128 incremental_pipeline.cc:620] Registering image #31 (num_reg_frames=15)
+I20261001 23:28:49.421199  7128 incremental_pipeline.cc:623] => Image sees 182 / 1696 points
+I20261001 23:28:49.421292  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.421302  7128 incremental_pipeline.cc:620] Registering image #4 (num_reg_frames=15)
+I20261001 23:28:49.421312  7128 incremental_pipeline.cc:623] => Image sees 145 / 1189 points
+I20261001 23:28:49.421381  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.421391  7128 incremental_pipeline.cc:620] Registering image #3 (num_reg_frames=15)
+I20261001 23:28:49.421402  7128 incremental_pipeline.cc:623] => Image sees 131 / 1133 points
+I20261001 23:28:49.421466  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.421479  7128 incremental_pipeline.cc:620] Registering image #5 (num_reg_frames=15)
+I20261001 23:28:49.421490  7128 incremental_pipeline.cc:623] => Image sees 66 / 1090 points
+I20261001 23:28:49.421550  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.421561  7128 incremental_pipeline.cc:620] Registering image #1 (num_reg_frames=15)
+I20261001 23:28:49.421570  7128 incremental_pipeline.cc:623] => Image sees 69 / 857 points
+I20261001 23:28:49.421618  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.421627  7128 incremental_pipeline.cc:620] Registering image #2 (num_reg_frames=15)
+I20261001 23:28:49.421637  7128 incremental_pipeline.cc:623] => Image sees 65 / 663 points
+I20261001 23:28:49.421677  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.421687  7128 incremental_pipeline.cc:620] Registering image #34 (num_reg_frames=15)
+I20261001 23:28:49.421699  7128 incremental_pipeline.cc:623] => Image sees 51 / 1734 points
+I20261001 23:28:49.421786  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.421797  7128 incremental_pipeline.cc:620] Registering image #32 (num_reg_frames=15)
+I20261001 23:28:49.421807  7128 incremental_pipeline.cc:623] => Image sees 50 / 1752 points
+I20261001 23:28:49.421886  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.421906  7128 incremental_pipeline.cc:620] Registering image #33 (num_reg_frames=15)
+I20261001 23:28:49.421919  7128 incremental_pipeline.cc:623] => Image sees 40 / 1839 points
+I20261001 23:28:49.422000  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.422010  7128 incremental_pipeline.cc:620] Registering image #36 (num_reg_frames=15)
+I20261001 23:28:49.422021  7128 incremental_pipeline.cc:623] => Image sees 39 / 1776 points
+I20261001 23:28:49.422097  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.422112  7128 incremental_pipeline.cc:620] Registering image #28 (num_reg_frames=15)
+I20261001 23:28:49.422123  7128 incremental_pipeline.cc:623] => Image sees 710 / 1897 points
+I20261001 23:28:49.422133  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.422145  7128 incremental_pipeline.cc:631] => Image sees 2033 / 3610 correspondences
+I20261001 23:28:49.422246  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.422256  7128 incremental_pipeline.cc:620] Registering image #13 (num_reg_frames=15)
+I20261001 23:28:49.422265  7128 incremental_pipeline.cc:623] => Image sees 650 / 1934 points
+I20261001 23:28:49.422275  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.422285  7128 incremental_pipeline.cc:631] => Image sees 1976 / 4127 correspondences
+I20261001 23:28:49.422394  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.422405  7128 incremental_pipeline.cc:620] Registering image #12 (num_reg_frames=15)
+I20261001 23:28:49.422415  7128 incremental_pipeline.cc:623] => Image sees 600 / 1922 points
+I20261001 23:28:49.422425  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.422434  7128 incremental_pipeline.cc:631] => Image sees 1407 / 4147 correspondences
+I20261001 23:28:49.422536  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.422547  7128 incremental_pipeline.cc:620] Registering image #11 (num_reg_frames=15)
+I20261001 23:28:49.422557  7128 incremental_pipeline.cc:623] => Image sees 440 / 1666 points
+I20261001 23:28:49.422567  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.422576  7128 incremental_pipeline.cc:631] => Image sees 1134 / 3580 correspondences
+I20261001 23:28:49.422671  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.422683  7128 incremental_pipeline.cc:620] Registering image #29 (num_reg_frames=15)
+I20261001 23:28:49.422693  7128 incremental_pipeline.cc:623] => Image sees 396 / 2239 points
+I20261001 23:28:49.422703  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.422713  7128 incremental_pipeline.cc:631] => Image sees 918 / 4108 correspondences
+I20261001 23:28:49.422818  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.422828  7128 incremental_pipeline.cc:620] Registering image #6 (num_reg_frames=15)
+I20261001 23:28:49.422838  7128 incremental_pipeline.cc:623] => Image sees 231 / 1251 points
+I20261001 23:28:49.422849  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.422859  7128 incremental_pipeline.cc:631] => Image sees 846 / 2689 correspondences
+I20261001 23:28:49.422935  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.422956  7128 incremental_pipeline.cc:620] Registering image #9 (num_reg_frames=15)
+I20261001 23:28:49.422967  7128 incremental_pipeline.cc:623] => Image sees 247 / 1502 points
+I20261001 23:28:49.422977  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.422989  7128 incremental_pipeline.cc:631] => Image sees 784 / 3102 correspondences
+I20261001 23:28:49.423070  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.423082  7128 incremental_pipeline.cc:620] Registering image #8 (num_reg_frames=15)
+I20261001 23:28:49.423091  7128 incremental_pipeline.cc:623] => Image sees 250 / 1528 points
+I20261001 23:28:49.423101  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.423111  7128 incremental_pipeline.cc:631] => Image sees 739 / 3207 correspondences
+I20261001 23:28:49.423192  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.423203  7128 incremental_pipeline.cc:620] Registering image #10 (num_reg_frames=15)
+I20261001 23:28:49.423213  7128 incremental_pipeline.cc:623] => Image sees 362 / 1446 points
+I20261001 23:28:49.423223  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.423233  7128 incremental_pipeline.cc:631] => Image sees 736 / 3210 correspondences
+I20261001 23:28:49.423313  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.423324  7128 incremental_pipeline.cc:620] Registering image #30 (num_reg_frames=15)
+I20261001 23:28:49.423334  7128 incremental_pipeline.cc:623] => Image sees 295 / 2251 points
+I20261001 23:28:49.423343  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.423353  7128 incremental_pipeline.cc:631] => Image sees 490 / 4152 correspondences
+I20261001 23:28:49.423449  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.423460  7128 incremental_pipeline.cc:620] Registering image #4 (num_reg_frames=15)
+I20261001 23:28:49.423470  7128 incremental_pipeline.cc:623] => Image sees 145 / 1189 points
+I20261001 23:28:49.423479  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.423489  7128 incremental_pipeline.cc:631] => Image sees 489 / 2527 correspondences
+I20261001 23:28:49.423556  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.423566  7128 incremental_pipeline.cc:620] Registering image #3 (num_reg_frames=15)
+I20261001 23:28:49.423576  7128 incremental_pipeline.cc:623] => Image sees 131 / 1133 points
+I20261001 23:28:49.423585  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.423594  7128 incremental_pipeline.cc:631] => Image sees 431 / 2307 correspondences
+I20261001 23:28:49.423706  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.423718  7128 incremental_pipeline.cc:620] Registering image #31 (num_reg_frames=15)
+I20261001 23:28:49.423728  7128 incremental_pipeline.cc:623] => Image sees 182 / 1696 points
+I20261001 23:28:49.423738  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.423748  7128 incremental_pipeline.cc:631] => Image sees 357 / 3455 correspondences
+I20261001 23:28:49.423827  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.423837  7128 incremental_pipeline.cc:620] Registering image #5 (num_reg_frames=15)
+I20261001 23:28:49.423847  7128 incremental_pipeline.cc:623] => Image sees 66 / 1090 points
+I20261001 23:28:49.423858  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.423867  7128 incremental_pipeline.cc:631] => Image sees 90 / 2245 correspondences
+I20261001 23:28:49.423927  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.423979  7128 incremental_pipeline.cc:620] Registering image #1 (num_reg_frames=15)
+I20261001 23:28:49.423991  7128 incremental_pipeline.cc:623] => Image sees 69 / 857 points
+I20261001 23:28:49.424001  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.424013  7128 incremental_pipeline.cc:631] => Image sees 79 / 1587 correspondences
+I20261001 23:28:49.424056  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.424066  7128 incremental_pipeline.cc:620] Registering image #2 (num_reg_frames=15)
+I20261001 23:28:49.424075  7128 incremental_pipeline.cc:623] => Image sees 65 / 663 points
+I20261001 23:28:49.424084  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.424094  7128 incremental_pipeline.cc:631] => Image sees 75 / 1154 correspondences
+I20261001 23:28:49.424133  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.424143  7128 incremental_pipeline.cc:620] Registering image #34 (num_reg_frames=15)
+I20261001 23:28:49.424154  7128 incremental_pipeline.cc:623] => Image sees 51 / 1734 points
+I20261001 23:28:49.424232  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.424278  7128 incremental_pipeline.cc:631] => Image sees 73 / 3299 correspondences
+I20261001 23:28:49.424454  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.424481  7128 incremental_pipeline.cc:620] Registering image #32 (num_reg_frames=15)
+I20261001 23:28:49.424507  7128 incremental_pipeline.cc:623] => Image sees 50 / 1752 points
+I20261001 23:28:49.424531  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.424554  7128 incremental_pipeline.cc:631] => Image sees 63 / 3405 correspondences
+I20261001 23:28:49.424738  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.424761  7128 incremental_pipeline.cc:620] Registering image #36 (num_reg_frames=15)
+I20261001 23:28:49.424785  7128 incremental_pipeline.cc:623] => Image sees 39 / 1776 points
+I20261001 23:28:49.424810  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.424833  7128 incremental_pipeline.cc:631] => Image sees 54 / 3441 correspondences
+I20261001 23:28:49.424858  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.424882  7128 incremental_pipeline.cc:620] Registering image #33 (num_reg_frames=15)
+I20261001 23:28:49.424907  7128 incremental_pipeline.cc:623] => Image sees 40 / 1839 points
+I20261001 23:28:49.424931  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:28:49.424954  7128 incremental_pipeline.cc:631] => Image sees 51 / 3571 correspondences
+I20261001 23:28:49.424978  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:28:49.428068  7128 incremental_pipeline.cc:826] Keeping successful reconstruction
+I20261001 23:28:49.459192  7128 incremental_pipeline.cc:465] Finding good initial image pair
+I20261001 23:28:49.571168  7128 incremental_pipeline.cc:492] Registering initial image pair #9 and #5
+I20261001 23:28:49.571370  7128 incremental_pipeline.cc:791] Discarding reconstruction due to bad initial pair
+I20261001 23:28:49.574476  7128 incremental_pipeline.cc:465] Finding good initial image pair
+I20261001 23:28:49.611374  7128 incremental_pipeline.cc:472] => No good initial image pair found.
+I20261001 23:28:49.611452  7128 incremental_pipeline.cc:800] Discarding reconstruction due to no initial pair
+I20261001 23:28:49.612868  7128 incremental_pipeline.cc:429] => Relaxing the initialization constraints.
+I20261001 23:28:49.615918  7128 incremental_pipeline.cc:465] Finding good initial image pair
+I20261001 23:28:49.802751  7128 incremental_pipeline.cc:492] Registering initial image pair #28 and #35
+I20261001 23:28:49.803532  7128 incremental_pipeline.cc:510] Global bundle adjustment
+I20261001 23:28:49.821940  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+W20261001 23:28:49.823114  7128 incremental_pipeline.cc:821] Discarding reconstruction due to insufficient size
+I20261001 23:28:49.827837  7128 incremental_pipeline.cc:465] Finding good initial image pair
+I20261001 23:28:49.928089  7128 incremental_pipeline.cc:472] => No good initial image pair found.
+I20261001 23:28:49.928197  7128 incremental_pipeline.cc:800] Discarding reconstruction due to no initial pair
+I20261001 23:28:49.930370  7128 incremental_pipeline.cc:442] => Relaxing the initialization constraints.
+I20261001 23:28:49.933240  7128 incremental_pipeline.cc:465] Finding good initial image pair
+I20261001 23:28:50.139637  7128 incremental_pipeline.cc:492] Registering initial image pair #13 and #4
+I20261001 23:28:50.142019  7128 incremental_pipeline.cc:510] Global bundle adjustment
+I20261001 23:28:50.173411  7128 incremental_pipeline.cc:620] Registering image #12 (num_reg_frames=2)
+I20261001 23:28:50.173592  7128 incremental_pipeline.cc:623] => Image sees 77 / 1922 points
+I20261001 23:28:50.182234  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:28:50.207085  7128 incremental_pipeline.cc:620] Registering image #14 (num_reg_frames=3)
+I20261001 23:28:50.207232  7128 incremental_pipeline.cc:623] => Image sees 70 / 2094 points
+I20261001 23:28:50.244113  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:28:50.324328  7128 incremental_pipeline.cc:620] Registering image #15 (num_reg_frames=4)
+I20261001 23:28:50.324446  7128 incremental_pipeline.cc:623] => Image sees 208 / 2414 points
+I20261001 23:28:50.372195  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:28:50.526629  7128 incremental_pipeline.cc:620] Registering image #16 (num_reg_frames=5)
+I20261001 23:28:50.526762  7128 incremental_pipeline.cc:623] => Image sees 341 / 2293 points
+I20261001 23:28:50.675896  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:28:50.706661  7128 incremental_pipeline.cc:620] Registering image #17 (num_reg_frames=6)
+I20261001 23:28:50.706748  7128 incremental_pipeline.cc:623] => Image sees 413 / 2213 points
+I20261001 23:28:50.757977  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:28:51.006800  7128 incremental_pipeline.cc:620] Registering image #18 (num_reg_frames=7)
+I20261001 23:28:51.006880  7128 incremental_pipeline.cc:623] => Image sees 508 / 2450 points
+I20261001 23:28:51.056584  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:28:51.114077  7128 incremental_pipeline.cc:620] Registering image #19 (num_reg_frames=8)
+I20261001 23:28:51.114159  7128 incremental_pipeline.cc:623] => Image sees 566 / 3321 points
+I20261001 23:28:51.171919  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:28:51.594560  7128 incremental_pipeline.cc:620] Registering image #20 (num_reg_frames=9)
+I20261001 23:28:51.594644  7128 incremental_pipeline.cc:623] => Image sees 878 / 3099 points
+I20261001 23:28:51.687900  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:28:52.321300  7128 incremental_pipeline.cc:620] Registering image #22 (num_reg_frames=10)
+I20261001 23:28:52.321424  7128 incremental_pipeline.cc:623] => Image sees 747 / 4042 points
+I20261001 23:28:52.396676  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:28:53.121727  7128 incremental_pipeline.cc:620] Registering image #21 (num_reg_frames=11)
+I20261001 23:28:53.121820  7128 incremental_pipeline.cc:623] => Image sees 1229 / 3656 points
+I20261001 23:28:53.249126  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:28:54.376631  7128 incremental_pipeline.cc:620] Registering image #23 (num_reg_frames=12)
+I20261001 23:28:54.376716  7128 incremental_pipeline.cc:623] => Image sees 890 / 3315 points
+I20261001 23:28:54.512925  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:28:55.656919  7128 incremental_pipeline.cc:620] Registering image #24 (num_reg_frames=13)
+I20261001 23:28:55.657023  7128 incremental_pipeline.cc:623] => Image sees 1082 / 3188 points
+I20261001 23:28:55.808247  7128 incremental_pipeline.cc:620] Registering image #26 (num_reg_frames=14)
+I20261001 23:28:55.808346  7128 incremental_pipeline.cc:623] => Image sees 960 / 2860 points
+I20261001 23:28:55.938986  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:28:57.593947  7128 incremental_pipeline.cc:620] Registering image #25 (num_reg_frames=15)
+I20261001 23:28:57.594031  7128 incremental_pipeline.cc:623] => Image sees 767 / 2380 points
+I20261001 23:28:57.713080  7128 incremental_pipeline.cc:620] Registering image #27 (num_reg_frames=16)
+I20261001 23:28:57.713168  7128 incremental_pipeline.cc:623] => Image sees 696 / 2089 points
+I20261001 23:28:57.818386  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:28:58.881246  7128 incremental_pipeline.cc:620] Registering image #28 (num_reg_frames=17)
+I20261001 23:28:58.881352  7128 incremental_pipeline.cc:623] => Image sees 656 / 1897 points
+I20261001 23:28:59.002701  7128 incremental_pipeline.cc:620] Registering image #11 (num_reg_frames=18)
+I20261001 23:28:59.002825  7128 incremental_pipeline.cc:623] => Image sees 683 / 1666 points
+I20261001 23:28:59.078301  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:00.336252  7128 incremental_pipeline.cc:620] Registering image #10 (num_reg_frames=19)
+I20261001 23:29:00.336348  7128 incremental_pipeline.cc:623] => Image sees 681 / 1446 points
+I20261001 23:29:00.425647  7128 incremental_pipeline.cc:620] Registering image #29 (num_reg_frames=20)
+I20261001 23:29:00.425726  7128 incremental_pipeline.cc:623] => Image sees 542 / 2239 points
+I20261001 23:29:00.509952  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:01.950444  7128 incremental_pipeline.cc:620] Registering image #30 (num_reg_frames=21)
+I20261001 23:29:01.950561  7128 incremental_pipeline.cc:623] => Image sees 770 / 2251 points
+I20261001 23:29:02.069671  7128 incremental_pipeline.cc:620] Registering image #8 (num_reg_frames=22)
+I20261001 23:29:02.069760  7128 incremental_pipeline.cc:623] => Image sees 598 / 1528 points
+I20261001 23:29:02.162518  7128 incremental_pipeline.cc:620] Registering image #9 (num_reg_frames=23)
+I20261001 23:29:02.162632  7128 incremental_pipeline.cc:623] => Image sees 704 / 1502 points
+I20261001 23:29:02.269357  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:03.761262  7128 incremental_pipeline.cc:620] Registering image #31 (num_reg_frames=24)
+I20261001 23:29:03.761345  7128 incremental_pipeline.cc:623] => Image sees 514 / 1696 points
+I20261001 23:29:03.830767  7128 incremental_pipeline.cc:620] Registering image #32 (num_reg_frames=25)
+I20261001 23:29:03.830865  7128 incremental_pipeline.cc:623] => Image sees 579 / 1752 points
+I20261001 23:29:03.899897  7128 incremental_pipeline.cc:620] Registering image #33 (num_reg_frames=26)
+I20261001 23:29:03.899980  7128 incremental_pipeline.cc:623] => Image sees 696 / 1839 points
+I20261001 23:29:03.974677  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:05.519626  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+W20261001 23:29:05.519728  7128 incremental_mapper.cc:1155] At least two images must be registered for global bundle-adjustment
+W20261001 23:29:05.520426  7128 incremental_pipeline.cc:821] Discarding reconstruction due to insufficient size
+I20261001 23:29:05.523606  7128 incremental_pipeline.cc:465] Finding good initial image pair
+I20261001 23:29:05.568215  7128 incremental_pipeline.cc:492] Registering initial image pair #12 and #5
+I20261001 23:29:05.569422  7128 incremental_pipeline.cc:510] Global bundle adjustment
+I20261001 23:29:05.591138  7128 incremental_pipeline.cc:620] Registering image #13 (num_reg_frames=2)
+I20261001 23:29:05.591233  7128 incremental_pipeline.cc:623] => Image sees 69 / 1934 points
+I20261001 23:29:05.598914  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:05.617792  7128 incremental_pipeline.cc:620] Registering image #14 (num_reg_frames=3)
+I20261001 23:29:05.617879  7128 incremental_pipeline.cc:623] => Image sees 69 / 2094 points
+I20261001 23:29:05.632045  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:05.707460  7128 incremental_pipeline.cc:620] Registering image #11 (num_reg_frames=4)
+I20261001 23:29:05.707535  7128 incremental_pipeline.cc:623] => Image sees 74 / 1666 points
+I20261001 23:29:05.720133  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:05.731247  7128 incremental_pipeline.cc:620] Registering image #10 (num_reg_frames=5)
+I20261001 23:29:05.731306  7128 incremental_pipeline.cc:623] => Image sees 77 / 1446 points
+I20261001 23:29:05.762640  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:05.959136  7128 incremental_pipeline.cc:620] Registering image #9 (num_reg_frames=6)
+I20261001 23:29:05.959219  7128 incremental_pipeline.cc:623] => Image sees 82 / 1502 points
+I20261001 23:29:05.973315  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:06.080908  7128 incremental_pipeline.cc:620] Registering image #8 (num_reg_frames=7)
+I20261001 23:29:06.080984  7128 incremental_pipeline.cc:623] => Image sees 116 / 1528 points
+I20261001 23:29:06.100472  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:06.160155  7128 incremental_pipeline.cc:620] Registering image #6 (num_reg_frames=8)
+I20261001 23:29:06.160263  7128 incremental_pipeline.cc:623] => Image sees 124 / 1251 points
+I20261001 23:29:06.209519  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:06.347180  7128 incremental_pipeline.cc:620] Registering image #7 (num_reg_frames=9)
+I20261001 23:29:06.347269  7128 incremental_pipeline.cc:623] => Image sees 228 / 1293 points
+I20261001 23:29:06.382389  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:06.592017  7128 incremental_pipeline.cc:620] Registering image #4 (num_reg_frames=10)
+I20261001 23:29:06.592171  7128 incremental_pipeline.cc:623] => Image sees 218 / 1189 points
+I20261001 23:29:06.623771  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:06.856957  7128 incremental_pipeline.cc:620] Registering image #15 (num_reg_frames=11)
+I20261001 23:29:06.857049  7128 incremental_pipeline.cc:623] => Image sees 254 / 2414 points
+I20261001 23:29:06.899944  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:07.217178  7128 incremental_pipeline.cc:620] Registering image #16 (num_reg_frames=12)
+I20261001 23:29:07.217369  7128 incremental_pipeline.cc:623] => Image sees 340 / 2293 points
+I20261001 23:29:07.278017  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:07.641129  7128 incremental_pipeline.cc:620] Registering image #17 (num_reg_frames=13)
+I20261001 23:29:07.641208  7128 incremental_pipeline.cc:623] => Image sees 354 / 2213 points
+I20261001 23:29:07.720474  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:08.194887  7128 incremental_pipeline.cc:620] Registering image #18 (num_reg_frames=14)
+I20261001 23:29:08.194998  7128 incremental_pipeline.cc:623] => Image sees 418 / 2450 points
+I20261001 23:29:08.318254  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:08.965098  7128 incremental_pipeline.cc:620] Registering image #20 (num_reg_frames=15)
+I20261001 23:29:08.965174  7128 incremental_pipeline.cc:623] => Image sees 468 / 3099 points
+I20261001 23:29:09.040365  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:09.840211  7128 incremental_pipeline.cc:620] Registering image #19 (num_reg_frames=16)
+I20261001 23:29:09.840290  7128 incremental_pipeline.cc:623] => Image sees 787 / 3321 points
+I20261001 23:29:09.943533  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:11.030296  7128 incremental_pipeline.cc:620] Registering image #22 (num_reg_frames=17)
+I20261001 23:29:11.030379  7128 incremental_pipeline.cc:623] => Image sees 659 / 4042 points
+I20261001 23:29:11.123835  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:12.150445  7128 incremental_pipeline.cc:620] Registering image #21 (num_reg_frames=18)
+I20261001 23:29:12.150526  7128 incremental_pipeline.cc:623] => Image sees 1116 / 3656 points
+I20261001 23:29:12.268640  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:13.609289  7128 incremental_pipeline.cc:620] Registering image #23 (num_reg_frames=19)
+I20261001 23:29:13.609374  7128 incremental_pipeline.cc:623] => Image sees 815 / 3315 points
+I20261001 23:29:13.761510  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:15.339236  7128 incremental_pipeline.cc:620] Registering image #24 (num_reg_frames=20)
+I20261001 23:29:15.339327  7128 incremental_pipeline.cc:623] => Image sees 999 / 3188 points
+I20261001 23:29:15.476205  7128 incremental_pipeline.cc:620] Registering image #26 (num_reg_frames=21)
+I20261001 23:29:15.476264  7128 incremental_pipeline.cc:623] => Image sees 904 / 2860 points
+I20261001 23:29:15.611953  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:16.693608  7128 incremental_pipeline.cc:620] Registering image #25 (num_reg_frames=22)
+I20261001 23:29:16.693733  7128 incremental_pipeline.cc:623] => Image sees 697 / 2380 points
+I20261001 23:29:16.817491  7128 incremental_pipeline.cc:620] Registering image #27 (num_reg_frames=23)
+I20261001 23:29:16.817575  7128 incremental_pipeline.cc:623] => Image sees 581 / 2089 points
+I20261001 23:29:16.926311  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:18.148915  7128 incremental_pipeline.cc:620] Registering image #28 (num_reg_frames=24)
+I20261001 23:29:18.149039  7128 incremental_pipeline.cc:623] => Image sees 601 / 1897 points
+I20261001 23:29:18.299309  7128 incremental_pipeline.cc:620] Registering image #29 (num_reg_frames=25)
+I20261001 23:29:18.299412  7128 incremental_pipeline.cc:623] => Image sees 499 / 2239 points
+I20261001 23:29:18.383966  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:19.782759  7128 incremental_pipeline.cc:620] Registering image #30 (num_reg_frames=26)
+I20261001 23:29:19.782875  7128 incremental_pipeline.cc:623] => Image sees 746 / 2251 points
+I20261001 23:29:19.885556  7128 incremental_pipeline.cc:620] Registering image #31 (num_reg_frames=27)
+I20261001 23:29:19.885657  7128 incremental_pipeline.cc:623] => Image sees 486 / 1696 points
+I20261001 23:29:19.962336  7128 incremental_pipeline.cc:620] Registering image #32 (num_reg_frames=28)
+I20261001 23:29:19.962428  7128 incremental_pipeline.cc:623] => Image sees 552 / 1752 points
+I20261001 23:29:20.023737  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:21.566879  7128 incremental_pipeline.cc:620] Registering image #33 (num_reg_frames=29)
+I20261001 23:29:21.567004  7128 incremental_pipeline.cc:623] => Image sees 643 / 1839 points
+I20261001 23:29:21.641402  7128 incremental_pipeline.cc:620] Registering image #34 (num_reg_frames=30)
+I20261001 23:29:21.641489  7128 incremental_pipeline.cc:623] => Image sees 654 / 1734 points
+I20261001 23:29:21.721753  7128 incremental_pipeline.cc:620] Registering image #36 (num_reg_frames=31)
+I20261001 23:29:21.721828  7128 incremental_pipeline.cc:623] => Image sees 590 / 1776 points
+I20261001 23:29:21.797473  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:24.918633  7128 incremental_pipeline.cc:620] Registering image #35 (num_reg_frames=32)
+I20261001 23:29:24.918722  7128 incremental_pipeline.cc:623] => Image sees 573 / 1922 points
+I20261001 23:29:25.005292  7128 incremental_pipeline.cc:620] Registering image #37 (num_reg_frames=33)
+I20261001 23:29:25.005455  7128 incremental_pipeline.cc:623] => Image sees 734 / 2028 points
+I20261001 23:29:25.113888  7128 incremental_pipeline.cc:620] Registering image #38 (num_reg_frames=34)
+I20261001 23:29:25.113988  7128 incremental_pipeline.cc:623] => Image sees 765 / 2066 points
+I20261001 23:29:25.206243  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:27.137847  7128 incremental_pipeline.cc:620] Registering image #39 (num_reg_frames=35)
+I20261001 23:29:27.137934  7128 incremental_pipeline.cc:623] => Image sees 828 / 1878 points
+I20261001 23:29:27.264649  7128 incremental_pipeline.cc:620] Registering image #40 (num_reg_frames=36)
+I20261001 23:29:27.264747  7128 incremental_pipeline.cc:623] => Image sees 775 / 1343 points
+I20261001 23:29:27.380709  7128 incremental_pipeline.cc:620] Registering image #3 (num_reg_frames=37)
+I20261001 23:29:27.380797  7128 incremental_pipeline.cc:623] => Image sees 336 / 1133 points
+I20261001 23:29:27.454450  7128 incremental_pipeline.cc:620] Registering image #1 (num_reg_frames=38)
+I20261001 23:29:27.454559  7128 incremental_pipeline.cc:623] => Image sees 364 / 857 points
+I20261001 23:29:27.527111  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:29.809822  7128 incremental_pipeline.cc:620] Registering image #2 (num_reg_frames=39)
+I20261001 23:29:29.810001  7128 incremental_pipeline.cc:623] => Image sees 358 / 663 points
+I20261001 23:29:29.908152  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+W20261001 23:29:32.132748  7128 incremental_pipeline.cc:821] Discarding reconstruction due to insufficient size
+I20261001 23:29:32.137136  7128 incremental_pipeline.cc:465] Finding good initial image pair
+I20261001 23:29:32.199830  7128 incremental_pipeline.cc:492] Registering initial image pair #30 and #34
+I20261001 23:29:32.201463  7128 incremental_pipeline.cc:510] Global bundle adjustment
+I20261001 23:29:32.220265  7128 incremental_pipeline.cc:620] Registering image #33 (num_reg_frames=2)
+I20261001 23:29:32.220346  7128 incremental_pipeline.cc:623] => Image sees 122 / 1839 points
+I20261001 23:29:32.234394  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:32.247132  7128 incremental_pipeline.cc:620] Registering image #32 (num_reg_frames=3)
+I20261001 23:29:32.247218  7128 incremental_pipeline.cc:623] => Image sees 258 / 1752 points
+I20261001 23:29:32.322700  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:32.597844  7128 incremental_pipeline.cc:620] Registering image #31 (num_reg_frames=4)
+I20261001 23:29:32.597940  7128 incremental_pipeline.cc:623] => Image sees 489 / 1696 points
+I20261001 23:29:32.653335  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:33.553856  7128 incremental_pipeline.cc:620] Registering image #29 (num_reg_frames=5)
+I20261001 23:29:33.553938  7128 incremental_pipeline.cc:623] => Image sees 547 / 2239 points
+I20261001 23:29:33.605382  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:34.724024  7128 incremental_pipeline.cc:620] Registering image #28 (num_reg_frames=6)
+I20261001 23:29:34.724170  7128 incremental_pipeline.cc:623] => Image sees 360 / 1897 points
+I20261001 23:29:34.778694  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:36.053368  7128 incremental_pipeline.cc:620] Registering image #27 (num_reg_frames=7)
+I20261001 23:29:36.053437  7128 incremental_pipeline.cc:623] => Image sees 351 / 2089 points
+I20261001 23:29:36.100703  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:37.515148  7128 incremental_pipeline.cc:620] Registering image #25 (num_reg_frames=8)
+I20261001 23:29:37.515238  7128 incremental_pipeline.cc:623] => Image sees 294 / 2380 points
+I20261001 23:29:37.568357  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:39.053440  7128 incremental_pipeline.cc:620] Registering image #26 (num_reg_frames=9)
+I20261001 23:29:39.053551  7128 incremental_pipeline.cc:623] => Image sees 237 / 2860 points
+I20261001 23:29:39.053811  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:39.053832  7128 incremental_pipeline.cc:620] Registering image #36 (num_reg_frames=9)
+I20261001 23:29:39.053846  7128 incremental_pipeline.cc:623] => Image sees 206 / 1776 points
+I20261001 23:29:39.054004  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:39.054017  7128 incremental_pipeline.cc:620] Registering image #24 (num_reg_frames=9)
+I20261001 23:29:39.054028  7128 incremental_pipeline.cc:623] => Image sees 176 / 3188 points
+I20261001 23:29:39.054238  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:39.054250  7128 incremental_pipeline.cc:620] Registering image #23 (num_reg_frames=9)
+I20261001 23:29:39.054262  7128 incremental_pipeline.cc:623] => Image sees 132 / 3315 points
+I20261001 23:29:39.054446  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:39.054457  7128 incremental_pipeline.cc:620] Registering image #35 (num_reg_frames=9)
+I20261001 23:29:39.054469  7128 incremental_pipeline.cc:623] => Image sees 108 / 1922 points
+I20261001 23:29:39.054605  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:39.054616  7128 incremental_pipeline.cc:620] Registering image #37 (num_reg_frames=9)
+I20261001 23:29:39.054628  7128 incremental_pipeline.cc:623] => Image sees 80 / 2028 points
+I20261001 23:29:39.054747  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:39.054760  7128 incremental_pipeline.cc:620] Registering image #22 (num_reg_frames=9)
+I20261001 23:29:39.054772  7128 incremental_pipeline.cc:623] => Image sees 97 / 4042 points
+I20261001 23:29:39.054994  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:39.055012  7128 incremental_pipeline.cc:620] Registering image #19 (num_reg_frames=9)
+I20261001 23:29:39.055025  7128 incremental_pipeline.cc:623] => Image sees 61 / 3321 points
+I20261001 23:29:39.055196  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:39.055208  7128 incremental_pipeline.cc:620] Registering image #38 (num_reg_frames=9)
+I20261001 23:29:39.055220  7128 incremental_pipeline.cc:623] => Image sees 48 / 2066 points
+I20261001 23:29:39.055340  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:39.055355  7128 incremental_pipeline.cc:620] Registering image #21 (num_reg_frames=9)
+I20261001 23:29:39.055367  7128 incremental_pipeline.cc:623] => Image sees 55 / 3656 points
+I20261001 23:29:39.055542  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:39.055554  7128 incremental_pipeline.cc:620] Registering image #20 (num_reg_frames=9)
+I20261001 23:29:39.055566  7128 incremental_pipeline.cc:623] => Image sees 44 / 3099 points
+I20261001 23:29:39.055725  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:39.055756  7128 incremental_pipeline.cc:620] Registering image #18 (num_reg_frames=9)
+I20261001 23:29:39.055769  7128 incremental_pipeline.cc:623] => Image sees 42 / 2450 points
+I20261001 23:29:39.055902  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:39.055919  7128 incremental_pipeline.cc:620] Registering image #26 (num_reg_frames=9)
+I20261001 23:29:39.055931  7128 incremental_pipeline.cc:623] => Image sees 237 / 2860 points
+I20261001 23:29:39.055942  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:29:39.055954  7128 incremental_pipeline.cc:631] => Image sees 2019 / 5315 correspondences
+I20261001 23:29:39.056131  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:39.056143  7128 incremental_pipeline.cc:620] Registering image #36 (num_reg_frames=9)
+I20261001 23:29:39.056155  7128 incremental_pipeline.cc:623] => Image sees 206 / 1776 points
+I20261001 23:29:39.056166  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:29:39.056178  7128 incremental_pipeline.cc:631] => Image sees 1606 / 3441 correspondences
+I20261001 23:29:39.056294  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:39.056306  7128 incremental_pipeline.cc:620] Registering image #24 (num_reg_frames=9)
+I20261001 23:29:39.056318  7128 incremental_pipeline.cc:623] => Image sees 176 / 3188 points
+I20261001 23:29:39.056329  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:29:39.056341  7128 incremental_pipeline.cc:631] => Image sees 1293 / 5945 correspondences
+I20261001 23:29:39.056515  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:39.056527  7128 incremental_pipeline.cc:620] Registering image #35 (num_reg_frames=9)
+I20261001 23:29:39.056539  7128 incremental_pipeline.cc:623] => Image sees 108 / 1922 points
+I20261001 23:29:39.056550  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:29:39.056561  7128 incremental_pipeline.cc:631] => Image sees 802 / 3695 correspondences
+I20261001 23:29:39.056809  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:39.056893  7128 incremental_pipeline.cc:620] Registering image #22 (num_reg_frames=9)
+I20261001 23:29:39.056928  7128 incremental_pipeline.cc:623] => Image sees 97 / 4042 points
+I20261001 23:29:39.056957  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:29:39.056984  7128 incremental_pipeline.cc:631] => Image sees 642 / 7517 correspondences
+I20261001 23:29:39.057535  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:39.057607  7128 incremental_pipeline.cc:620] Registering image #23 (num_reg_frames=9)
+I20261001 23:29:39.057646  7128 incremental_pipeline.cc:623] => Image sees 132 / 3315 points
+I20261001 23:29:39.057678  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:29:39.057709  7128 incremental_pipeline.cc:631] => Image sees 587 / 6320 correspondences
+I20261001 23:29:39.058157  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:39.058210  7128 incremental_pipeline.cc:620] Registering image #38 (num_reg_frames=9)
+I20261001 23:29:39.058250  7128 incremental_pipeline.cc:623] => Image sees 48 / 2066 points
+I20261001 23:29:39.058282  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:29:39.058331  7128 incremental_pipeline.cc:631] => Image sees 407 / 3956 correspondences
+I20261001 23:29:39.058708  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:39.058753  7128 incremental_pipeline.cc:620] Registering image #37 (num_reg_frames=9)
+I20261001 23:29:39.058799  7128 incremental_pipeline.cc:623] => Image sees 80 / 2028 points
+I20261001 23:29:39.058889  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:29:39.058935  7128 incremental_pipeline.cc:631] => Image sees 380 / 3895 correspondences
+I20261001 23:29:39.059315  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:39.059357  7128 incremental_pipeline.cc:620] Registering image #18 (num_reg_frames=9)
+I20261001 23:29:39.059398  7128 incremental_pipeline.cc:623] => Image sees 42 / 2450 points
+I20261001 23:29:39.059439  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:29:39.059478  7128 incremental_pipeline.cc:631] => Image sees 201 / 5114 correspondences
+I20261001 23:29:39.059947  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:39.059986  7128 incremental_pipeline.cc:620] Registering image #20 (num_reg_frames=9)
+I20261001 23:29:39.060026  7128 incremental_pipeline.cc:623] => Image sees 44 / 3099 points
+I20261001 23:29:39.060059  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:29:39.060087  7128 incremental_pipeline.cc:631] => Image sees 193 / 5887 correspondences
+I20261001 23:29:39.060574  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:39.060612  7128 incremental_pipeline.cc:620] Registering image #19 (num_reg_frames=9)
+I20261001 23:29:39.060651  7128 incremental_pipeline.cc:623] => Image sees 61 / 3321 points
+I20261001 23:29:39.060689  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:29:39.060726  7128 incremental_pipeline.cc:631] => Image sees 152 / 6416 correspondences
+I20261001 23:29:39.061256  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:39.061292  7128 incremental_pipeline.cc:620] Registering image #21 (num_reg_frames=9)
+I20261001 23:29:39.061329  7128 incremental_pipeline.cc:623] => Image sees 55 / 3656 points
+I20261001 23:29:39.061367  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:29:39.061403  7128 incremental_pipeline.cc:631] => Image sees 110 / 6729 correspondences
+I20261001 23:29:39.061965  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:39.062002  7128 incremental_pipeline.cc:88] Retriangulation and Global bundle adjustment
+I20261001 23:29:40.189250  7128 incremental_pipeline.cc:620] Registering image #26 (num_reg_frames=9)
+I20261001 23:29:40.189369  7128 incremental_pipeline.cc:623] => Image sees 208 / 2860 points
+I20261001 23:29:40.189612  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:40.189628  7128 incremental_pipeline.cc:620] Registering image #36 (num_reg_frames=9)
+I20261001 23:29:40.189641  7128 incremental_pipeline.cc:623] => Image sees 156 / 1776 points
+I20261001 23:29:40.189791  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:40.189804  7128 incremental_pipeline.cc:620] Registering image #24 (num_reg_frames=9)
+I20261001 23:29:40.189816  7128 incremental_pipeline.cc:623] => Image sees 156 / 3188 points
+I20261001 23:29:40.190019  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:40.190036  7128 incremental_pipeline.cc:620] Registering image #23 (num_reg_frames=9)
+I20261001 23:29:40.190050  7128 incremental_pipeline.cc:623] => Image sees 120 / 3315 points
+I20261001 23:29:40.190233  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:40.190246  7128 incremental_pipeline.cc:620] Registering image #35 (num_reg_frames=9)
+I20261001 23:29:40.190258  7128 incremental_pipeline.cc:623] => Image sees 82 / 1922 points
+I20261001 23:29:40.190384  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:40.190396  7128 incremental_pipeline.cc:620] Registering image #22 (num_reg_frames=9)
+I20261001 23:29:40.190430  7128 incremental_pipeline.cc:623] => Image sees 92 / 4042 points
+I20261001 23:29:40.190642  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:40.190655  7128 incremental_pipeline.cc:620] Registering image #37 (num_reg_frames=9)
+I20261001 23:29:40.190667  7128 incremental_pipeline.cc:623] => Image sees 58 / 2028 points
+I20261001 23:29:40.190783  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:40.190795  7128 incremental_pipeline.cc:620] Registering image #19 (num_reg_frames=9)
+I20261001 23:29:40.190807  7128 incremental_pipeline.cc:623] => Image sees 59 / 3321 points
+I20261001 23:29:40.190971  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:40.190983  7128 incremental_pipeline.cc:620] Registering image #21 (num_reg_frames=9)
+I20261001 23:29:40.190996  7128 incremental_pipeline.cc:623] => Image sees 45 / 3656 points
+I20261001 23:29:40.191175  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:40.191186  7128 incremental_pipeline.cc:620] Registering image #20 (num_reg_frames=9)
+I20261001 23:29:40.191198  7128 incremental_pipeline.cc:623] => Image sees 41 / 3099 points
+I20261001 23:29:40.191357  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:40.191369  7128 incremental_pipeline.cc:620] Registering image #38 (num_reg_frames=9)
+I20261001 23:29:40.191381  7128 incremental_pipeline.cc:623] => Image sees 33 / 2066 points
+I20261001 23:29:40.191581  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:40.191599  7128 incremental_pipeline.cc:620] Registering image #18 (num_reg_frames=9)
+I20261001 23:29:40.191612  7128 incremental_pipeline.cc:623] => Image sees 40 / 2450 points
+I20261001 23:29:40.191741  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:40.191757  7128 incremental_pipeline.cc:620] Registering image #26 (num_reg_frames=9)
+I20261001 23:29:40.191769  7128 incremental_pipeline.cc:623] => Image sees 208 / 2860 points
+I20261001 23:29:40.191780  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:29:40.191791  7128 incremental_pipeline.cc:631] => Image sees 2019 / 5315 correspondences
+I20261001 23:29:40.191959  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:40.191971  7128 incremental_pipeline.cc:620] Registering image #36 (num_reg_frames=9)
+I20261001 23:29:40.191982  7128 incremental_pipeline.cc:623] => Image sees 156 / 1776 points
+I20261001 23:29:40.191993  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:29:40.192004  7128 incremental_pipeline.cc:631] => Image sees 1606 / 3441 correspondences
+I20261001 23:29:40.192115  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:40.192126  7128 incremental_pipeline.cc:620] Registering image #24 (num_reg_frames=9)
+I20261001 23:29:40.192137  7128 incremental_pipeline.cc:623] => Image sees 156 / 3188 points
+I20261001 23:29:40.192148  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:29:40.192159  7128 incremental_pipeline.cc:631] => Image sees 1293 / 5945 correspondences
+I20261001 23:29:40.192339  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:40.192355  7128 incremental_pipeline.cc:620] Registering image #35 (num_reg_frames=9)
+I20261001 23:29:40.192366  7128 incremental_pipeline.cc:623] => Image sees 82 / 1922 points
+I20261001 23:29:40.192378  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:29:40.192390  7128 incremental_pipeline.cc:631] => Image sees 802 / 3695 correspondences
+I20261001 23:29:40.192497  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:40.192510  7128 incremental_pipeline.cc:620] Registering image #22 (num_reg_frames=9)
+I20261001 23:29:40.192537  7128 incremental_pipeline.cc:623] => Image sees 92 / 4042 points
+I20261001 23:29:40.192549  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:29:40.192560  7128 incremental_pipeline.cc:631] => Image sees 642 / 7517 correspondences
+I20261001 23:29:40.192746  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:40.192757  7128 incremental_pipeline.cc:620] Registering image #23 (num_reg_frames=9)
+I20261001 23:29:40.192768  7128 incremental_pipeline.cc:623] => Image sees 120 / 3315 points
+I20261001 23:29:40.192779  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:29:40.192790  7128 incremental_pipeline.cc:631] => Image sees 587 / 6320 correspondences
+I20261001 23:29:40.192957  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:40.192970  7128 incremental_pipeline.cc:620] Registering image #38 (num_reg_frames=9)
+I20261001 23:29:40.192981  7128 incremental_pipeline.cc:623] => Image sees 33 / 2066 points
+I20261001 23:29:40.192992  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:29:40.193003  7128 incremental_pipeline.cc:631] => Image sees 407 / 3956 correspondences
+I20261001 23:29:40.193099  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:40.193110  7128 incremental_pipeline.cc:620] Registering image #37 (num_reg_frames=9)
+I20261001 23:29:40.193121  7128 incremental_pipeline.cc:623] => Image sees 58 / 2028 points
+I20261001 23:29:40.193133  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:29:40.193143  7128 incremental_pipeline.cc:631] => Image sees 380 / 3895 correspondences
+I20261001 23:29:40.193242  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:40.193253  7128 incremental_pipeline.cc:620] Registering image #18 (num_reg_frames=9)
+I20261001 23:29:40.193264  7128 incremental_pipeline.cc:623] => Image sees 40 / 2450 points
+I20261001 23:29:40.193275  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:29:40.193286  7128 incremental_pipeline.cc:631] => Image sees 201 / 5114 correspondences
+I20261001 23:29:40.193410  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:40.193424  7128 incremental_pipeline.cc:620] Registering image #20 (num_reg_frames=9)
+I20261001 23:29:40.193435  7128 incremental_pipeline.cc:623] => Image sees 41 / 3099 points
+I20261001 23:29:40.193447  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:29:40.193457  7128 incremental_pipeline.cc:631] => Image sees 193 / 5887 correspondences
+I20261001 23:29:40.193596  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:40.193607  7128 incremental_pipeline.cc:620] Registering image #19 (num_reg_frames=9)
+I20261001 23:29:40.193618  7128 incremental_pipeline.cc:623] => Image sees 59 / 3321 points
+I20261001 23:29:40.193629  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:29:40.193640  7128 incremental_pipeline.cc:631] => Image sees 152 / 6416 correspondences
+I20261001 23:29:40.193794  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+I20261001 23:29:40.193806  7128 incremental_pipeline.cc:620] Registering image #21 (num_reg_frames=9)
+I20261001 23:29:40.193818  7128 incremental_pipeline.cc:623] => Image sees 45 / 3656 points
+I20261001 23:29:40.193829  7128 incremental_pipeline.cc:629] Registering image with structure-less fallback
+I20261001 23:29:40.193839  7128 incremental_pipeline.cc:631] => Image sees 110 / 6729 correspondences
+I20261001 23:29:40.194011  7128 incremental_pipeline.cc:646] => Could not register, trying another image.
+W20261001 23:29:40.194034  7128 incremental_pipeline.cc:821] Discarding reconstruction due to insufficient size
+I20261001 23:29:40.201389  7128 incremental_pipeline.cc:465] Finding good initial image pair
+I20261001 23:29:40.221419  7128 incremental_pipeline.cc:472] => No good initial image pair found.
+I20261001 23:29:40.221531  7128 incremental_pipeline.cc:800] Discarding reconstruction due to no initial pair
+I20261001 23:29:40.221739  7128 timer.cc:90] Elapsed time: 1.021 [minutes]
+프레임 40장 추출 (75.6~83.6s)
+3D 뼈대: 15/40 등록 · 점 5,258 · 재투영 0.29px · 추출 11.4s · SfM 110.7s

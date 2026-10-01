@@ -1,0 +1,5 @@
+
+$ C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Scripts\python.exe -m litter.orbit_map --orbit runs\orbit\0015_all\seg05_b07 --srt ../DJI_20261001205404_0015_D.SRT --out runs\orbit\0015_all\seg05_b07\map --litter yolov8s-worldv2.pt --classes cardboard box --min-track 4.0 --conf 0.3
+3D ↔ GPS 맞춤: 카메라 40대 · 잔차 0.07 m · 크기 기준 GPS 경로 · 고도 축척 편차 0.9%
+탐지 27건 → 물체 1개 (3프레임 이상): cardboard box(27)
+→ runs\orbit\0015_all\seg05_b07\map  (map.html · overview.png · sheet.jpg · detections/ · objects.csv)

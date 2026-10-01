@@ -1,0 +1,3 @@
+
+$ C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Scripts\python.exe -m litter.mosaic --orbit runs\orbit\0015_all\seg14_b18 --srt ../DJI_20261001205404_0015_D.SRT --objects runs\orbit\0015_all\seg14_b18\map\objects.csv --out runs\orbit\0015_all\seg14_b18\map --res 0.02 --min-track 4.0
+정사영상 825×865px (2 cm/px, 16.5×17.3 m) · 3D↔GPS 잔차 3.39 m → runs\orbit\0015_all\seg14_b18\map\mosaic_objects.jpg · mosaic.tif (GeoTIFF, EPSG:32652)

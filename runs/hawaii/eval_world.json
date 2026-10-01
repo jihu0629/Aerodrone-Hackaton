@@ -1,0 +1,194 @@
+[
+ {
+  "images": 420,
+  "gt": 3195,
+  "pred@conf": 23,
+  "conf": 0.05,
+  "iou": 0.3,
+  "precision": 0.4782608695652174,
+  "recall": 0.0034428794992175274,
+  "f1": 0.0068365444375388445,
+  "ap50": 0.006188118811881188,
+  "count_ratio": 0.007198748043818467,
+  "area_ratio_median": 0.8464112495252442,
+  "mask_iou_median": 0.7989460812736853,
+  "recall_by_class": {
+   "unidentified object": {
+    "recall": 0.003223726627981947,
+    "n": 1551
+   },
+   "buoy": {
+    "recall": 0.0011534025374855825,
+    "n": 867
+   },
+   "net cloth": {
+    "recall": 0.0,
+    "n": 223
+   },
+   "processed wood": {
+    "recall": 0.0,
+    "n": 217
+   },
+   "tire": {
+    "recall": 0.006944444444444444,
+    "n": 144
+   },
+   "metal": {
+    "recall": 0.00980392156862745,
+    "n": 102
+   },
+   "line fragment": {
+    "recall": 0.012345679012345678,
+    "n": 81
+   },
+   "vessel": {
+    "recall": 0.2,
+    "n": 10
+   }
+  }
+ },
+ {
+  "images": 420,
+  "gt": 3195,
+  "pred@conf": 8,
+  "conf": 0.1,
+  "iou": 0.3,
+  "precision": 0.625,
+  "recall": 0.001564945226917058,
+  "f1": 0.0031220730565095223,
+  "ap50": 0.006188118811881188,
+  "count_ratio": 0.0025039123630672924,
+  "area_ratio_median": 0.7526182893553149,
+  "mask_iou_median": 0.7526182893553149,
+  "recall_by_class": {
+   "unidentified object": {
+    "recall": 0.0012894906511927789,
+    "n": 1551
+   },
+   "buoy": {
+    "recall": 0.0011534025374855825,
+    "n": 867
+   },
+   "net cloth": {
+    "recall": 0.0,
+    "n": 223
+   },
+   "processed wood": {
+    "recall": 0.0,
+    "n": 217
+   },
+   "tire": {
+    "recall": 0.006944444444444444,
+    "n": 144
+   },
+   "metal": {
+    "recall": 0.00980392156862745,
+    "n": 102
+   },
+   "line fragment": {
+    "recall": 0.0,
+    "n": 81
+   },
+   "vessel": {
+    "recall": 0.0,
+    "n": 10
+   }
+  }
+ },
+ {
+  "images": 420,
+  "gt": 3195,
+  "pred@conf": 2,
+  "conf": 0.2,
+  "iou": 0.3,
+  "precision": 0.5,
+  "recall": 0.00031298904538341156,
+  "f1": 0.0006255864873318736,
+  "ap50": 0.006188118811881188,
+  "count_ratio": 0.0006259780907668231,
+  "area_ratio_median": 0.7167938411235809,
+  "mask_iou_median": 0.7167938411235809,
+  "recall_by_class": {
+   "unidentified object": {
+    "recall": 0.0,
+    "n": 1551
+   },
+   "buoy": {
+    "recall": 0.0,
+    "n": 867
+   },
+   "net cloth": {
+    "recall": 0.0,
+    "n": 223
+   },
+   "processed wood": {
+    "recall": 0.0,
+    "n": 217
+   },
+   "tire": {
+    "recall": 0.006944444444444444,
+    "n": 144
+   },
+   "metal": {
+    "recall": 0.0,
+    "n": 102
+   },
+   "line fragment": {
+    "recall": 0.0,
+    "n": 81
+   },
+   "vessel": {
+    "recall": 0.0,
+    "n": 10
+   }
+  }
+ },
+ {
+  "images": 420,
+  "gt": 3195,
+  "pred@conf": 0,
+  "conf": 0.3,
+  "iou": 0.3,
+  "precision": 0.0,
+  "recall": 0.0,
+  "f1": 0.0,
+  "ap50": 0.006188118811881188,
+  "count_ratio": 0.0,
+  "area_ratio_median": null,
+  "mask_iou_median": null,
+  "recall_by_class": {
+   "unidentified object": {
+    "recall": 0.0,
+    "n": 1551
+   },
+   "buoy": {
+    "recall": 0.0,
+    "n": 867
+   },
+   "net cloth": {
+    "recall": 0.0,
+    "n": 223
+   },
+   "processed wood": {
+    "recall": 0.0,
+    "n": 217
+   },
+   "tire": {
+    "recall": 0.0,
+    "n": 144
+   },
+   "metal": {
+    "recall": 0.0,
+    "n": 102
+   },
+   "line fragment": {
+    "recall": 0.0,
+    "n": 81
+   },
+   "vessel": {
+    "recall": 0.0,
+    "n": 10
+   }
+  }
+ }
+]

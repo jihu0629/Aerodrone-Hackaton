@@ -1,0 +1,25 @@
+
+$ C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Scripts\python.exe -m litter.orbit_map --orbit runs\orbit\0015_all\seg20_b25 --srt ../DJI_20261001205404_0015_D.SRT --out runs\orbit\0015_all\seg20_b25\map --litter yolov8s-worldv2.pt --classes cardboard box --min-track 4.0 --conf 0.3
+C:\Users\user\Desktop\드론\aerodrone_hackathon\litter\volume.py:116: RuntimeWarning: divide by zero encountered in scalar divide
+  return T, R, s, {"scale_m_per_unit": s, "scale_spread_pct": float(np.std(ratios) / s * 100),
+C:\Users\user\Desktop\드론\aerodrone_hackathon\litter\volume.py:256: RuntimeWarning: invalid value encountered in scalar divide
+  k = float((S * np.array([1, d])).sum() / ((A - ca) ** 2).sum())
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\litter\orbit_map.py", line 175, in <module>
+    main()
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\litter\orbit_map.py", line 170, in main
+    run(a.orbit, a.srt, a.out, a.litter, a.obstacle, a.conf,
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\litter\orbit_map.py", line 60, in run
+    R2, t2, rms = fit_rigid2d(Cm[:, :2], gps)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\litter\orbit_map.py", line 32, in fit_rigid2d
+    U, _, Vt = np.linalg.svd((A - ca).T @ (B - cb))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\numpy\linalg\_linalg.py", line 1796, in svd
+    u, s, vh = gufunc(a, signature=signature)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\numpy\linalg\_linalg.py", line 113, in _raise_linalgerror_svd_nonconvergence
+    raise LinAlgError("SVD did not converge")
+numpy.linalg.LinAlgError: SVD did not converge

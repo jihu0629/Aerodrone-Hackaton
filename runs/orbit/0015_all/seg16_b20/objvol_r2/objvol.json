@@ -1,0 +1,33 @@
+[
+ {
+  "tag": "cardboard box_24",
+  "views_used": 0,
+  "views_candidates": 17,
+  "n_views_excluded": 0,
+  "views_box_prompt": 0,
+  "views_tilt_deg": [],
+  "views_names": [],
+  "points_candidate": 22914,
+  "points_voted": 0,
+  "points_object": 0,
+  "center_xy": [
+   -0.16459468007087708,
+   -0.3565204441547394
+  ],
+  "center_shift_m": 0.5289166412103881,
+  "ground_z": -0.04678536055623431,
+  "ground_plane_tilt_deg": 9.826894484827783,
+  "ground_plane_inlier": 0.8506988094357761,
+  "height_method": "mode",
+  "h_min": 0.03,
+  "mask_area_m2": null,
+  "volume_mask_box_L": null,
+  "mask_nadir_score": null,
+  "lat": "37.3836241",
+  "lon": "126.6559312",
+  "csv_local_xy": [
+   0.31,
+   -0.59
+  ]
+ }
+]

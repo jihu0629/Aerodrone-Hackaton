@@ -1,0 +1,2408 @@
+
+$ C:\work\drone\aerodrone_hackathon\tools\colmap\bin\colmap.exe image_undistorter --image_path images --input_path sparse --output_path dense --output_type COLMAP --max_image_size 1200
+I20261001 23:38:54.368241 27924 image.cc:376] === Reading reconstruction ===
+I20261001 23:38:54.434254 27924 image.cc:379] => Reconstruction with 23 images and 1077 points
+I20261001 23:38:54.434842 27924 undistorters.cc:166] === Image undistortion ===
+I20261001 23:38:54.440107 27924 undistorters.cc:208] Undistorting image [1/23]
+I20261001 23:38:54.677954 27924 undistorters.cc:208] Undistorting image [2/23]
+I20261001 23:38:54.678359 27924 undistorters.cc:208] Undistorting image [3/23]
+I20261001 23:38:54.678430 27924 undistorters.cc:208] Undistorting image [4/23]
+I20261001 23:38:54.678464 27924 undistorters.cc:208] Undistorting image [5/23]
+I20261001 23:38:54.678494 27924 undistorters.cc:208] Undistorting image [6/23]
+I20261001 23:38:54.678522 27924 undistorters.cc:208] Undistorting image [7/23]
+I20261001 23:38:54.678549 27924 undistorters.cc:208] Undistorting image [8/23]
+I20261001 23:38:54.678576 27924 undistorters.cc:208] Undistorting image [9/23]
+I20261001 23:38:54.724611 27924 undistorters.cc:208] Undistorting image [10/23]
+I20261001 23:38:54.724746 27924 undistorters.cc:208] Undistorting image [11/23]
+I20261001 23:38:54.740065 27924 undistorters.cc:208] Undistorting image [12/23]
+I20261001 23:38:54.740190 27924 undistorters.cc:208] Undistorting image [13/23]
+I20261001 23:38:54.740233 27924 undistorters.cc:208] Undistorting image [14/23]
+I20261001 23:38:54.740264 27924 undistorters.cc:208] Undistorting image [15/23]
+I20261001 23:38:54.740291 27924 undistorters.cc:208] Undistorting image [16/23]
+I20261001 23:38:54.744567 27924 undistorters.cc:208] Undistorting image [17/23]
+I20261001 23:38:54.744706 27924 undistorters.cc:208] Undistorting image [18/23]
+I20261001 23:38:54.744746 27924 undistorters.cc:208] Undistorting image [19/23]
+I20261001 23:38:54.744775 27924 undistorters.cc:208] Undistorting image [20/23]
+I20261001 23:38:54.744800 27924 undistorters.cc:208] Undistorting image [21/23]
+I20261001 23:38:54.744826 27924 undistorters.cc:208] Undistorting image [22/23]
+I20261001 23:38:54.744851 27924 undistorters.cc:208] Undistorting image [23/23]
+I20261001 23:38:54.744877 27924 undistorters.cc:222] Writing reconstruction...
+I20261001 23:38:54.769570 27924 undistorters.cc:227] Writing configuration...
+I20261001 23:38:54.771999 27924 undistorters.cc:231] Writing scripts...
+I20261001 23:38:54.773787 27924 timer.cc:90] Elapsed time: 0.006 [minutes]
+
+$ C:\work\drone\aerodrone_hackathon\tools\colmap\bin\colmap.exe patch_match_stereo --workspace_path dense --workspace_format COLMAP --PatchMatchStereo.max_image_size 1200 --PatchMatchStereo.num_iterations 3 --PatchMatchStereo.num_samples 10 --PatchMatchStereo.window_step 2 --PatchMatchStereo.geom_consistency 1 --PatchMatchStereo.cache_size 8
+I20261001 23:38:54.976511   564 patch_match.cc:210] Reading workspace...
+I20261001 23:38:54.990762   564 patch_match.cc:240] Reading configuration...
+I20261001 23:38:55.012262   564 patch_match.cc:371] Configuration has 23 problems...
+I20261001 23:38:55.784463 31188 patch_match.cc:419] === Processing view 1 / 23 for f0018.jpg ===
+I20261001 23:38:55.784643 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:38:56.001518 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:38:56.001658 31188 patch_match.cc:57] ref_image_idx: 0
+I20261001 23:38:56.001692 31188 patch_match.cc:64] src_image_idxs: 2 5 1 4 3 6 7 8
+I20261001 23:38:56.001716 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:38:56.001736 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:38:56.001755 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:38:56.001773 31188 patch_match_options.cc:49] depth_min: 4.76589
+I20261001 23:38:56.001805 31188 patch_match_options.cc:50] depth_max: 16.0842
+I20261001 23:38:56.001825 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:38:56.001843 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:38:56.001951 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:38:56.001980 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:38:56.002002 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:38:56.002023 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:38:56.002044 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:38:56.002064 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:38:56.002086 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:38:56.002108 31188 patch_match_options.cc:60] geom_consistency: 0
+I20261001 23:38:56.002127 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:38:56.002149 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:38:56.002167 31188 patch_match_options.cc:63] filter: 0
+I20261001 23:38:56.002214 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:38:56.002237 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:38:56.002257 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:38:56.002275 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:38:56.002295 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:38:56.002314 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:38:56.002332 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:38:56.002353 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:38:56.544379 31188 cudacc.cc:52] Initialization: 0.0158s
+I20261001 23:38:56.653921 31188 cudacc.cc:52]  Sweep 1: 0.1093s
+I20261001 23:38:56.800889 31188 cudacc.cc:52]  Sweep 2: 0.1467s
+I20261001 23:38:56.878434 31188 cudacc.cc:52]  Sweep 3: 0.0772s
+I20261001 23:38:57.000577 31188 cudacc.cc:52]  Sweep 4: 0.1219s
+I20261001 23:38:57.000820 31188 cudacc.cc:52] Iteration 1: 0.4563s
+I20261001 23:38:57.077616 31188 cudacc.cc:52]  Sweep 1: 0.0767s
+I20261001 23:38:57.202322 31188 cudacc.cc:52]  Sweep 2: 0.1245s
+I20261001 23:38:57.280502 31188 cudacc.cc:52]  Sweep 3: 0.0779s
+I20261001 23:38:57.398189 31188 cudacc.cc:52]  Sweep 4: 0.1175s
+I20261001 23:38:57.398386 31188 cudacc.cc:52] Iteration 2: 0.3975s
+I20261001 23:38:57.473276 31188 cudacc.cc:52]  Sweep 1: 0.0748s
+I20261001 23:38:57.591648 31188 cudacc.cc:52]  Sweep 2: 0.1182s
+I20261001 23:38:57.665696 31188 cudacc.cc:52]  Sweep 3: 0.0739s
+I20261001 23:38:57.781836 31188 cudacc.cc:52]  Sweep 4: 0.1160s
+I20261001 23:38:57.781939 31188 cudacc.cc:52] Iteration 3: 0.3835s
+I20261001 23:38:57.781976 31188 cudacc.cc:52] Total: 1.2535s
+I20261001 23:38:57.781994 31188 patch_match.cc:525] 
+Writing photometric output for f0018.jpg
+I20261001 23:38:57.928937 31188 patch_match.cc:419] === Processing view 2 / 23 for f0019.jpg ===
+I20261001 23:38:57.929018 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:38:57.930024 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:38:57.930086 31188 patch_match.cc:57] ref_image_idx: 1
+I20261001 23:38:57.930273 31188 patch_match.cc:64] src_image_idxs: 2 5 3 4 0 6 7 8
+I20261001 23:38:57.930287 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:38:57.930298 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:38:57.930308 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:38:57.930317 31188 patch_match_options.cc:49] depth_min: 4.33859
+I20261001 23:38:57.930333 31188 patch_match_options.cc:50] depth_max: 16.0837
+I20261001 23:38:57.930344 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:38:57.930354 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:38:57.930363 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:38:57.930373 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:38:57.930383 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:38:57.930392 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:38:57.930402 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:38:57.930433 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:38:57.930446 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:38:57.930456 31188 patch_match_options.cc:60] geom_consistency: 0
+I20261001 23:38:57.930466 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:38:57.930476 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:38:57.930485 31188 patch_match_options.cc:63] filter: 0
+I20261001 23:38:57.930495 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:38:57.930505 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:38:57.930519 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:38:57.930529 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:38:57.930539 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:38:57.930548 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:38:57.930557 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:38:57.930567 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:38:57.952349 31188 cudacc.cc:52] Initialization: 0.0110s
+I20261001 23:38:58.028968 31188 cudacc.cc:52]  Sweep 1: 0.0765s
+I20261001 23:38:58.148953 31188 cudacc.cc:52]  Sweep 2: 0.1199s
+I20261001 23:38:58.227893 31188 cudacc.cc:52]  Sweep 3: 0.0788s
+I20261001 23:38:58.345587 31188 cudacc.cc:52]  Sweep 4: 0.1175s
+I20261001 23:38:58.345771 31188 cudacc.cc:52] Iteration 1: 0.3933s
+I20261001 23:38:58.420741 31188 cudacc.cc:52]  Sweep 1: 0.0749s
+I20261001 23:38:58.541750 31188 cudacc.cc:52]  Sweep 2: 0.1208s
+I20261001 23:38:58.615823 31188 cudacc.cc:52]  Sweep 3: 0.0739s
+I20261001 23:38:58.734761 31188 cudacc.cc:52]  Sweep 4: 0.1188s
+I20261001 23:38:58.734924 31188 cudacc.cc:52] Iteration 2: 0.3891s
+I20261001 23:38:58.809525 31188 cudacc.cc:52]  Sweep 1: 0.0745s
+I20261001 23:38:58.928072 31188 cudacc.cc:52]  Sweep 2: 0.1184s
+I20261001 23:38:59.000770 31188 cudacc.cc:52]  Sweep 3: 0.0725s
+I20261001 23:38:59.112325 31188 cudacc.cc:52]  Sweep 4: 0.1114s
+I20261001 23:38:59.112456 31188 cudacc.cc:52] Iteration 3: 0.3775s
+I20261001 23:38:59.112495 31188 cudacc.cc:52] Total: 1.1712s
+I20261001 23:38:59.112517 31188 patch_match.cc:525] 
+Writing photometric output for f0019.jpg
+I20261001 23:38:59.301816 31188 patch_match.cc:419] === Processing view 3 / 23 for f0020.jpg ===
+I20261001 23:38:59.301933 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:38:59.350408 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:38:59.350525 31188 patch_match.cc:57] ref_image_idx: 2
+I20261001 23:38:59.350545 31188 patch_match.cc:64] src_image_idxs: 5 10 4 1 0 6 7 8
+I20261001 23:38:59.350559 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:38:59.350571 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:38:59.350582 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:38:59.350594 31188 patch_match_options.cc:49] depth_min: 4.01533
+I20261001 23:38:59.350718 31188 patch_match_options.cc:50] depth_max: 16.2666
+I20261001 23:38:59.350732 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:38:59.350743 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:38:59.350754 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:38:59.350765 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:38:59.350777 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:38:59.350787 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:38:59.350798 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:38:59.350810 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:38:59.350821 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:38:59.350831 31188 patch_match_options.cc:60] geom_consistency: 0
+I20261001 23:38:59.350843 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:38:59.350856 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:38:59.350869 31188 patch_match_options.cc:63] filter: 0
+I20261001 23:38:59.350880 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:38:59.350891 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:38:59.350902 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:38:59.350913 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:38:59.350925 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:38:59.350936 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:38:59.350947 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:38:59.350958 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:38:59.375304 31188 cudacc.cc:52] Initialization: 0.0111s
+I20261001 23:38:59.453511 31188 cudacc.cc:52]  Sweep 1: 0.0780s
+I20261001 23:38:59.574738 31188 cudacc.cc:52]  Sweep 2: 0.1211s
+I20261001 23:38:59.651531 31188 cudacc.cc:52]  Sweep 3: 0.0766s
+I20261001 23:38:59.768951 31188 cudacc.cc:52]  Sweep 4: 0.1172s
+I20261001 23:38:59.769091 31188 cudacc.cc:52] Iteration 1: 0.3936s
+I20261001 23:38:59.844761 31188 cudacc.cc:52]  Sweep 1: 0.0756s
+I20261001 23:38:59.965383 31188 cudacc.cc:52]  Sweep 2: 0.1204s
+I20261001 23:39:00.041323 31188 cudacc.cc:52]  Sweep 3: 0.0758s
+I20261001 23:39:00.157306 31188 cudacc.cc:52]  Sweep 4: 0.1158s
+I20261001 23:39:00.157458 31188 cudacc.cc:52] Iteration 2: 0.3883s
+I20261001 23:39:00.232298 31188 cudacc.cc:52]  Sweep 1: 0.0747s
+I20261001 23:39:00.351923 31188 cudacc.cc:52]  Sweep 2: 0.1195s
+I20261001 23:39:00.425883 31188 cudacc.cc:52]  Sweep 3: 0.0738s
+I20261001 23:39:00.540064 31188 cudacc.cc:52]  Sweep 4: 0.1140s
+I20261001 23:39:00.540253 31188 cudacc.cc:52] Iteration 3: 0.3827s
+I20261001 23:39:00.540352 31188 cudacc.cc:52] Total: 1.1762s
+I20261001 23:39:00.540400 31188 patch_match.cc:525] 
+Writing photometric output for f0020.jpg
+I20261001 23:39:00.729176 31188 patch_match.cc:419] === Processing view 4 / 23 for f0021.jpg ===
+I20261001 23:39:00.729310 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:00.730985 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:00.731067 31188 patch_match.cc:57] ref_image_idx: 3
+I20261001 23:39:00.731091 31188 patch_match.cc:64] src_image_idxs: 5 10 4 1 6 7 0 8
+I20261001 23:39:00.731108 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:00.731122 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:00.731136 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:00.731149 31188 patch_match_options.cc:49] depth_min: 3.92785
+I20261001 23:39:00.731177 31188 patch_match_options.cc:50] depth_max: 16.1219
+I20261001 23:39:00.731198 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:00.731220 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:00.731243 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:00.731260 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:00.731302 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:00.731316 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:00.731330 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:00.731344 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:00.731358 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:00.731371 31188 patch_match_options.cc:60] geom_consistency: 0
+I20261001 23:39:00.731385 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:00.731399 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:00.731413 31188 patch_match_options.cc:63] filter: 0
+I20261001 23:39:00.731427 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:00.731440 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:00.731518 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:00.731536 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:00.731550 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:00.731564 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:00.731578 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:00.731591 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:00.756642 31188 cudacc.cc:52] Initialization: 0.0112s
+I20261001 23:39:00.836210 31188 cudacc.cc:52]  Sweep 1: 0.0794s
+I20261001 23:39:00.957783 31188 cudacc.cc:52]  Sweep 2: 0.1214s
+I20261001 23:39:01.050469 31188 cudacc.cc:52]  Sweep 3: 0.0925s
+I20261001 23:39:01.190461 31188 cudacc.cc:52]  Sweep 4: 0.1398s
+I20261001 23:39:01.190640 31188 cudacc.cc:52] Iteration 1: 0.4338s
+I20261001 23:39:01.297641 31188 cudacc.cc:52]  Sweep 1: 0.1069s
+I20261001 23:39:01.433596 31188 cudacc.cc:52]  Sweep 2: 0.1358s
+I20261001 23:39:01.516163 31188 cudacc.cc:52]  Sweep 3: 0.0824s
+I20261001 23:39:01.635696 31188 cudacc.cc:52]  Sweep 4: 0.1194s
+I20261001 23:39:01.635838 31188 cudacc.cc:52] Iteration 2: 0.4452s
+I20261001 23:39:01.710204 31188 cudacc.cc:52]  Sweep 1: 0.0743s
+I20261001 23:39:01.831592 31188 cudacc.cc:52]  Sweep 2: 0.1212s
+I20261001 23:39:01.916229 31188 cudacc.cc:52]  Sweep 3: 0.0845s
+I20261001 23:39:02.041851 31188 cudacc.cc:52]  Sweep 4: 0.1232s
+I20261001 23:39:02.042004 31188 cudacc.cc:52] Iteration 3: 0.4061s
+I20261001 23:39:02.042039 31188 cudacc.cc:52] Total: 1.2966s
+I20261001 23:39:02.042057 31188 patch_match.cc:525] 
+Writing photometric output for f0021.jpg
+I20261001 23:39:02.347664 31188 patch_match.cc:419] === Processing view 5 / 23 for f0022.jpg ===
+I20261001 23:39:02.347794 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:02.349521 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:02.349638 31188 patch_match.cc:57] ref_image_idx: 4
+I20261001 23:39:02.349672 31188 patch_match.cc:64] src_image_idxs: 5 2 10 6 7 3 8 1
+I20261001 23:39:02.349697 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:02.349719 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:02.349741 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:02.349763 31188 patch_match_options.cc:49] depth_min: 4.50148
+I20261001 23:39:02.349793 31188 patch_match_options.cc:50] depth_max: 16.2371
+I20261001 23:39:02.349816 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:02.349838 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:02.349859 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:02.349882 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:02.349906 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:02.349927 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:02.349950 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:02.349973 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:02.349996 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:02.350155 31188 patch_match_options.cc:60] geom_consistency: 0
+I20261001 23:39:02.350180 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:02.350220 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:02.350245 31188 patch_match_options.cc:63] filter: 0
+I20261001 23:39:02.350267 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:02.350290 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:02.350313 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:02.350334 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:02.350356 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:02.350377 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:02.350441 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:02.350469 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:02.377005 31188 cudacc.cc:52] Initialization: 0.0128s
+I20261001 23:39:02.456124 31188 cudacc.cc:52]  Sweep 1: 0.0789s
+I20261001 23:39:02.576284 31188 cudacc.cc:52]  Sweep 2: 0.1200s
+I20261001 23:39:02.673640 31188 cudacc.cc:52]  Sweep 3: 0.0971s
+I20261001 23:39:02.809016 31188 cudacc.cc:52]  Sweep 4: 0.1345s
+I20261001 23:39:02.809213 31188 cudacc.cc:52] Iteration 1: 0.4320s
+I20261001 23:39:02.905592 31188 cudacc.cc:52]  Sweep 1: 0.0962s
+I20261001 23:39:03.034081 31188 cudacc.cc:52]  Sweep 2: 0.1271s
+I20261001 23:39:03.133213 31188 cudacc.cc:52]  Sweep 3: 0.0989s
+I20261001 23:39:03.269332 31188 cudacc.cc:52]  Sweep 4: 0.1359s
+I20261001 23:39:03.269521 31188 cudacc.cc:52] Iteration 2: 0.4602s
+I20261001 23:39:03.345886 31188 cudacc.cc:52]  Sweep 1: 0.0763s
+I20261001 23:39:03.478472 31188 cudacc.cc:52]  Sweep 2: 0.1324s
+I20261001 23:39:03.568829 31188 cudacc.cc:52]  Sweep 3: 0.0901s
+I20261001 23:39:03.703312 31188 cudacc.cc:52]  Sweep 4: 0.1341s
+I20261001 23:39:03.704649 31188 cudacc.cc:52] Iteration 3: 0.4348s
+I20261001 23:39:03.704818 31188 cudacc.cc:52] Total: 1.3407s
+I20261001 23:39:03.704875 31188 patch_match.cc:525] 
+Writing photometric output for f0022.jpg
+I20261001 23:39:03.907948 31188 patch_match.cc:419] === Processing view 6 / 23 for f0023.jpg ===
+I20261001 23:39:03.908065 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:03.959320 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:03.959457 31188 patch_match.cc:57] ref_image_idx: 5
+I20261001 23:39:03.959504 31188 patch_match.cc:64] src_image_idxs: 10 2 6 4 7 8 3 9
+I20261001 23:39:03.959530 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:03.959555 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:03.959578 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:03.959601 31188 patch_match_options.cc:49] depth_min: 4.24856
+I20261001 23:39:03.959635 31188 patch_match_options.cc:50] depth_max: 16.3
+I20261001 23:39:03.959661 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:03.959687 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:03.959711 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:03.959738 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:03.959764 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:03.959787 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:03.959812 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:03.959837 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:03.959862 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:03.959884 31188 patch_match_options.cc:60] geom_consistency: 0
+I20261001 23:39:03.959908 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:03.959933 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:03.959961 31188 patch_match_options.cc:63] filter: 0
+I20261001 23:39:03.959984 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:03.960174 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:03.960215 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:03.960240 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:03.960266 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:03.960289 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:03.960311 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:03.960337 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:03.987233 31188 cudacc.cc:52] Initialization: 0.0113s
+I20261001 23:39:04.067944 31188 cudacc.cc:52]  Sweep 1: 0.0805s
+I20261001 23:39:04.188541 31188 cudacc.cc:52]  Sweep 2: 0.1204s
+I20261001 23:39:04.265992 31188 cudacc.cc:52]  Sweep 3: 0.0771s
+I20261001 23:39:04.384499 31188 cudacc.cc:52]  Sweep 4: 0.1183s
+I20261001 23:39:04.384655 31188 cudacc.cc:52] Iteration 1: 0.3973s
+I20261001 23:39:04.461604 31188 cudacc.cc:52]  Sweep 1: 0.0769s
+I20261001 23:39:04.578679 31188 cudacc.cc:52]  Sweep 2: 0.1169s
+I20261001 23:39:04.655324 31188 cudacc.cc:52]  Sweep 3: 0.0765s
+I20261001 23:39:04.770556 31188 cudacc.cc:52]  Sweep 4: 0.1151s
+I20261001 23:39:04.770729 31188 cudacc.cc:52] Iteration 2: 0.3860s
+I20261001 23:39:04.846258 31188 cudacc.cc:52]  Sweep 1: 0.0754s
+I20261001 23:39:04.979273 31188 cudacc.cc:52]  Sweep 2: 0.1328s
+I20261001 23:39:05.074258 31188 cudacc.cc:52]  Sweep 3: 0.0948s
+I20261001 23:39:05.191273 31188 cudacc.cc:52]  Sweep 4: 0.1168s
+I20261001 23:39:05.191489 31188 cudacc.cc:52] Iteration 3: 0.4207s
+I20261001 23:39:05.191594 31188 cudacc.cc:52] Total: 1.2157s
+I20261001 23:39:05.191649 31188 patch_match.cc:525] 
+Writing photometric output for f0023.jpg
+I20261001 23:39:05.597029 31188 patch_match.cc:419] === Processing view 7 / 23 for f0024.jpg ===
+I20261001 23:39:05.597151 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:05.643472 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:05.643592 31188 patch_match.cc:57] ref_image_idx: 6
+I20261001 23:39:05.643613 31188 patch_match.cc:64] src_image_idxs: 10 5 11 7 8 9 4 3
+I20261001 23:39:05.643627 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:05.643641 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:05.643653 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:05.643665 31188 patch_match_options.cc:49] depth_min: 4.31136
+I20261001 23:39:05.643685 31188 patch_match_options.cc:50] depth_max: 16.2143
+I20261001 23:39:05.643698 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:05.643711 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:05.643723 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:05.643736 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:05.643750 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:05.643762 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:05.643775 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:05.643789 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:05.643802 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:05.643815 31188 patch_match_options.cc:60] geom_consistency: 0
+I20261001 23:39:05.643827 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:05.643849 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:05.643865 31188 patch_match_options.cc:63] filter: 0
+I20261001 23:39:05.643877 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:05.643890 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:05.643903 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:05.643915 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:05.643929 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:05.643943 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:05.644070 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:05.644085 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:05.668235 31188 cudacc.cc:52] Initialization: 0.0113s
+I20261001 23:39:05.769027 31188 cudacc.cc:52]  Sweep 1: 0.1006s
+I20261001 23:39:05.901901 31188 cudacc.cc:52]  Sweep 2: 0.1327s
+I20261001 23:39:05.992321 31188 cudacc.cc:52]  Sweep 3: 0.0902s
+I20261001 23:39:06.116071 31188 cudacc.cc:52]  Sweep 4: 0.1235s
+I20261001 23:39:06.116284 31188 cudacc.cc:52] Iteration 1: 0.4479s
+I20261001 23:39:06.194541 31188 cudacc.cc:52]  Sweep 1: 0.0781s
+I20261001 23:39:06.312088 31188 cudacc.cc:52]  Sweep 2: 0.1174s
+I20261001 23:39:06.400206 31188 cudacc.cc:52]  Sweep 3: 0.0879s
+I20261001 23:39:06.516069 31188 cudacc.cc:52]  Sweep 4: 0.1156s
+I20261001 23:39:06.516243 31188 cudacc.cc:52] Iteration 2: 0.3999s
+I20261001 23:39:06.593534 31188 cudacc.cc:52]  Sweep 1: 0.0772s
+I20261001 23:39:06.705954 31188 cudacc.cc:52]  Sweep 2: 0.1123s
+I20261001 23:39:06.782400 31188 cudacc.cc:52]  Sweep 3: 0.0762s
+I20261001 23:39:06.892990 31188 cudacc.cc:52]  Sweep 4: 0.1104s
+I20261001 23:39:06.893170 31188 cudacc.cc:52] Iteration 3: 0.3769s
+I20261001 23:39:06.893235 31188 cudacc.cc:52] Total: 1.2363s
+I20261001 23:39:06.893267 31188 patch_match.cc:525] 
+Writing photometric output for f0024.jpg
+I20261001 23:39:07.367391 31188 patch_match.cc:419] === Processing view 8 / 23 for f0025.jpg ===
+I20261001 23:39:07.367520 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:07.478318 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:07.478426 31188 patch_match.cc:57] ref_image_idx: 7
+I20261001 23:39:07.478464 31188 patch_match.cc:64] src_image_idxs: 10 11 5 12 13 6 9 4
+I20261001 23:39:07.478489 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:07.478513 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:07.478535 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:07.478557 31188 patch_match_options.cc:49] depth_min: 4.01094
+I20261001 23:39:07.478588 31188 patch_match_options.cc:50] depth_max: 16.2137
+I20261001 23:39:07.478611 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:07.478633 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:07.478655 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:07.478678 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:07.478701 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:07.478723 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:07.478746 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:07.478769 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:07.478792 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:07.478814 31188 patch_match_options.cc:60] geom_consistency: 0
+I20261001 23:39:07.478837 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:07.478860 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:07.478883 31188 patch_match_options.cc:63] filter: 0
+I20261001 23:39:07.478905 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:07.478928 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:07.478954 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:07.478977 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:07.479000 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:07.479021 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:07.479043 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:07.479068 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:07.504084 31188 cudacc.cc:52] Initialization: 0.0112s
+I20261001 23:39:07.595156 31188 cudacc.cc:52]  Sweep 1: 0.0909s
+I20261001 23:39:07.737622 31188 cudacc.cc:52]  Sweep 2: 0.1423s
+I20261001 23:39:07.828907 31188 cudacc.cc:52]  Sweep 3: 0.0910s
+I20261001 23:39:07.960679 31188 cudacc.cc:52]  Sweep 4: 0.1272s
+I20261001 23:39:07.961100 31188 cudacc.cc:52] Iteration 1: 0.4569s
+I20261001 23:39:08.058195 31188 cudacc.cc:52]  Sweep 1: 0.0960s
+I20261001 23:39:08.179740 31188 cudacc.cc:52]  Sweep 2: 0.1214s
+I20261001 23:39:08.260640 31188 cudacc.cc:52]  Sweep 3: 0.0807s
+I20261001 23:39:08.376011 31188 cudacc.cc:52]  Sweep 4: 0.1152s
+I20261001 23:39:08.376147 31188 cudacc.cc:52] Iteration 2: 0.4140s
+I20261001 23:39:08.474599 31188 cudacc.cc:52]  Sweep 1: 0.0984s
+I20261001 23:39:08.609706 31188 cudacc.cc:52]  Sweep 2: 0.1344s
+I20261001 23:39:08.699723 31188 cudacc.cc:52]  Sweep 3: 0.0894s
+I20261001 23:39:08.814076 31188 cudacc.cc:52]  Sweep 4: 0.1141s
+I20261001 23:39:08.814254 31188 cudacc.cc:52] Iteration 3: 0.4381s
+I20261001 23:39:08.814314 31188 cudacc.cc:52] Total: 1.3215s
+I20261001 23:39:08.814346 31188 patch_match.cc:525] 
+Writing photometric output for f0025.jpg
+I20261001 23:39:08.977543 31188 patch_match.cc:419] === Processing view 9 / 23 for f0026.jpg ===
+I20261001 23:39:08.977839 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:08.979308 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:08.979387 31188 patch_match.cc:57] ref_image_idx: 8
+I20261001 23:39:08.979407 31188 patch_match.cc:64] src_image_idxs: 10 11 5 12 13 9 6 4
+I20261001 23:39:08.979422 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:08.979435 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:08.979447 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:08.979459 31188 patch_match_options.cc:49] depth_min: 3.92546
+I20261001 23:39:08.979479 31188 patch_match_options.cc:50] depth_max: 15.9085
+I20261001 23:39:08.979492 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:08.979505 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:08.979517 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:08.979530 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:08.979542 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:08.979555 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:08.979568 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:08.979580 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:08.979593 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:08.979605 31188 patch_match_options.cc:60] geom_consistency: 0
+I20261001 23:39:08.979618 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:08.979631 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:08.979643 31188 patch_match_options.cc:63] filter: 0
+I20261001 23:39:08.979655 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:08.979668 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:08.979681 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:08.979693 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:08.979706 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:08.979718 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:08.979730 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:08.979743 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:09.009164 31188 cudacc.cc:52] Initialization: 0.0116s
+I20261001 23:39:09.093652 31188 cudacc.cc:52]  Sweep 1: 0.0843s
+I20261001 23:39:09.225472 31188 cudacc.cc:52]  Sweep 2: 0.1316s
+I20261001 23:39:09.302836 31188 cudacc.cc:52]  Sweep 3: 0.0772s
+I20261001 23:39:09.422364 31188 cudacc.cc:52]  Sweep 4: 0.1194s
+I20261001 23:39:09.422519 31188 cudacc.cc:52] Iteration 1: 0.4132s
+I20261001 23:39:09.500644 31188 cudacc.cc:52]  Sweep 1: 0.0781s
+I20261001 23:39:09.625550 31188 cudacc.cc:52]  Sweep 2: 0.1227s
+I20261001 23:39:09.715131 31188 cudacc.cc:52]  Sweep 3: 0.0894s
+I20261001 23:39:09.847182 31188 cudacc.cc:52]  Sweep 4: 0.1319s
+I20261001 23:39:09.847385 31188 cudacc.cc:52] Iteration 2: 0.4248s
+I20261001 23:39:09.935912 31188 cudacc.cc:52]  Sweep 1: 0.0885s
+I20261001 23:39:10.072794 31188 cudacc.cc:52]  Sweep 2: 0.1366s
+I20261001 23:39:10.160861 31188 cudacc.cc:52]  Sweep 3: 0.0878s
+I20261001 23:39:10.289450 31188 cudacc.cc:52]  Sweep 4: 0.1284s
+I20261001 23:39:10.289685 31188 cudacc.cc:52] Iteration 3: 0.4423s
+I20261001 23:39:10.289762 31188 cudacc.cc:52] Total: 1.2922s
+I20261001 23:39:10.289795 31188 patch_match.cc:525] 
+Writing photometric output for f0026.jpg
+I20261001 23:39:10.600178 31188 patch_match.cc:419] === Processing view 10 / 23 for f0028.jpg ===
+I20261001 23:39:10.600280 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:10.650017 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:10.650136 31188 patch_match.cc:57] ref_image_idx: 9
+I20261001 23:39:10.650157 31188 patch_match.cc:64] src_image_idxs: 11 10 12 13 8 7 6 14
+I20261001 23:39:10.650172 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:10.650184 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:10.650196 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:10.650208 31188 patch_match_options.cc:49] depth_min: 3.93564
+I20261001 23:39:10.650226 31188 patch_match_options.cc:50] depth_max: 15.8835
+I20261001 23:39:10.650238 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:10.650250 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:10.650261 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:10.650274 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:10.650286 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:10.650298 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:10.650310 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:10.650322 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:10.650335 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:10.650346 31188 patch_match_options.cc:60] geom_consistency: 0
+I20261001 23:39:10.650358 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:10.650370 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:10.650383 31188 patch_match_options.cc:63] filter: 0
+I20261001 23:39:10.650396 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:10.650408 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:10.650420 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:10.650431 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:10.650443 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:10.650454 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:10.650465 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:10.650478 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:10.674428 31188 cudacc.cc:52] Initialization: 0.0113s
+I20261001 23:39:10.754132 31188 cudacc.cc:52]  Sweep 1: 0.0795s
+I20261001 23:39:10.881113 31188 cudacc.cc:52]  Sweep 2: 0.1268s
+I20261001 23:39:10.958915 31188 cudacc.cc:52]  Sweep 3: 0.0776s
+I20261001 23:39:11.086390 31188 cudacc.cc:52]  Sweep 4: 0.1273s
+I20261001 23:39:11.086539 31188 cudacc.cc:52] Iteration 1: 0.4120s
+I20261001 23:39:11.164134 31188 cudacc.cc:52]  Sweep 1: 0.0775s
+I20261001 23:39:11.280319 31188 cudacc.cc:52]  Sweep 2: 0.1160s
+I20261001 23:39:11.366128 31188 cudacc.cc:52]  Sweep 3: 0.0856s
+I20261001 23:39:11.485757 31188 cudacc.cc:52]  Sweep 4: 0.1195s
+I20261001 23:39:11.485929 31188 cudacc.cc:52] Iteration 2: 0.3993s
+I20261001 23:39:11.561536 31188 cudacc.cc:52]  Sweep 1: 0.0755s
+I20261001 23:39:11.674004 31188 cudacc.cc:52]  Sweep 2: 0.1123s
+I20261001 23:39:11.750315 31188 cudacc.cc:52]  Sweep 3: 0.0762s
+I20261001 23:39:11.867322 31188 cudacc.cc:52]  Sweep 4: 0.1169s
+I20261001 23:39:11.867492 31188 cudacc.cc:52] Iteration 3: 0.3815s
+I20261001 23:39:11.867595 31188 cudacc.cc:52] Total: 1.2045s
+I20261001 23:39:11.867628 31188 patch_match.cc:525] 
+Writing photometric output for f0028.jpg
+I20261001 23:39:12.272526 31188 patch_match.cc:419] === Processing view 11 / 23 for f0027.jpg ===
+I20261001 23:39:12.272925 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:12.277119 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:12.277208 31188 patch_match.cc:57] ref_image_idx: 10
+I20261001 23:39:12.277242 31188 patch_match.cc:64] src_image_idxs: 11 12 13 5 9 8 7 6
+I20261001 23:39:12.277275 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:12.277303 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:12.277326 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:12.277347 31188 patch_match_options.cc:49] depth_min: 3.96689
+I20261001 23:39:12.277378 31188 patch_match_options.cc:50] depth_max: 16.0241
+I20261001 23:39:12.277401 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:12.277423 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:12.277453 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:12.277478 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:12.277502 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:12.277524 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:12.277546 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:12.277569 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:12.277592 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:12.277618 31188 patch_match_options.cc:60] geom_consistency: 0
+I20261001 23:39:12.277641 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:12.277664 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:12.277687 31188 patch_match_options.cc:63] filter: 0
+I20261001 23:39:12.277709 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:12.277731 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:12.277754 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:12.277775 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:12.277798 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:12.277819 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:12.277841 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:12.277863 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:12.302169 31188 cudacc.cc:52] Initialization: 0.0113s
+I20261001 23:39:12.409136 31188 cudacc.cc:52]  Sweep 1: 0.1067s
+I20261001 23:39:12.536409 31188 cudacc.cc:52]  Sweep 2: 0.1271s
+I20261001 23:39:12.638480 31188 cudacc.cc:52]  Sweep 3: 0.1019s
+I20261001 23:39:12.764801 31188 cudacc.cc:52]  Sweep 4: 0.1261s
+I20261001 23:39:12.764966 31188 cudacc.cc:52] Iteration 1: 0.4626s
+I20261001 23:39:12.864449 31188 cudacc.cc:52]  Sweep 1: 0.0994s
+I20261001 23:39:12.981904 31188 cudacc.cc:52]  Sweep 2: 0.1172s
+I20261001 23:39:13.097664 31188 cudacc.cc:52]  Sweep 3: 0.1153s
+I20261001 23:39:13.244898 31188 cudacc.cc:52]  Sweep 4: 0.1459s
+I20261001 23:39:13.245043 31188 cudacc.cc:52] Iteration 2: 0.4800s
+I20261001 23:39:13.353573 31188 cudacc.cc:52]  Sweep 1: 0.1085s
+I20261001 23:39:13.472967 31188 cudacc.cc:52]  Sweep 2: 0.1192s
+I20261001 23:39:13.579902 31188 cudacc.cc:52]  Sweep 3: 0.1067s
+I20261001 23:39:13.699147 31188 cudacc.cc:52]  Sweep 4: 0.1190s
+I20261001 23:39:13.699325 31188 cudacc.cc:52] Iteration 3: 0.4543s
+I20261001 23:39:13.699386 31188 cudacc.cc:52] Total: 1.4086s
+I20261001 23:39:13.699419 31188 patch_match.cc:525] 
+Writing photometric output for f0027.jpg
+I20261001 23:39:13.892905 31188 patch_match.cc:419] === Processing view 12 / 23 for f0029.jpg ===
+I20261001 23:39:13.893015 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:13.894697 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:13.894836 31188 patch_match.cc:57] ref_image_idx: 11
+I20261001 23:39:13.894872 31188 patch_match.cc:64] src_image_idxs: 10 12 13 9 8 7 14 6
+I20261001 23:39:13.894897 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:13.894919 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:13.894941 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:13.894963 31188 patch_match_options.cc:49] depth_min: 3.91605
+I20261001 23:39:13.894994 31188 patch_match_options.cc:50] depth_max: 15.7096
+I20261001 23:39:13.895020 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:13.895044 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:13.895066 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:13.895089 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:13.895112 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:13.895133 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:13.895156 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:13.895179 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:13.895202 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:13.895224 31188 patch_match_options.cc:60] geom_consistency: 0
+I20261001 23:39:13.895245 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:13.895268 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:13.895291 31188 patch_match_options.cc:63] filter: 0
+I20261001 23:39:13.895313 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:13.895335 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:13.895358 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:13.895380 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:13.895402 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:13.895424 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:13.895445 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:13.895469 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:13.919054 31188 cudacc.cc:52] Initialization: 0.0113s
+I20261001 23:39:13.997948 31188 cudacc.cc:52]  Sweep 1: 0.0787s
+I20261001 23:39:14.138015 31188 cudacc.cc:52]  Sweep 2: 0.1399s
+I20261001 23:39:14.220787 31188 cudacc.cc:52]  Sweep 3: 0.0825s
+I20261001 23:39:14.365301 31188 cudacc.cc:52]  Sweep 4: 0.1443s
+I20261001 23:39:14.365783 31188 cudacc.cc:52] Iteration 1: 0.4466s
+I20261001 23:39:14.456363 31188 cudacc.cc:52]  Sweep 1: 0.0905s
+I20261001 23:39:14.593722 31188 cudacc.cc:52]  Sweep 2: 0.1370s
+I20261001 23:39:14.690291 31188 cudacc.cc:52]  Sweep 3: 0.0964s
+I20261001 23:39:14.831395 31188 cudacc.cc:52]  Sweep 4: 0.1409s
+I20261001 23:39:14.831755 31188 cudacc.cc:52] Iteration 2: 0.4659s
+I20261001 23:39:14.936541 31188 cudacc.cc:52]  Sweep 1: 0.1047s
+I20261001 23:39:15.047765 31188 cudacc.cc:52]  Sweep 2: 0.1111s
+I20261001 23:39:15.124121 31188 cudacc.cc:52]  Sweep 3: 0.0762s
+I20261001 23:39:15.247490 31188 cudacc.cc:52]  Sweep 4: 0.1232s
+I20261001 23:39:15.247708 31188 cudacc.cc:52] Iteration 3: 0.4159s
+I20261001 23:39:15.247756 31188 cudacc.cc:52] Total: 1.3401s
+I20261001 23:39:15.247783 31188 patch_match.cc:525] 
+Writing photometric output for f0029.jpg
+I20261001 23:39:15.462094 31188 patch_match.cc:419] === Processing view 13 / 23 for f0030.jpg ===
+I20261001 23:39:15.462216 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:15.537086 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:15.537217 31188 patch_match.cc:57] ref_image_idx: 12
+I20261001 23:39:15.537236 31188 patch_match.cc:64] src_image_idxs: 11 10 14 9 15 16 17 18
+I20261001 23:39:15.537250 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:15.537262 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:15.537276 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:15.537327 31188 patch_match_options.cc:49] depth_min: 3.44465
+I20261001 23:39:15.537348 31188 patch_match_options.cc:50] depth_max: 15.6576
+I20261001 23:39:15.537360 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:15.537370 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:15.537381 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:15.537393 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:15.537407 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:15.537419 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:15.537431 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:15.537442 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:15.537454 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:15.537465 31188 patch_match_options.cc:60] geom_consistency: 0
+I20261001 23:39:15.537476 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:15.537487 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:15.537499 31188 patch_match_options.cc:63] filter: 0
+I20261001 23:39:15.537510 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:15.537521 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:15.537532 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:15.537543 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:15.537554 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:15.537565 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:15.537576 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:15.537587 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:15.562282 31188 cudacc.cc:52] Initialization: 0.0112s
+I20261001 23:39:15.643887 31188 cudacc.cc:52]  Sweep 1: 0.0814s
+I20261001 23:39:15.770392 31188 cudacc.cc:52]  Sweep 2: 0.1263s
+I20261001 23:39:15.853472 31188 cudacc.cc:52]  Sweep 3: 0.0829s
+I20261001 23:39:15.972977 31188 cudacc.cc:52]  Sweep 4: 0.1193s
+I20261001 23:39:15.973130 31188 cudacc.cc:52] Iteration 1: 0.4107s
+I20261001 23:39:16.055010 31188 cudacc.cc:52]  Sweep 1: 0.0818s
+I20261001 23:39:16.176065 31188 cudacc.cc:52]  Sweep 2: 0.1190s
+I20261001 23:39:16.253407 31188 cudacc.cc:52]  Sweep 3: 0.0771s
+I20261001 23:39:16.369145 31188 cudacc.cc:52]  Sweep 4: 0.1155s
+I20261001 23:39:16.369300 31188 cudacc.cc:52] Iteration 2: 0.3961s
+I20261001 23:39:16.445593 31188 cudacc.cc:52]  Sweep 1: 0.0762s
+I20261001 23:39:16.571067 31188 cudacc.cc:52]  Sweep 2: 0.1252s
+I20261001 23:39:16.659777 31188 cudacc.cc:52]  Sweep 3: 0.0885s
+I20261001 23:39:16.790098 31188 cudacc.cc:52]  Sweep 4: 0.1291s
+I20261001 23:39:16.790782 31188 cudacc.cc:52] Iteration 3: 0.4211s
+I20261001 23:39:16.790934 31188 cudacc.cc:52] Total: 1.2399s
+I20261001 23:39:16.790985 31188 patch_match.cc:525] 
+Writing photometric output for f0030.jpg
+I20261001 23:39:17.322569 31188 patch_match.cc:419] === Processing view 14 / 23 for f0031.jpg ===
+I20261001 23:39:17.322698 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:17.324013 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:17.324125 31188 patch_match.cc:57] ref_image_idx: 13
+I20261001 23:39:17.324159 31188 patch_match.cc:64] src_image_idxs: 11 10 14 15 16 9 17 18
+I20261001 23:39:17.324182 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:17.324201 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:17.324219 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:17.324238 31188 patch_match_options.cc:49] depth_min: 4.05886
+I20261001 23:39:17.324268 31188 patch_match_options.cc:50] depth_max: 15.5074
+I20261001 23:39:17.324287 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:17.324306 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:17.324323 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:17.324344 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:17.324396 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:17.324414 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:17.324433 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:17.324451 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:17.324470 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:17.324491 31188 patch_match_options.cc:60] geom_consistency: 0
+I20261001 23:39:17.324510 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:17.324528 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:17.324546 31188 patch_match_options.cc:63] filter: 0
+I20261001 23:39:17.324564 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:17.324583 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:17.324602 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:17.324620 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:17.324640 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:17.324658 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:17.324677 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:17.324697 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:17.352091 31188 cudacc.cc:52] Initialization: 0.0133s
+I20261001 23:39:17.441156 31188 cudacc.cc:52]  Sweep 1: 0.0872s
+I20261001 23:39:17.569351 31188 cudacc.cc:52]  Sweep 2: 0.1280s
+I20261001 23:39:17.676825 31188 cudacc.cc:52]  Sweep 3: 0.1072s
+I20261001 23:39:17.814728 31188 cudacc.cc:52]  Sweep 4: 0.1343s
+I20261001 23:39:17.814905 31188 cudacc.cc:52] Iteration 1: 0.4610s
+I20261001 23:39:17.916909 31188 cudacc.cc:52]  Sweep 1: 0.1020s
+I20261001 23:39:18.065622 31188 cudacc.cc:52]  Sweep 2: 0.1485s
+I20261001 23:39:18.150034 31188 cudacc.cc:52]  Sweep 3: 0.0842s
+I20261001 23:39:18.266027 31188 cudacc.cc:52]  Sweep 4: 0.1158s
+I20261001 23:39:18.266201 31188 cudacc.cc:52] Iteration 2: 0.4513s
+I20261001 23:39:18.342347 31188 cudacc.cc:52]  Sweep 1: 0.0761s
+I20261001 23:39:18.457760 31188 cudacc.cc:52]  Sweep 2: 0.1152s
+I20261001 23:39:18.533675 31188 cudacc.cc:52]  Sweep 3: 0.0757s
+I20261001 23:39:18.672283 31188 cudacc.cc:52]  Sweep 4: 0.1384s
+I20261001 23:39:18.676466 31188 cudacc.cc:52] Iteration 3: 0.4100s
+I20261001 23:39:18.678891 31188 cudacc.cc:52] Total: 1.3401s
+I20261001 23:39:18.682250 31188 patch_match.cc:525] 
+Writing photometric output for f0031.jpg
+I20261001 23:39:19.258328 31188 patch_match.cc:419] === Processing view 15 / 23 for f0032.jpg ===
+I20261001 23:39:19.258448 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:19.259588 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:19.259674 31188 patch_match.cc:57] ref_image_idx: 14
+I20261001 23:39:19.259696 31188 patch_match.cc:64] src_image_idxs: 13 12 11 15 16 17 18 9
+I20261001 23:39:19.259713 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:19.259726 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:19.259740 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:19.259754 31188 patch_match_options.cc:49] depth_min: 4.03853
+I20261001 23:39:19.259775 31188 patch_match_options.cc:50] depth_max: 15.423
+I20261001 23:39:19.259789 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:19.259802 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:19.259815 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:19.259829 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:19.259844 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:19.259857 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:19.259871 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:19.259885 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:19.259898 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:19.259937 31188 patch_match_options.cc:60] geom_consistency: 0
+I20261001 23:39:19.259951 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:19.259965 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:19.259979 31188 patch_match_options.cc:63] filter: 0
+I20261001 23:39:19.259994 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:19.260009 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:19.260023 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:19.260036 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:19.260050 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:19.260063 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:19.260076 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:19.260090 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:19.287536 31188 cudacc.cc:52] Initialization: 0.0113s
+I20261001 23:39:19.367300 31188 cudacc.cc:52]  Sweep 1: 0.0796s
+I20261001 23:39:19.489346 31188 cudacc.cc:52]  Sweep 2: 0.1219s
+I20261001 23:39:19.568438 31188 cudacc.cc:52]  Sweep 3: 0.0789s
+I20261001 23:39:19.698932 31188 cudacc.cc:52]  Sweep 4: 0.1303s
+I20261001 23:39:19.702698 31188 cudacc.cc:52] Iteration 1: 0.4150s
+I20261001 23:39:19.785313 31188 cudacc.cc:52]  Sweep 1: 0.0825s
+I20261001 23:39:19.902095 31188 cudacc.cc:52]  Sweep 2: 0.1166s
+I20261001 23:39:19.983472 31188 cudacc.cc:52]  Sweep 3: 0.0812s
+I20261001 23:39:20.099058 31188 cudacc.cc:52]  Sweep 4: 0.1154s
+I20261001 23:39:20.099266 31188 cudacc.cc:52] Iteration 2: 0.3964s
+I20261001 23:39:20.174046 31188 cudacc.cc:52]  Sweep 1: 0.0747s
+I20261001 23:39:20.292814 31188 cudacc.cc:52]  Sweep 2: 0.1186s
+I20261001 23:39:20.369311 31188 cudacc.cc:52]  Sweep 3: 0.0763s
+I20261001 23:39:20.478056 31188 cudacc.cc:52]  Sweep 4: 0.1086s
+I20261001 23:39:20.478223 31188 cudacc.cc:52] Iteration 3: 0.3789s
+I20261001 23:39:20.478287 31188 cudacc.cc:52] Total: 1.2022s
+I20261001 23:39:20.478316 31188 patch_match.cc:525] 
+Writing photometric output for f0032.jpg
+I20261001 23:39:20.675158 31188 patch_match.cc:419] === Processing view 16 / 23 for f0033.jpg ===
+I20261001 23:39:20.675283 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:20.742981 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:20.743120 31188 patch_match.cc:57] ref_image_idx: 15
+I20261001 23:39:20.743141 31188 patch_match.cc:64] src_image_idxs: 13 12 19 20 11 14 17 18
+I20261001 23:39:20.743156 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:20.743168 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:20.743181 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:20.743193 31188 patch_match_options.cc:49] depth_min: 4.0109
+I20261001 23:39:20.743213 31188 patch_match_options.cc:50] depth_max: 15.594
+I20261001 23:39:20.743226 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:20.743238 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:20.743249 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:20.743262 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:20.743275 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:20.743287 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:20.743301 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:20.743313 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:20.743326 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:20.743338 31188 patch_match_options.cc:60] geom_consistency: 0
+I20261001 23:39:20.743350 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:20.743362 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:20.743375 31188 patch_match_options.cc:63] filter: 0
+I20261001 23:39:20.743388 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:20.743429 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:20.743442 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:20.743455 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:20.743469 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:20.743482 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:20.743494 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:20.743507 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:20.768018 31188 cudacc.cc:52] Initialization: 0.0113s
+I20261001 23:39:20.849010 31188 cudacc.cc:52]  Sweep 1: 0.0808s
+I20261001 23:39:20.971525 31188 cudacc.cc:52]  Sweep 2: 0.1223s
+I20261001 23:39:21.058128 31188 cudacc.cc:52]  Sweep 3: 0.0864s
+I20261001 23:39:21.207969 31188 cudacc.cc:52]  Sweep 4: 0.1496s
+I20261001 23:39:21.208305 31188 cudacc.cc:52] Iteration 1: 0.4401s
+I20261001 23:39:21.294776 31188 cudacc.cc:52]  Sweep 1: 0.0863s
+I20261001 23:39:21.450913 31188 cudacc.cc:52]  Sweep 2: 0.1559s
+I20261001 23:39:21.535602 31188 cudacc.cc:52]  Sweep 3: 0.0845s
+I20261001 23:39:21.670194 31188 cudacc.cc:52]  Sweep 4: 0.1344s
+I20261001 23:39:21.670346 31188 cudacc.cc:52] Iteration 2: 0.4619s
+I20261001 23:39:21.752540 31188 cudacc.cc:52]  Sweep 1: 0.0821s
+I20261001 23:39:21.903399 31188 cudacc.cc:52]  Sweep 2: 0.1507s
+I20261001 23:39:21.989272 31188 cudacc.cc:52]  Sweep 3: 0.0857s
+I20261001 23:39:22.128605 31188 cudacc.cc:52]  Sweep 4: 0.1391s
+I20261001 23:39:22.128791 31188 cudacc.cc:52] Iteration 3: 0.4584s
+I20261001 23:39:22.128855 31188 cudacc.cc:52] Total: 1.3722s
+I20261001 23:39:22.128890 31188 patch_match.cc:525] 
+Writing photometric output for f0033.jpg
+I20261001 23:39:22.695328 31188 patch_match.cc:419] === Processing view 17 / 23 for f0034.jpg ===
+I20261001 23:39:22.695466 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:22.817160 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:22.817287 31188 patch_match.cc:57] ref_image_idx: 16
+I20261001 23:39:22.817325 31188 patch_match.cc:64] src_image_idxs: 13 12 19 20 21 17 18 14
+I20261001 23:39:22.817351 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:22.817373 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:22.817395 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:22.817417 31188 patch_match_options.cc:49] depth_min: 4.02083
+I20261001 23:39:22.817446 31188 patch_match_options.cc:50] depth_max: 15.6264
+I20261001 23:39:22.817470 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:22.817492 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:22.817513 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:22.817536 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:22.817559 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:22.817580 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:22.817603 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:22.817626 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:22.817649 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:22.817670 31188 patch_match_options.cc:60] geom_consistency: 0
+I20261001 23:39:22.817692 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:22.817715 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:22.817738 31188 patch_match_options.cc:63] filter: 0
+I20261001 23:39:22.817760 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:22.817782 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:22.817805 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:22.817826 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:22.817849 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:22.817906 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:22.817928 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:22.817952 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:22.844168 31188 cudacc.cc:52] Initialization: 0.0115s
+I20261001 23:39:22.931549 31188 cudacc.cc:52]  Sweep 1: 0.0871s
+I20261001 23:39:23.055334 31188 cudacc.cc:52]  Sweep 2: 0.1236s
+I20261001 23:39:23.134066 31188 cudacc.cc:52]  Sweep 3: 0.0786s
+I20261001 23:39:23.255853 31188 cudacc.cc:52]  Sweep 4: 0.1216s
+I20261001 23:39:23.256014 31188 cudacc.cc:52] Iteration 1: 0.4116s
+I20261001 23:39:23.334372 31188 cudacc.cc:52]  Sweep 1: 0.0783s
+I20261001 23:39:23.453969 31188 cudacc.cc:52]  Sweep 2: 0.1194s
+I20261001 23:39:23.530972 31188 cudacc.cc:52]  Sweep 3: 0.0768s
+I20261001 23:39:23.648394 31188 cudacc.cc:52]  Sweep 4: 0.1173s
+I20261001 23:39:23.648634 31188 cudacc.cc:52] Iteration 2: 0.3925s
+I20261001 23:39:23.730607 31188 cudacc.cc:52]  Sweep 1: 0.0818s
+I20261001 23:39:23.845474 31188 cudacc.cc:52]  Sweep 2: 0.1147s
+I20261001 23:39:23.929203 31188 cudacc.cc:52]  Sweep 3: 0.0835s
+I20261001 23:39:24.046217 31188 cudacc.cc:52]  Sweep 4: 0.1168s
+I20261001 23:39:24.046367 31188 cudacc.cc:52] Iteration 3: 0.3977s
+I20261001 23:39:24.046407 31188 cudacc.cc:52] Total: 1.2138s
+I20261001 23:39:24.046428 31188 patch_match.cc:525] 
+Writing photometric output for f0034.jpg
+I20261001 23:39:24.256673 31188 patch_match.cc:419] === Processing view 18 / 23 for f0035.jpg ===
+I20261001 23:39:24.256826 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:24.258317 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:24.258419 31188 patch_match.cc:57] ref_image_idx: 17
+I20261001 23:39:24.258453 31188 patch_match.cc:64] src_image_idxs: 19 20 13 21 12 16 15 14
+I20261001 23:39:24.258478 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:24.258501 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:24.258523 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:24.258545 31188 patch_match_options.cc:49] depth_min: 3.98122
+I20261001 23:39:24.258576 31188 patch_match_options.cc:50] depth_max: 15.2363
+I20261001 23:39:24.258599 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:24.258621 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:24.258643 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:24.258665 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:24.258689 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:24.258713 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:24.258738 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:24.258761 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:24.258784 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:24.258806 31188 patch_match_options.cc:60] geom_consistency: 0
+I20261001 23:39:24.258828 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:24.258850 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:24.258873 31188 patch_match_options.cc:63] filter: 0
+I20261001 23:39:24.258895 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:24.258917 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:24.258939 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:24.258961 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:24.258983 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:24.259005 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:24.259027 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:24.259050 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:24.284994 31188 cudacc.cc:52] Initialization: 0.0114s
+I20261001 23:39:24.365828 31188 cudacc.cc:52]  Sweep 1: 0.0806s
+I20261001 23:39:24.486906 31188 cudacc.cc:52]  Sweep 2: 0.1208s
+I20261001 23:39:24.566167 31188 cudacc.cc:52]  Sweep 3: 0.0791s
+I20261001 23:39:24.687769 31188 cudacc.cc:52]  Sweep 4: 0.1214s
+I20261001 23:39:24.687911 31188 cudacc.cc:52] Iteration 1: 0.4027s
+I20261001 23:39:24.765440 31188 cudacc.cc:52]  Sweep 1: 0.0775s
+I20261001 23:39:24.885214 31188 cudacc.cc:52]  Sweep 2: 0.1196s
+I20261001 23:39:24.963165 31188 cudacc.cc:52]  Sweep 3: 0.0778s
+I20261001 23:39:25.093390 31188 cudacc.cc:52]  Sweep 4: 0.1301s
+I20261001 23:39:25.093664 31188 cudacc.cc:52] Iteration 2: 0.4057s
+I20261001 23:39:25.173972 31188 cudacc.cc:52]  Sweep 1: 0.0802s
+I20261001 23:39:25.333797 31188 cudacc.cc:52]  Sweep 2: 0.1596s
+I20261001 23:39:25.417131 31188 cudacc.cc:52]  Sweep 3: 0.0832s
+I20261001 23:39:25.561693 31188 cudacc.cc:52]  Sweep 4: 0.1443s
+I20261001 23:39:25.561864 31188 cudacc.cc:52] Iteration 3: 0.4681s
+I20261001 23:39:25.561934 31188 cudacc.cc:52] Total: 1.2884s
+I20261001 23:39:25.561973 31188 patch_match.cc:525] 
+Writing photometric output for f0035.jpg
+I20261001 23:39:26.040616 31188 patch_match.cc:419] === Processing view 19 / 23 for f0036.jpg ===
+I20261001 23:39:26.048482 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:26.141653 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:26.141768 31188 patch_match.cc:57] ref_image_idx: 18
+I20261001 23:39:26.141803 31188 patch_match.cc:64] src_image_idxs: 19 20 21 13 16 15 14 22
+I20261001 23:39:26.141828 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:26.141851 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:26.141873 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:26.141894 31188 patch_match_options.cc:49] depth_min: 3.94978
+I20261001 23:39:26.141924 31188 patch_match_options.cc:50] depth_max: 15.0814
+I20261001 23:39:26.141961 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:26.141992 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:26.142014 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:26.142038 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:26.142061 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:26.142090 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:26.142114 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:26.142145 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:26.142168 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:26.142189 31188 patch_match_options.cc:60] geom_consistency: 0
+I20261001 23:39:26.142218 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:26.142241 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:26.142265 31188 patch_match_options.cc:63] filter: 0
+I20261001 23:39:26.142305 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:26.142328 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:26.142351 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:26.142373 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:26.142397 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:26.142418 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:26.142440 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:26.142463 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:26.167610 31188 cudacc.cc:52] Initialization: 0.0113s
+I20261001 23:39:26.251486 31188 cudacc.cc:52]  Sweep 1: 0.0837s
+I20261001 23:39:26.411627 31188 cudacc.cc:52]  Sweep 2: 0.1600s
+I20261001 23:39:26.496269 31188 cudacc.cc:52]  Sweep 3: 0.0844s
+I20261001 23:39:26.621732 31188 cudacc.cc:52]  Sweep 4: 0.1253s
+I20261001 23:39:26.621872 31188 cudacc.cc:52] Iteration 1: 0.4541s
+I20261001 23:39:26.706173 31188 cudacc.cc:52]  Sweep 1: 0.0842s
+I20261001 23:39:26.834228 31188 cudacc.cc:52]  Sweep 2: 0.1278s
+I20261001 23:39:26.955874 31188 cudacc.cc:52]  Sweep 3: 0.1212s
+I20261001 23:39:27.076582 31188 cudacc.cc:52]  Sweep 4: 0.1205s
+I20261001 23:39:27.076770 31188 cudacc.cc:52] Iteration 2: 0.4549s
+I20261001 23:39:27.188084 31188 cudacc.cc:52]  Sweep 1: 0.1112s
+I20261001 23:39:27.302793 31188 cudacc.cc:52]  Sweep 2: 0.1145s
+I20261001 23:39:27.379008 31188 cudacc.cc:52]  Sweep 3: 0.0760s
+I20261001 23:39:27.523932 31188 cudacc.cc:52]  Sweep 4: 0.1448s
+I20261001 23:39:27.524081 31188 cudacc.cc:52] Iteration 3: 0.4472s
+I20261001 23:39:27.524253 31188 cudacc.cc:52] Total: 1.3680s
+I20261001 23:39:27.524990 31188 patch_match.cc:525] 
+Writing photometric output for f0036.jpg
+I20261001 23:39:28.028507 31188 patch_match.cc:419] === Processing view 20 / 23 for f0037.jpg ===
+I20261001 23:39:28.028643 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:28.029897 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:28.029975 31188 patch_match.cc:57] ref_image_idx: 19
+I20261001 23:39:28.029997 31188 patch_match.cc:64] src_image_idxs: 20 21 18 17 22 16 15 14
+I20261001 23:39:28.030015 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:28.030029 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:28.030042 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:28.030059 31188 patch_match_options.cc:49] depth_min: 4.03232
+I20261001 23:39:28.030078 31188 patch_match_options.cc:50] depth_max: 15.3089
+I20261001 23:39:28.030091 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:28.030103 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:28.030116 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:28.030131 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:28.030145 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:28.030159 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:28.030173 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:28.030186 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:28.030199 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:28.030210 31188 patch_match_options.cc:60] geom_consistency: 0
+I20261001 23:39:28.030222 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:28.030235 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:28.030248 31188 patch_match_options.cc:63] filter: 0
+I20261001 23:39:28.030260 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:28.030273 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:28.030290 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:28.030305 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:28.030321 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:28.030338 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:28.030351 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:28.030364 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:28.057544 31188 cudacc.cc:52] Initialization: 0.0114s
+I20261001 23:39:28.176729 31188 cudacc.cc:52]  Sweep 1: 0.1190s
+I20261001 23:39:28.316939 31188 cudacc.cc:52]  Sweep 2: 0.1400s
+I20261001 23:39:28.395220 31188 cudacc.cc:52]  Sweep 3: 0.0780s
+I20261001 23:39:28.515885 31188 cudacc.cc:52]  Sweep 4: 0.1205s
+I20261001 23:39:28.516000 31188 cudacc.cc:52] Iteration 1: 0.4583s
+I20261001 23:39:28.591160 31188 cudacc.cc:52]  Sweep 1: 0.0751s
+I20261001 23:39:28.717644 31188 cudacc.cc:52]  Sweep 2: 0.1263s
+I20261001 23:39:28.809437 31188 cudacc.cc:52]  Sweep 3: 0.0916s
+I20261001 23:39:28.932289 31188 cudacc.cc:52]  Sweep 4: 0.1224s
+I20261001 23:39:28.932603 31188 cudacc.cc:52] Iteration 2: 0.4165s
+I20261001 23:39:29.015224 31188 cudacc.cc:52]  Sweep 1: 0.0825s
+I20261001 23:39:29.135145 31188 cudacc.cc:52]  Sweep 2: 0.1193s
+I20261001 23:39:29.210811 31188 cudacc.cc:52]  Sweep 3: 0.0755s
+I20261001 23:39:29.357582 31188 cudacc.cc:52]  Sweep 4: 0.1466s
+I20261001 23:39:29.357763 31188 cudacc.cc:52] Iteration 3: 0.4251s
+I20261001 23:39:29.357856 31188 cudacc.cc:52] Total: 1.3118s
+I20261001 23:39:29.357901 31188 patch_match.cc:525] 
+Writing photometric output for f0037.jpg
+I20261001 23:39:29.774905 31188 patch_match.cc:419] === Processing view 21 / 23 for f0038.jpg ===
+I20261001 23:39:29.775948 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:29.779599 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:29.779671 31188 patch_match.cc:57] ref_image_idx: 20
+I20261001 23:39:29.779738 31188 patch_match.cc:64] src_image_idxs: 21 19 22 18 17 16 15 14
+I20261001 23:39:29.779763 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:29.779785 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:29.779807 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:29.779828 31188 patch_match_options.cc:49] depth_min: 4.10012
+I20261001 23:39:29.779858 31188 patch_match_options.cc:50] depth_max: 15.5456
+I20261001 23:39:29.779880 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:29.779902 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:29.779923 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:29.779946 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:29.779970 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:29.779991 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:29.780014 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:29.780037 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:29.780060 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:29.780081 31188 patch_match_options.cc:60] geom_consistency: 0
+I20261001 23:39:29.780102 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:29.780125 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:29.780147 31188 patch_match_options.cc:63] filter: 0
+I20261001 23:39:29.780169 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:29.780191 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:29.780213 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:29.780234 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:29.780257 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:29.780278 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:29.780302 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:29.780336 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:29.804603 31188 cudacc.cc:52] Initialization: 0.0114s
+I20261001 23:39:29.897401 31188 cudacc.cc:52]  Sweep 1: 0.0926s
+I20261001 23:39:30.026187 31188 cudacc.cc:52]  Sweep 2: 0.1286s
+I20261001 23:39:30.125545 31188 cudacc.cc:52]  Sweep 3: 0.0989s
+I20261001 23:39:30.274229 31188 cudacc.cc:52]  Sweep 4: 0.1476s
+I20261001 23:39:30.276538 31188 cudacc.cc:52] Iteration 1: 0.4716s
+I20261001 23:39:30.364401 31188 cudacc.cc:52]  Sweep 1: 0.0873s
+I20261001 23:39:30.505428 31188 cudacc.cc:52]  Sweep 2: 0.1403s
+I20261001 23:39:30.581733 31188 cudacc.cc:52]  Sweep 3: 0.0750s
+I20261001 23:39:30.697619 31188 cudacc.cc:52]  Sweep 4: 0.1157s
+I20261001 23:39:30.697741 31188 cudacc.cc:52] Iteration 2: 0.4207s
+I20261001 23:39:30.785432 31188 cudacc.cc:52]  Sweep 1: 0.0876s
+I20261001 23:39:30.890810 31188 cudacc.cc:52]  Sweep 2: 0.1052s
+I20261001 23:39:30.976899 31188 cudacc.cc:52]  Sweep 3: 0.0859s
+I20261001 23:39:31.082601 31188 cudacc.cc:52]  Sweep 4: 0.1055s
+I20261001 23:39:31.082775 31188 cudacc.cc:52] Iteration 3: 0.3850s
+I20261001 23:39:31.082834 31188 cudacc.cc:52] Total: 1.2897s
+I20261001 23:39:31.082868 31188 patch_match.cc:525] 
+Writing photometric output for f0038.jpg
+I20261001 23:39:31.302470 31188 patch_match.cc:419] === Processing view 22 / 23 for f0039.jpg ===
+I20261001 23:39:31.302597 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:31.303768 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:31.303881 31188 patch_match.cc:57] ref_image_idx: 21
+I20261001 23:39:31.303917 31188 patch_match.cc:64] src_image_idxs: 20 19 22 18 17 16 15 14
+I20261001 23:39:31.303942 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:31.303966 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:31.303990 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:31.304013 31188 patch_match_options.cc:49] depth_min: 3.97105
+I20261001 23:39:31.304078 31188 patch_match_options.cc:50] depth_max: 14.7784
+I20261001 23:39:31.304104 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:31.304127 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:31.304150 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:31.304174 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:31.304200 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:31.304223 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:31.304247 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:31.304271 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:31.304296 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:31.304319 31188 patch_match_options.cc:60] geom_consistency: 0
+I20261001 23:39:31.304343 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:31.304366 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:31.304390 31188 patch_match_options.cc:63] filter: 0
+I20261001 23:39:31.304414 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:31.304437 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:31.304461 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:31.304484 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:31.304508 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:31.304531 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:31.304555 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:31.304579 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:31.330070 31188 cudacc.cc:52] Initialization: 0.0113s
+I20261001 23:39:31.405779 31188 cudacc.cc:52]  Sweep 1: 0.0755s
+I20261001 23:39:31.523772 31188 cudacc.cc:52]  Sweep 2: 0.1179s
+I20261001 23:39:31.600969 31188 cudacc.cc:52]  Sweep 3: 0.0771s
+I20261001 23:39:31.724255 31188 cudacc.cc:52]  Sweep 4: 0.1231s
+I20261001 23:39:31.724390 31188 cudacc.cc:52] Iteration 1: 0.3942s
+I20261001 23:39:31.800474 31188 cudacc.cc:52]  Sweep 1: 0.0760s
+I20261001 23:39:31.913973 31188 cudacc.cc:52]  Sweep 2: 0.1133s
+I20261001 23:39:32.008893 31188 cudacc.cc:52]  Sweep 3: 0.0947s
+I20261001 23:39:32.144642 31188 cudacc.cc:52]  Sweep 4: 0.1356s
+I20261001 23:39:32.145370 31188 cudacc.cc:52] Iteration 2: 0.4209s
+I20261001 23:39:32.238251 31188 cudacc.cc:52]  Sweep 1: 0.0928s
+I20261001 23:39:32.366357 31188 cudacc.cc:52]  Sweep 2: 0.1279s
+I20261001 23:39:32.453438 31188 cudacc.cc:52]  Sweep 3: 0.0869s
+I20261001 23:39:32.625496 31188 cudacc.cc:52]  Sweep 4: 0.1719s
+I20261001 23:39:32.625649 31188 cudacc.cc:52] Iteration 3: 0.4802s
+I20261001 23:39:32.625743 31188 cudacc.cc:52] Total: 1.3070s
+I20261001 23:39:32.625791 31188 patch_match.cc:525] 
+Writing photometric output for f0039.jpg
+I20261001 23:39:33.103376 31188 patch_match.cc:419] === Processing view 23 / 23 for f0040.jpg ===
+I20261001 23:39:33.103544 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:33.104870 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:33.105017 31188 patch_match.cc:57] ref_image_idx: 22
+I20261001 23:39:33.105061 31188 patch_match.cc:64] src_image_idxs: 21 20 19 18 17 16 15 14
+I20261001 23:39:33.105090 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:33.105114 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:33.105149 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:33.105180 31188 patch_match_options.cc:49] depth_min: 3.94682
+I20261001 23:39:33.105214 31188 patch_match_options.cc:50] depth_max: 14.6545
+I20261001 23:39:33.105240 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:33.105264 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:33.105287 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:33.105311 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:33.105372 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:33.105396 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:33.105421 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:33.105446 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:33.105470 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:33.105493 31188 patch_match_options.cc:60] geom_consistency: 0
+I20261001 23:39:33.105516 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:33.105540 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:33.105564 31188 patch_match_options.cc:63] filter: 0
+I20261001 23:39:33.105587 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:33.105612 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:33.105636 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:33.105660 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:33.105685 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:33.105707 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:33.105730 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:33.105756 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:33.131264 31188 cudacc.cc:52] Initialization: 0.0113s
+I20261001 23:39:33.250521 31188 cudacc.cc:52]  Sweep 1: 0.1191s
+I20261001 23:39:33.378647 31188 cudacc.cc:52]  Sweep 2: 0.1279s
+I20261001 23:39:33.468405 31188 cudacc.cc:52]  Sweep 3: 0.0896s
+I20261001 23:39:33.627027 31188 cudacc.cc:52]  Sweep 4: 0.1584s
+I20261001 23:39:33.627154 31188 cudacc.cc:52] Iteration 1: 0.4957s
+I20261001 23:39:33.719361 31188 cudacc.cc:52]  Sweep 1: 0.0921s
+I20261001 23:39:33.845681 31188 cudacc.cc:52]  Sweep 2: 0.1261s
+I20261001 23:39:33.944680 31188 cudacc.cc:52]  Sweep 3: 0.0952s
+I20261001 23:39:34.084274 31188 cudacc.cc:52]  Sweep 4: 0.1390s
+I20261001 23:39:34.084553 31188 cudacc.cc:52] Iteration 2: 0.4573s
+I20261001 23:39:34.171890 31188 cudacc.cc:52]  Sweep 1: 0.0872s
+I20261001 23:39:34.292238 31188 cudacc.cc:52]  Sweep 2: 0.1202s
+I20261001 23:39:34.410637 31188 cudacc.cc:52]  Sweep 3: 0.1182s
+I20261001 23:39:34.569388 31188 cudacc.cc:52]  Sweep 4: 0.1585s
+I20261001 23:39:34.569576 31188 cudacc.cc:52] Iteration 3: 0.4850s
+I20261001 23:39:34.569641 31188 cudacc.cc:52] Total: 1.4497s
+I20261001 23:39:34.569674 31188 patch_match.cc:525] 
+Writing photometric output for f0040.jpg
+I20261001 23:39:35.080540 31188 patch_match.cc:419] === Processing view 1 / 23 for f0018.jpg ===
+I20261001 23:39:35.080667 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:35.453057 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:35.453182 31188 patch_match.cc:57] ref_image_idx: 0
+I20261001 23:39:35.453218 31188 patch_match.cc:64] src_image_idxs: 2 5 1 4 3 6 7 8
+I20261001 23:39:35.453243 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:35.453264 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:35.453286 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:35.453308 31188 patch_match_options.cc:49] depth_min: 4.76589
+I20261001 23:39:35.453338 31188 patch_match_options.cc:50] depth_max: 16.0842
+I20261001 23:39:35.453361 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:35.453393 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:35.453420 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:35.453443 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:35.453466 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:35.453487 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:35.453510 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:35.453533 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:35.453555 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:35.453603 31188 patch_match_options.cc:60] geom_consistency: 1
+I20261001 23:39:35.453625 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:35.453648 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:35.453672 31188 patch_match_options.cc:63] filter: 1
+I20261001 23:39:35.453693 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:35.453715 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:35.453737 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:35.453759 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:35.453781 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:35.453802 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:35.453823 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:35.453846 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:35.498054 31188 cudacc.cc:52] Initialization: 0.0110s
+I20261001 23:39:35.595266 31188 cudacc.cc:52]  Sweep 1: 0.0970s
+I20261001 23:39:35.759131 31188 cudacc.cc:52]  Sweep 2: 0.1637s
+I20261001 23:39:35.856834 31188 cudacc.cc:52]  Sweep 3: 0.0975s
+I20261001 23:39:36.037809 31188 cudacc.cc:52]  Sweep 4: 0.1808s
+I20261001 23:39:36.037955 31188 cudacc.cc:52] Iteration 1: 0.5397s
+I20261001 23:39:36.137527 31188 cudacc.cc:52]  Sweep 1: 0.0995s
+I20261001 23:39:36.315907 31188 cudacc.cc:52]  Sweep 2: 0.1782s
+I20261001 23:39:36.413633 31188 cudacc.cc:52]  Sweep 3: 0.0975s
+I20261001 23:39:36.595609 31188 cudacc.cc:52]  Sweep 4: 0.1818s
+I20261001 23:39:36.595911 31188 cudacc.cc:52] Iteration 2: 0.5579s
+I20261001 23:39:36.697647 31188 cudacc.cc:52]  Sweep 1: 0.1016s
+I20261001 23:39:36.854096 31188 cudacc.cc:52]  Sweep 2: 0.1562s
+I20261001 23:39:36.949065 31188 cudacc.cc:52]  Sweep 3: 0.0947s
+I20261001 23:39:37.114144 31188 cudacc.cc:52]  Sweep 4: 0.1645s
+I20261001 23:39:37.116147 31188 cudacc.cc:52] Iteration 3: 0.5201s
+I20261001 23:39:37.116208 31188 cudacc.cc:52] Total: 1.6292s
+I20261001 23:39:37.116232 31188 patch_match.cc:525] 
+Writing geometric output for f0018.jpg
+I20261001 23:39:37.381922 31188 patch_match.cc:419] === Processing view 2 / 23 for f0019.jpg ===
+I20261001 23:39:37.382024 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:37.390313 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:37.390434 31188 patch_match.cc:57] ref_image_idx: 1
+I20261001 23:39:37.390457 31188 patch_match.cc:64] src_image_idxs: 2 5 3 4 0 6 7 8
+I20261001 23:39:37.390472 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:37.390486 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:37.390499 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:37.390512 31188 patch_match_options.cc:49] depth_min: 4.33859
+I20261001 23:39:37.390534 31188 patch_match_options.cc:50] depth_max: 16.0837
+I20261001 23:39:37.390547 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:37.390561 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:37.390574 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:37.390588 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:37.390602 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:37.390614 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:37.390634 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:37.390650 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:37.390663 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:37.390676 31188 patch_match_options.cc:60] geom_consistency: 1
+I20261001 23:39:37.390690 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:37.390703 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:37.390716 31188 patch_match_options.cc:63] filter: 1
+I20261001 23:39:37.390728 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:37.390760 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:37.390773 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:37.390785 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:37.390798 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:37.390811 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:37.390824 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:37.390837 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:37.429134 31188 cudacc.cc:52] Initialization: 0.0102s
+I20261001 23:39:37.524100 31188 cudacc.cc:52]  Sweep 1: 0.0948s
+I20261001 23:39:37.695922 31188 cudacc.cc:52]  Sweep 2: 0.1714s
+I20261001 23:39:37.796486 31188 cudacc.cc:52]  Sweep 3: 0.1003s
+I20261001 23:39:37.956566 31188 cudacc.cc:52]  Sweep 4: 0.1599s
+I20261001 23:39:37.956704 31188 cudacc.cc:52] Iteration 1: 0.5274s
+I20261001 23:39:38.056348 31188 cudacc.cc:52]  Sweep 1: 0.0996s
+I20261001 23:39:38.231405 31188 cudacc.cc:52]  Sweep 2: 0.1749s
+I20261001 23:39:38.335095 31188 cudacc.cc:52]  Sweep 3: 0.1035s
+I20261001 23:39:38.484438 31188 cudacc.cc:52]  Sweep 4: 0.1491s
+I20261001 23:39:38.484659 31188 cudacc.cc:52] Iteration 2: 0.5279s
+I20261001 23:39:38.578943 31188 cudacc.cc:52]  Sweep 1: 0.0942s
+I20261001 23:39:38.736523 31188 cudacc.cc:52]  Sweep 2: 0.1574s
+I20261001 23:39:38.829782 31188 cudacc.cc:52]  Sweep 3: 0.0931s
+I20261001 23:39:38.984757 31188 cudacc.cc:52]  Sweep 4: 0.1547s
+I20261001 23:39:38.984907 31188 cudacc.cc:52] Iteration 3: 0.5002s
+I20261001 23:39:38.984943 31188 cudacc.cc:52] Total: 1.5661s
+I20261001 23:39:38.984964 31188 patch_match.cc:525] 
+Writing geometric output for f0019.jpg
+I20261001 23:39:39.334924 31188 patch_match.cc:419] === Processing view 3 / 23 for f0020.jpg ===
+I20261001 23:39:39.335104 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:39.680480 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:39.680634 31188 patch_match.cc:57] ref_image_idx: 2
+I20261001 23:39:39.680676 31188 patch_match.cc:64] src_image_idxs: 5 10 4 1 0 6 7 8
+I20261001 23:39:39.680704 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:39.680730 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:39.680754 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:39.680779 31188 patch_match_options.cc:49] depth_min: 4.01533
+I20261001 23:39:39.680815 31188 patch_match_options.cc:50] depth_max: 16.2666
+I20261001 23:39:39.680842 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:39.680867 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:39.680892 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:39.680918 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:39.680944 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:39.680969 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:39.680995 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:39.681020 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:39.681046 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:39.681071 31188 patch_match_options.cc:60] geom_consistency: 1
+I20261001 23:39:39.681109 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:39.681141 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:39.681168 31188 patch_match_options.cc:63] filter: 1
+I20261001 23:39:39.681191 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:39.681216 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:39.681242 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:39.681266 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:39.681291 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:39.681315 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:39.681370 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:39.681397 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:39.742732 31188 cudacc.cc:52] Initialization: 0.0113s
+I20261001 23:39:39.866815 31188 cudacc.cc:52]  Sweep 1: 0.1205s
+I20261001 23:39:40.059667 31188 cudacc.cc:52]  Sweep 2: 0.1927s
+I20261001 23:39:40.176408 31188 cudacc.cc:52]  Sweep 3: 0.1166s
+I20261001 23:39:40.370365 31188 cudacc.cc:52]  Sweep 4: 0.1938s
+I20261001 23:39:40.370520 31188 cudacc.cc:52] Iteration 1: 0.6243s
+I20261001 23:39:40.472057 31188 cudacc.cc:52]  Sweep 1: 0.1011s
+I20261001 23:39:40.667670 31188 cudacc.cc:52]  Sweep 2: 0.1954s
+I20261001 23:39:40.788694 31188 cudacc.cc:52]  Sweep 3: 0.1208s
+I20261001 23:39:40.994718 31188 cudacc.cc:52]  Sweep 4: 0.2058s
+I20261001 23:39:40.994967 31188 cudacc.cc:52] Iteration 2: 0.6244s
+I20261001 23:39:41.106447 31188 cudacc.cc:52]  Sweep 1: 0.1114s
+I20261001 23:39:41.293888 31188 cudacc.cc:52]  Sweep 2: 0.1873s
+I20261001 23:39:41.403246 31188 cudacc.cc:52]  Sweep 3: 0.1092s
+I20261001 23:39:41.606666 31188 cudacc.cc:52]  Sweep 4: 0.2032s
+I20261001 23:39:41.608025 31188 cudacc.cc:52] Iteration 3: 0.6130s
+I20261001 23:39:41.608672 31188 cudacc.cc:52] Total: 1.8813s
+I20261001 23:39:41.610329 31188 patch_match.cc:525] 
+Writing geometric output for f0020.jpg
+I20261001 23:39:42.143805 31188 patch_match.cc:419] === Processing view 4 / 23 for f0021.jpg ===
+I20261001 23:39:42.143912 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:42.151666 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:42.151792 31188 patch_match.cc:57] ref_image_idx: 3
+I20261001 23:39:42.151816 31188 patch_match.cc:64] src_image_idxs: 5 10 4 1 6 7 0 8
+I20261001 23:39:42.151833 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:42.151848 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:42.151863 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:42.151877 31188 patch_match_options.cc:49] depth_min: 3.92785
+I20261001 23:39:42.151899 31188 patch_match_options.cc:50] depth_max: 16.1219
+I20261001 23:39:42.151915 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:42.151928 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:42.151943 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:42.151958 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:42.151973 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:42.151987 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:42.152002 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:42.152017 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:42.152032 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:42.152046 31188 patch_match_options.cc:60] geom_consistency: 1
+I20261001 23:39:42.152061 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:42.152075 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:42.152090 31188 patch_match_options.cc:63] filter: 1
+I20261001 23:39:42.152104 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:42.152119 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:42.152141 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:42.152158 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:42.152173 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:42.152187 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:42.152201 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:42.152216 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:42.225833 31188 cudacc.cc:52] Initialization: 0.0103s
+I20261001 23:39:42.369390 31188 cudacc.cc:52]  Sweep 1: 0.1433s
+I20261001 23:39:42.565968 31188 cudacc.cc:52]  Sweep 2: 0.1964s
+I20261001 23:39:42.676586 31188 cudacc.cc:52]  Sweep 3: 0.1100s
+I20261001 23:39:42.829834 31188 cudacc.cc:52]  Sweep 4: 0.1531s
+I20261001 23:39:42.829973 31188 cudacc.cc:52] Iteration 1: 0.6040s
+I20261001 23:39:42.928346 31188 cudacc.cc:52]  Sweep 1: 0.0983s
+I20261001 23:39:43.086576 31188 cudacc.cc:52]  Sweep 2: 0.1580s
+I20261001 23:39:43.186302 31188 cudacc.cc:52]  Sweep 3: 0.0995s
+I20261001 23:39:43.347124 31188 cudacc.cc:52]  Sweep 4: 0.1607s
+I20261001 23:39:43.347339 31188 cudacc.cc:52] Iteration 2: 0.5173s
+I20261001 23:39:43.465086 31188 cudacc.cc:52]  Sweep 1: 0.1177s
+I20261001 23:39:43.659971 31188 cudacc.cc:52]  Sweep 2: 0.1947s
+I20261001 23:39:43.760642 31188 cudacc.cc:52]  Sweep 3: 0.1005s
+I20261001 23:39:43.959070 31188 cudacc.cc:52]  Sweep 4: 0.1982s
+I20261001 23:39:43.959216 31188 cudacc.cc:52] Iteration 3: 0.6118s
+I20261001 23:39:43.959262 31188 cudacc.cc:52] Total: 1.7443s
+I20261001 23:39:43.959291 31188 patch_match.cc:525] 
+Writing geometric output for f0021.jpg
+I20261001 23:39:44.500297 31188 patch_match.cc:419] === Processing view 5 / 23 for f0022.jpg ===
+I20261001 23:39:44.500411 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:44.510055 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:44.510160 31188 patch_match.cc:57] ref_image_idx: 4
+I20261001 23:39:44.510198 31188 patch_match.cc:64] src_image_idxs: 5 2 10 6 7 3 8 1
+I20261001 23:39:44.510224 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:44.510247 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:44.510270 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:44.510293 31188 patch_match_options.cc:49] depth_min: 4.50148
+I20261001 23:39:44.510325 31188 patch_match_options.cc:50] depth_max: 16.2371
+I20261001 23:39:44.510349 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:44.510371 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:44.510394 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:44.510417 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:44.510441 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:44.510463 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:44.510486 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:44.510510 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:44.510533 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:44.510555 31188 patch_match_options.cc:60] geom_consistency: 1
+I20261001 23:39:44.510577 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:44.510600 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:44.510624 31188 patch_match_options.cc:63] filter: 1
+I20261001 23:39:44.510646 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:44.510669 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:44.510692 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:44.510714 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:44.510737 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:44.510759 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:44.510791 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:44.510820 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:44.560574 31188 cudacc.cc:52] Initialization: 0.0103s
+I20261001 23:39:44.712426 31188 cudacc.cc:52]  Sweep 1: 0.1497s
+I20261001 23:39:44.924086 31188 cudacc.cc:52]  Sweep 2: 0.2115s
+I20261001 23:39:45.024303 31188 cudacc.cc:52]  Sweep 3: 0.1000s
+I20261001 23:39:45.218415 31188 cudacc.cc:52]  Sweep 4: 0.1939s
+I20261001 23:39:45.218567 31188 cudacc.cc:52] Iteration 1: 0.6559s
+I20261001 23:39:45.326288 31188 cudacc.cc:52]  Sweep 1: 0.1077s
+I20261001 23:39:45.480599 31188 cudacc.cc:52]  Sweep 2: 0.1541s
+I20261001 23:39:45.579104 31188 cudacc.cc:52]  Sweep 3: 0.0984s
+I20261001 23:39:45.731319 31188 cudacc.cc:52]  Sweep 4: 0.1521s
+I20261001 23:39:45.731465 31188 cudacc.cc:52] Iteration 2: 0.5129s
+I20261001 23:39:45.829538 31188 cudacc.cc:52]  Sweep 1: 0.0980s
+I20261001 23:39:45.981432 31188 cudacc.cc:52]  Sweep 2: 0.1517s
+I20261001 23:39:46.081892 31188 cudacc.cc:52]  Sweep 3: 0.1003s
+I20261001 23:39:46.287857 31188 cudacc.cc:52]  Sweep 4: 0.2058s
+I20261001 23:39:46.288798 31188 cudacc.cc:52] Iteration 3: 0.5567s
+I20261001 23:39:46.289635 31188 cudacc.cc:52] Total: 1.7394s
+I20261001 23:39:46.289665 31188 patch_match.cc:525] 
+Writing geometric output for f0022.jpg
+I20261001 23:39:46.806042 31188 patch_match.cc:419] === Processing view 6 / 23 for f0023.jpg ===
+I20261001 23:39:46.806151 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:47.095989 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:47.096160 31188 patch_match.cc:57] ref_image_idx: 5
+I20261001 23:39:47.096199 31188 patch_match.cc:64] src_image_idxs: 10 2 6 4 7 8 3 9
+I20261001 23:39:47.096224 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:47.096247 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:47.096269 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:47.096290 31188 patch_match_options.cc:49] depth_min: 4.24856
+I20261001 23:39:47.096323 31188 patch_match_options.cc:50] depth_max: 16.3
+I20261001 23:39:47.096347 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:47.096368 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:47.096390 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:47.096413 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:47.096437 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:47.096459 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:47.096481 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:47.096504 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:47.096527 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:47.096549 31188 patch_match_options.cc:60] geom_consistency: 1
+I20261001 23:39:47.096571 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:47.096593 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:47.096617 31188 patch_match_options.cc:63] filter: 1
+I20261001 23:39:47.096638 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:47.096661 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:47.096683 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:47.096704 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:47.096727 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:47.096749 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:47.096771 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:47.096794 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:47.185131 31188 cudacc.cc:52] Initialization: 0.0109s
+I20261001 23:39:47.343795 31188 cudacc.cc:52]  Sweep 1: 0.1585s
+I20261001 23:39:47.518278 31188 cudacc.cc:52]  Sweep 2: 0.1700s
+I20261001 23:39:47.629678 31188 cudacc.cc:52]  Sweep 3: 0.1112s
+I20261001 23:39:47.818008 31188 cudacc.cc:52]  Sweep 4: 0.1881s
+I20261001 23:39:47.818199 31188 cudacc.cc:52] Iteration 1: 0.6329s
+I20261001 23:39:47.922355 31188 cudacc.cc:52]  Sweep 1: 0.1040s
+I20261001 23:39:48.131162 31188 cudacc.cc:52]  Sweep 2: 0.2086s
+I20261001 23:39:48.243099 31188 cudacc.cc:52]  Sweep 3: 0.1116s
+I20261001 23:39:48.394449 31188 cudacc.cc:52]  Sweep 4: 0.1512s
+I20261001 23:39:48.394620 31188 cudacc.cc:52] Iteration 2: 0.5763s
+I20261001 23:39:48.493275 31188 cudacc.cc:52]  Sweep 1: 0.0986s
+I20261001 23:39:48.643859 31188 cudacc.cc:52]  Sweep 2: 0.1504s
+I20261001 23:39:48.739651 31188 cudacc.cc:52]  Sweep 3: 0.0956s
+I20261001 23:39:48.897424 31188 cudacc.cc:52]  Sweep 4: 0.1576s
+I20261001 23:39:48.897636 31188 cudacc.cc:52] Iteration 3: 0.5029s
+I20261001 23:39:48.897774 31188 cudacc.cc:52] Total: 1.7236s
+I20261001 23:39:48.897812 31188 patch_match.cc:525] 
+Writing geometric output for f0023.jpg
+I20261001 23:39:49.357411 31188 patch_match.cc:419] === Processing view 7 / 23 for f0024.jpg ===
+I20261001 23:39:49.359137 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:49.648577 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:49.648747 31188 patch_match.cc:57] ref_image_idx: 6
+I20261001 23:39:49.648808 31188 patch_match.cc:64] src_image_idxs: 10 5 11 7 8 9 4 3
+I20261001 23:39:49.648840 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:49.648867 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:49.648894 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:49.648920 31188 patch_match_options.cc:49] depth_min: 4.31136
+I20261001 23:39:49.648956 31188 patch_match_options.cc:50] depth_max: 16.2143
+I20261001 23:39:49.648985 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:49.649010 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:49.649036 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:49.649063 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:49.649090 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:49.649117 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:49.649144 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:49.649172 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:49.649199 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:49.649225 31188 patch_match_options.cc:60] geom_consistency: 1
+I20261001 23:39:49.649252 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:49.649280 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:49.649306 31188 patch_match_options.cc:63] filter: 1
+I20261001 23:39:49.649331 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:49.649358 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:49.649384 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:49.649413 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:49.649439 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:49.649464 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:49.649489 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:49.649515 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:49.692071 31188 cudacc.cc:52] Initialization: 0.0125s
+I20261001 23:39:49.818843 31188 cudacc.cc:52]  Sweep 1: 0.1260s
+I20261001 23:39:49.999570 31188 cudacc.cc:52]  Sweep 2: 0.1804s
+I20261001 23:39:50.115784 31188 cudacc.cc:52]  Sweep 3: 0.1122s
+I20261001 23:39:50.301170 31188 cudacc.cc:52]  Sweep 4: 0.1852s
+I20261001 23:39:50.301341 31188 cudacc.cc:52] Iteration 1: 0.6085s
+I20261001 23:39:50.402641 31188 cudacc.cc:52]  Sweep 1: 0.1012s
+I20261001 23:39:50.610517 31188 cudacc.cc:52]  Sweep 2: 0.2076s
+I20261001 23:39:50.717493 31188 cudacc.cc:52]  Sweep 3: 0.1067s
+I20261001 23:39:50.890253 31188 cudacc.cc:52]  Sweep 4: 0.1726s
+I20261001 23:39:50.890541 31188 cudacc.cc:52] Iteration 2: 0.5890s
+I20261001 23:39:50.987928 31188 cudacc.cc:52]  Sweep 1: 0.0972s
+I20261001 23:39:51.138306 31188 cudacc.cc:52]  Sweep 2: 0.1502s
+I20261001 23:39:51.238057 31188 cudacc.cc:52]  Sweep 3: 0.0996s
+I20261001 23:39:51.399693 31188 cudacc.cc:52]  Sweep 4: 0.1614s
+I20261001 23:39:51.399886 31188 cudacc.cc:52] Iteration 3: 0.5092s
+I20261001 23:39:51.399961 31188 cudacc.cc:52] Total: 1.7205s
+I20261001 23:39:51.399995 31188 patch_match.cc:525] 
+Writing geometric output for f0024.jpg
+I20261001 23:39:51.592106 31188 patch_match.cc:419] === Processing view 8 / 23 for f0025.jpg ===
+I20261001 23:39:51.592202 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:51.758365 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:51.758530 31188 patch_match.cc:57] ref_image_idx: 7
+I20261001 23:39:51.758555 31188 patch_match.cc:64] src_image_idxs: 10 11 5 12 13 6 9 4
+I20261001 23:39:51.758572 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:51.758588 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:51.758603 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:51.758618 31188 patch_match_options.cc:49] depth_min: 4.01094
+I20261001 23:39:51.758643 31188 patch_match_options.cc:50] depth_max: 16.2137
+I20261001 23:39:51.758660 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:51.758675 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:51.758690 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:51.758706 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:51.758723 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:51.758737 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:51.758752 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:51.758767 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:51.758782 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:51.758796 31188 patch_match_options.cc:60] geom_consistency: 1
+I20261001 23:39:51.758812 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:51.758828 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:51.758844 31188 patch_match_options.cc:63] filter: 1
+I20261001 23:39:51.758858 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:51.758874 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:51.758889 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:51.758904 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:51.758919 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:51.758934 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:51.758948 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:51.758964 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:51.802288 31188 cudacc.cc:52] Initialization: 0.0112s
+I20261001 23:39:51.903795 31188 cudacc.cc:52]  Sweep 1: 0.1013s
+I20261001 23:39:52.058875 31188 cudacc.cc:52]  Sweep 2: 0.1549s
+I20261001 23:39:52.156773 31188 cudacc.cc:52]  Sweep 3: 0.0978s
+I20261001 23:39:52.309935 31188 cudacc.cc:52]  Sweep 4: 0.1530s
+I20261001 23:39:52.310081 31188 cudacc.cc:52] Iteration 1: 0.5076s
+I20261001 23:39:52.409934 31188 cudacc.cc:52]  Sweep 1: 0.0998s
+I20261001 23:39:52.564289 31188 cudacc.cc:52]  Sweep 2: 0.1542s
+I20261001 23:39:52.669157 31188 cudacc.cc:52]  Sweep 3: 0.1047s
+I20261001 23:39:52.826528 31188 cudacc.cc:52]  Sweep 4: 0.1572s
+I20261001 23:39:52.826690 31188 cudacc.cc:52] Iteration 2: 0.5166s
+I20261001 23:39:52.925709 31188 cudacc.cc:52]  Sweep 1: 0.0990s
+I20261001 23:39:53.078045 31188 cudacc.cc:52]  Sweep 2: 0.1521s
+I20261001 23:39:53.175442 31188 cudacc.cc:52]  Sweep 3: 0.0972s
+I20261001 23:39:53.334675 31188 cudacc.cc:52]  Sweep 4: 0.1590s
+I20261001 23:39:53.334863 31188 cudacc.cc:52] Iteration 3: 0.5081s
+I20261001 23:39:53.334909 31188 cudacc.cc:52] Total: 1.5439s
+I20261001 23:39:53.334933 31188 patch_match.cc:525] 
+Writing geometric output for f0025.jpg
+I20261001 23:39:53.973576 31188 patch_match.cc:419] === Processing view 9 / 23 for f0026.jpg ===
+I20261001 23:39:53.974826 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:54.009758 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:54.009894 31188 patch_match.cc:57] ref_image_idx: 8
+I20261001 23:39:54.009938 31188 patch_match.cc:64] src_image_idxs: 10 11 5 12 13 9 6 4
+I20261001 23:39:54.009969 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:54.009996 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:54.010023 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:54.010048 31188 patch_match_options.cc:49] depth_min: 3.92546
+I20261001 23:39:54.010122 31188 patch_match_options.cc:50] depth_max: 15.9085
+I20261001 23:39:54.010151 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:54.010176 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:54.010202 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:54.010244 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:54.010272 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:54.010297 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:54.010323 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:54.010350 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:54.010376 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:54.010401 31188 patch_match_options.cc:60] geom_consistency: 1
+I20261001 23:39:54.010427 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:54.010453 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:54.010480 31188 patch_match_options.cc:63] filter: 1
+I20261001 23:39:54.010506 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:54.010533 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:54.010559 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:54.010585 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:54.010612 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:54.010638 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:54.010664 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:54.010692 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:54.060794 31188 cudacc.cc:52] Initialization: 0.0101s
+I20261001 23:39:54.164848 31188 cudacc.cc:52]  Sweep 1: 0.1038s
+I20261001 23:39:54.335387 31188 cudacc.cc:52]  Sweep 2: 0.1703s
+I20261001 23:39:54.439449 31188 cudacc.cc:52]  Sweep 3: 0.1038s
+I20261001 23:39:54.608125 31188 cudacc.cc:52]  Sweep 4: 0.1684s
+I20261001 23:39:54.608297 31188 cudacc.cc:52] Iteration 1: 0.5473s
+I20261001 23:39:54.707729 31188 cudacc.cc:52]  Sweep 1: 0.0994s
+I20261001 23:39:54.876943 31188 cudacc.cc:52]  Sweep 2: 0.1690s
+I20261001 23:39:54.976402 31188 cudacc.cc:52]  Sweep 3: 0.0993s
+I20261001 23:39:55.141483 31188 cudacc.cc:52]  Sweep 4: 0.1649s
+I20261001 23:39:55.141696 31188 cudacc.cc:52] Iteration 2: 0.5334s
+I20261001 23:39:55.246960 31188 cudacc.cc:52]  Sweep 1: 0.1051s
+I20261001 23:39:55.438619 31188 cudacc.cc:52]  Sweep 2: 0.1913s
+I20261001 23:39:55.577953 31188 cudacc.cc:52]  Sweep 3: 0.1391s
+I20261001 23:39:55.750141 31188 cudacc.cc:52]  Sweep 4: 0.1719s
+I20261001 23:39:55.750337 31188 cudacc.cc:52] Iteration 3: 0.6086s
+I20261001 23:39:55.750394 31188 cudacc.cc:52] Total: 1.6998s
+I20261001 23:39:55.750424 31188 patch_match.cc:525] 
+Writing geometric output for f0026.jpg
+I20261001 23:39:56.254955 31188 patch_match.cc:419] === Processing view 10 / 23 for f0028.jpg ===
+I20261001 23:39:56.255249 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:56.603931 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:56.604074 31188 patch_match.cc:57] ref_image_idx: 9
+I20261001 23:39:56.604110 31188 patch_match.cc:64] src_image_idxs: 11 10 12 13 8 7 6 14
+I20261001 23:39:56.604133 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:56.604153 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:56.604173 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:56.604192 31188 patch_match_options.cc:49] depth_min: 3.93564
+I20261001 23:39:56.604223 31188 patch_match_options.cc:50] depth_max: 15.8835
+I20261001 23:39:56.604243 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:56.604262 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:56.604282 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:56.604303 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:56.604324 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:56.604342 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:56.604361 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:56.604379 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:56.604398 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:56.604415 31188 patch_match_options.cc:60] geom_consistency: 1
+I20261001 23:39:56.604433 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:56.604453 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:56.604473 31188 patch_match_options.cc:63] filter: 1
+I20261001 23:39:56.604493 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:56.604514 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:56.604532 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:56.604550 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:56.604568 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:56.604587 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:56.604606 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:56.604627 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:56.660392 31188 cudacc.cc:52] Initialization: 0.0120s
+I20261001 23:39:56.776092 31188 cudacc.cc:52]  Sweep 1: 0.1155s
+I20261001 23:39:56.959436 31188 cudacc.cc:52]  Sweep 2: 0.1817s
+I20261001 23:39:57.105599 31188 cudacc.cc:52]  Sweep 3: 0.1460s
+I20261001 23:39:57.273977 31188 cudacc.cc:52]  Sweep 4: 0.1682s
+I20261001 23:39:57.274242 31188 cudacc.cc:52] Iteration 1: 0.6137s
+I20261001 23:39:57.374004 31188 cudacc.cc:52]  Sweep 1: 0.0996s
+I20261001 23:39:57.550547 31188 cudacc.cc:52]  Sweep 2: 0.1761s
+I20261001 23:39:57.673380 31188 cudacc.cc:52]  Sweep 3: 0.1227s
+I20261001 23:39:57.824000 31188 cudacc.cc:52]  Sweep 4: 0.1505s
+I20261001 23:39:57.824150 31188 cudacc.cc:52] Iteration 2: 0.5498s
+I20261001 23:39:57.921421 31188 cudacc.cc:52]  Sweep 1: 0.0972s
+I20261001 23:39:58.070266 31188 cudacc.cc:52]  Sweep 2: 0.1486s
+I20261001 23:39:58.165553 31188 cudacc.cc:52]  Sweep 3: 0.0951s
+I20261001 23:39:58.322465 31188 cudacc.cc:52]  Sweep 4: 0.1568s
+I20261001 23:39:58.322684 31188 cudacc.cc:52] Iteration 3: 0.4985s
+I20261001 23:39:58.322750 31188 cudacc.cc:52] Total: 1.6744s
+I20261001 23:39:58.322825 31188 patch_match.cc:525] 
+Writing geometric output for f0028.jpg
+I20261001 23:39:58.695572 31188 patch_match.cc:419] === Processing view 11 / 23 for f0027.jpg ===
+I20261001 23:39:58.695726 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:39:58.707278 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:39:58.707414 31188 patch_match.cc:57] ref_image_idx: 10
+I20261001 23:39:58.707444 31188 patch_match.cc:64] src_image_idxs: 11 12 13 5 9 8 7 6
+I20261001 23:39:58.707475 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:39:58.707499 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:39:58.707516 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:39:58.707534 31188 patch_match_options.cc:49] depth_min: 3.96689
+I20261001 23:39:58.707564 31188 patch_match_options.cc:50] depth_max: 16.0241
+I20261001 23:39:58.707583 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:39:58.707600 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:39:58.707617 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:39:58.707635 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:39:58.707654 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:39:58.707672 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:39:58.707690 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:39:58.707708 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:39:58.707727 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:39:58.707745 31188 patch_match_options.cc:60] geom_consistency: 1
+I20261001 23:39:58.707764 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:39:58.707783 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:39:58.707802 31188 patch_match_options.cc:63] filter: 1
+I20261001 23:39:58.707820 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:39:58.707838 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:39:58.707856 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:39:58.707874 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:39:58.707892 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:39:58.707910 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:39:58.707927 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:39:58.707947 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:39:58.789875 31188 cudacc.cc:52] Initialization: 0.0101s
+I20261001 23:39:58.891372 31188 cudacc.cc:52]  Sweep 1: 0.1013s
+I20261001 23:39:59.077801 31188 cudacc.cc:52]  Sweep 2: 0.1862s
+I20261001 23:39:59.191931 31188 cudacc.cc:52]  Sweep 3: 0.1139s
+I20261001 23:39:59.391093 31188 cudacc.cc:52]  Sweep 4: 0.1990s
+I20261001 23:39:59.391385 31188 cudacc.cc:52] Iteration 1: 0.6014s
+I20261001 23:39:59.489927 31188 cudacc.cc:52]  Sweep 1: 0.0984s
+I20261001 23:39:59.686765 31188 cudacc.cc:52]  Sweep 2: 0.1967s
+I20261001 23:39:59.796137 31188 cudacc.cc:52]  Sweep 3: 0.1092s
+I20261001 23:39:59.984307 31188 cudacc.cc:52]  Sweep 4: 0.1880s
+I20261001 23:39:59.985882 31188 cudacc.cc:52] Iteration 2: 0.5944s
+I20261001 23:40:00.108207 31188 cudacc.cc:52]  Sweep 1: 0.1211s
+I20261001 23:40:00.265689 31188 cudacc.cc:52]  Sweep 2: 0.1573s
+I20261001 23:40:00.392569 31188 cudacc.cc:52]  Sweep 3: 0.1232s
+I20261001 23:40:00.565030 31188 cudacc.cc:52]  Sweep 4: 0.1712s
+I20261001 23:40:00.566567 31188 cudacc.cc:52] Iteration 3: 0.5800s
+I20261001 23:40:00.566687 31188 cudacc.cc:52] Total: 1.7871s
+I20261001 23:40:00.568447 31188 patch_match.cc:525] 
+Writing geometric output for f0027.jpg
+I20261001 23:40:00.790237 31188 patch_match.cc:419] === Processing view 12 / 23 for f0029.jpg ===
+I20261001 23:40:00.790345 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:40:00.798423 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:40:00.798546 31188 patch_match.cc:57] ref_image_idx: 11
+I20261001 23:40:00.798593 31188 patch_match.cc:64] src_image_idxs: 10 12 13 9 8 7 14 6
+I20261001 23:40:00.798618 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:40:00.798635 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:40:00.798649 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:40:00.798663 31188 patch_match_options.cc:49] depth_min: 3.91605
+I20261001 23:40:00.798746 31188 patch_match_options.cc:50] depth_max: 15.7096
+I20261001 23:40:00.798764 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:40:00.798778 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:40:00.798792 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:40:00.798806 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:40:00.798820 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:40:00.798834 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:40:00.798848 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:40:00.798862 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:40:00.798877 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:40:00.798891 31188 patch_match_options.cc:60] geom_consistency: 1
+I20261001 23:40:00.798905 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:40:00.798918 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:40:00.798932 31188 patch_match_options.cc:63] filter: 1
+I20261001 23:40:00.798944 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:40:00.798958 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:40:00.798972 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:40:00.798985 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:40:00.798998 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:40:00.799011 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:40:00.799024 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:40:00.799038 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:40:00.833195 31188 cudacc.cc:52] Initialization: 0.0101s
+I20261001 23:40:00.931397 31188 cudacc.cc:52]  Sweep 1: 0.0981s
+I20261001 23:40:01.086552 31188 cudacc.cc:52]  Sweep 2: 0.1550s
+I20261001 23:40:01.186636 31188 cudacc.cc:52]  Sweep 3: 0.0999s
+I20261001 23:40:01.341710 31188 cudacc.cc:52]  Sweep 4: 0.1549s
+I20261001 23:40:01.341865 31188 cudacc.cc:52] Iteration 1: 0.5086s
+I20261001 23:40:01.442083 31188 cudacc.cc:52]  Sweep 1: 0.1002s
+I20261001 23:40:01.596673 31188 cudacc.cc:52]  Sweep 2: 0.1544s
+I20261001 23:40:01.694935 31188 cudacc.cc:52]  Sweep 3: 0.0981s
+I20261001 23:40:01.845680 31188 cudacc.cc:52]  Sweep 4: 0.1506s
+I20261001 23:40:01.845830 31188 cudacc.cc:52] Iteration 2: 0.5039s
+I20261001 23:40:01.944391 31188 cudacc.cc:52]  Sweep 1: 0.0985s
+I20261001 23:40:02.094663 31188 cudacc.cc:52]  Sweep 2: 0.1501s
+I20261001 23:40:02.192839 31188 cudacc.cc:52]  Sweep 3: 0.0980s
+I20261001 23:40:02.346508 31188 cudacc.cc:52]  Sweep 4: 0.1535s
+I20261001 23:40:02.346644 31188 cudacc.cc:52] Iteration 3: 0.5008s
+I20261001 23:40:02.346679 31188 cudacc.cc:52] Total: 1.5237s
+I20261001 23:40:02.346699 31188 patch_match.cc:525] 
+Writing geometric output for f0029.jpg
+I20261001 23:40:02.527720 31188 patch_match.cc:419] === Processing view 13 / 23 for f0030.jpg ===
+I20261001 23:40:02.527820 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:40:02.697328 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:40:02.697450 31188 patch_match.cc:57] ref_image_idx: 12
+I20261001 23:40:02.697473 31188 patch_match.cc:64] src_image_idxs: 11 10 14 9 15 16 17 18
+I20261001 23:40:02.697489 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:40:02.697503 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:40:02.697517 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:40:02.697530 31188 patch_match_options.cc:49] depth_min: 3.44465
+I20261001 23:40:02.697656 31188 patch_match_options.cc:50] depth_max: 15.6576
+I20261001 23:40:02.697676 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:40:02.697689 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:40:02.697702 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:40:02.697716 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:40:02.697733 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:40:02.697747 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:40:02.697760 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:40:02.697774 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:40:02.697789 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:40:02.697803 31188 patch_match_options.cc:60] geom_consistency: 1
+I20261001 23:40:02.697817 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:40:02.697830 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:40:02.697845 31188 patch_match_options.cc:63] filter: 1
+I20261001 23:40:02.697859 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:40:02.697874 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:40:02.697887 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:40:02.697900 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:40:02.697913 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:40:02.697927 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:40:02.697941 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:40:02.697955 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:40:02.737601 31188 cudacc.cc:52] Initialization: 0.0101s
+I20261001 23:40:02.834251 31188 cudacc.cc:52]  Sweep 1: 0.0965s
+I20261001 23:40:02.992010 31188 cudacc.cc:52]  Sweep 2: 0.1576s
+I20261001 23:40:03.088543 31188 cudacc.cc:52]  Sweep 3: 0.0963s
+I20261001 23:40:03.241028 31188 cudacc.cc:52]  Sweep 4: 0.1523s
+I20261001 23:40:03.241165 31188 cudacc.cc:52] Iteration 1: 0.5034s
+I20261001 23:40:03.336630 31188 cudacc.cc:52]  Sweep 1: 0.0954s
+I20261001 23:40:03.495078 31188 cudacc.cc:52]  Sweep 2: 0.1583s
+I20261001 23:40:03.596457 31188 cudacc.cc:52]  Sweep 3: 0.1011s
+I20261001 23:40:03.748845 31188 cudacc.cc:52]  Sweep 4: 0.1521s
+I20261001 23:40:03.748976 31188 cudacc.cc:52] Iteration 2: 0.5078s
+I20261001 23:40:03.864278 31188 cudacc.cc:52]  Sweep 1: 0.1152s
+I20261001 23:40:04.019286 31188 cudacc.cc:52]  Sweep 2: 0.1548s
+I20261001 23:40:04.130529 31188 cudacc.cc:52]  Sweep 3: 0.1110s
+I20261001 23:40:04.301160 31188 cudacc.cc:52]  Sweep 4: 0.1705s
+I20261001 23:40:04.301313 31188 cudacc.cc:52] Iteration 3: 0.5523s
+I20261001 23:40:04.301358 31188 cudacc.cc:52] Total: 1.5739s
+I20261001 23:40:04.301384 31188 patch_match.cc:525] 
+Writing geometric output for f0030.jpg
+I20261001 23:40:04.809054 31188 patch_match.cc:419] === Processing view 14 / 23 for f0031.jpg ===
+I20261001 23:40:04.811016 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:40:04.825799 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:40:04.825967 31188 patch_match.cc:57] ref_image_idx: 13
+I20261001 23:40:04.825997 31188 patch_match.cc:64] src_image_idxs: 11 10 14 15 16 9 17 18
+I20261001 23:40:04.826019 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:40:04.826039 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:40:04.826058 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:40:04.826076 31188 patch_match_options.cc:49] depth_min: 4.05886
+I20261001 23:40:04.826105 31188 patch_match_options.cc:50] depth_max: 15.5074
+I20261001 23:40:04.826124 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:40:04.826142 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:40:04.826160 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:40:04.826179 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:40:04.826233 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:40:04.826252 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:40:04.826271 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:40:04.826290 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:40:04.826313 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:40:04.826332 31188 patch_match_options.cc:60] geom_consistency: 1
+I20261001 23:40:04.826351 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:40:04.826370 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:40:04.826388 31188 patch_match_options.cc:63] filter: 1
+I20261001 23:40:04.826407 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:40:04.826426 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:40:04.826445 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:40:04.826463 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:40:04.826482 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:40:04.826500 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:40:04.826518 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:40:04.826537 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:40:04.913418 31188 cudacc.cc:52] Initialization: 0.0105s
+I20261001 23:40:05.051466 31188 cudacc.cc:52]  Sweep 1: 0.1378s
+I20261001 23:40:05.220199 31188 cudacc.cc:52]  Sweep 2: 0.1686s
+I20261001 23:40:05.319682 31188 cudacc.cc:52]  Sweep 3: 0.0992s
+I20261001 23:40:05.482714 31188 cudacc.cc:52]  Sweep 4: 0.1629s
+I20261001 23:40:05.482965 31188 cudacc.cc:52] Iteration 1: 0.5693s
+I20261001 23:40:05.588394 31188 cudacc.cc:52]  Sweep 1: 0.1035s
+I20261001 23:40:05.747181 31188 cudacc.cc:52]  Sweep 2: 0.1584s
+I20261001 23:40:05.851764 31188 cudacc.cc:52]  Sweep 3: 0.1026s
+I20261001 23:40:06.046044 31188 cudacc.cc:52]  Sweep 4: 0.1900s
+I20261001 23:40:06.046508 31188 cudacc.cc:52] Iteration 2: 0.5622s
+I20261001 23:40:06.176213 31188 cudacc.cc:52]  Sweep 1: 0.1296s
+I20261001 23:40:06.328137 31188 cudacc.cc:52]  Sweep 2: 0.1517s
+I20261001 23:40:06.436984 31188 cudacc.cc:52]  Sweep 3: 0.1087s
+I20261001 23:40:06.606788 31188 cudacc.cc:52]  Sweep 4: 0.1696s
+I20261001 23:40:06.607099 31188 cudacc.cc:52] Iteration 3: 0.5605s
+I20261001 23:40:06.607181 31188 cudacc.cc:52] Total: 1.7044s
+I20261001 23:40:06.607224 31188 patch_match.cc:525] 
+Writing geometric output for f0031.jpg
+I20261001 23:40:07.192370 31188 patch_match.cc:419] === Processing view 15 / 23 for f0032.jpg ===
+I20261001 23:40:07.192550 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:40:07.203449 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:40:07.203650 31188 patch_match.cc:57] ref_image_idx: 14
+I20261001 23:40:07.203722 31188 patch_match.cc:64] src_image_idxs: 13 12 11 15 16 17 18 9
+I20261001 23:40:07.203757 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:40:07.203787 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:40:07.203816 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:40:07.203846 31188 patch_match_options.cc:49] depth_min: 4.03853
+I20261001 23:40:07.203887 31188 patch_match_options.cc:50] depth_max: 15.423
+I20261001 23:40:07.203918 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:40:07.203946 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:40:07.203975 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:40:07.204004 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:40:07.204034 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:40:07.204063 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:40:07.204092 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:40:07.204122 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:40:07.204207 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:40:07.204340 31188 patch_match_options.cc:60] geom_consistency: 1
+I20261001 23:40:07.204374 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:40:07.204413 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:40:07.204444 31188 patch_match_options.cc:63] filter: 1
+I20261001 23:40:07.204489 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:40:07.204529 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:40:07.204559 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:40:07.204587 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:40:07.204617 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:40:07.204646 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:40:07.204673 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:40:07.204708 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:40:07.272830 31188 cudacc.cc:52] Initialization: 0.0146s
+I20261001 23:40:07.386546 31188 cudacc.cc:52]  Sweep 1: 0.1109s
+I20261001 23:40:07.576897 31188 cudacc.cc:52]  Sweep 2: 0.1900s
+I20261001 23:40:07.691799 31188 cudacc.cc:52]  Sweep 3: 0.1147s
+I20261001 23:40:07.866824 31188 cudacc.cc:52]  Sweep 4: 0.1748s
+I20261001 23:40:07.873276 31188 cudacc.cc:52] Iteration 1: 0.5976s
+I20261001 23:40:08.014144 31188 cudacc.cc:52]  Sweep 1: 0.1407s
+I20261001 23:40:08.175283 31188 cudacc.cc:52]  Sweep 2: 0.1609s
+I20261001 23:40:08.302510 31188 cudacc.cc:52]  Sweep 3: 0.1270s
+I20261001 23:40:08.505802 31188 cudacc.cc:52]  Sweep 4: 0.2031s
+I20261001 23:40:08.505988 31188 cudacc.cc:52] Iteration 2: 0.6325s
+I20261001 23:40:08.607868 31188 cudacc.cc:52]  Sweep 1: 0.1013s
+I20261001 23:40:08.827412 31188 cudacc.cc:52]  Sweep 2: 0.2194s
+I20261001 23:40:08.945919 31188 cudacc.cc:52]  Sweep 3: 0.1183s
+I20261001 23:40:09.110594 31188 cudacc.cc:52]  Sweep 4: 0.1645s
+I20261001 23:40:09.110892 31188 cudacc.cc:52] Iteration 3: 0.6044s
+I20261001 23:40:09.110943 31188 cudacc.cc:52] Total: 1.8530s
+I20261001 23:40:09.110970 31188 patch_match.cc:525] 
+Writing geometric output for f0032.jpg
+I20261001 23:40:09.426688 31188 patch_match.cc:419] === Processing view 16 / 23 for f0033.jpg ===
+I20261001 23:40:09.426799 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:40:09.575447 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:40:09.575564 31188 patch_match.cc:57] ref_image_idx: 15
+I20261001 23:40:09.575584 31188 patch_match.cc:64] src_image_idxs: 13 12 19 20 11 14 17 18
+I20261001 23:40:09.575600 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:40:09.575613 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:40:09.575625 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:40:09.575637 31188 patch_match_options.cc:49] depth_min: 4.0109
+I20261001 23:40:09.575658 31188 patch_match_options.cc:50] depth_max: 15.594
+I20261001 23:40:09.575671 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:40:09.575683 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:40:09.575695 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:40:09.575708 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:40:09.575721 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:40:09.575733 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:40:09.575746 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:40:09.575759 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:40:09.575771 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:40:09.575783 31188 patch_match_options.cc:60] geom_consistency: 1
+I20261001 23:40:09.575796 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:40:09.575808 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:40:09.575821 31188 patch_match_options.cc:63] filter: 1
+I20261001 23:40:09.575833 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:40:09.575870 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:40:09.575883 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:40:09.575895 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:40:09.575910 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:40:09.575924 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:40:09.575936 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:40:09.575949 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:40:09.613906 31188 cudacc.cc:52] Initialization: 0.0098s
+I20261001 23:40:09.712503 31188 cudacc.cc:52]  Sweep 1: 0.0984s
+I20261001 23:40:09.879452 31188 cudacc.cc:52]  Sweep 2: 0.1668s
+I20261001 23:40:09.988857 31188 cudacc.cc:52]  Sweep 3: 0.1092s
+I20261001 23:40:10.161588 31188 cudacc.cc:52]  Sweep 4: 0.1726s
+I20261001 23:40:10.161793 31188 cudacc.cc:52] Iteration 1: 0.5477s
+I20261001 23:40:10.278956 31188 cudacc.cc:52]  Sweep 1: 0.1171s
+I20261001 23:40:10.435738 31188 cudacc.cc:52]  Sweep 2: 0.1563s
+I20261001 23:40:10.550857 31188 cudacc.cc:52]  Sweep 3: 0.1150s
+I20261001 23:40:10.709055 31188 cudacc.cc:52]  Sweep 4: 0.1580s
+I20261001 23:40:10.709469 31188 cudacc.cc:52] Iteration 2: 0.5476s
+I20261001 23:40:10.815806 31188 cudacc.cc:52]  Sweep 1: 0.1062s
+I20261001 23:40:11.010216 31188 cudacc.cc:52]  Sweep 2: 0.1941s
+I20261001 23:40:11.134274 31188 cudacc.cc:52]  Sweep 3: 0.1238s
+I20261001 23:40:11.299180 31188 cudacc.cc:52]  Sweep 4: 0.1647s
+I20261001 23:40:11.300654 31188 cudacc.cc:52] Iteration 3: 0.5911s
+I20261001 23:40:11.300747 31188 cudacc.cc:52] Total: 1.6967s
+I20261001 23:40:11.300784 31188 patch_match.cc:525] 
+Writing geometric output for f0033.jpg
+I20261001 23:40:11.835742 31188 patch_match.cc:419] === Processing view 17 / 23 for f0034.jpg ===
+I20261001 23:40:11.835874 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:40:12.157102 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:40:12.157284 31188 patch_match.cc:57] ref_image_idx: 16
+I20261001 23:40:12.157333 31188 patch_match.cc:64] src_image_idxs: 13 12 19 20 21 17 18 14
+I20261001 23:40:12.157364 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:40:12.157398 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:40:12.157424 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:40:12.157449 31188 patch_match_options.cc:49] depth_min: 4.02083
+I20261001 23:40:12.157486 31188 patch_match_options.cc:50] depth_max: 15.6264
+I20261001 23:40:12.157513 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:40:12.157539 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:40:12.157565 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:40:12.157592 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:40:12.157618 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:40:12.157644 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:40:12.157670 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:40:12.157697 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:40:12.157723 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:40:12.157748 31188 patch_match_options.cc:60] geom_consistency: 1
+I20261001 23:40:12.157774 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:40:12.157801 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:40:12.157827 31188 patch_match_options.cc:63] filter: 1
+I20261001 23:40:12.157853 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:40:12.157896 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:40:12.157924 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:40:12.157950 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:40:12.157977 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:40:12.158003 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:40:12.158084 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:40:12.158118 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:40:12.208403 31188 cudacc.cc:52] Initialization: 0.0112s
+I20261001 23:40:12.355109 31188 cudacc.cc:52]  Sweep 1: 0.1432s
+I20261001 23:40:12.535918 31188 cudacc.cc:52]  Sweep 2: 0.1806s
+I20261001 23:40:12.653534 31188 cudacc.cc:52]  Sweep 3: 0.1167s
+I20261001 23:40:12.860688 31188 cudacc.cc:52]  Sweep 4: 0.2070s
+I20261001 23:40:12.860850 31188 cudacc.cc:52] Iteration 1: 0.6489s
+I20261001 23:40:12.976056 31188 cudacc.cc:52]  Sweep 1: 0.1151s
+I20261001 23:40:13.153090 31188 cudacc.cc:52]  Sweep 2: 0.1766s
+I20261001 23:40:13.264260 31188 cudacc.cc:52]  Sweep 3: 0.1093s
+I20261001 23:40:13.416751 31188 cudacc.cc:52]  Sweep 4: 0.1522s
+I20261001 23:40:13.416870 31188 cudacc.cc:52] Iteration 2: 0.5560s
+I20261001 23:40:13.514220 31188 cudacc.cc:52]  Sweep 1: 0.0973s
+I20261001 23:40:13.686679 31188 cudacc.cc:52]  Sweep 2: 0.1723s
+I20261001 23:40:13.816385 31188 cudacc.cc:52]  Sweep 3: 0.1271s
+I20261001 23:40:13.973515 31188 cudacc.cc:52]  Sweep 4: 0.1570s
+I20261001 23:40:13.973637 31188 cudacc.cc:52] Iteration 3: 0.5567s
+I20261001 23:40:13.973678 31188 cudacc.cc:52] Total: 1.7765s
+I20261001 23:40:13.973699 31188 patch_match.cc:525] 
+Writing geometric output for f0034.jpg
+I20261001 23:40:14.124015 31188 patch_match.cc:419] === Processing view 18 / 23 for f0035.jpg ===
+I20261001 23:40:14.124100 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:40:14.132686 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:40:14.132783 31188 patch_match.cc:57] ref_image_idx: 17
+I20261001 23:40:14.132799 31188 patch_match.cc:64] src_image_idxs: 19 20 13 21 12 16 15 14
+I20261001 23:40:14.132810 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:40:14.132819 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:40:14.132829 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:40:14.132838 31188 patch_match_options.cc:49] depth_min: 3.98122
+I20261001 23:40:14.132853 31188 patch_match_options.cc:50] depth_max: 15.2363
+I20261001 23:40:14.132863 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:40:14.132872 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:40:14.132881 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:40:14.132890 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:40:14.132901 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:40:14.132910 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:40:14.132919 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:40:14.132929 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:40:14.132938 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:40:14.132947 31188 patch_match_options.cc:60] geom_consistency: 1
+I20261001 23:40:14.132956 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:40:14.132966 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:40:14.132975 31188 patch_match_options.cc:63] filter: 1
+I20261001 23:40:14.132984 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:40:14.132993 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:40:14.133002 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:40:14.133011 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:40:14.133020 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:40:14.133029 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:40:14.133038 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:40:14.133049 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:40:14.170445 31188 cudacc.cc:52] Initialization: 0.0104s
+I20261001 23:40:14.269146 31188 cudacc.cc:52]  Sweep 1: 0.0986s
+I20261001 23:40:14.425879 31188 cudacc.cc:52]  Sweep 2: 0.1563s
+I20261001 23:40:14.544445 31188 cudacc.cc:52]  Sweep 3: 0.1184s
+I20261001 23:40:14.703072 31188 cudacc.cc:52]  Sweep 4: 0.1584s
+I20261001 23:40:14.703278 31188 cudacc.cc:52] Iteration 1: 0.5327s
+I20261001 23:40:14.800927 31188 cudacc.cc:52]  Sweep 1: 0.0975s
+I20261001 23:40:14.955872 31188 cudacc.cc:52]  Sweep 2: 0.1548s
+I20261001 23:40:15.054417 31188 cudacc.cc:52]  Sweep 3: 0.0983s
+I20261001 23:40:15.208999 31188 cudacc.cc:52]  Sweep 4: 0.1544s
+I20261001 23:40:15.209168 31188 cudacc.cc:52] Iteration 2: 0.5058s
+I20261001 23:40:15.307196 31188 cudacc.cc:52]  Sweep 1: 0.0979s
+I20261001 23:40:15.457847 31188 cudacc.cc:52]  Sweep 2: 0.1505s
+I20261001 23:40:15.554549 31188 cudacc.cc:52]  Sweep 3: 0.0965s
+I20261001 23:40:15.715810 31188 cudacc.cc:52]  Sweep 4: 0.1611s
+I20261001 23:40:15.715946 31188 cudacc.cc:52] Iteration 3: 0.5067s
+I20261001 23:40:15.715984 31188 cudacc.cc:52] Total: 1.5560s
+I20261001 23:40:15.716005 31188 patch_match.cc:525] 
+Writing geometric output for f0035.jpg
+I20261001 23:40:15.900379 31188 patch_match.cc:419] === Processing view 19 / 23 for f0036.jpg ===
+I20261001 23:40:15.900531 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:40:16.016506 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:40:16.016667 31188 patch_match.cc:57] ref_image_idx: 18
+I20261001 23:40:16.016716 31188 patch_match.cc:64] src_image_idxs: 19 20 21 13 16 15 14 22
+I20261001 23:40:16.016740 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:40:16.016762 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:40:16.016783 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:40:16.016804 31188 patch_match_options.cc:49] depth_min: 3.94978
+I20261001 23:40:16.016835 31188 patch_match_options.cc:50] depth_max: 15.0814
+I20261001 23:40:16.016857 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:40:16.016878 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:40:16.016898 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:40:16.016920 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:40:16.016942 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:40:16.016962 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:40:16.016984 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:40:16.017005 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:40:16.017027 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:40:16.017048 31188 patch_match_options.cc:60] geom_consistency: 1
+I20261001 23:40:16.017069 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:40:16.017091 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:40:16.017113 31188 patch_match_options.cc:63] filter: 1
+I20261001 23:40:16.017134 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:40:16.017155 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:40:16.017176 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:40:16.017196 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:40:16.017217 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:40:16.017238 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:40:16.017258 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:40:16.017280 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:40:16.060794 31188 cudacc.cc:52] Initialization: 0.0101s
+I20261001 23:40:16.170009 31188 cudacc.cc:52]  Sweep 1: 0.1090s
+I20261001 23:40:16.326971 31188 cudacc.cc:52]  Sweep 2: 0.1564s
+I20261001 23:40:16.437646 31188 cudacc.cc:52]  Sweep 3: 0.1105s
+I20261001 23:40:16.595016 31188 cudacc.cc:52]  Sweep 4: 0.1571s
+I20261001 23:40:16.595265 31188 cudacc.cc:52] Iteration 1: 0.5343s
+I20261001 23:40:16.706735 31188 cudacc.cc:52]  Sweep 1: 0.1103s
+I20261001 23:40:16.877381 31188 cudacc.cc:52]  Sweep 2: 0.1705s
+I20261001 23:40:17.005228 31188 cudacc.cc:52]  Sweep 3: 0.1264s
+I20261001 23:40:17.166146 31188 cudacc.cc:52]  Sweep 4: 0.1607s
+I20261001 23:40:17.166367 31188 cudacc.cc:52] Iteration 2: 0.5700s
+I20261001 23:40:17.276164 31188 cudacc.cc:52]  Sweep 1: 0.1097s
+I20261001 23:40:17.448992 31188 cudacc.cc:52]  Sweep 2: 0.1725s
+I20261001 23:40:17.564004 31188 cudacc.cc:52]  Sweep 3: 0.1148s
+I20261001 23:40:17.728881 31188 cudacc.cc:52]  Sweep 4: 0.1624s
+I20261001 23:40:17.729073 31188 cudacc.cc:52] Iteration 3: 0.5627s
+I20261001 23:40:17.729120 31188 cudacc.cc:52] Total: 1.6785s
+I20261001 23:40:17.729152 31188 patch_match.cc:525] 
+Writing geometric output for f0036.jpg
+I20261001 23:40:18.391692 31188 patch_match.cc:419] === Processing view 20 / 23 for f0037.jpg ===
+I20261001 23:40:18.391819 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:40:18.402178 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:40:18.402338 31188 patch_match.cc:57] ref_image_idx: 19
+I20261001 23:40:18.402389 31188 patch_match.cc:64] src_image_idxs: 20 21 18 17 22 16 15 14
+I20261001 23:40:18.402418 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:40:18.402445 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:40:18.402471 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:40:18.402496 31188 patch_match_options.cc:49] depth_min: 4.03232
+I20261001 23:40:18.402533 31188 patch_match_options.cc:50] depth_max: 15.3089
+I20261001 23:40:18.402560 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:40:18.402587 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:40:18.402613 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:40:18.402640 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:40:18.402669 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:40:18.402695 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:40:18.402722 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:40:18.402749 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:40:18.402775 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:40:18.402800 31188 patch_match_options.cc:60] geom_consistency: 1
+I20261001 23:40:18.402826 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:40:18.402852 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:40:18.402878 31188 patch_match_options.cc:63] filter: 1
+I20261001 23:40:18.402903 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:40:18.402929 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:40:18.402955 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:40:18.402980 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:40:18.403005 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:40:18.403031 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:40:18.403055 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:40:18.403083 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:40:18.490159 31188 cudacc.cc:52] Initialization: 0.0113s
+I20261001 23:40:18.612325 31188 cudacc.cc:52]  Sweep 1: 0.1210s
+I20261001 23:40:18.771833 31188 cudacc.cc:52]  Sweep 2: 0.1587s
+I20261001 23:40:18.889561 31188 cudacc.cc:52]  Sweep 3: 0.1176s
+I20261001 23:40:19.045058 31188 cudacc.cc:52]  Sweep 4: 0.1545s
+I20261001 23:40:19.045310 31188 cudacc.cc:52] Iteration 1: 0.5546s
+I20261001 23:40:19.157251 31188 cudacc.cc:52]  Sweep 1: 0.1118s
+I20261001 23:40:19.321270 31188 cudacc.cc:52]  Sweep 2: 0.1638s
+I20261001 23:40:19.419243 31188 cudacc.cc:52]  Sweep 3: 0.0977s
+I20261001 23:40:19.577243 31188 cudacc.cc:52]  Sweep 4: 0.1574s
+I20261001 23:40:19.579172 31188 cudacc.cc:52] Iteration 2: 0.5332s
+I20261001 23:40:19.677966 31188 cudacc.cc:52]  Sweep 1: 0.0979s
+I20261001 23:40:19.833293 31188 cudacc.cc:52]  Sweep 2: 0.1524s
+I20261001 23:40:19.944902 31188 cudacc.cc:52]  Sweep 3: 0.1104s
+I20261001 23:40:20.123063 31188 cudacc.cc:52]  Sweep 4: 0.1779s
+I20261001 23:40:20.124960 31188 cudacc.cc:52] Iteration 3: 0.5450s
+I20261001 23:40:20.125493 31188 cudacc.cc:52] Total: 1.6478s
+I20261001 23:40:20.125855 31188 patch_match.cc:525] 
+Writing geometric output for f0037.jpg
+I20261001 23:40:20.676858 31188 patch_match.cc:419] === Processing view 21 / 23 for f0038.jpg ===
+I20261001 23:40:20.677399 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:40:20.697946 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:40:20.698100 31188 patch_match.cc:57] ref_image_idx: 20
+I20261001 23:40:20.698163 31188 patch_match.cc:64] src_image_idxs: 21 19 22 18 17 16 15 14
+I20261001 23:40:20.698194 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:40:20.698221 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:40:20.698248 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:40:20.698273 31188 patch_match_options.cc:49] depth_min: 4.10012
+I20261001 23:40:20.698310 31188 patch_match_options.cc:50] depth_max: 15.5456
+I20261001 23:40:20.698337 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:40:20.698362 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:40:20.698388 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:40:20.698415 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:40:20.698441 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:40:20.698467 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:40:20.698493 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:40:20.698520 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:40:20.698546 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:40:20.698572 31188 patch_match_options.cc:60] geom_consistency: 1
+I20261001 23:40:20.698598 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:40:20.698625 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:40:20.698652 31188 patch_match_options.cc:63] filter: 1
+I20261001 23:40:20.698677 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:40:20.698704 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:40:20.698730 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:40:20.698756 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:40:20.698902 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:40:20.698968 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:40:20.698998 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:40:20.699028 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:40:20.752209 31188 cudacc.cc:52] Initialization: 0.0097s
+I20261001 23:40:20.862845 31188 cudacc.cc:52]  Sweep 1: 0.1105s
+I20261001 23:40:21.028159 31188 cudacc.cc:52]  Sweep 2: 0.1651s
+I20261001 23:40:21.125947 31188 cudacc.cc:52]  Sweep 3: 0.0975s
+I20261001 23:40:21.283604 31188 cudacc.cc:52]  Sweep 4: 0.1575s
+I20261001 23:40:21.283780 31188 cudacc.cc:52] Iteration 1: 0.5314s
+I20261001 23:40:21.390500 31188 cudacc.cc:52]  Sweep 1: 0.1066s
+I20261001 23:40:21.603417 31188 cudacc.cc:52]  Sweep 2: 0.2127s
+I20261001 23:40:21.740192 31188 cudacc.cc:52]  Sweep 3: 0.1366s
+I20261001 23:40:21.893907 31188 cudacc.cc:52]  Sweep 4: 0.1535s
+I20261001 23:40:21.894113 31188 cudacc.cc:52] Iteration 2: 0.6103s
+I20261001 23:40:22.009828 31188 cudacc.cc:52]  Sweep 1: 0.1156s
+I20261001 23:40:22.156934 31188 cudacc.cc:52]  Sweep 2: 0.1469s
+I20261001 23:40:22.291099 31188 cudacc.cc:52]  Sweep 3: 0.1340s
+I20261001 23:40:22.445143 31188 cudacc.cc:52]  Sweep 4: 0.1538s
+I20261001 23:40:22.445292 31188 cudacc.cc:52] Iteration 3: 0.5511s
+I20261001 23:40:22.445351 31188 cudacc.cc:52] Total: 1.7029s
+I20261001 23:40:22.445384 31188 patch_match.cc:525] 
+Writing geometric output for f0038.jpg
+I20261001 23:40:22.628410 31188 patch_match.cc:419] === Processing view 22 / 23 for f0039.jpg ===
+I20261001 23:40:22.628524 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:40:22.636421 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:40:22.636581 31188 patch_match.cc:57] ref_image_idx: 21
+I20261001 23:40:22.636602 31188 patch_match.cc:64] src_image_idxs: 20 19 22 18 17 16 15 14
+I20261001 23:40:22.636618 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:40:22.636631 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:40:22.636644 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:40:22.636656 31188 patch_match_options.cc:49] depth_min: 3.97105
+I20261001 23:40:22.636679 31188 patch_match_options.cc:50] depth_max: 14.7784
+I20261001 23:40:22.636693 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:40:22.636706 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:40:22.636718 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:40:22.636731 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:40:22.636746 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:40:22.636760 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:40:22.636773 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:40:22.636786 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:40:22.636799 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:40:22.636811 31188 patch_match_options.cc:60] geom_consistency: 1
+I20261001 23:40:22.636824 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:40:22.636837 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:40:22.636850 31188 patch_match_options.cc:63] filter: 1
+I20261001 23:40:22.636862 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:40:22.636875 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:40:22.636888 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:40:22.636900 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:40:22.636913 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:40:22.636925 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:40:22.636937 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:40:22.636951 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:40:22.676743 31188 cudacc.cc:52] Initialization: 0.0113s
+I20261001 23:40:22.775535 31188 cudacc.cc:52]  Sweep 1: 0.0986s
+I20261001 23:40:22.927424 31188 cudacc.cc:52]  Sweep 2: 0.1517s
+I20261001 23:40:23.027457 31188 cudacc.cc:52]  Sweep 3: 0.0998s
+I20261001 23:40:23.192344 31188 cudacc.cc:52]  Sweep 4: 0.1647s
+I20261001 23:40:23.192532 31188 cudacc.cc:52] Iteration 1: 0.5157s
+I20261001 23:40:23.323544 31188 cudacc.cc:52]  Sweep 1: 0.1309s
+I20261001 23:40:23.473638 31188 cudacc.cc:52]  Sweep 2: 0.1499s
+I20261001 23:40:23.592198 31188 cudacc.cc:52]  Sweep 3: 0.1183s
+I20261001 23:40:23.755402 31188 cudacc.cc:52]  Sweep 4: 0.1630s
+I20261001 23:40:23.759301 31188 cudacc.cc:52] Iteration 2: 0.5660s
+I20261001 23:40:23.869153 31188 cudacc.cc:52]  Sweep 1: 0.1089s
+I20261001 23:40:24.059467 31188 cudacc.cc:52]  Sweep 2: 0.1901s
+I20261001 23:40:24.194867 31188 cudacc.cc:52]  Sweep 3: 0.1341s
+I20261001 23:40:24.382745 31188 cudacc.cc:52]  Sweep 4: 0.1877s
+I20261001 23:40:24.382889 31188 cudacc.cc:52] Iteration 3: 0.6226s
+I20261001 23:40:24.382929 31188 cudacc.cc:52] Total: 1.7176s
+I20261001 23:40:24.382954 31188 patch_match.cc:525] 
+Writing geometric output for f0039.jpg
+I20261001 23:40:24.735634 31188 patch_match.cc:419] === Processing view 23 / 23 for f0040.jpg ===
+I20261001 23:40:24.735966 31188 patch_match.cc:466] Reading inputs...
+I20261001 23:40:24.745197 31188 patch_match.cc:56] --- PatchMatch::Problem ---
+I20261001 23:40:24.745346 31188 patch_match.cc:57] ref_image_idx: 22
+I20261001 23:40:24.745385 31188 patch_match.cc:64] src_image_idxs: 21 20 19 18 17 16 15 14
+I20261001 23:40:24.745410 31188 patch_match_options.cc:46] --- PatchMatchOptions ---
+I20261001 23:40:24.745432 31188 patch_match_options.cc:47] max_image_size: 1200
+I20261001 23:40:24.745463 31188 patch_match_options.cc:48] gpu_index: 0
+I20261001 23:40:24.745518 31188 patch_match_options.cc:49] depth_min: 3.94682
+I20261001 23:40:24.745549 31188 patch_match_options.cc:50] depth_max: 14.6545
+I20261001 23:40:24.745573 31188 patch_match_options.cc:51] window_radius: 5
+I20261001 23:40:24.745594 31188 patch_match_options.cc:52] window_step: 2
+I20261001 23:40:24.745616 31188 patch_match_options.cc:53] sigma_spatial: 5
+I20261001 23:40:24.745639 31188 patch_match_options.cc:54] sigma_color: 0.2
+I20261001 23:40:24.745662 31188 patch_match_options.cc:55] num_samples: 10
+I20261001 23:40:24.745683 31188 patch_match_options.cc:56] ncc_sigma: 0.6
+I20261001 23:40:24.745705 31188 patch_match_options.cc:57] min_triangulation_angle: 1
+I20261001 23:40:24.745728 31188 patch_match_options.cc:58] incident_angle_sigma: 0.9
+I20261001 23:40:24.745750 31188 patch_match_options.cc:59] num_iterations: 3
+I20261001 23:40:24.745772 31188 patch_match_options.cc:60] geom_consistency: 1
+I20261001 23:40:24.745794 31188 patch_match_options.cc:61] geom_consistency_regularizer: 0.3
+I20261001 23:40:24.745816 31188 patch_match_options.cc:62] geom_consistency_max_cost: 3
+I20261001 23:40:24.745838 31188 patch_match_options.cc:63] filter: 1
+I20261001 23:40:24.745860 31188 patch_match_options.cc:64] filter_min_ncc: 0.1
+I20261001 23:40:24.745882 31188 patch_match_options.cc:65] filter_min_triangulation_angle: 3
+I20261001 23:40:24.745904 31188 patch_match_options.cc:66] filter_min_num_consistent: 2
+I20261001 23:40:24.745925 31188 patch_match_options.cc:67] filter_geom_consistency_max_cost: 1
+I20261001 23:40:24.745947 31188 patch_match_options.cc:68] write_consistency_graph: 0
+I20261001 23:40:24.745969 31188 patch_match_options.cc:69] allow_missing_files: 0
+I20261001 23:40:24.745990 31188 patch_match_options.cc:70] num_threads: -1
+I20261001 23:40:24.746012 31188 patch_match.cc:129] --- PatchMatch::Run ---
+I20261001 23:40:24.823760 31188 cudacc.cc:52] Initialization: 0.0117s
+I20261001 23:40:24.936311 31188 cudacc.cc:52]  Sweep 1: 0.1123s
+I20261001 23:40:25.095063 31188 cudacc.cc:52]  Sweep 2: 0.1586s
+I20261001 23:40:25.209360 31188 cudacc.cc:52]  Sweep 3: 0.1141s
+I20261001 23:40:25.379175 31188 cudacc.cc:52]  Sweep 4: 0.1696s
+I20261001 23:40:25.380859 31188 cudacc.cc:52] Iteration 1: 0.5569s
+I20261001 23:40:25.487355 31188 cudacc.cc:52]  Sweep 1: 0.1061s
+I20261001 23:40:25.668788 31188 cudacc.cc:52]  Sweep 2: 0.1812s
+I20261001 23:40:25.778510 31188 cudacc.cc:52]  Sweep 3: 0.1088s
+I20261001 23:40:25.936231 31188 cudacc.cc:52]  Sweep 4: 0.1571s
+I20261001 23:40:25.936381 31188 cudacc.cc:52] Iteration 2: 0.5552s
+I20261001 23:40:26.031799 31188 cudacc.cc:52]  Sweep 1: 0.0954s
+I20261001 23:40:26.174580 31188 cudacc.cc:52]  Sweep 2: 0.1426s
+I20261001 23:40:26.270015 31188 cudacc.cc:52]  Sweep 3: 0.0953s
+I20261001 23:40:26.432498 31188 cudacc.cc:52]  Sweep 4: 0.1623s
+I20261001 23:40:26.432825 31188 cudacc.cc:52] Iteration 3: 0.4964s
+I20261001 23:40:26.432952 31188 cudacc.cc:52] Total: 1.6209s
+I20261001 23:40:26.433017 31188 patch_match.cc:525] 
+Writing geometric output for f0040.jpg
+I20261001 23:40:26.602060   564 timer.cc:90] Elapsed time: 1.527 [minutes]
+
+$ C:\work\drone\aerodrone_hackathon\tools\colmap\bin\colmap.exe stereo_fusion --workspace_path dense --workspace_format COLMAP --input_type geometric --StereoFusion.max_image_size 1200 --StereoFusion.cache_size 8 --StereoFusion.num_threads 8 --output_path dense/fused.ply
+I20261001 23:40:26.797540 31624 fusion.cc:79] --- StereoFusion::Options ---
+I20261001 23:40:26.798489 31624 fusion.cc:80] mask_path: ""
+I20261001 23:40:26.798510 31624 fusion.cc:81] max_image_size: 1200
+I20261001 23:40:26.798522 31624 fusion.cc:82] min_num_pixels: 5
+I20261001 23:40:26.798532 31624 fusion.cc:83] max_num_pixels: 10000
+I20261001 23:40:26.798543 31624 fusion.cc:84] max_traversal_depth: 100
+I20261001 23:40:26.798554 31624 fusion.cc:85] max_reproj_error: 2
+I20261001 23:40:26.798569 31624 fusion.cc:86] max_depth_error: 0.01
+I20261001 23:40:26.798618 31624 fusion.cc:87] max_normal_error: 10
+I20261001 23:40:26.798633 31624 fusion.cc:88] check_num_images: 50
+I20261001 23:40:26.798644 31624 fusion.cc:89] use_cache: 0
+I20261001 23:40:26.798659 31624 fusion.cc:90] cache_size: 8
+I20261001 23:40:26.798670 31624 fusion.cc:93] bbox_min: -3.40282e+38 -3.40282e+38 -3.40282e+38
+I20261001 23:40:26.798695 31624 fusion.cc:94] bbox_max: 3.40282e+38 3.40282e+38 3.40282e+38
+I20261001 23:40:26.798710 31624 fusion.cc:144] Reading workspace...
+I20261001 23:40:26.803945 31624 workspace.cc:103] Loading workspace data with 8 threads...
+I20261001 23:40:28.069003 31624 timer.cc:90] Elapsed time: 0.021 [minutes]
+I20261001 23:40:28.071040 31624 fusion.cc:179] Reading configuration...
+I20261001 23:40:28.086285 31624 fusion.cc:247] Starting fusion with 8 threads
+I20261001 23:40:28.086645 31624 fusion.cc:283] Fusing image [1/23] with index 0
+I20261001 23:40:28.554328 31624 fusion.cc:310]  in 0.468s (40689 points)
+I20261001 23:40:28.554564 31624 fusion.cc:283] Fusing image [2/23] with index 1
+I20261001 23:40:28.944225 31624 fusion.cc:310]  in 0.390s (61828 points)
+I20261001 23:40:28.944378 31624 fusion.cc:283] Fusing image [3/23] with index 2
+I20261001 23:40:29.310613 31624 fusion.cc:310]  in 0.366s (80521 points)
+I20261001 23:40:29.310829 31624 fusion.cc:283] Fusing image [4/23] with index 3
+I20261001 23:40:29.616374 31624 fusion.cc:310]  in 0.306s (90491 points)
+I20261001 23:40:29.616578 31624 fusion.cc:283] Fusing image [5/23] with index 4
+I20261001 23:40:29.968123 31624 fusion.cc:310]  in 0.352s (105236 points)
+I20261001 23:40:29.968306 31624 fusion.cc:283] Fusing image [6/23] with index 5
+I20261001 23:40:30.301502 31624 fusion.cc:310]  in 0.333s (117990 points)
+I20261001 23:40:30.301700 31624 fusion.cc:283] Fusing image [7/23] with index 6
+I20261001 23:40:30.686965 31624 fusion.cc:310]  in 0.385s (136449 points)
+I20261001 23:40:30.687163 31624 fusion.cc:283] Fusing image [8/23] with index 7
+I20261001 23:40:31.065080 31624 fusion.cc:310]  in 0.378s (155683 points)
+I20261001 23:40:31.065278 31624 fusion.cc:283] Fusing image [9/23] with index 8
+I20261001 23:40:31.357556 31624 fusion.cc:310]  in 0.292s (165928 points)
+I20261001 23:40:31.357753 31624 fusion.cc:283] Fusing image [10/23] with index 10
+I20261001 23:40:31.719026 31624 fusion.cc:310]  in 0.361s (177624 points)
+I20261001 23:40:31.719180 31624 fusion.cc:283] Fusing image [11/23] with index 9
+I20261001 23:40:31.993195 31624 fusion.cc:310]  in 0.274s (184194 points)
+I20261001 23:40:31.993358 31624 fusion.cc:283] Fusing image [12/23] with index 11
+I20261001 23:40:32.223380 31624 fusion.cc:310]  in 0.230s (188060 points)
+I20261001 23:40:32.223562 31624 fusion.cc:283] Fusing image [13/23] with index 12
+I20261001 23:40:32.580104 31624 fusion.cc:310]  in 0.357s (214064 points)
+I20261001 23:40:32.580393 31624 fusion.cc:283] Fusing image [14/23] with index 13
+I20261001 23:40:32.845924 31624 fusion.cc:310]  in 0.266s (225960 points)
+I20261001 23:40:32.846159 31624 fusion.cc:283] Fusing image [15/23] with index 14
+I20261001 23:40:33.094031 31624 fusion.cc:310]  in 0.248s (236673 points)
+I20261001 23:40:33.094213 31624 fusion.cc:283] Fusing image [16/23] with index 15
+I20261001 23:40:33.374039 31624 fusion.cc:310]  in 0.280s (249853 points)
+I20261001 23:40:33.374234 31624 fusion.cc:283] Fusing image [17/23] with index 16
+I20261001 23:40:33.625965 31624 fusion.cc:310]  in 0.252s (257558 points)
+I20261001 23:40:33.626120 31624 fusion.cc:283] Fusing image [18/23] with index 17
+I20261001 23:40:33.855268 31624 fusion.cc:310]  in 0.229s (263415 points)
+I20261001 23:40:33.855478 31624 fusion.cc:283] Fusing image [19/23] with index 18
+I20261001 23:40:34.067266 31624 fusion.cc:310]  in 0.212s (265647 points)
+I20261001 23:40:34.067478 31624 fusion.cc:283] Fusing image [20/23] with index 19
+I20261001 23:40:34.283748 31624 fusion.cc:310]  in 0.216s (267162 points)
+I20261001 23:40:34.283921 31624 fusion.cc:283] Fusing image [21/23] with index 20
+I20261001 23:40:34.490928 31624 fusion.cc:310]  in 0.207s (267463 points)
+I20261001 23:40:34.491237 31624 fusion.cc:283] Fusing image [22/23] with index 21
+I20261001 23:40:34.685006 31624 fusion.cc:310]  in 0.194s (267463 points)
+I20261001 23:40:34.685114 31624 fusion.cc:283] Fusing image [23/23] with index 22
+I20261001 23:40:34.848942 31624 fusion.cc:310]  in 0.164s (267463 points)
+I20261001 23:40:34.871308 31624 fusion.cc:337] Number of fused points: 267463
+I20261001 23:40:34.871413 31624 timer.cc:90] Elapsed time: 0.135 [minutes]
+I20261001 23:40:34.920841 31624 mvs.cc:395] Writing output: "dense/fused.ply"

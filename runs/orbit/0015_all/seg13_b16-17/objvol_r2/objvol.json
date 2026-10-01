@@ -1,0 +1,37 @@
+[
+ {
+  "tag": "cardboard box_20",
+  "views_used": 1,
+  "views_candidates": 24,
+  "n_views_excluded": 18,
+  "views_box_prompt": 0,
+  "views_tilt_deg": [
+   40.5
+  ],
+  "views_names": [
+   "f0030.jpg"
+  ],
+  "points_candidate": 5208,
+  "points_voted": 0,
+  "points_object": 0,
+  "center_xy": [
+   1.0812222957611084,
+   -1.6684225797653198
+  ],
+  "center_shift_m": 0.6380038307994677,
+  "ground_z": 2.440987255812442,
+  "ground_plane_tilt_deg": 39.61801184857335,
+  "ground_plane_inlier": 0.1173,
+  "height_method": "mode",
+  "h_min": 0.03,
+  "mask_area_m2": null,
+  "volume_mask_box_L": null,
+  "mask_nadir_score": null,
+  "lat": "37.3839912",
+  "lon": "126.6559117",
+  "csv_local_xy": [
+   0.86,
+   -1.07
+  ]
+ }
+]

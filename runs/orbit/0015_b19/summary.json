@@ -1,0 +1,33 @@
+{
+  "frames_extracted": 60,
+  "frames_registered": 37,
+  "points3D": 13694,
+  "mean_reproj_error_px": 0.9040310684025589,
+  "mean_track_length": 5.156418869577918,
+  "orbit_radius_rel": 3.0240634053681217,
+  "note": "스케일 미정 (상대 단위) — GPS/기준물체로 m 단위 보정은 다음 단계",
+  "volume": {
+    "scale_m_per_unit": 0.14228830156478747,
+    "scale_spread_pct": 27.05701271204486,
+    "n_frames_for_scale": 37,
+    "p0": [
+      1.8530826049074696,
+      0.5181261622175797,
+      8.421340347076564
+    ],
+    "orbit_radius_m": 0.1357044632173155,
+    "orbit_height_m": 0.9,
+    "center_xy": [
+      0.5437657377382178,
+      0.2781736706822515
+    ],
+    "n_object_points": 269,
+    "volume_heightmap_m3": 0.004110558303612746,
+    "volume_hull_m3": 0.004054913781351807,
+    "footprint_m2": 0.020447428500799007,
+    "grid_cell_m": 0.014299450514197742,
+    "length_m": 0.15479061007499695,
+    "width_m": 0.1441064476966858,
+    "height_m": 0.2663874595731741
+  }
+}

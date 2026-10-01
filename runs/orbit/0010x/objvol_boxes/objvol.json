@@ -1,0 +1,52 @@
+[
+ {
+  "tag": "Styrofoam_Buoy_4",
+  "views_used": 11,
+  "points_candidate": 29420,
+  "points_object": 1729,
+  "ground_z": 0.029356021479422983,
+  "length_m": 0.7158028483390808,
+  "width_m": 0.5669865608215332,
+  "height_m": 0.024529002691411006,
+  "volume_heightmap_L": 7.2716986049822125,
+  "volume_hull_L": 9.8657876175326,
+  "mask_area_m2": 22.60512264382964,
+  "volume_mask_box_L": 554.4811141701732,
+  "lat": "37.3847487",
+  "lon": "126.6567032"
+ },
+ {
+  "tag": "Styrofoam_Buoy_3",
+  "views_used": 2,
+  "points_candidate": 675,
+  "points_object": 0,
+  "ground_z": 0.7903111999397681,
+  "lat": "37.3847789",
+  "lon": "126.6567219"
+ },
+ {
+  "tag": "Styrofoam_Buoy_3",
+  "views_used": 14,
+  "points_candidate": 18850,
+  "points_object": 2835,
+  "ground_z": 0.0702632912965032,
+  "length_m": 1.1185059547424316,
+  "width_m": 0.44892340898513794,
+  "height_m": 0.018154676944972324,
+  "volume_heightmap_L": 6.61211805593892,
+  "volume_hull_L": 7.799428077826983,
+  "mask_area_m2": 23.057853606097652,
+  "volume_mask_box_L": 418.607883263168,
+  "lat": "37.3847511",
+  "lon": "126.6567157"
+ },
+ {
+  "tag": "Styrofoam_Buoy_3",
+  "views_used": 0,
+  "points_candidate": 12,
+  "points_object": 0,
+  "ground_z": -0.12297271429030979,
+  "lat": "37.3847646",
+  "lon": "126.6566007"
+ }
+]

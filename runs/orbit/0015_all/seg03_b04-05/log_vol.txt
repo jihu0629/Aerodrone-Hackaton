@@ -1,0 +1,16 @@
+
+$ C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Scripts\python.exe -m litter.objvol --orbit runs\orbit\0015_all\seg03_b04-05 --srt ../DJI_20261001205404_0015_D.SRT --objects runs\orbit\0015_all\seg03_b04-05\map\objects.csv --out runs\orbit\0015_all\seg03_b04-05\objvol --min-track 4.0 --search-r 0.45 --device 0 --det-weights yolov8s-worldv2.pt --det-classes cardboard box --ply runs\orbit\0015_all\seg03_b04-05\fused_dense.ply
+3D 점 258,699개 (조밀) · 축척 편차 45.8% · 카메라 기울기 중앙값 59° · SAM 장치 0
+cardboard box_4 (2.45,6.48): 프레임 0/1장(제외 31, 상자 프롬프트 0) · 평면 기울기 26.6° · 중심 이동 0.00 m · 물체 점 0개
+cardboard box_3 (4.63,6.65): 프레임 12/21장(제외 8, 상자 프롬프트 12) · 평면 기울기 0.0° · 중심 이동 0.00 m · 물체 점 0개
+cardboard box_3_2 (3.65,6.55): 프레임 3/20장(제외 8, 상자 프롬프트 2) · 평면 기울기 0.0° · 중심 이동 0.00 m · 물체 점 0개
+cardboard box_4_2 (5.51,6.72): 프레임 16/21장(제외 8, 상자 프롬프트 16) · 평면 기울기 0.0° · 중심 이동 0.00 m · 물체 점 0개
+cardboard box_11 (5.13,6.64): 프레임 16/21장(제외 8, 상자 프롬프트 16) · 평면 기울기 0.0° · 중심 이동 0.00 m · 물체 점 0개
+
+$ C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Scripts\python.exe -m litter.objvol --orbit runs\orbit\0015_all\seg03_b04-05 --srt ../DJI_20261001205404_0015_D.SRT --objects runs\orbit\0015_all\seg03_b04-05\map\objects.csv --out runs\orbit\0015_all\seg03_b04-05\objvol_r2 --min-track 4.0 --search-r 0.8 --device 0 --det-weights yolov8s-worldv2.pt --det-classes cardboard box --ply runs\orbit\0015_all\seg03_b04-05\fused_dense.ply
+3D 점 258,699개 (조밀) · 축척 편차 45.8% · 카메라 기울기 중앙값 59° · SAM 장치 0
+cardboard box_4 (2.45,6.48): 프레임 13/14장(제외 16, 상자 프롬프트 0) · 평면 기울기 26.0° · 중심 이동 0.88 m · 물체 점 33395개 · 148×71×60 cm (p90 65.6 / 봉우리 59.5) · 윗면 110×65 · 높이지도 283.1 L(중앙값)/293.3 L(최대) · 볼록껍질 354.7 L · 마스크면적 없음(수직 프레임 없음)
+cardboard box_3 (4.63,6.65): 프레임 12/21장(제외 8, 상자 프롬프트 12) · 평면 기울기 0.0° · 중심 이동 0.00 m · 물체 점 0개
+cardboard box_3_2 (3.65,6.55): 프레임 3/20장(제외 8, 상자 프롬프트 2) · 평면 기울기 0.0° · 중심 이동 0.00 m · 물체 점 0개
+cardboard box_4_2 (5.51,6.72): 프레임 16/21장(제외 8, 상자 프롬프트 16) · 평면 기울기 0.0° · 중심 이동 0.00 m · 물체 점 0개
+cardboard box_11 (5.13,6.64): 프레임 16/21장(제외 8, 상자 프롬프트 16) · 평면 기울기 0.0° · 중심 이동 0.00 m · 물체 점 0개

@@ -1,0 +1,83 @@
+{
+ "name": "uav_cov",
+ "model": "C:\\Users\\user\\Desktop\\드론\\aerodrone_hackathon\\runs\\seg\\uavvaste_det_s\\weights\\best.pt",
+ "device": "cpu",
+ "bbox_epsg5186": [
+  120809.67317919373,
+  508050.2324007016,
+  120909.67317919373,
+  508150.2324007016
+ ],
+ "area_m2": 10000.0,
+ "covered_m2": 10000.0,
+ "coverage_frac": 1.0,
+ "alt_m": 20.0,
+ "alt_revisit_m": 8.0,
+ "gsd_cm": 2.93,
+ "gsd_revisit_cm": 1.17,
+ "camera": {
+  "w": 1024,
+  "h": 768,
+  "hfov": 73.7
+ },
+ "speed_mps": 5.0,
+ "dt_s": 1.0,
+ "overlap_side": 0.3,
+ "plan": {
+  "lines": 6,
+  "spacing_m": 15.7386078603263,
+  "footprint_m": [
+   29.978300686335814,
+   22.48372551475186
+  ]
+ },
+ "wind": [
+  0.0,
+  0.0
+ ],
+ "gust": 0.0,
+ "jitter": 0.3,
+ "conf_lo": 0.25,
+ "conf_hi": 0.5,
+ "merge_m": 1.0,
+ "match_tol_m": 1.0,
+ "flight_time_s": 135.7,
+ "flight_dist_m": 678.7,
+ "coverage_only_dist_m": 678.7,
+ "revisit_extra_dist_m": 0.0,
+ "frames": 141,
+ "frames_detected": 141,
+ "detections_raw": 60,
+ "objects_total": 21,
+ "revisits": 0,
+ "revisit_log": [],
+ "eval": {
+  "labels_in_area": 7,
+  "coverage_only": {
+   "confirmed": 2,
+   "candidates": 19,
+   "rejected": 0,
+   "tp": 1,
+   "recall": 0.14285714285714285,
+   "precision": 0.5,
+   "recall_incl_candidates": 0.14285714285714285,
+   "hit_label_seqs": [
+    82
+   ]
+  },
+  "with_revisit": {
+   "confirmed": 2,
+   "candidates": 19,
+   "rejected": 0,
+   "tp": 1,
+   "recall": 0.14285714285714285,
+   "precision": 0.5,
+   "recall_incl_candidates": 0.14285714285714285,
+   "hit_label_seqs": [
+    82
+   ]
+  }
+ },
+ "wall_time_s": 62.1,
+ "detect_time_s": 30.9
+}

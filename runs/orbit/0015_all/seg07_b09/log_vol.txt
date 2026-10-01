@@ -1,0 +1,4 @@
+
+$ C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Scripts\python.exe -m litter.objvol --orbit runs\orbit\0015_all\seg07_b09 --srt ../DJI_20261001205404_0015_D.SRT --objects runs\orbit\0015_all\seg07_b09\map\objects.csv --out runs\orbit\0015_all\seg07_b09\objvol --min-track 4.0 --search-r 0.45 --device 0 --det-weights yolov8s-worldv2.pt --det-classes cardboard box --ply runs\orbit\0015_all\seg07_b09\fused_dense.ply
+3D 점 267,463개 (조밀) · 축척 편차 0.4% · 카메라 기울기 중앙값 56° · SAM 장치 0
+cardboard box_13 (-2.88,0.21): 프레임 9/9장(제외 0, 상자 프롬프트 9) · 평면 기울기 0.4° · 중심 이동 0.36 m · 물체 점 1370개 · 47×40×42 cm (p90 42.6 / 봉우리 41.5) · 윗면 47×40 · 높이지도 71.0 L(중앙값)/72.2 L(최대) · 볼록껍질 73.5 L · 마스크면적 없음(수직 프레임 없음)

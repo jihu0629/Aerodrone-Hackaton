@@ -1,0 +1,4 @@
+비행: 36775프레임 · 최고 3.5 m · 이동거리 530.7 m (GPS 흔들림 포함)
+탐지 180건 → 물체 37개 (2프레임 이상): cardboard box 36, bottle 1
+방향(yaw) 출처: ['기본 0°(북)', '이동방향'] · 짐벌 -45.0°
+→ runs\map\0015_world\map.html (브라우저로 열기) · objects.csv · objects.geojson

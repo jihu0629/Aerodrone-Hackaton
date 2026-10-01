@@ -1,0 +1,107 @@
+[
+ {
+  "tag": "cardboard box_3",
+  "views_used": 3,
+  "views_candidates": 4,
+  "n_views_excluded": 14,
+  "views_box_prompt": 3,
+  "views_tilt_deg": [
+   61.4,
+   57.6,
+   72.8
+  ],
+  "views_names": [
+   "f0024.jpg",
+   "f0023.jpg",
+   "f0025.jpg"
+  ],
+  "points_candidate": 0,
+  "points_voted": 0,
+  "points_object": 0,
+  "center_xy": [
+   7.01,
+   1.11
+  ],
+  "center_shift_m": 0.0,
+  "ground_z": 0.0,
+  "ground_plane_tilt_deg": 0.0,
+  "ground_plane_inlier": 0.0,
+  "height_method": "mode",
+  "h_min": 0.03,
+  "mask_area_m2": null,
+  "volume_mask_box_L": null,
+  "mask_nadir_score": null,
+  "lat": "37.3838981",
+  "lon": "126.6559605",
+  "csv_local_xy": [
+   7.01,
+   1.11
+  ]
+ },
+ {
+  "tag": "cardboard box_9",
+  "views_used": 1,
+  "views_candidates": 7,
+  "n_views_excluded": 16,
+  "views_box_prompt": 0,
+  "views_tilt_deg": [
+   57.7
+  ],
+  "views_names": [
+   "f0001.jpg"
+  ],
+  "points_candidate": 20448,
+  "points_voted": 0,
+  "points_object": 0,
+  "center_xy": [
+   4.57,
+   0.84
+  ],
+  "center_shift_m": 0.0,
+  "ground_z": 2.7729733615075314,
+  "ground_plane_tilt_deg": 11.769831150808782,
+  "ground_plane_inlier": 0.44885,
+  "height_method": "mode",
+  "h_min": 0.03,
+  "mask_area_m2": null,
+  "volume_mask_box_L": null,
+  "mask_nadir_score": null,
+  "lat": "37.3838806",
+  "lon": "126.6559434",
+  "csv_local_xy": [
+   4.57,
+   0.84
+  ]
+ },
+ {
+  "tag": "cardboard box_3_2",
+  "views_used": 0,
+  "views_candidates": 0,
+  "n_views_excluded": 24,
+  "views_box_prompt": 0,
+  "views_tilt_deg": [],
+  "views_names": [],
+  "points_candidate": 3,
+  "points_voted": 0,
+  "points_object": 0,
+  "center_xy": [
+   5.52,
+   0.9
+  ],
+  "center_shift_m": 0.0,
+  "ground_z": 0.4379167228037897,
+  "ground_plane_tilt_deg": 59.283681332696126,
+  "ground_plane_inlier": 0.5237086092715232,
+  "height_method": "mode",
+  "h_min": 0.03,
+  "mask_area_m2": null,
+  "volume_mask_box_L": null,
+  "mask_nadir_score": null,
+  "lat": "37.3838872",
+  "lon": "126.6559505",
+  "csv_local_xy": [
+   5.52,
+   0.9
+  ]
+ }
+]

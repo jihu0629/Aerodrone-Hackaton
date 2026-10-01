@@ -1,0 +1,293 @@
+{
+ "name": "aihub_rv",
+ "model": "C:\\Users\\user\\Desktop\\드론\\aerodrone_hackathon\\runs\\seg\\aihub_gsd_det_s\\weights\\best.pt",
+ "device": "cpu",
+ "bbox_epsg5186": [
+  120809.67317919373,
+  508050.2324007016,
+  120909.67317919373,
+  508150.2324007016
+ ],
+ "area_m2": 10000.0,
+ "covered_m2": 10000.0,
+ "coverage_frac": 1.0,
+ "alt_m": 20.0,
+ "alt_revisit_m": 8.0,
+ "gsd_cm": 2.93,
+ "gsd_revisit_cm": 1.17,
+ "camera": {
+  "w": 1024,
+  "h": 768,
+  "hfov": 73.7
+ },
+ "speed_mps": 5.0,
+ "dt_s": 1.0,
+ "overlap_side": 0.3,
+ "plan": {
+  "lines": 6,
+  "spacing_m": 15.7386078603263,
+  "footprint_m": [
+   29.978300686335814,
+   22.48372551475186
+  ]
+ },
+ "wind": [
+  0.0,
+  0.0
+ ],
+ "gust": 0.0,
+ "jitter": 0.3,
+ "conf_lo": 0.25,
+ "conf_hi": 0.5,
+ "merge_m": 1.0,
+ "match_tol_m": 1.0,
+ "flight_time_s": 497.7,
+ "flight_dist_m": 1717.5,
+ "coverage_only_dist_m": 1020.3,
+ "revisit_extra_dist_m": 697.2,
+ "frames": 569,
+ "frames_detected": 247,
+ "detections_raw": 511,
+ "objects_total": 48,
+ "revisits": 25,
+ "revisit_log": [
+  {
+   "oid": 2,
+   "x": 120849.6,
+   "y": 508067.67,
+   "cov_max": 0.306,
+   "rv_max": 0.406,
+   "result": "rejected"
+  },
+  {
+   "oid": 1,
+   "x": 120849.0,
+   "y": 508068.49,
+   "cov_max": 0.392,
+   "rv_max": 0.338,
+   "result": "rejected"
+  },
+  {
+   "oid": 4,
+   "x": 120884.2,
+   "y": 508091.25,
+   "cov_max": 0.335,
+   "rv_max": -1.0,
+   "result": "rejected"
+  },
+  {
+   "oid": 32,
+   "x": 120870.84,
+   "y": 508103.81,
+   "cov_max": 0.382,
+   "rv_max": 0.387,
+   "result": "rejected"
+  },
+  {
+   "oid": 7,
+   "x": 120870.4,
+   "y": 508104.94,
+   "cov_max": 0.413,
+   "rv_max": 0.392,
+   "result": "rejected"
+  },
+  {
+   "oid": 6,
+   "x": 120865.28,
+   "y": 508100.84,
+   "cov_max": 0.285,
+   "rv_max": 0.368,
+   "result": "rejected"
+  },
+  {
+   "oid": 26,
+   "x": 120864.13,
+   "y": 508101.31,
+   "cov_max": 0.291,
+   "rv_max": 0.446,
+   "result": "rejected"
+  },
+  {
+   "oid": 25,
+   "x": 120863.19,
+   "y": 508102.3,
+   "cov_max": 0.304,
+   "rv_max": 0.504,
+   "result": "confirmed"
+  },
+  {
+   "oid": 16,
+   "x": 120861.68,
+   "y": 508101.18,
+   "cov_max": 0.409,
+   "rv_max": 0.575,
+   "result": "confirmed"
+  },
+  {
+   "oid": 19,
+   "x": 120861.88,
+   "y": 508099.5,
+   "cov_max": 0.431,
+   "rv_max": 0.491,
+   "result": "rejected"
+  },
+  {
+   "oid": 14,
+   "x": 120858.39,
+   "y": 508095.81,
+   "cov_max": 0.458,
+   "rv_max": 0.455,
+   "result": "rejected"
+  },
+  {
+   "oid": 28,
+   "x": 120854.26,
+   "y": 508100.71,
+   "cov_max": 0.264,
+   "rv_max": 0.368,
+   "result": "rejected"
+  },
+  {
+   "oid": 15,
+   "x": 120853.39,
+   "y": 508102.32,
+   "cov_max": 0.457,
+   "rv_max": 0.417,
+   "result": "rejected"
+  },
+  {
+   "oid": 20,
+   "x": 120853.56,
+   "y": 508103.55,
+   "cov_max": 0.432,
+   "rv_max": 0.285,
+   "result": "rejected"
+  },
+  {
+   "oid": 21,
+   "x": 120852.23,
+   "y": 508103.21,
+   "cov_max": 0.385,
+   "rv_max": 0.261,
+   "result": "rejected"
+  },
+  {
+   "oid": 17,
+   "x": 120850.99,
+   "y": 508103.43,
+   "cov_max": 0.471,
+   "rv_max": 0.421,
+   "result": "rejected"
+  },
+  {
+   "oid": 23,
+   "x": 120849.95,
+   "y": 508103.71,
+   "cov_max": 0.362,
+   "rv_max": 0.418,
+   "result": "rejected"
+  },
+  {
+   "oid": 18,
+   "x": 120852.08,
+   "y": 508104.6,
+   "cov_max": 0.467,
+   "rv_max": 0.541,
+   "result": "confirmed"
+  },
+  {
+   "oid": 22,
+   "x": 120852.02,
+   "y": 508101.81,
+   "cov_max": 0.383,
+   "rv_max": 0.398,
+   "result": "rejected"
+  },
+  {
+   "oid": 24,
+   "x": 120852.15,
+   "y": 508098.55,
+   "cov_max": 0.334,
+   "rv_max": 0.446,
+   "result": "rejected"
+  },
+  {
+   "oid": 27,
+   "x": 120851.6,
+   "y": 508095.79,
+   "cov_max": 0.276,
+   "rv_max": -1.0,
+   "result": "rejected"
+  },
+  {
+   "oid": 13,
+   "x": 120857.07,
+   "y": 508105.34,
+   "cov_max": 0.441,
+   "rv_max": 0.333,
+   "result": "rejected"
+  },
+  {
+   "oid": 29,
+   "x": 120863.27,
+   "y": 508105.14,
+   "cov_max": 0.262,
+   "rv_max": 0.294,
+   "result": "rejected"
+  },
+  {
+   "oid": 45,
+   "x": 120841.59,
+   "y": 508099.91,
+   "cov_max": 0.28,
+   "rv_max": -1.0,
+   "result": "rejected"
+  },
+  {
+   "oid": 44,
+   "x": 120844.04,
+   "y": 508101.73,
+   "cov_max": 0.326,
+   "rv_max": 0.331,
+   "result": "rejected"
+  }
+ ],
+ "eval": {
+  "labels_in_area": 7,
+  "coverage_only": {
+   "confirmed": 8,
+   "candidates": 25,
+   "rejected": 0,
+   "tp": 5,
+   "recall": 0.7142857142857143,
+   "precision": 0.625,
+   "recall_incl_candidates": 1.0,
+   "hit_label_seqs": [
+    82,
+    83,
+    85,
+    87,
+    88
+   ]
+  },
+  "with_revisit": {
+   "confirmed": 14,
+   "candidates": 13,
+   "rejected": 21,
+   "tp": 6,
+   "recall": 0.8571428571428571,
+   "precision": 0.42857142857142855,
+   "recall_incl_candidates": 0.8571428571428571,
+   "hit_label_seqs": [
+    82,
+    83,
+    84,
+    85,
+    87,
+    88
+   ]
+  }
+ },
+ "wall_time_s": 154.6,
+ "detect_time_s": 56.5
+}

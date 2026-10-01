@@ -1,0 +1,58 @@
+[
+ {
+  "tag": "cardboard box_20",
+  "views_used": 11,
+  "views_candidates": 11,
+  "n_views_excluded": 10,
+  "views_box_prompt": 11,
+  "views_tilt_deg": [
+   4.2,
+   6.9,
+   8.2,
+   12.9,
+   13.7,
+   19.0,
+   19.9,
+   29.3,
+   33.6,
+   40.5,
+   26.6
+  ],
+  "views_names": [
+   "f0036.jpg",
+   "f0035.jpg",
+   "f0037.jpg",
+   "f0034.jpg",
+   "f0038.jpg",
+   "f0033.jpg",
+   "f0039.jpg",
+   "f0032.jpg",
+   "f0031.jpg",
+   "f0030.jpg",
+   "f0040.jpg"
+  ],
+  "points_candidate": 898,
+  "points_voted": 273,
+  "points_object": 2,
+  "center_xy": [
+   0.86,
+   -1.07
+  ],
+  "center_shift_m": 0.0,
+  "ground_z": 0.09644624007220784,
+  "ground_plane_tilt_deg": 22.190231072365474,
+  "ground_plane_inlier": 0.48214055448098003,
+  "height_method": "mode",
+  "h_min": 0.03,
+  "mask_area_m2": null,
+  "volume_mask_box_L": null,
+  "mask_nadir_score": null,
+  "lat": "37.3839912",
+  "lon": "126.6559117",
+  "csv_local_xy": [
+   0.86,
+   -1.07
+  ],
+  "search_r": 0.45
+ }
+]

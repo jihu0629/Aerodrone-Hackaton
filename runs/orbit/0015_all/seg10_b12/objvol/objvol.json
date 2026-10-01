@@ -1,0 +1,54 @@
+[
+ {
+  "tag": "cardboard box_12",
+  "views_used": 3,
+  "views_candidates": 11,
+  "n_views_excluded": 0,
+  "views_box_prompt": 0,
+  "views_tilt_deg": [
+   11.6,
+   6.5,
+   10.0
+  ],
+  "views_names": [
+   "f0034.jpg",
+   "f0038.jpg",
+   "f0040.jpg"
+  ],
+  "points_candidate": 28758,
+  "points_voted": 241,
+  "points_object": 241,
+  "center_xy": [
+   0.6736000776290894,
+   -1.3108586072921753
+  ],
+  "center_shift_m": 0.5876815317791234,
+  "ground_z": 0.0903147499428231,
+  "ground_plane_tilt_deg": 4.528490490175917,
+  "ground_plane_inlier": 0.61505,
+  "height_method": "mode",
+  "h_min": 0.03,
+  "mask_area_m2": 0.010576551879676543,
+  "volume_mask_box_L": 1.110537947366037,
+  "mask_nadir_score": 0.9936477552830323,
+  "top_length_m": 0.3748328387737274,
+  "top_width_m": 0.038494136184453964,
+  "length_m": 0.3748328387737274,
+  "width_m": 0.038494136184453964,
+  "height_m": 0.10500000000000001,
+  "height_p90_m": 0.11842811115299753,
+  "height_mode_m": 0.10500000000000001,
+  "footprint_m2": 0.011035014406447597,
+  "hm_agg": "median",
+  "volume_heightmap_L": 1.2133764191476355,
+  "volume_heightmap_median_L": 1.2133764191476355,
+  "volume_heightmap_max_L": 1.2342688111228781,
+  "volume_hull_L": 1.1087628799013598,
+  "lat": "37.3842719",
+  "lon": "126.6555059",
+  "csv_local_xy": [
+   0.09,
+   -1.38
+  ]
+ }
+]

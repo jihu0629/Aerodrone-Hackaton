@@ -1,0 +1,90 @@
+{
+  "n_items": 2,
+  "n_stops": 1,
+  "kg_est": 0.8348874414509778,
+  "kg_hi": 1.6697748829019556,
+  "bulk_m3": 0.00417443720725489,
+  "crew_counts": {
+    "1인": 2,
+    "2인": 0,
+    "장비": 0
+  },
+  "bags": 1,
+  "bags_by_kg": 1,
+  "bags_by_vol": 1,
+  "trucks": 1,
+  "trucks_by_kg": 1,
+  "trucks_by_vol": 1,
+  "route_m": 20.0,
+  "depot": [
+    292573.3181452247,
+    4140067.3407147126
+  ],
+  "grid_m": 10.0,
+  "grid": [
+    {
+      "gx": 29257,
+      "gy": 414007,
+      "kg": 0.8348874414509778
+    }
+  ],
+  "company_kg": 0.004150531824021151,
+  "bulk_raw_m3": 0.04174437207254889,
+  "wet_applied": false,
+  "kg_wet_hi": 1.8367523711921514,
+  "volume_key": "volume_heightmap_L",
+  "items": [
+    {
+      "item_id": "Plastic_Buoy_55",
+      "cls": "eps_fragment",
+      "material_raw": "Styrofoam",
+      "lat": 37.3842486,
+      "lon": 126.6570694,
+      "length_m": 0.2737305462360382,
+      "width_m": 0.19114276766777039,
+      "h_p90_m": 0.07283719524067733,
+      "area_m2": 0.046533881323098214,
+      "volume_m3": 0.0030416601695210667,
+      "truth_m3": 0.003128,
+      "rho_app": 20,
+      "weight_est_kg": 0.060833203390421337,
+      "weight_lo_kg": 0.030416601695210668,
+      "weight_hi_kg": 0.12166640678084267,
+      "weight_wet_hi_kg": 0.13383304745892696,
+      "weight_method": "physics+3d",
+      "company_code": "STY",
+      "company_kg": 0.0005584065758771786,
+      "truth_kg": 0.06256,
+      "crew": "1인",
+      "stop_id": "S001",
+      "compress": 10,
+      "bulk_m3": 0.0003041660169521067
+    },
+    {
+      "item_id": "Styrofoam_Buoy_22",
+      "cls": "eps_fragment",
+      "material_raw": "Styrofoam",
+      "lat": 37.3842818,
+      "lon": 126.6570618,
+      "length_m": 0.6212940216064453,
+      "width_m": 0.49356213212013245,
+      "h_p90_m": 0.13082441099924857,
+      "area_m2": 0.29934377067866436,
+      "volume_m3": 0.03870271190302783,
+      "truth_m3": 0.0324,
+      "rho_app": 20,
+      "weight_est_kg": 0.7740542380605565,
+      "weight_lo_kg": 0.38702711903027825,
+      "weight_hi_kg": 1.548108476121113,
+      "weight_wet_hi_kg": 1.7029193237332245,
+      "weight_method": "physics+3d",
+      "company_code": "STY",
+      "company_kg": 0.003592125248143972,
+      "truth_kg": 0.6479999999999999,
+      "crew": "1인",
+      "stop_id": "S001",
+      "compress": 10,
+      "bulk_m3": 0.003870271190302783
+    }
+  ]
+}

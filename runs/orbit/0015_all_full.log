@@ -1,0 +1,340 @@
+상자 30개 → 구간 25개
+  seg01_b01-02: 0.0~9.0s n=45 상자 [1, 2]
+  seg02_b03: 23.0~31.0s n=40 상자 [3]
+  seg03_b04-05: 43.6~55.1s n=58 상자 [4, 5]
+  seg04_b06: 75.6~83.6s n=40 상자 [6]
+  seg05_b07: 99.6~107.6s n=40 상자 [7]
+  seg06_b08: 137.7~145.7s n=40 상자 [8]
+  seg07_b09: 158.2~166.2s n=40 상자 [9]
+  seg08_b10: 184.2~192.2s n=40 상자 [10]
+  seg09_b11: 216.7~224.7s n=40 상자 [11]
+  seg10_b12: 232.2~240.2s n=40 상자 [12]
+  seg11_b13-14: 242.3~255.3s n=60 상자 [13, 14]
+  seg12_b15: 265.3~273.3s n=40 상자 [15]
+  seg13_b16-17: 284.3~295.3s n=55 상자 [16, 17]
+  seg14_b18: 314.8~322.8s n=40 상자 [18]
+  seg15_b19: 335.9~343.9s n=40 상자 [19]
+  seg16_b20: 356.9~364.9s n=40 상자 [20]
+  seg17_b21: 377.4~385.4s n=40 상자 [21]
+  seg18_b22-23: 393.4~403.4s n=50 상자 [22, 23]
+  seg19_b24: 430.4~438.4s n=40 상자 [24]
+  seg20_b25: 464.0~472.0s n=40 상자 [25]
+  seg21_b26: 487.0~495.0s n=40 상자 [26]
+  seg22_b27: 506.0~514.0s n=40 상자 [27]
+  seg23_b28: 527.0~535.0s n=40 상자 [28]
+  seg24_b29: 550.6~558.6s n=40 상자 [29]
+  seg25_b30: 569.6~577.6s n=40 상자 [30]
+[2026-10-01 23:22:41] seg01_b01-02 sfm: 시작
+[2026-10-01 23:22:43] seg02_b03 sfm: 시작
+[2026-10-01 23:23:09] seg15_b19 sfm: 이미 완료 → 건너뜀
+[2026-10-01 23:23:09] seg15_b19 dense: 이미 완료 → 건너뜀
+[2026-10-01 23:23:09] seg15_b19 map: 이미 완료 → 건너뜀
+[2026-10-01 23:23:09] seg15_b19 vol: 시작
+[2026-10-01 23:23:17] seg19_b24 sfm: 이미 완료 → 건너뜀
+[2026-10-01 23:23:17] seg19_b24 dense: 이미 완료 → 건너뜀
+[2026-10-01 23:23:17] seg19_b24 map: 이미 완료 → 건너뜀
+[2026-10-01 23:23:45] seg15_b19 vol: 완료 36s n_measured=1 n_obj=1 dense=True n_retry_ok=1
+[2026-10-01 23:23:45] seg19_b24 vol: 시작
+[2026-10-01 23:24:07] seg19_b24 vol: 완료 22s n_measured=1 n_obj=1 dense=True n_retry_ok=0
+[2026-10-01 23:24:37] seg02_b03 sfm: 완료 114s reg=40 ext=40 pts=12303 reproj=0.67
+[2026-10-01 23:24:37] seg02_b03 dense: 시작
+[2026-10-01 23:24:37] seg03_b04-05 sfm: 시작
+[2026-10-01 23:27:37] seg03_b04-05 sfm: 완료 180s reg=47 ext=58 pts=9186 reproj=0.6
+[2026-10-01 23:27:37] seg04_b06 sfm: 시작
+[2026-10-01 23:27:42] seg01_b01-02 sfm: 완료 301s reg=45 ext=45 pts=16398 reproj=0.54
+[2026-10-01 23:27:42] seg05_b07 sfm: 시작
+[2026-10-01 23:28:00] seg02_b03 dense: 완료 203s dense_pts=230617
+[2026-10-01 23:28:10] seg02_b03 map: 시작
+[2026-10-01 23:28:28] seg02_b03 map: 완료 18s gps_rms_m=0.28 scale_src=GPS n_obj=2
+[2026-10-01 23:28:28] seg02_b03 vol: 시작
+[2026-10-01 23:29:07] seg02_b03 vol: 완료 39s n_measured=0 n_obj=2 dense=True n_retry_ok=0
+[2026-10-01 23:29:07] seg03_b04-05 dense: 시작
+[2026-10-01 23:29:40] seg04_b06 sfm: 완료 123s reg=15 ext=40 pts=5258 reproj=0.29
+[2026-10-01 23:29:40] seg06_b08 sfm: 시작
+[2026-10-01 23:32:23] seg03_b04-05 dense: 완료 195s dense_pts=258699
+[2026-10-01 23:32:23] seg03_b04-05 map: 시작
+[2026-10-01 23:32:51] seg03_b04-05 map: 완료 29s gps_rms_m=1.49 scale_src=GPS n_obj=5
+[2026-10-01 23:32:51] seg03_b04-05 vol: 시작
+[2026-10-01 23:33:56] seg05_b07 sfm: 완료 374s reg=40 ext=40 pts=26453 reproj=0.36
+[2026-10-01 23:33:56] seg07_b09 sfm: 시작
+[2026-10-01 23:34:44] seg03_b04-05 vol: 완료 113s n_measured=1 n_obj=5 dense=True n_retry_ok=1
+[2026-10-01 23:34:44] seg01_b01-02 dense: 시작
+[2026-10-01 23:34:52] seg07_b09 sfm: 완료 56s reg=23 ext=40 pts=1077 reproj=0.44
+[2026-10-01 23:34:52] seg08_b10 sfm: 시작
+[2026-10-01 23:36:16] seg08_b10 sfm: 완료 84s reg=40 ext=40 pts=5019 reproj=0.66
+[2026-10-01 23:36:16] seg09_b11 sfm: 시작
+[2026-10-01 23:37:14] seg06_b08 sfm: 완료 454s reg=40 ext=40 pts=36253 reproj=0.85
+[2026-10-01 23:37:14] seg10_b12 sfm: 시작
+[2026-10-01 23:37:56] seg01_b01-02 dense: 완료 192s dense_pts=304924
+[2026-10-01 23:37:56] seg01_b01-02 map: 시작
+[2026-10-01 23:38:14] seg01_b01-02 map: 완료 17s gps_rms_m=0.51 scale_src=GPS n_obj=1
+[2026-10-01 23:38:14] seg01_b01-02 vol: 시작
+[2026-10-01 23:38:37] seg09_b11 sfm: 완료 141s reg=40 ext=40 pts=18870 reproj=0.35
+[2026-10-01 23:38:47] seg11_b13-14 sfm: 시작
+[2026-10-01 23:38:54] seg01_b01-02 vol: 완료 40s n_measured=0 n_obj=1 dense=True n_retry_ok=0
+[2026-10-01 23:38:54] seg07_b09 dense: 시작
+[2026-10-01 23:40:26] seg10_b12 sfm: 완료 192s reg=40 ext=40 pts=23984 reproj=0.71
+[2026-10-01 23:40:26] seg12_b15 sfm: 시작
+[2026-10-01 23:40:35] seg07_b09 dense: 완료 101s dense_pts=267463
+[2026-10-01 23:40:35] seg07_b09 map: 시작
+[2026-10-01 23:40:51] seg07_b09 map: 완료 16s gps_rms_m=0.08 scale_src=GPS n_obj=1
+[2026-10-01 23:40:51] seg07_b09 vol: 시작
+[2026-10-01 23:41:07] seg07_b09 vol: 완료 16s n_measured=1 n_obj=1 dense=True n_retry_ok=0
+[2026-10-01 23:41:07] seg04_b06 dense: 시작
+[2026-10-01 23:41:49] seg12_b15 sfm: 완료 84s reg=40 ext=40 pts=4847 reproj=0.33
+[2026-10-01 23:41:50] seg13_b16-17 sfm: 시작
+[2026-10-01 23:42:05] seg04_b06 dense: 완료 58s dense_pts=172876
+[2026-10-01 23:42:05] seg04_b06 map: 시작
+[2026-10-01 23:42:29] seg04_b06 map: 완료 24s gps_rms_m=0.08 scale_src=고도(SRT) n_obj=1
+[2026-10-01 23:42:29] seg04_b06 vol: 시작
+[2026-10-01 23:42:49] seg04_b06 vol: 완료 20s n_measured=1 n_obj=1 dense=True n_retry_ok=0
+[2026-10-01 23:42:49] seg10_b12 dense: 시작
+[2026-10-01 23:45:37] seg10_b12 dense: 완료 168s dense_pts=404383
+[2026-10-01 23:45:37] seg10_b12 map: 시작
+[2026-10-01 23:46:03] seg10_b12 map: 완료 26s gps_rms_m=0.25 scale_src=GPS n_obj=1
+[2026-10-01 23:46:03] seg10_b12 vol: 시작
+[2026-10-01 23:46:04] seg11_b13-14 sfm: 완료 437s reg=60 ext=60 pts=46017 reproj=0.71
+[2026-10-01 23:46:04] seg14_b18 sfm: 시작
+[2026-10-01 23:46:26] seg10_b12 vol: 완료 23s n_measured=1 n_obj=1 dense=True n_retry_ok=0
+[2026-10-01 23:46:26] seg12_b15 dense: 시작
+[2026-10-01 23:49:13] seg14_b18 sfm: 완료 189s reg=40 ext=40 pts=14411 reproj=0.97
+[2026-10-01 23:49:13] seg16_b20 sfm: 시작
+[2026-10-01 23:49:21] seg12_b15 dense: 완료 176s dense_pts=348565
+[2026-10-01 23:49:21] seg12_b15 map: 시작
+[2026-10-01 23:49:54] seg16_b20 sfm: 완료 41s reg=25 ext=40 pts=700 reproj=0.91
+[2026-10-01 23:49:54] seg17_b21 sfm: 시작
+[2026-10-01 23:50:04] seg12_b15 map: 완료 43s gps_rms_m=0.11 scale_src=GPS n_obj=1
+[2026-10-01 23:50:04] seg12_b15 vol: 시작
+[2026-10-01 23:50:38] seg17_b21 sfm: 완료 44s reg=16 ext=40 pts=536 reproj=0.53
+[2026-10-01 23:50:38] seg18_b22-23 sfm: 시작
+[2026-10-01 23:50:39] seg12_b15 vol: 완료 34s n_measured=1 n_obj=1 dense=True n_retry_ok=0
+[2026-10-01 23:50:39] seg08_b10 dense: 시작
+[2026-10-01 23:51:34] seg13_b16-17 sfm: 완료 585s reg=52 ext=55 pts=50080 reproj=0.9
+[2026-10-01 23:51:34] seg20_b25 sfm: 시작
+[2026-10-01 23:52:49] seg18_b22-23 sfm: 완료 131s reg=35 ext=50 pts=5249 reproj=0.65
+[2026-10-01 23:52:49] seg21_b26 sfm: 시작
+[2026-10-01 23:53:51] seg20_b25 sfm: 완료 136s reg=40 ext=40 pts=12008 reproj=0.42
+[2026-10-01 23:53:51] seg22_b27 sfm: 시작
+[2026-10-01 23:54:02] seg08_b10 dense: 완료 203s dense_pts=294297
+[2026-10-01 23:54:02] seg08_b10 map: 시작
+[2026-10-01 23:54:09] seg21_b26 sfm: 완료 81s reg=28 ext=40 pts=4423 reproj=0.4
+[2026-10-01 23:54:09] seg23_b28 sfm: 시작
+[2026-10-01 23:54:39] seg08_b10 map: 완료 37s gps_rms_m=0.27 scale_src=고도(SRT) n_obj=1
+[2026-10-01 23:54:39] seg08_b10 vol: 시작
+[2026-10-01 23:55:11] seg08_b10 vol: 완료 32s n_measured=1 n_obj=1 dense=True n_retry_ok=0
+[2026-10-01 23:55:11] seg14_b18 dense: 시작
+[2026-10-01 23:58:19] seg14_b18 dense: 완료 188s dense_pts=107254
+[2026-10-01 23:58:19] seg14_b18 map: 시작
+[2026-10-01 23:58:22] seg22_b27 sfm: 완료 271s reg=40 ext=40 pts=33971 reproj=0.34
+[2026-10-01 23:58:22] seg24_b29 sfm: 시작
+[2026-10-01 23:58:45] seg14_b18 map: 완료 26s gps_rms_m=3.39 scale_src=GPS n_obj=3
+[2026-10-01 23:58:45] seg14_b18 vol: 시작
+[2026-10-01 23:59:36] seg14_b18 vol: 완료 51s n_measured=0 n_obj=3 dense=True n_retry_ok=0
+[2026-10-01 23:59:36] seg09_b11 dense: 시작
+[2026-10-02 00:00:17] seg23_b28 sfm: 완료 367s reg=40 ext=40 pts=45467 reproj=0.32
+[2026-10-02 00:00:17] seg25_b30 sfm: 시작
+[2026-10-02 00:02:40] seg09_b11 dense: 완료 184s dense_pts=303240
+[2026-10-02 00:02:40] seg09_b11 map: 시작
+[2026-10-02 00:03:08] seg09_b11 map: 완료 28s gps_rms_m=0.1 scale_src=GPS n_obj=1
+[2026-10-02 00:03:08] seg09_b11 vol: 시작
+[2026-10-02 00:03:38] seg09_b11 vol: 완료 30s n_measured=1 n_obj=1 dense=True n_retry_ok=0
+[2026-10-02 00:03:38] seg18_b22-23 dense: 시작
+[2026-10-02 00:03:43] seg24_b29 sfm: 완료 321s reg=40 ext=40 pts=45446 reproj=0.38
+[2026-10-02 00:03:43] seg15_b19 mosaic: 시작
+[2026-10-02 00:03:48] seg15_b19 mosaic: 완료 6s 
+[2026-10-02 00:03:48] seg19_b24 mosaic: 시작
+[2026-10-02 00:03:57] seg19_b24 mosaic: 완료 8s 
+[2026-10-02 00:03:57] seg02_b03 mosaic: 시작
+[2026-10-02 00:04:03] seg02_b03 mosaic: 완료 6s 
+[2026-10-02 00:04:03] seg03_b04-05 mosaic: 시작
+[2026-10-02 00:04:08] seg03_b04-05 mosaic: 완료 5s 
+[2026-10-02 00:04:08] seg01_b01-02 mosaic: 시작
+[2026-10-02 00:04:14] seg01_b01-02 mosaic: 완료 6s 
+[2026-10-02 00:04:14] seg07_b09 mosaic: 시작
+[2026-10-02 00:04:19] seg07_b09 mosaic: 완료 4s 
+[2026-10-02 00:04:19] seg04_b06 mosaic: 시작
+[2026-10-02 00:04:22] seg04_b06 mosaic: 완료 3s 
+[2026-10-02 00:04:22] seg10_b12 mosaic: 시작
+[2026-10-02 00:04:28] seg10_b12 mosaic: 완료 6s 
+[2026-10-02 00:04:28] seg12_b15 mosaic: 시작
+[2026-10-02 00:04:38] seg12_b15 mosaic: 완료 10s 
+[2026-10-02 00:04:38] seg08_b10 mosaic: 시작
+[2026-10-02 00:04:42] seg08_b10 mosaic: 완료 4s 
+[2026-10-02 00:04:42] seg14_b18 mosaic: 시작
+[2026-10-02 00:04:49] seg14_b18 mosaic: 완료 7s 
+[2026-10-02 00:04:49] seg09_b11 mosaic: 시작
+[2026-10-02 00:05:07] seg09_b11 mosaic: 완료 17s 
+[2026-10-02 00:06:17] seg18_b22-23 dense: 완료 159s dense_pts=192914
+[2026-10-02 00:06:17] seg18_b22-23 map: 시작
+[2026-10-02 00:06:44] seg18_b22-23 map: 완료 27s gps_rms_m=0.86 scale_src=GPS n_obj=1
+[2026-10-02 00:06:44] seg18_b22-23 vol: 시작
+[2026-10-02 00:07:38] seg18_b22-23 vol: 완료 54s n_measured=0 n_obj=1 dense=True n_retry_ok=0
+[2026-10-02 00:07:38] seg18_b22-23 mosaic: 시작
+[2026-10-02 00:07:38] seg21_b26 dense: 시작
+[2026-10-02 00:07:44] seg18_b22-23 mosaic: 완료 6s 
+[2026-10-02 00:10:11] seg21_b26 dense: 완료 153s dense_pts=180985
+[2026-10-02 00:10:11] seg21_b26 map: 시작
+[2026-10-02 00:10:25] seg25_b30 sfm: 완료 609s reg=40 ext=40 pts=52043 reproj=1.03
+[2026-10-02 00:10:36] seg21_b26 map: 완료 24s gps_rms_m=0.05 scale_src=GPS n_obj=1
+[2026-10-02 00:10:36] seg21_b26 vol: 시작
+[2026-10-02 00:11:07] seg21_b26 vol: 완료 31s n_measured=0 n_obj=1 dense=True n_retry_ok=0
+[2026-10-02 00:11:07] seg21_b26 mosaic: 시작
+[2026-10-02 00:11:07] seg22_b27 dense: 시작
+[2026-10-02 00:11:11] seg21_b26 mosaic: 완료 5s 
+[2026-10-02 00:14:14] seg22_b27 dense: 완료 187s dense_pts=485715
+[2026-10-02 00:14:14] seg22_b27 map: 시작
+[2026-10-02 00:14:35] seg22_b27 map: 완료 22s gps_rms_m=0.09 scale_src=GPS n_obj=2
+[2026-10-02 00:14:35] seg22_b27 vol: 시작
+[2026-10-02 00:15:09] seg22_b27 vol: 완료 34s n_measured=0 n_obj=2 dense=True n_retry_ok=0
+[2026-10-02 00:15:09] seg22_b27 mosaic: 시작
+[2026-10-02 00:15:09] seg17_b21 dense: 시작
+[2026-10-02 00:15:18] seg22_b27 mosaic: 완료 8s 
+[2026-10-02 00:16:24] seg17_b21 dense: 완료 75s dense_pts=82940
+[2026-10-02 00:16:24] seg17_b21 map: 시작
+[2026-10-02 00:16:45] seg17_b21 map: 완료 21s gps_rms_m=0.05 scale_src=GPS n_obj=1
+[2026-10-02 00:16:45] seg17_b21 vol: 시작
+[2026-10-02 00:17:10] seg17_b21 vol: 완료 25s n_measured=1 n_obj=1 dense=True n_retry_ok=0
+[2026-10-02 00:17:10] seg17_b21 mosaic: 시작
+[2026-10-02 00:17:10] seg20_b25 dense: 시작
+[2026-10-02 00:17:13] seg17_b21 mosaic: 완료 3s 
+[2026-10-02 00:20:17] seg20_b25 dense: 완료 188s dense_pts=519831
+[2026-10-02 00:20:17] seg20_b25 map: 시작
+[2026-10-02 00:20:24] seg20_b25 map: 실패 (종료코드 1: ackathon\.venv\Lib\site-packages\numpy\linalg\_linalg.py", line 1796, in svd | u, s, vh = gufunc(a, signature=signature) | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ | File "C:\Users\user\Desktop\드론\aerodrone_hackathon\.venv\Lib\site-packages\numpy\linalg\_linalg.py", line 113, in _raise_linalgerror_svd_nonconvergence | raise LinAlgError("SVD did not converge") | numpy.linalg.LinAlgError: SVD did not converge)
+[2026-10-02 00:20:24] seg11_b13-14 dense: 시작
+[2026-10-02 00:24:55] seg11_b13-14 dense: 완료 271s dense_pts=551165
+[2026-10-02 00:24:55] seg11_b13-14 map: 시작
+[2026-10-02 00:25:29] seg11_b13-14 map: 완료 34s gps_rms_m=1.24 scale_src=GPS n_obj=2
+[2026-10-02 00:25:29] seg11_b13-14 vol: 시작
+[2026-10-02 00:26:40] seg11_b13-14 vol: 완료 71s n_measured=1 n_obj=2 dense=True n_retry_ok=1
+[2026-10-02 00:26:40] seg11_b13-14 mosaic: 시작
+[2026-10-02 00:26:40] seg16_b20 dense: 시작
+[2026-10-02 00:26:53] seg11_b13-14 mosaic: 완료 14s 
+[2026-10-02 00:28:09] seg16_b20 dense: 완료 90s dense_pts=42045
+[2026-10-02 00:28:09] seg16_b20 map: 시작
+[2026-10-02 00:28:21] seg16_b20 map: 완료 12s gps_rms_m=0.16 scale_src=GPS n_obj=1
+[2026-10-02 00:28:21] seg16_b20 vol: 시작
+[2026-10-02 00:28:51] seg16_b20 vol: 완료 29s n_measured=0 n_obj=1 dense=True n_retry_ok=0
+[2026-10-02 00:28:51] seg16_b20 mosaic: 시작
+[2026-10-02 00:28:51] seg24_b29 dense: 시작
+[2026-10-02 00:28:54] seg16_b20 mosaic: 완료 3s 
+[2026-10-02 00:31:07] seg24_b29 dense: 완료 136s dense_pts=553797
+[2026-10-02 00:31:07] seg24_b29 map: 시작
+[2026-10-02 00:33:45] seg24_b29 map: 완료 158s gps_rms_m=0.06 scale_src=GPS n_obj=1
+[2026-10-02 00:33:45] seg24_b29 vol: 시작
+[2026-10-02 00:39:27] seg24_b29 vol: 완료 342s n_measured=0 n_obj=1 dense=True n_retry_ok=0
+[2026-10-02 00:39:27] seg24_b29 mosaic: 시작
+[2026-10-02 00:39:27] seg05_b07 dense: 시작
+[2026-10-02 00:41:52] seg24_b29 mosaic: 완료 144s 
+[2026-10-02 00:42:12] seg05_b07 dense: 완료 165s dense_pts=80718
+[2026-10-02 00:42:12] seg05_b07 map: 시작
+[2026-10-02 00:42:54] seg05_b07 map: 완료 42s gps_rms_m=0.07 scale_src=GPS n_obj=1
+[2026-10-02 00:42:54] seg05_b07 vol: 시작
+[2026-10-02 00:44:33] seg05_b07 vol: 완료 100s n_measured=0 n_obj=1 dense=True n_retry_ok=0
+[2026-10-02 00:44:33] seg05_b07 mosaic: 시작
+[2026-10-02 00:44:33] seg06_b08 dense: 시작
+[2026-10-02 00:45:38] seg05_b07 mosaic: 완료 65s 
+[2026-10-02 00:46:58] seg06_b08 dense: 완료 145s dense_pts=272924
+[2026-10-02 00:46:58] seg06_b08 map: 시작
+[2026-10-02 00:47:15] seg06_b08 map: 완료 17s gps_rms_m=0.85 scale_src=GPS n_obj=1
+[2026-10-02 00:47:15] seg06_b08 vol: 시작
+[2026-10-02 00:49:03] seg06_b08 vol: 실패 (종료코드 1: torch.AcceleratorError: CUDA error: out of memory | CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect. | For debugging consider passing CUDA_LAUNCH_BLOCKING=1 | Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions. | 3D 점 272,924개 (조밀) · 축척 편차 95.5% · 카메라 기울기 중앙값 56° · SAM 장치 0)
+[2026-10-02 00:49:53] seg06_b08 mosaic: 시작
+[2026-10-02 00:49:53] seg13_b16-17 dense: 시작
+[2026-10-02 00:50:00] seg06_b08 mosaic: 완료 7s 
+[2026-10-02 00:53:36] seg13_b16-17 dense: 완료 223s dense_pts=327687
+[2026-10-02 00:53:36] seg13_b16-17 map: 시작
+[2026-10-02 00:54:01] seg13_b16-17 map: 완료 25s gps_rms_m=1.61 scale_src=GPS n_obj=1
+[2026-10-02 00:54:01] seg13_b16-17 vol: 시작
+[2026-10-02 00:55:04] seg13_b16-17 vol: 완료 63s n_measured=0 n_obj=1 dense=True n_retry_ok=0
+[2026-10-02 00:55:04] seg13_b16-17 mosaic: 시작
+[2026-10-02 00:55:04] seg25_b30 dense: 시작
+[2026-10-02 00:55:22] seg13_b16-17 mosaic: 완료 18s 
+[2026-10-02 00:57:37] seg25_b30 dense: 완료 153s dense_pts=145590
+[2026-10-02 00:57:37] seg25_b30 map: 시작
+[2026-10-02 00:57:59] seg25_b30 map: 완료 21s gps_rms_m=2.0 scale_src=GPS n_obj=2
+[2026-10-02 00:57:59] seg25_b30 vol: 시작
+[2026-10-02 00:58:26] seg25_b30 vol: 완료 27s n_measured=0 n_obj=2 dense=True n_retry_ok=0
+[2026-10-02 00:58:26] seg25_b30 mosaic: 시작
+[2026-10-02 00:58:26] seg23_b28 dense: 시작
+[2026-10-02 00:58:33] seg25_b30 mosaic: 완료 8s 
+[2026-10-02 01:00:39] seg23_b28 dense: 완료 133s dense_pts=530880
+[2026-10-02 01:00:39] seg23_b28 map: 시작
+[2026-10-02 01:00:54] seg23_b28 map: 완료 16s gps_rms_m=0.06 scale_src=GPS n_obj=1
+[2026-10-02 01:00:54] seg23_b28 vol: 시작
+[2026-10-02 01:01:15] seg23_b28 vol: 완료 21s n_measured=0 n_obj=1 dense=True n_retry_ok=0
+[2026-10-02 01:01:15] seg23_b28 mosaic: 시작
+[2026-10-02 01:01:21] seg23_b28 mosaic: 완료 6s 
+[2026-10-02 01:01:21] 전체 완료 98.7분
+{
+ "segments": 25,
+ "boxes": 30,
+ "stage_success": {
+  "sfm": {
+   "ok": 25,
+   "of": 25,
+   "mean_sec": 234.0
+  },
+  "dense": {
+   "ok": 25,
+   "of": 25,
+   "mean_sec": 160.0
+  },
+  "map": {
+   "ok": 24,
+   "of": 25,
+   "mean_sec": 29.5
+  },
+  "vol": {
+   "ok": 23,
+   "of": 25,
+   "mean_sec": 56.7
+  },
+  "mosaic": {
+   "ok": 24,
+   "of": 25,
+   "mean_sec": 15.4
+  }
+ },
+ "boxes_located_3d": 26,
+ "boxes_volume_ok": 11,
+ "failure_reasons": {
+  "마스크": 10,
+  "3D": 4,
+  "점": 3,
+  "objvol": 1,
+  "바닥": 1
+ },
+ "total_sec": 5920.6,
+ "generated": "2026-10-02 01:01:21"
+}
+# 1    1.5s seg01_b01-02     등록 45/45 조밀 304924 ×× cm  L  부피 실패 마스크 실패(SAM 마스크 없음)
+# 2    5.0s seg01_b01-02     등록 45/45 조밀 304924 ×× cm  L  3D 탐지 없음 3D 탐지 물체와 위치 매칭 실패
+# 3   27.0s seg02_b03        등록 40/40 조밀 230617 ×× cm  L  부피 실패 마스크 실패(SAM 마스크 없음)
+# 4   47.6s seg03_b04-05     등록 47/58 조밀 258699 148.3×70.5×59.5 cm 283.1 L  부피 OK(바닥 기울기 주의) 바닥 평면 26° 기울어짐
+# 5   51.1s seg03_b04-05     등록 47/58 조밀 258699 ×× cm  L  부피 실패 점 부족(물체 점 0)
+# 6   79.6s seg04_b06        등록 15/40 조밀 172876 60.5×42.2×9.5 cm 20.6 L  부피 OK 
+# 7  103.6s seg05_b07        등록 40/40 조밀 80718 ×× cm  L  부피 실패 점 부족(물체 점 0)
+# 8  141.7s seg06_b08        등록 40/40 조밀 272924 ×× cm  L  부피 실패 objvol 오류
+# 9  162.2s seg07_b09        등록 23/40 조밀 267463 46.8×39.8×41.5 cm 71.0 L  부피 OK 
+#10  188.2s seg08_b10        등록 40/40 조밀 294297 5.3×1.3×4.5 cm 0.0 L  부피 OK(점 부족 주의) 물체 점 36개뿐
+#11  220.7s seg09_b11        등록 40/40 조밀 303240 44.0×41.2×42.5 cm 64.0 L  부피 OK 
+#12  236.3s seg10_b12        등록 40/40 조밀 404383 37.5×3.8×10.5 cm 1.2 L  부피 OK 
+#13  246.3s seg11_b13-14     등록 60/60 조밀 551165 ×× cm  L  부피 실패 마스크 실패(SAM 마스크 없음)
+#14  251.3s seg11_b13-14     등록 60/60 조밀 551165 34.8×8.4×52.5 cm 10.7 L  부피 OK(바닥 기울기 주의) 바닥 평면 24° 기울어짐
+#15  269.3s seg12_b15        등록 40/40 조밀 348565 33.2×31.6×32.5 cm 31.8 L  부피 OK 
+#16  288.3s seg13_b16-17     등록 52/55 조밀 327687 ×× cm  L  부피 실패 바닥 평면 틀어짐 22°
+#17  291.3s seg13_b16-17     등록 52/55 조밀 327687 ×× cm  L  3D 탐지 없음 3D 탐지 물체와 위치 매칭 실패
+#18  318.8s seg14_b18        등록 40/40 조밀 107254 ×× cm  L  부피 실패 점 부족(물체 점 0)
+#19  339.9s seg15_b19        등록 27/40 조밀 368151 78.8×45.8×48.5 cm 90.8 L  부피 OK 
+#20  360.9s seg16_b20        등록 25/40 조밀 42045 ×× cm  L  부피 실패 마스크 실패(SAM 마스크 없음)
+#21  381.4s seg17_b21        등록 16/40 조밀 82940 43.2×39.1×34.5 cm 43.6 L  부피 OK 
+#22  397.4s seg18_b22-23     등록 35/50 조밀 192914 ×× cm  L  부피 실패 마스크 실패(SAM 마스크 없음)
+#23  399.4s seg18_b22-23     등록 35/50 조밀 192914 ×× cm  L  3D 탐지 없음 3D 탐지 물체와 위치 매칭 실패
+#24  434.5s seg19_b24        등록 40/40 조밀 235136 61.1×50.9×65.5 cm 122.7 L  부피 OK 
+#25  468.0s seg20_b25        등록 40/40 조밀 519831 ×× cm  L  3D 탐지 없음 3D 프레임에서 탐지 안 됨
+#26  491.0s seg21_b26        등록 28/40 조밀 180985 ×× cm  L  부피 실패 마스크 실패(SAM 마스크 없음)
+#27  510.0s seg22_b27        등록 40/40 조밀 485715 ×× cm  L  부피 실패 마스크 실패(SAM 마스크 없음)
+#28  531.0s seg23_b28        등록 40/40 조밀 530880 ×× cm  L  부피 실패 마스크 실패(SAM 마스크 없음)
+#29  554.6s seg24_b29        등록 40/40 조밀 553797 ×× cm  L  부피 실패 마스크 실패(SAM 마스크 없음)
+#30  573.6s seg25_b30        등록 40/40 조밀 145590 ×× cm  L  부피 실패 마스크 실패(SAM 마스크 없음)
+→ runs\orbit\0015_all\objects3d.csv · map.html · map.png · summary.json · masks_sheet.jpg

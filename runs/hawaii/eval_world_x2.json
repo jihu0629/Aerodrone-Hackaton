@@ -1,0 +1,146 @@
+[
+ {
+  "images": 420,
+  "gt": 3195,
+  "pred@conf": 69,
+  "conf": 0.05,
+  "iou": 0.3,
+  "precision": 0.5652173913043478,
+  "recall": 0.012206572769953052,
+  "f1": 0.02389705882352941,
+  "ap50": 0.011951381705334713,
+  "count_ratio": 0.0215962441314554,
+  "area_ratio_median": 0.7442761747308936,
+  "mask_iou_median": 0.6757125758117118,
+  "recall_by_class": {
+   "unidentified object": {
+    "recall": 0.013539651837524178,
+    "n": 1551
+   },
+   "buoy": {
+    "recall": 0.0057670126874279125,
+    "n": 867
+   },
+   "net cloth": {
+    "recall": 0.008968609865470852,
+    "n": 223
+   },
+   "processed wood": {
+    "recall": 0.004608294930875576,
+    "n": 217
+   },
+   "tire": {
+    "recall": 0.034722222222222224,
+    "n": 144
+   },
+   "metal": {
+    "recall": 0.00980392156862745,
+    "n": 102
+   },
+   "line fragment": {
+    "recall": 0.037037037037037035,
+    "n": 81
+   },
+   "vessel": {
+    "recall": 0.1,
+    "n": 10
+   }
+  }
+ },
+ {
+  "images": 420,
+  "gt": 3195,
+  "pred@conf": 21,
+  "conf": 0.1,
+  "iou": 0.3,
+  "precision": 0.5714285714285714,
+  "recall": 0.003755868544600939,
+  "f1": 0.007462686567164179,
+  "ap50": 0.011951381705334713,
+  "count_ratio": 0.006572769953051643,
+  "area_ratio_median": 0.7453509293956146,
+  "mask_iou_median": 0.7201919378682279,
+  "recall_by_class": {
+   "unidentified object": {
+    "recall": 0.003223726627981947,
+    "n": 1551
+   },
+   "buoy": {
+    "recall": 0.0011534025374855825,
+    "n": 867
+   },
+   "net cloth": {
+    "recall": 0.0,
+    "n": 223
+   },
+   "processed wood": {
+    "recall": 0.0,
+    "n": 217
+   },
+   "tire": {
+    "recall": 0.027777777777777776,
+    "n": 144
+   },
+   "metal": {
+    "recall": 0.00980392156862745,
+    "n": 102
+   },
+   "line fragment": {
+    "recall": 0.012345679012345678,
+    "n": 81
+   },
+   "vessel": {
+    "recall": 0.0,
+    "n": 10
+   }
+  }
+ },
+ {
+  "images": 420,
+  "gt": 3195,
+  "pred@conf": 4,
+  "conf": 0.2,
+  "iou": 0.3,
+  "precision": 0.5,
+  "recall": 0.0006259780907668231,
+  "f1": 0.0012503907471084713,
+  "ap50": 0.011951381705334713,
+  "count_ratio": 0.0012519561815336462,
+  "area_ratio_median": 0.7379673889391333,
+  "mask_iou_median": 0.7379673889391333,
+  "recall_by_class": {
+   "unidentified object": {
+    "recall": 0.0006447453255963894,
+    "n": 1551
+   },
+   "buoy": {
+    "recall": 0.0,
+    "n": 867
+   },
+   "net cloth": {
+    "recall": 0.0,
+    "n": 223
+   },
+   "processed wood": {
+    "recall": 0.0,
+    "n": 217
+   },
+   "tire": {
+    "recall": 0.0,
+    "n": 144
+   },
+   "metal": {
+    "recall": 0.0,
+    "n": 102
+   },
+   "line fragment": {
+    "recall": 0.012345679012345678,
+    "n": 81
+   },
+   "vessel": {
+    "recall": 0.0,
+    "n": 10
+   }
+  }
+ }
+]
