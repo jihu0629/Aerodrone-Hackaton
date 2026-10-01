@@ -79,7 +79,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--stations", default="17LTC04,15LTC01"); ap.add_argument("--start", default="2026-07-28"); ap.add_argument("--end", default="2026-07-29")
     ap.add_argument("--compare", default="ocean_current_data/data/currents_2026-06-01_2026-09-30.nc", help="Open-Meteo 해류 NetCDF (없으면 생략)")
-    ap.add_argument("--out", default="ocean_current_data/data/khoa")
+    ap.add_argument("--out", default="ocean_current_data/data/khoa"); ap.add_argument("--workers", type=int, default=4, help="날짜 단위 병렬 요청 수")
     a = ap.parse_args()
     key = api_key(); out = ROOT / a.out; out.mkdir(parents=True, exist_ok=True)
     d0 = datetime.fromisoformat(a.start); d1 = datetime.fromisoformat(a.end); days = [(d0 + timedelta(days=i)).strftime("%Y%m%d") for i in range((d1 - d0).days + 1)]
@@ -88,8 +88,11 @@ def main():
     series = {}
     for obs in a.stations.split(","):
         rows = []
-        for day in days:
-            items = fetch_day(key, obs, day); manifest["n_requests"] += max(1, (len(items) + 299) // 300)
+        from concurrent.futures import ThreadPoolExecutor
+        with ThreadPoolExecutor(max_workers=a.workers) as ex:
+            per_day = list(ex.map(lambda d: fetch_day(key, obs, d), days))
+        for day, items in zip(days, per_day):
+            manifest["n_requests"] += max(1, (len(items) + 299) // 300)
             for it in items:
                 tk = datetime.strptime(it["predcDt"], "%Y-%m-%d %H:%M"); tu = tk - timedelta(hours=9)
                 deg = DIR16.get(it["crdir"].strip(), np.nan); sp = float(it["crsp"]) / 100.0
