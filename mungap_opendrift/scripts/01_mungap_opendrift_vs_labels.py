@@ -104,9 +104,11 @@ def main():
     ap.add_argument("--windage", type=float, default=0.02); ap.add_argument("--diffusivity", type=float, default=10.0); ap.add_argument("--dt-min", type=int, default=20)
     ap.add_argument("--match-m", type=float, default=1500.0); ap.add_argument("--top-frac", type=float, default=0.3)
     ap.add_argument("--data", default="ocean_current_data/data"); ap.add_argument("--out", default="mungap_opendrift/outputs"); ap.add_argument("--skip-run", action="store_true")
+    ap.add_argument("--currents", help="해류 NetCDF 경로 지정 (기본: <data>/currents_2026-06-01_2026-09-30.nc). KHOA 보정본 등")
+    ap.add_argument("--residual-dir", type=float, help="잔차류 맞이 점수에 쓸 흐름 방향(°). 기본은 Open-Meteo 평균. KHOA 실측값을 넣을 때 사용")
     a = ap.parse_args()
     out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
-    cur_nc = ROOT / a.data / "currents_2026-06-01_2026-09-30.nc"; wind_nc = ROOT / a.data / "wind_2026-06-01_2026-09-30.nc"
+    cur_nc = (ROOT / a.currents) if a.currents else (ROOT / a.data / "currents_2026-06-01_2026-09-30.nc"); wind_nc = ROOT / a.data / "wind_2026-06-01_2026-09-30.nc"
     t0 = datetime.fromisoformat(a.start); t_end = datetime.fromisoformat(a.survey)
 
     # ---- 1. OpenDrift
@@ -126,6 +128,8 @@ def main():
     wind_jul, wspd_jul = mean_wind(wind_nc, 37.17, 126.10, datetime(2026, 7, 1), t_end)
     wind_all, wspd_all = mean_wind(wind_nc, 37.17, 126.10, t0, t_end)
     cur_dir, cur_mag, cur_med = mean_current(cur_nc, 37.17, 126.10, t0, t_end)
+    if a.residual_dir is not None:
+        print(f"잔차류 방향을 Open-Meteo {cur_dir:.0f}° 대신 지정값 {a.residual_dir:.0f}° (KHOA 실측) 로 사용"); cur_dir = float(a.residual_dir)
     print(f"측정 바람: 7월 불어오는 방향 {wind_jul:.0f}° ({wspd_jul:.1f} m/s), 6~7월 {wind_all:.0f}° | 잔차류: 흐르는 방향 {cur_dir:.0f}°, {cur_mag:.3f} m/s, 조류 속력 중앙값 {cur_med:.2f} m/s")
     args = types.SimpleNamespace(s2_dir="input/s2_mungap", scenes="20260615,20260804,20260916", prefix="mungap", wind_from=wind_jul,
                                  density_grid=None, density_csv="input/s2_mungap/labels_42.csv")

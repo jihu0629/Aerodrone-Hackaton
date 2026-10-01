@@ -1,0 +1,37 @@
+{
+ "station": {
+  "code": "17LTC04",
+  "name": "문갑도동측",
+  "lon": 126.14666,
+  "lat": 37.18361
+ },
+ "n_hours_compared": 1407,
+ "lag_h": -2,
+ "lag_corr": {
+  "u": 0.898,
+  "v": 0.805
+ },
+ "rotation_deg": 28.5,
+ "speed_scale": 0.714,
+ "sigma_km": 15.0,
+ "before": {
+  "speed_corr": -0.057,
+  "speed_rmse_mps": 0.352,
+  "dir_diff_median_deg": 28.6,
+  "vector_rmse_mps": 0.555
+ },
+ "after": {
+  "speed_corr": 0.498,
+  "speed_rmse_mps": 0.204,
+  "dir_diff_median_deg": 21.4,
+  "vector_rmse_mps": 0.313
+ },
+ "khoa_residual": {
+  "toward_deg": 51,
+  "speed_mps": 0.243
+ },
+ "khoa_tidal_ellipse_major_axis_deg": 77,
+ "khoa_speed_median_mps": 0.417,
+ "khoa_speed_max_mps": 1.017,
+ "out": "ocean_current_data\\data\\currents_nudged_mungap.nc"
+}

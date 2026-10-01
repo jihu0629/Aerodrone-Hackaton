@@ -2,27 +2,18 @@
  "endpoint": "https://apis.data.go.kr/1192136/crntFcstTime/GetCrntFcstTimeApiService",
  "dataset": "https://www.data.go.kr/data/15156024/openapi.do",
  "license": "KOGL 제1유형 (출처표시: 해양수산부 국립해양조사원)",
- "fetched_utc": "2026-10-01T22:06:55.986686+00:00",
+ "fetched_utc": "2026-10-01T22:14:23.184056+00:00",
  "stations": {
   "17LTC04": {
    "name": "문갑도동측",
    "lon": 126.14666,
    "lat": 37.18361,
-   "file": "17LTC04_2026-07-28_2026-07-29.csv",
-   "n_rows": 2880,
-   "speed_mps_max": 0.8,
-   "speed_mps_median": 0.46
-  },
-  "15LTC01": {
-   "name": "염하수도",
-   "lon": 126.543,
-   "lat": 37.63072,
-   "file": "15LTC01_2026-07-28_2026-07-29.csv",
-   "n_rows": 2880,
-   "speed_mps_max": 1.57,
-   "speed_mps_median": 0.88
+   "file": "17LTC04_2026-06-01_2026-07-29.csv",
+   "n_rows": 84960,
+   "speed_mps_max": 1.05,
+   "speed_mps_median": 0.43
   }
  },
- "n_requests": 20,
+ "n_requests": 295,
  "note": "crsp 는 cm/s 로 해석해 m/s 로 변환. predcDt 는 KST."
 }

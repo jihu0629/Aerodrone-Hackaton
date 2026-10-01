@@ -1,2 +1,3 @@
 outputs/opendrift_*.nc
 .secrets/
+data/currents_nudged_*.nc
