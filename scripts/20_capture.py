@@ -4,6 +4,7 @@
   python scripts/20_capture.py                               # config/dronecap.yml 사용
   python scripts/20_capture.py --url rtsp://127.0.0.1:8554/live/drone --record
   python scripts/20_capture.py --url sample.mp4 --no-display --duration 10   # 로컬 파일로 동작 확인
+  python scripts/20_capture.py --record --ocr-screen                          # 영상 수신 + 미러링 화면 OCR 동시
 """
 from __future__ import annotations
 
@@ -27,6 +28,8 @@ def main() -> int:
     ap.add_argument("--duration", type=float, help="이 시간(초) 뒤 자동 종료 (테스트용)")
     ap.add_argument("--interval", type=float, help="프레임 저장 간격(초) 덮어쓰기")
     ap.add_argument("--transport", choices=["tcp", "udp"], help="RTSP 전송 방식 덮어쓰기")
+    ap.add_argument("--ocr-screen", action="store_true",
+                    help="미러링된 아이폰 화면을 같은 세션에서 OCR (config/ocr_roi.json 필요). HUD 에 최신 값 표시, telemetry.csv 기록")
     a = ap.parse_args()
 
     cfg = load_config(a.config)
@@ -40,7 +43,7 @@ def main() -> int:
         cfg["stream"]["rtsp_transport"] = a.transport
 
     app = CaptureApp(cfg, display=(not a.no_display), duration_s=a.duration,
-                     record_on_start=True if a.record else None)
+                     record_on_start=True if a.record else None, live_ocr=a.ocr_screen)
     stats = app.run()
     print(f"\n세션 폴더: {app.session.dir}")
     print(f"받은 프레임 {stats['frames_received']}, 저장 {stats['frames_saved']}, 녹화 구간 {stats['recording_segments']}, "

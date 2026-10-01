@@ -22,7 +22,8 @@ from .timeutil import monotonic
 
 class CaptureApp:
     def __init__(self, cfg: dict, display: Optional[bool] = None, duration_s: Optional[float] = None,
-                 record_on_start: Optional[bool] = None):
+                 record_on_start: Optional[bool] = None, live_ocr: bool = False, ocr_source_factory=None,
+                 ocr_engine=None):
         self.cfg = cfg
         self.display = cfg["display"]["enabled"] if display is None else display
         self.duration = duration_s
@@ -38,6 +39,15 @@ class CaptureApp:
         want_rec = cfg["record"]["enabled_on_start"] if record_on_start is None else record_on_start
         if want_rec:
             self.rec.wanted = True
+        self.ocr = None
+        if live_ocr:
+            from .ocr.live import LiveOcr
+            self.ocr = LiveOcr(cfg["ocr"], self.session.dir, self.log, ocr_source_factory, ocr_engine)
+            if self.ocr.error:
+                self.log.error(self.ocr.error)
+            else:
+                self.log.info("화면 OCR 동시 실행: ROI %s, 간격 %.2fs → telemetry.csv", [r.name for r in self.ocr.rois.rois],
+                              float(cfg["ocr"].get("interval_s", 0.5)))
         self.log.info("세션 폴더: %s", self.session.dir)
         self.log.info("스트림 주소: %s (transport=%s)", cfg["stream"]["url"], cfg["stream"]["rtsp_transport"])
 
@@ -52,6 +62,8 @@ class CaptureApp:
     # ---- 메인 루프 ----
     def run(self) -> dict:
         self.reader.start()
+        if self.ocr is not None and self.ocr.enabled:
+            self.ocr.start()
         t0 = monotonic()
         try:
             signal.signal(signal.SIGINT, lambda *_: setattr(self, "_quit", True))
@@ -136,6 +148,7 @@ class CaptureApp:
             (f"recv={r.frames_total}  preview_skipped={r.preview_skipped}  "
              f"frames saved={self.frames.saved} dropped={self.frames.dropped} auto={'on' if self.frames.enabled else 'off'}", (255, 255, 255)),
             (self.rec.status_text(), (0, 0, 255) if self.rec.wanted else (180, 180, 180)),
+            *([(self.ocr.hud_text(), (0, 255, 255))] if self.ocr is not None else []),
             (f"session={self.session.session_id}", (200, 200, 200)),
             ("q:quit r:record s:snapshot f:auto-frames h:hud", (160, 160, 160)),
         ]
@@ -151,6 +164,9 @@ class CaptureApp:
         self.log.info("종료 중...")
         self.reader.stop()
         self.reader.join(timeout=5)
+        if self.ocr is not None and self.ocr.enabled:
+            self.ocr.stop()
+            self.ocr.join(timeout=10)
         self.rec.close()
         self.frames.close()
         if self.display:
@@ -168,6 +184,8 @@ class CaptureApp:
             "frames_write_failed": self.frames.failed,
             "recording_segments": self.rec.seg_count,
             "last_stream_error": self.reader.last_error,
+            "ocr_samples": (self.ocr.count if self.ocr is not None else None),
+            "ocr_error": (self.ocr.error if self.ocr is not None else None),
         }
         self.log.info("통계: %s", stats)
         self.session.close(stats)

@@ -18,7 +18,7 @@ dronecap/                실시간 수집 패키지 (자세한 설명: docs/dron
   config.py · timeutil.py · session.py        설정, UTC/monotonic 시각 규칙, 세션 폴더·CSV
   stream.py · recorder.py · frames.py         RTSP 수신 스레드(재접속), ffmpeg copy 녹화, 간격 프레임 저장
   capture_app.py                              1단계 메인 루프(HUD·키 조작)
-  ocr/ (parse, roi, engine, sources, runner)  화면 숫자 OCR (RapidOCR CPU / Tesseract), ROI 선택, 입력 소스
+  ocr/ (parse, roi, engine, sources, runner, live)  화면 숫자 OCR (RapidOCR CPU / Tesseract), ROI 선택, 입력 소스, 수신과 동시 실행
   media_meta.py                               녹화 .SRT / 사진 XMP 의 GPS·고도 읽기, COLMAP GPS 기준 파일 (비행 데이터 주 경로)
   sync.py · sfm.py                            프레임↔OCR 시간 매칭, 프레임 선별·COLMAP 명령·GPS 미터 정렬
 config/dronecap.yml      dronecap 설정 (RTSP 주소, 재접속, 녹화, OCR 필드, 동기화 오프셋)

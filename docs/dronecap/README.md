@@ -120,6 +120,9 @@ VLC 로 보려면: 미디어 → 네트워크 스트림 열기 → `rtsp://127.0
 | B. 화면 미러링/녹화 → OCR | 가능 (미러링 시) | H·D·속도 (화면에 보이는 것만, GPS 없음) | **보조 (실시간이 꼭 필요할 때만)**. 미러링 앱·지연·OCR 오차·오프셋 보정 필요 |
 | C. SDK 로 직접 수신 | — | — | **불가**. Mini 5 Pro 는 2026-10 현재 DJI MSDK 미지원. 역공학은 범위 밖 |
 | D. DJI Fly 비행 기록(.txt) | 아니오 | 0.1~0.2 초 간격 전체 텔레메트리 | 참고용. 최신 버전은 암호화돼 복호화 키를 DJI 서버에서 받는 외부 도구가 필요(pydjirecord, dji-log-parser, PhantomHelp). 영상과 시각을 따로 맞춰야 함 |
+| E. Remote ID 방송 수신 (Wi-Fi 비콘, ESP32 수신기) | 가능 (1 Hz, GPS·고도·속도) | 위도·경도·고도·속도 | **한국 설정에서 불가로 확인 (2026-10-01)**. DJI Fly 안전 설정에 Remote ID 항목이 없고 방송도 없음. 미국 등 의무화 지역 기체에서만 가능 |
+
+**실시간 결론: 화면 OCR(B)이 유일한 실시간 경로다.** `20_capture.py --ocr-screen` 으로 영상 수신과 같은 세션에서 돌리고 HUD 에 최신 값이 표시된다. 정밀 데이터는 비행 후 A 로 덮어쓴다.
 
 최종 목표가 **오프라인 3D 복원**이므로 A 가 필요한 것을 가장 정확하게 준다. B(OCR)는 1·2단계 코드가 이미 있으니 라이브 모니터링 용도로 남겨 둔다.
 
@@ -163,6 +166,10 @@ DJI 지원 문서 기준 DJI Fly 왼쪽 아래 표시: `H` = 홈포인트(이륙
 
 ### 4-3. 실행
 
+**현장 네트워크 구성 제안 (미검증)**: 현장에는 공유기가 없으므로 Windows 노트북의 '모바일 핫스팟' 을 켜고 아이폰을 거기에 붙인다.
+그러면 DJI Fly RTMP(`rtmp://<핫스팟 어댑터의 IPv4>:1935/live/drone`, 보통 192.168.137.1)와 미러링이 모두 노트북↔아이폰 직접 링크로 가고 인터넷이 필요 없다.
+RTMP 와 미러링이 아이폰 업로드 대역폭을 나눠 쓰므로, 미러링 앱은 해상도를 낮추고 DJI Fly 송출 화질도 낮은 쪽부터 시험한다.
+
 ```powershell
 # (a) 기준 화면으로 ROI 선택: 필드마다 드래그 → Enter, 없는 항목은 c
 .\.venv\Scripts\python.exe scripts\21_select_roi.py --image iphone_screenshot.png
@@ -172,8 +179,12 @@ DJI 지원 문서 기준 DJI Fly 왼쪽 아래 표시: `H` = 홈포인트(이륙
 # (b) OCR
 .\.venv\Scripts\python.exe scripts\22_ocr_run.py --image iphone_screenshot.png --show
 .\.venv\Scripts\python.exe scripts\22_ocr_run.py --video iphone_record.mp4 --out data\ocr_test\telemetry.csv
-.\.venv\Scripts\python.exe scripts\22_ocr_run.py --screen --session data\sessions\drone_xxx     # 20_capture 와 동시에 실행
+.\.venv\Scripts\python.exe scripts\22_ocr_run.py --screen --session data\sessions\drone_xxx     # 20_capture 와 동시에 실행 (별도 터미널)
+
+# (c) 권장: 영상 수신과 화면 OCR 을 한 프로그램에서 — HUD 에 "OCR(횟수, n초 전): H=12.3m[ok] D=..." 표시, 같은 세션의 telemetry.csv 에 기록
+.\.venv\Scripts\python.exe scripts\20_capture.py --record --ocr-screen
 ```
+`--ocr-screen` 은 `config/ocr_roi.json` 이 있어야 켜진다. 없으면 오류를 로그에 남기고 영상 수신만 계속한다. HUD 의 "n초 전" 이 커지면 OCR 이 멈춘 것이므로 미러링 창을 확인한다.
 - ROI 는 선택 당시 프레임 크기와 함께 `config/ocr_roi.json` 에 저장된다. 입력 크기가 다르면 모든 행이 `size_mismatch` 로 기록되고 재선택 안내가 뜬다.
 - `ocr_debug/` 에 N 회마다 잘라낸 영역 + 인식 원문 + 해석 결과 몽타주가 저장된다. ROI 를 숫자에 **딱 맞게** 잡는 것이 정확도에 가장 중요하다 (라벨 글자 `H`/`D` 가 함께 들어가면 `label` 설정으로 떼어 낸다).
 - `telemetry.csv` 열: `raw_text`(원문), `confidence`(엔진 제공 점수, RapidOCR 0~1 / Tesseract 0~1 환산, 없으면 빈칸), `value`, `unit`, `status`(`ok`/`empty`/`no_number`/`ambiguous`/`unit_mismatch`/`out_of_range`/`size_mismatch`), `notes`.
@@ -221,6 +232,7 @@ DJI 지원 문서 기준 DJI Fly 왼쪽 아래 표시: `H` = 홈포인트(이륙
 - 실제 DJI Fly 화면 레이아웃·글꼴에서의 OCR 정확도, 미러링 앱 지연, 아이폰 화면 녹화가 DJI Fly 와 동시에 되는지.
 - COLMAP 실행 (명령 생성만 테스트).
 
+- `--ocr-screen` 통합: 가짜 화면 소스·가짜 엔진으로 수신과 OCR 이 동시에 돌며 telemetry.csv 와 HUD 문구가 생기는 것, ROI 파일이 없을 때 OCR 만 꺼지고 수신은 계속되는 것을 테스트로 확인. 실제 mss 화면 캡처는 Windows 에서 확인 필요.
 - SRT/XMP 파서: 공개 예시 형식의 SRT 2블록과 합성 XMP 패킷으로 CSV·geo_gps.txt 생성, 영상 프레임↔SRT 매칭(테스트 5개)을 확인. **실제 Mini 5 Pro 파일로는 아직 확인하지 못함.**
 
 **다음에 필요한 정보**: ① 비행 자막 ON 상태로 찍은 짧은 영상의 .SRT 앞 20줄과 사진 1장(파서 확정) ② DJI Fly 비행 화면 스크린샷 1장(OCR 을 쓸 경우) ③ PC 의 GPU/VRAM/RAM (`dxdiag` 또는 작업 관리자 → 성능) ④ 조종기 모델명(참고용).

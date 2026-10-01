@@ -278,3 +278,58 @@ def test_photo_xmp_parse(tmp_path):
 def test_colmap_align_commands():
     cmds = sfm.colmap_align_commands("work", "geo_gps.txt", 3.0)
     assert cmds[0][1] == "model_aligner" and "--ref_is_gps" in cmds[0] and "enu" in cmds[0]
+
+
+# ---------- 수신 + 화면 OCR 동시 실행 ----------
+class _FakeOcrSource:
+    """화면 대신 'H 12.3m' 가 그려진 가짜 프레임을 내는 소스."""
+    desc = "fake"
+
+    def __init__(self):
+        self.i = 0
+
+    def next(self):
+        img = np.full((200, 400, 3), 60, np.uint8)
+        cv2.putText(img, "H 12.3m", (20, 120), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (255, 255, 255), 2, cv2.LINE_AA)
+        self.i += 1
+        return img, {"source": "fake", "source_frame_index": self.i, "source_time_s": None}
+
+
+class _FakeEngine:
+    name = "fake"
+
+    def read(self, img):
+        from dronecap.ocr.engine import OcrResult
+        return OcrResult("H 12.3m", 0.9, [("H 12.3m", 0.9)], "fake")
+
+
+def test_capture_with_live_ocr(tmp_path):
+    from dronecap.ocr.roi import Roi, RoiSet
+    video = _make_video(tmp_path / "v.mp4", seconds=2, fps=20)
+    roi_file = tmp_path / "roi.json"
+    RoiSet((400, 200), "fake", [Roi("H", 10, 80, 220, 60)]).save(roi_file)
+    cfg = load_config(None)
+    cfg["stream"]["url"] = str(video)
+    cfg["session"]["root"] = str(tmp_path / "sessions")
+    cfg["ocr"]["roi_file"] = str(roi_file)
+    cfg["ocr"]["interval_s"] = 0.2
+    cfg["ocr"]["debug_every"] = 0
+    app = CaptureApp(cfg, display=False, duration_s=10, live_ocr=True,
+                     ocr_source_factory=_FakeOcrSource, ocr_engine=_FakeEngine())
+    stats = app.run()
+    assert stats["ocr_error"] is None and stats["ocr_samples"] >= 3
+    rows = list(csv.DictReader(open(app.session.dir / "telemetry.csv", encoding="utf-8")))
+    assert rows and all(r["field"] == "H" and r["value"] == "12.3" and r["status"] == "ok" for r in rows)
+    assert "OCR(" in app.ocr.hud_text() and "H=12.3m[ok]" in app.ocr.hud_text()
+
+
+def test_capture_live_ocr_without_roi_logs_error(tmp_path):
+    video = _make_video(tmp_path / "v.mp4", seconds=1, fps=10)
+    cfg = load_config(None)
+    cfg["stream"]["url"] = str(video)
+    cfg["session"]["root"] = str(tmp_path / "sessions")
+    cfg["ocr"]["roi_file"] = str(tmp_path / "none.json")
+    app = CaptureApp(cfg, display=False, duration_s=5, live_ocr=True)
+    stats = app.run()
+    assert stats["ocr_error"] and "ROI" in stats["ocr_error"]
+    assert stats["frames_received"] == 10        # OCR 이 꺼져도 수신은 계속
