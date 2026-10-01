@@ -5,6 +5,7 @@
 인원·시간·종류·이동 방식을 바꾸면 브라우저 안에서 즉시 다시 계산된다.
 
 ```
+(앞단, 선택) Sentinel-2 → 해안 형상 점수(만입도·노출·띠 폭) → 정밀촬영 우선 구간 → 코리더 비행 경로 (Litchi CSV · DJI KMZ)   docs/위성우선순위_니하우.md
 기업 라벨(GeoJSON) + 정사영상 축소본
 → 무게 추정 (면적 × 채움률 × 두께 × 겉보기 밀도, 최소/대표/최대)
 → 정사영상 색으로 물·숲·맨땅 격자(10 m) → 물체·출발지 사이 최단경로 (물 불가, 숲 ×3, 보트 모드는 물 ×0.5)
@@ -48,9 +49,13 @@ litter3d/
   collect.py                  무게 추정 → 구역 → 순회 최적화 → 운반 방식 → 일차 분할 → xlsx/csv/json
   collect_report.py           인터랙티브 HTML (브라우저 안 다익스트라·재계산, ★ 출발지 끌기) + 인쇄용 PNG
   assets/leaflet.css          공개 링크용 HTML 에 인라인되는 지도 스타일
+  priority.py             (앞단) 위성 NDWI → 해안선 → 만입도·노출·띠 폭 점수 → 예산 내 구간 → 코리더 경로·소티 (Litchi CSV·DJI WPML KMZ)
 scripts/17_collection_plan.py 명령줄 버전 (run.py 가 이것을 부름)
+scripts/18_priority_flight.py 위성 우선순위 + 비행 경로 (docs/위성우선순위_니하우.md)
 tools/extract_company_data.py (선택) ECW 원본 정사영상 → input/ortho/overview.jpg + .jgw (GDAL/QGIS 필요)
+tools/fetch_s2_aws.py         Sentinel-2 L2A 를 AWS 공개 버킷에서 STAC 없이 창만 받기 (B02/B03/B04/B08/TCI/SCL)
 tests/test_collect.py         테스트 (실제 데이터 없이 실행 가능)
+tests/test_priority.py        위성 우선순위·경로 테스트 (합성 섬)
 outputs/                      결과 (git 제외)
 ```
 
@@ -110,6 +115,8 @@ outputs/                      결과 (git 제외)
 | 가정값 (걷기 속도·작업 시간·마대·겉보기 밀도) | 지역과 무관하게 같은 불확실성 | 실측 보정 기능으로 현장값으로 당김 |
 
 ## 변경 이력 (2026-10-01)
+
+13. 위성 우선순위 앞단: Sentinel-2 해안 형상 점수(만입도·노출·띠 폭) → 상위 30 % 구간 → 코리더 비행 경로·소티 (니하우 검증: 탐지 무게 65 % 포착). `docs/위성우선순위_니하우.md`
 
 1. 수거 계획 프로그램 첫 버전: 라벨 → 무게 추정 → 구역 → 경로 → 마대·시간 → HTML/PNG/xlsx
 2. 인터랙티브화: 조건을 바꾸면 브라우저가 지형 최단경로부터 즉시 재계산 (다익스트라를 JS 로 구현, 파이썬과 같은 규칙)

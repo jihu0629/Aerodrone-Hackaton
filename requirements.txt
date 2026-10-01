@@ -3,6 +3,7 @@ numpy
 scipy
 opencv-python-headless>=4.8
 pyproj
+shapely            # 해안선 벡터화·코리더 경로 (litter3d/priority.py)
 pillow
 matplotlib
 openpyxl
