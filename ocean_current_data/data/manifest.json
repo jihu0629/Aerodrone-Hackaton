@@ -1,0 +1,41 @@
+{
+ "fetched_utc": "2026-10-01T19:24:41.357284+00:00",
+ "period": [
+  "2026-06-01",
+  "2026-09-30"
+ ],
+ "bbox": [
+  125.8,
+  37.0,
+  126.95,
+  37.95
+ ],
+ "currents": {
+  "file": "currents_2026-06-01_2026-09-30.nc",
+  "grid": [
+   12,
+   14
+  ],
+  "step_deg": 0.08333333333333333,
+  "n_times": 2928,
+  "missing_frac": 0.0238,
+  "n_requests": 14,
+  "example_url": "https://marine-api.open-meteo.com/v1/marine?latitude=37.0000%2C37.0000%2C37.0000%2C37.0000%2C37.0000%2C37.0000%2C37.0000%2C37.0000%2C37.0000%2C37.0000%2C37.0000%2C37.0000&longitude=125.8000%2C125.8833%2C125.9667%2C126.0500%2C126.1333%2C126.2167%2C126.3000%2C126.3833%2C126.4667%2C126.5500%2C126.6333%2C126.7167&hourly=ocean_current_velocity%2Cocean_current_direction&start_date=2026-06-01&end_date=2026-09-30&timezone=UTC",
+  "variables": "ocean_current_velocity (km/h → m/s), ocean_current_direction (° toward)",
+  "source": "Open-Meteo Marine Weather API (https://open-meteo.com/en/docs/marine-weather-api); upstream Copernicus Marine Service global ocean model 1/12°",
+  "license": "CC BY 4.0 (Open-Meteo), non-commercial"
+ },
+ "wind": {
+  "file": "wind_2026-06-01_2026-09-30.nc",
+  "grid": [
+   4,
+   5
+  ],
+  "step_deg": 0.25,
+  "n_times": 2928,
+  "n_requests": 2,
+  "example_url": "https://archive-api.open-meteo.com/v1/archive?latitude=37.0000%2C37.0000%2C37.0000%2C37.0000%2C37.0000%2C37.2500%2C37.2500%2C37.2500%2C37.2500%2C37.2500%2C37.5000%2C37.5000&longitude=125.8000%2C126.0500%2C126.3000%2C126.5500%2C126.8000%2C125.8000%2C126.0500%2C126.3000%2C126.5500%2C126.8000%2C125.8000%2C126.0500&hourly=wind_speed_10m%2Cwind_direction_10m&start_date=2026-06-01&end_date=2026-09-30&timezone=UTC",
+  "source": "Open-Meteo Historical Weather API (https://open-meteo.com/en/docs/historical-weather-api), ERA5/ECMWF reanalysis",
+  "license": "CC BY 4.0"
+ }
+}

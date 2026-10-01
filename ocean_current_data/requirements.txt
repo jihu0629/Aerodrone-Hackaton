@@ -1,0 +1,10 @@
+opendrift==1.14.11
+netCDF4>=1.6
+xarray>=2022.6
+numpy
+scipy
+rasterio>=1.3
+shapely>=2.0
+pyproj
+matplotlib
+pillow
