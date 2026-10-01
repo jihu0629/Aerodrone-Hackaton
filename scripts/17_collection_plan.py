@@ -204,8 +204,11 @@ def main() -> None:
     if terrain is not None:
         save_class_png(terrain, out / "지형분류.png")
     png = draw_static_map(plan, out / "수거계획_지도.png", basemap=basemap, crs_m=crs)
+    shared_cfg = cfg.get("shared")
+    if shared_cfg and shared_cfg.get("provider") == "supabase" and shared_cfg.get("url") and shared_cfg.get("anon_key"):
+        print(f"    공유 저장: Supabase {shared_cfg['url']} (테이블 {shared_cfg.get('table', 'shared_state')})")
     build_collect_html(plan, out / "수거계획.html", photos_dir=photos if photos.exists() else None, basemap=basemap,
-                       static_png=png, terrain=terrain, center_xy=center, crs_m=crs)
+                       static_png=png, terrain=terrain, center_xy=center, crs_m=crs, shared_cfg=shared_cfg)
     build_collect_html(plan, out / "수거계획_공개용.html", photos_dir=photos if photos.exists() else None, basemap=basemap,
                        static_png=png, terrain=terrain, center_xy=center, crs_m=crs, artifact=True)   # claude.ai 아티팩트 등 공개 링크용
     for z in plan.zones:
