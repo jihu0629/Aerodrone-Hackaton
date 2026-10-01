@@ -14,6 +14,8 @@
 → 수거계획.html (인터랙티브) · 수거계획_지도.png (인쇄) · 수거계획.xlsx · csv · plan.json
 ```
 
+> 위성 우선순위 → 핫스팟 비행 경로 → 전략 비교(핫스팟 vs 전체 지그재그)의 전체 정리는 **`docs/ROUTE_OPTIMIZATION.md`** (브랜치 `route-optimization`).
+
 ## 빠른 시작 (Windows, VS Code)
 
 ```bat
