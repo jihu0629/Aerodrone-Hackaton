@@ -49,7 +49,9 @@ LABEL_TO_CLS = {"buoy": "plastic_buoy", "unidentified object": "plastic_other", 
                 "line fragment": "rope", "metal": "metal", "tire": "tire", "processed wood": "wood", "vessel": "other"}
 WORLD_CLASSES = ["buoy", "fishing net", "rope", "tire", "wood debris", "plastic debris"]
 MODELS = {"world": ROOT / "yolov8s-worldv2.pt", "aihub": ROOT / "runs/seg/aihub_gsd_det_s/weights/best.pt",
-          "hawaii_ft": ROOT / "runs/seg/hawaii_ft/weights/best.pt"}  # 하와이 학습분할로 미세조정 (ft 명령)
+          "hawaii_ft": ROOT / "runs/seg/hawaii_ft/weights/best.pt",
+          "colab": ROOT / "runs/seg/aihub_gsd_colab/weights/best.pt",  # Colab 30에폭 AI Hub 모델
+          "hawaii_ft8": ROOT / "runs/seg/hawaii_ft8/weights/best.pt"}  # 8클래스·1024px 미세조정 (ft --classes 8)  # 하와이 학습분할로 미세조정 (ft 명령)
 CLS_COLOR = {"plastic_buoy": "#e63946", "eps_buoy": "#e63946", "net": "#f4a261", "rope": "#e9c46a", "tire": "#6d597a",
              "wood": "#8d6e63", "metal": "#577590", "plastic_other": "#2a9d8f", "eps_fragment": "#2a9d8f",
              "pet_bottle": "#2a9d8f", "eps_box": "#e63946", "glass": "#577590", "other": "#999999"}
@@ -522,11 +524,13 @@ def cmd_demo(a):
 
 # ------------------------------------------------------------------ 4-1. 미세조정 (하와이 학습분할 → 단일 'litter' 클래스)
 def cmd_ft(a):
-    """training_data.csv 칩(1,167장) → YOLO txt(단일 클래스) → AI Hub 가중치에서 이어서 학습. 검증은 평가 420칩."""
+    """training_data.csv 칩(1,167장) → YOLO txt(단일 클래스 또는 8클래스) → AI Hub 가중치에서 이어서 학습. 검증은 평가 420칩."""
     import shutil
     from ultralytics import YOLO
-    ds = ROOT / "data/hawaii_yolo"
+    multi = a.classes == "8"
+    ds = ROOT / ("data/hawaii_yolo8" if multi else "data/hawaii_yolo")
     rows = _read_labels()
+    cls_names = {int(r["class"]) - 1: r["label"] for r in rows}  # 8클래스: CSV class(1~8) → 0~7
     by_f = {}
     for r in rows:
         by_f.setdefault(r["filename"], []).append(r)
@@ -542,15 +546,17 @@ def cmd_ft(a):
             lines = []
             for r in by_f.get(f, []):
                 x0, y0, x1, y1 = (float(r[k]) for k in ("xmin", "ymin", "xmax", "ymax"))
-                lines.append(f"0 {(x0 + x1) / 2 / 640:.5f} {(y0 + y1) / 2 / 640:.5f} {(x1 - x0) / 640:.5f} {(y1 - y0) / 640:.5f}")
+                cid = int(r["class"]) - 1 if multi else 0
+                lines.append(f"{cid} {(x0 + x1) / 2 / 640:.5f} {(y0 + y1) / 2 / 640:.5f} {(x1 - x0) / 640:.5f} {(y1 - y0) / 640:.5f}")
             (ds / "labels" / part / (Path(f).stem + ".txt")).write_text("\n".join(lines))
-    (ds / "data.yaml").write_text(f"path: {ds.resolve().as_posix()}\ntrain: images/train\nval: images/val\nnames:\n  0: litter\n",
+    names = "\n".join(f"  {i}: {cls_names[i]}" for i in sorted(cls_names)) if multi else "  0: litter"
+    (ds / "data.yaml").write_text(f"path: {ds.resolve().as_posix()}\ntrain: images/train\nval: images/val\nnames:\n{names}\n",
                                   encoding="utf-8")
     print(f"데이터셋 train {len(parts['train'])} / val {len(parts['val'])} → {ds}")
     wait_gpu()
-    m = YOLO(str(MODELS["aihub"]))
-    r = m.train(data=str(ds / "data.yaml"), epochs=a.epochs, imgsz=640, batch=a.batch, device=0, project=str(ROOT / "runs/seg"),
-                name="hawaii_ft", exist_ok=True, patience=5, workers=2, single_cls=True,
+    m = YOLO(str(MODELS[a.base]))
+    r = m.train(data=str(ds / "data.yaml"), epochs=a.epochs, imgsz=a.imgsz, batch=a.batch, device=0, project=str(ROOT / "runs/seg"),
+                name=a.name, exist_ok=True, patience=a.patience, workers=2, single_cls=not multi,
                 flipud=0.5, fliplr=0.5, degrees=90, hsv_h=0.01, hsv_s=0.4, hsv_v=0.3, plots=False)
     print(f"best → {Path(r.save_dir) / 'weights' / 'best.pt'}")
 
@@ -659,6 +665,11 @@ def main(argv=None):
     p = sub.add_parser("ft")
     p.add_argument("--epochs", type=int, default=15)
     p.add_argument("--batch", type=int, default=16)
+    p.add_argument("--classes", choices=["1", "8"], default="1", help="단일 클래스(litter) 또는 하와이 8클래스")
+    p.add_argument("--imgsz", type=int, default=640)
+    p.add_argument("--base", choices=["aihub", "colab"], default="aihub", help="시작 가중치")
+    p.add_argument("--name", default="hawaii_ft", help="runs/seg/<name>")
+    p.add_argument("--patience", type=int, default=5)
     p = sub.add_parser("figs")
     p.add_argument("--island", default="niihau")
     p.add_argument("--conf", type=float, default=0.1)

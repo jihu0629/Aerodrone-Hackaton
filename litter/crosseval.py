@@ -32,6 +32,7 @@ CHIPS = ROOT / "data/company/chips"
 MODELS = {
     "uavvaste": {"label": "UAVVaste 모델", "weights": ROOT / "runs/seg/uavvaste_det_s/weights/best.pt"},
     "aihub": {"label": "AI Hub 모델", "weights": ROOT / "runs/seg/aihub_gsd_det_s/weights/best.pt"},
+    "colab": {"label": "AI Hub 모델 (Colab 30에폭)", "weights": ROOT / "runs/seg/aihub_gsd_colab/weights/best.pt"},
     "world": {"label": "YOLO-World (개방형)", "weights": ROOT / "yolov8s-worldv2.pt",
               "classes": {"tunisia": ["plastic bottle", "plastic bag", "cardboard", "glass bottle", "metal can",
                                       "fabric", "wood debris", "litter"],
