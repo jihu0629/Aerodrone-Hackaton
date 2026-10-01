@@ -47,7 +47,7 @@ def _thumb(frame, b, size=160):
 
 
 def run(video, srt, out, weights, every_s=0.5, conf=0.35, pitch=-90.0, yaw=None, f35=24.0,
-        min_alt=2.0, merge_m=1.5, tiles=2):
+        min_alt=2.0, merge_m=1.5, tiles=2, classes=None, alt_fix=None):
     from ultralytics import YOLO
 
     from .seg import _ios
@@ -61,6 +61,10 @@ def run(video, srt, out, weights, every_s=0.5, conf=0.35, pitch=-90.0, yaw=None,
     xy = np.array([geo.to_xy(r["lat"], r["lon"]) for r in tel])
     by_frame = {r["frame"]: k for k, r in enumerate(tel)}
     models = [YOLO(str(w)) for w in weights]
+    if classes:  # 개방형 모델(YOLO-World)에 글로 클래스 지정 — 학습에 없는 물체(종이상자 등)
+        for m in models:
+            if hasattr(m, "set_classes"):
+                m.set_classes(classes)
     cap = cv2.VideoCapture(str(video))
     fps = cap.get(cv2.CAP_PROP_FPS) or 30
     W, H = int(cap.get(3)), int(cap.get(4))
@@ -71,7 +75,7 @@ def run(video, srt, out, weights, every_s=0.5, conf=0.35, pitch=-90.0, yaw=None,
     yaw_src = set()
     for fi in range(0, n_frames, step):
         k = by_frame.get(fi + 1)
-        if k is None or tel[k].get("alt", 0) < min_alt:
+        if k is None or (alt_fix is None and tel[k].get("alt", 0) < min_alt):
             continue
         cap.set(cv2.CAP_PROP_POS_FRAMES, fi)
         ok, frame = cap.read()
@@ -87,7 +91,8 @@ def run(video, srt, out, weights, every_s=0.5, conf=0.35, pitch=-90.0, yaw=None,
         else:
             yw = yaw if yaw is not None else 0.0
             yaw_src.add("지정값" if yaw is not None else "기본 0°(북)")
-        pose = Pose(xy[k, 0], xy[k, 1], r["alt"], yw, pitch)
+        alt = alt_fix if alt_fix is not None else r["alt"]  # SRT 고도가 흘렀을 때 고정값 사용
+        pose = Pose(xy[k, 0], xy[k, 1], alt, yw, pitch)
         # 타일 나눠 탐지 (4K에서 작은 물체)
         tw, th = W // tiles, H // tiles
         tl = [(x, y) for y in range(0, H, th) for x in range(0, W, tw)]
@@ -108,7 +113,7 @@ def run(video, srt, out, weights, every_s=0.5, conf=0.35, pitch=-90.0, yaw=None,
             if not np.isfinite(P).all():
                 continue
             dets.append({"frame": fi + 1, "time": r.get("dt"), "cls": name, "score": s, "x": float(P[0]),
-                         "y": float(P[1]), "alt": r["alt"], "box": [float(t) for t in b],
+                         "y": float(P[1]), "alt": alt, "box": [float(t) for t in b],
                          "thumb": _thumb(frame, b)})
     cap.release()
     # 같은 물체 묶기
@@ -190,8 +195,12 @@ def main(argv=None):
     ap.add_argument("--yaw", type=float, help="기체 방향 (도, 북=0, 동=90). 없으면 이동방향 추정/북쪽 가정")
     ap.add_argument("--f35", type=float, default=24.0)
     ap.add_argument("--min_alt", type=float, default=2.0, help="이 고도 이상일 때만 (이착륙 장면 제외)")
+    ap.add_argument("--alt_fix", type=float, help="SRT 고도 대신 쓸 고정 고도 (m) — SRT가 음수로 흐를 때")
+    ap.add_argument("--merge_m", type=float, default=1.5, help="같은 물체로 묶는 거리 (m)")
+    ap.add_argument("--classes", help="YOLO-World용 클래스 이름 (쉼표 구분, 예: 'cardboard box,plastic bag')")
     a = ap.parse_args(argv)
-    run(a.video, a.srt, a.out, a.weights, a.every, a.conf, a.pitch, a.yaw, a.f35, a.min_alt)
+    classes = [c.strip() for c in a.classes.split(",")] if a.classes else None
+    run(a.video, a.srt, a.out, a.weights, a.every, a.conf, a.pitch, a.yaw, a.f35, a.min_alt, merge_m=a.merge_m, classes=classes, alt_fix=a.alt_fix)
 
 
 if __name__ == "__main__":
