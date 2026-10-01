@@ -50,12 +50,15 @@ litter3d/
   collect_report.py           인터랙티브 HTML (브라우저 안 다익스트라·재계산, ★ 출발지 끌기) + 인쇄용 PNG
   assets/leaflet.css          공개 링크용 HTML 에 인라인되는 지도 스타일
   priority.py             (앞단) 위성 NDWI → 해안선 → 만입도·노출·띠 폭 점수 → 예산 내 구간 → 코리더 경로·소티 (Litchi CSV·DJI WPML KMZ)
+  strategy.py             핫스팟 코리더 vs 전체 지그재그 커버리지 비교 모델 (같은 카메라·띠 폭·배터리에서 거리·시간·소티·프레임·포착률·한계)
 scripts/17_collection_plan.py 명령줄 버전 (run.py 가 이것을 부름)
 scripts/18_priority_flight.py 위성 우선순위 + 비행 경로 (docs/위성우선순위_니하우.md)
+scripts/19_strategy_compare.py 핫스팟 vs 전체 커버리지 정량 비교 (docs/전략비교_핫스팟_vs_전체커버리지.md)
 tools/extract_company_data.py (선택) ECW 원본 정사영상 → input/ortho/overview.jpg + .jgw (GDAL/QGIS 필요)
 tools/fetch_s2_aws.py         Sentinel-2 L2A 를 AWS 공개 버킷에서 STAC 없이 창만 받기 (B02/B03/B04/B08/TCI/SCL)
 tests/test_collect.py         테스트 (실제 데이터 없이 실행 가능)
 tests/test_priority.py        위성 우선순위·경로 테스트 (합성 섬)
+tests/test_strategy.py        전략 비교 모델 테스트 (합성 원형·울퉁불퉁 섬)
 outputs/                      결과 (git 제외)
 ```
 
@@ -117,6 +120,7 @@ outputs/                      결과 (git 제외)
 ## 변경 이력 (2026-10-01)
 
 13. 위성 우선순위 앞단: Sentinel-2 해안 형상 점수(만입도·노출·띠 폭) → 상위 30 % 구간 → 코리더 비행 경로·소티 (니하우 검증: 탐지 무게 65 % 포착). `docs/위성우선순위_니하우.md`
+14. (10-02) 핫스팟 vs 전체 지그재그 정량 비교 모델: 같은 카메라(20 m, GSD 2.9 cm)·띠 폭(−20~+100 m, 8패스)에서 핫스팟 30 % = 전체의 37 % 시간·35 % 프레임으로 탐지 무게 67 %. 한계(설계상 미포착 33 %, 풍향 오류 시 38 %, 분절 오버헤드 +24 %, 미발견 해안)를 숫자로. `docs/전략비교_핫스팟_vs_전체커버리지.md`
 
 1. 수거 계획 프로그램 첫 버전: 라벨 → 무게 추정 → 구역 → 경로 → 마대·시간 → HTML/PNG/xlsx
 2. 인터랙티브화: 조건을 바꾸면 브라우저가 지형 최단경로부터 즉시 재계산 (다익스트라를 JS 로 구현, 파이썬과 같은 규칙)
