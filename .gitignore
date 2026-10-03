@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.DS_Store
+ros_sim/out*/
+ros_sim/hawaii/generated/
+hotspot/data/
