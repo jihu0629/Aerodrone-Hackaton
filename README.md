@@ -105,7 +105,7 @@
 기업 기록 무게(1.3 kg)로 계획하면 마대·인원 계산 자체가 무의미해진다.
 현장 기능: 진행 체크, 내 위치, 카카오맵/구글 길찾기, 팀 분할, 실측 보정, 시나리오 비교, 작업자 위치·완료 상태 실시간 공유(Supabase).
 
-- 결과 페이지: <https://jihu0629.github.io/aerodrone_hackathon/> (`gh-pages` 브랜치)
+- 결과 페이지: <https://jihu0629.github.io/Aerodrone-Hackaton/> (`gh-pages` 브랜치)
 - 자세히: [`shoresweep_planner/README.md`](shoresweep_planner/README.md) (선행연구·방법 선택 근거·정량 결과·가정값과 한계)
 
 ---

@@ -113,7 +113,7 @@
 - **0010 흰 송장 상자**(`Styrofoam_Buoy_4`)는 39 cm 상자가 아니라 60×50×12.5 cm 납작 상자로 측정됨 — 정답 모름.
 - **공개 해안 데이터** `data/external/hawaii_debris`(칩 1,587장 2 cm/px, 지오참조, 라벨 10,703), `tunisia_litter`(3,676장 세그 라벨). 겹침 원본(3D 가능) 공개 세트는 없음 → 해안은 탐지·지도·수거계획까지, 3D는 송도 영상으로.
 - **돌고 있던 에이전트 작업**(결과는 `runs/hawaii/`, `runs/eval/tunisia/`, `docs/figures/17~19_*`): ① 하와이 칩 탐지→위경도 지도→수거계획 데모(`litter/hawaii.py`) ② 튀니지+문갑도 교차평가 표(`litter/crosseval.py`). 없으면 중단된 것.
-- 팀원 수거계획 대시보드: https://jihu0629.github.io/aerodrone_hackathon/ (업체 라벨 기반, 면적×가정 두께). 우리 3D 결과를 `window.PLAN.objects` 형식으로 넘기면 연결 가능 — 아직 안 함.
+- 팀원 수거계획 대시보드: https://jihu0629.github.io/Aerodrone-Hackaton/ (업체 라벨 기반, 면적×가정 두께). 우리 3D 결과를 `window.PLAN.objects` 형식으로 넘기면 연결 가능 — 아직 안 함.
 - git: `stage3-detection-3d-weight` 브랜치 브랜치에 푸시 중 (공개 저장소 → 업체 정사영상·사람 찍힌 이미지는 올리지 않음).
 
 ## 5. 진행 중이던 작업 (새 세션에서 이어서)
