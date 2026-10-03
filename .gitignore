@@ -4,7 +4,6 @@ __pycache__/
 .DS_Store
 *.ecw
 *.ecw.aux.xml
-results/*.json
 ros_sim/out/
 hotspot/data/
 
@@ -16,7 +15,7 @@ data/aihub/
 data/seg_*/
 data/external/
 results/litter_*/
-tools/
+/tools/
 *.pt
 *.ckpt
 
@@ -26,3 +25,5 @@ shoresweep_planner/outputs/
 # API 키 (절대 커밋 금지)
 .secrets/
 **/.secrets/
+ros_sim/out_hawaii*/
+ros_sim/hawaii/generated/

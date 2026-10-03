@@ -14,6 +14,7 @@ MAVROS의 local ENU 프레임(x=East, y=North, z=Up)과 1:1로 그대로
 import csv
 import json
 import math
+import os
 import time
 from pathlib import Path
 
@@ -29,7 +30,7 @@ WAYPOINT_TOLERANCE_M = 1.5
 MAX_SECONDS_PER_WAYPOINT = 90.0  # 정상적으로는 거의 안 걸림 — 교착 상태 탈출용 안전장치
 SETPOINT_RATE_HZ = 20.0
 OFFBOARD_WARMUP_SETPOINTS = 60  # PX4가 OFFBOARD를 받아들이려면 스트리밍이 먼저 있어야 함
-CRUISE_SPEED_MPS = 4.0   # 맵핑/이동 구간 세트포인트 전진 속도
+CRUISE_SPEED_MPS = float(os.environ.get('CRUISE_SPEED_MPS', 4.0))   # 맵핑/이동 구간 세트포인트 전진 속도
 ORBIT_SPEED_MPS = 1.5    # 궤도 촬영 구간은 더 느리게(사진 품질)
 
 
@@ -37,7 +38,9 @@ class MissionRunner(Node):
     def __init__(self):
         super().__init__('mission_runner')
 
-        mission_path = Path(get_package_share_directory('mission_runner')) / 'mission.json'
+        # MISSION_JSON 환경변수로 다른 경로 파일을 줄 수 있다 (예: 하와이 월드)
+        mission_path = Path(os.environ.get('MISSION_JSON') or
+                            Path(get_package_share_directory('mission_runner')) / 'mission.json')
         mission = json.loads(mission_path.read_text())
         self.waypoints = mission['mapping_orbit_path']
         self.get_logger().info(f'미션 로드: {len(self.waypoints)}개 웨이포인트 (맵핑+궤도만, 수거 경로는 드론 비행 대상 아님)')
@@ -59,7 +62,7 @@ class MissionRunner(Node):
         log_path = log_dir / 'flight_log.csv'
         self.log_file = open(log_path, 'w', newline='')
         self.log_writer = csv.writer(self.log_file)
-        self.log_writer.writerow(['t', 'target_idx', 'phase', 'note',
+        self.log_writer.writerow(['t', 'wall', 'qw', 'qx', 'qy', 'qz', 'target_idx', 'phase', 'note',
                                    'target_x', 'target_y', 'target_z',
                                    'actual_x', 'actual_y', 'actual_z', 'dist_to_target'])
         self.t0 = time.time()
@@ -74,6 +77,7 @@ class MissionRunner(Node):
 
     def _on_pose(self, msg: PoseStamped):
         self.pose = msg.pose.position
+        self.orient = msg.pose.orientation
 
     def _current_target(self):
         w = self.waypoints[self.target_idx]
@@ -83,9 +87,9 @@ class MissionRunner(Node):
         msg = PoseStamped()
         msg.header.stamp = self.get_clock().now().to_msg()
         msg.header.frame_id = 'map'
-        msg.pose.position.x = x
-        msg.pose.position.y = y
-        msg.pose.position.z = z
+        msg.pose.position.x = float(x)
+        msg.pose.position.y = float(y)
+        msg.pose.position.z = float(z)
         msg.pose.orientation.w = 1.0
         self.setpoint_pub.publish(msg)
         self.setpoints_sent += 1
@@ -146,7 +150,9 @@ class MissionRunner(Node):
             if self.pose is not None:
                 dist = math.dist((self.pose.x, self.pose.y, self.pose.z), (x, y, z))
                 t = time.time() - self.t0
-                self.log_writer.writerow([f'{t:.2f}', self.target_idx, phase, note,
+                o = self.orient
+                self.log_writer.writerow([f'{t:.2f}', f'{time.time():.3f}', f'{o.w:.5f}', f'{o.x:.5f}', f'{o.y:.5f}', f'{o.z:.5f}',
+                                           self.target_idx, phase, note,
                                            f'{x:.2f}', f'{y:.2f}', f'{z:.2f}',
                                            f'{self.pose.x:.2f}', f'{self.pose.y:.2f}', f'{self.pose.z:.2f}',
                                            f'{dist:.2f}'])
