@@ -99,7 +99,7 @@
   - 발표 프레이밍: "해안쓰레기 데이터 부족 → 여러 지역 합쳐 학습. 국내 유지, 해외 2~3배"
 - **최종 학습(YOLO11-m 1280, 통합 데이터)**: 노트북에서 돌리다 리눅스 재부팅으로 중단 → **Colab**으로 이관. 패키지 `C:\work\colab\{seg_multi.zip(727 MB), multi_train_colab.ipynb, evalpack.zip, eval_models.py}` (저장소 `docs/colab/`에도 있음). 결과 `Drive/aerodrone/out/multi_m1280_best.pt` + `cross_eval.md`가 생기면 `runs/seg/multi_m1280/weights/best.pt`로 받아 `crosseval`·`hawaii eval`로 재측정.
 - **0015 상자 30개 일괄 3D**: 3D 25/25, 위치 26/30, 부피 11/30(정답 42×32×39, 높이는 ±6 cm 4개, 발자국 흔들림). `runs/orbit/0015_all/`.
-- **GitHub**: 결과물 1,920개·가중치 7개·코드·문서 전부 `feature/coastal-litter-pipeline`에 푸시됨. SAM2(155 MB)만 제외(자동 다운로드).
+- **GitHub**: 결과물 1,920개·가중치 7개·코드·문서 전부 `stage3-detection-3d-weight` 브랜치에 푸시됨. SAM2(155 MB)만 제외(자동 다운로드).
 - **다음**: ROS 2/Gazebo 시뮬(리눅스, 4절 조사 참고 — 6시간 안엔 PX4 SITL+gz 기본 월드+카메라 토픽+YOLO 정도가 현실적, 안 되면 `sim_ortho` 영상으로 대체), 발표 슬라이드(`docs/발표_스토리라인.md` 12장).
 
 ## 5-0. 2026-10-01 밤 (대회 D-1, 마감 10-02 아침) 현재 상태
@@ -114,7 +114,7 @@
 - **공개 해안 데이터** `data/external/hawaii_debris`(칩 1,587장 2 cm/px, 지오참조, 라벨 10,703), `tunisia_litter`(3,676장 세그 라벨). 겹침 원본(3D 가능) 공개 세트는 없음 → 해안은 탐지·지도·수거계획까지, 3D는 송도 영상으로.
 - **돌고 있던 에이전트 작업**(결과는 `runs/hawaii/`, `runs/eval/tunisia/`, `docs/figures/17~19_*`): ① 하와이 칩 탐지→위경도 지도→수거계획 데모(`litter/hawaii.py`) ② 튀니지+문갑도 교차평가 표(`litter/crosseval.py`). 없으면 중단된 것.
 - 팀원 수거계획 대시보드: https://jihu0629.github.io/aerodrone_hackathon/ (업체 라벨 기반, 면적×가정 두께). 우리 3D 결과를 `window.PLAN.objects` 형식으로 넘기면 연결 가능 — 아직 안 함.
-- git: `feature/coastal-litter-pipeline` 브랜치에 푸시 중 (공개 저장소 → 업체 정사영상·사람 찍힌 이미지는 올리지 않음).
+- git: `stage3-detection-3d-weight` 브랜치 브랜치에 푸시 중 (공개 저장소 → 업체 정사영상·사람 찍힌 이미지는 올리지 않음).
 
 ## 5. 진행 중이던 작업 (새 세션에서 이어서)
 

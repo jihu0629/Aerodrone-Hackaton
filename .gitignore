@@ -2,70 +2,17 @@
 __pycache__/
 *.pyc
 .DS_Store
-data/interim/*.npy
 notebooks/.ipynb_checkpoints/
-
-# Windows: setup_windows.ps1 이 받아오는 GDAL 미리빌드 wheel (45MB) —
-# 저장소에 넣지 않고 각자 환경에서 내려받는다.
-vendor_wheels/
-
-# Copernicus SAFE 원본 제품 (901MB) — 저장소에 넣지 않는다.
-# Copernicus Browser에서 각자 받아 data/raw/ 아래에 두고
-# pipeline/00b_ingest_safe.py 로 AOI만 잘라 쓴다.
-data/raw/*.SAFE/
-data/raw/*.SAFE.zip
-
-# Planet SkySat 기업 배포자료 (765MB) — 저장소에 넣지 않는다.
-# 팀 공유 폴더에서 받아 data/raw/ 아래에 풀고
-# pipeline/00c_ingest_skysat.py 로 10m 격자에 맞춰 쓴다.
-data/raw/SV_*/
-
-# 외부 공개 데이터셋 (LEVIR-CD+ 등) — 저장소에 넣지 않는다.
-# pipeline/fetch_levir.py 로 각자 내려받는다.
-data/external/
 
 # 해안쓰레기: 합성 데이터(~80MB, `python -m litter synth`로 재생성)와
 # 업체 제공 데이터는 저장소에 넣지 않는다. 결과 중 이미지 큰 작업카드도 제외.
-data/litter_*/
-data/company/
-results/litter_*/work_cards.html
-
-# AI Hub 해안 오염물질 데이터 (수십 GB) — `python -m litter.aihub extract/convert/pack`으로 재생성
-data/aihub/
-# 학습용 타일·판 데이터셋 (수 GB) — `python -m litter.seg prepare` / `litter.aihub pack`으로 재생성
-data/seg_*/
-# Sentinel-2 원본 GeoTIFF (용량 큼) — pipeline/00_fetch_data.py로 재다운로드
-data/raw/*.tif
+data/
+results/litter_*/
 
 # 학습 결과·3D 복원·시험 실행 결과 (가중치 수십~수백 MB, 프레임 이미지 다수)
-# 발표용 핵심 그림은 docs/figures/ 에 따로 복사해 둔다
+# 발표용 핵심 결과는 이미 커밋된 runs/ 일부와 docs/figures/ 에 둔다
 runs/
-results/det/
-results/company/
-results/seg_smoke/
-results/litter_synth*/
 
 # 외부 도구·모델 가중치 (각자 내려받기: 인수인계 문서 참고)
-tools/
-*.pt
+/tools/
 *.ckpt
-
-# 업체 배포 SkySat(상용 위성) 영상이 보이는 그림 — 공개 저장소에 올리지 않는다 (수치 결과 JSON은 포함)
-results/figures/*skysat*.png
-results/skysat_vs_s2_*/*.png
-
-# ---- 2026-10-01: 원래 과제(위성-드론 정합·변화탐지) 코드·결과는 저장소에서 제외 (로컬에는 보관) ----
-pipeline/
-results/
-data/raw/
-data/interim/
-run_all.ps1
-README_WINDOWS.md
-setup_windows.ps1
-check_env.py
-requirements-windows.txt
-litter/live.py
-litter/ingest.py
-
-# 데이터 전체 (용량·저작권)
-data/
