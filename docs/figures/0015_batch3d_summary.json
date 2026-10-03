@@ -1,0 +1,43 @@
+{
+  "segments": 25,
+  "boxes": 30,
+  "stage_success": {
+    "sfm": {
+      "ok": 25,
+      "of": 25,
+      "mean_sec": 234.0
+    },
+    "dense": {
+      "ok": 25,
+      "of": 25,
+      "mean_sec": 160.0
+    },
+    "map": {
+      "ok": 24,
+      "of": 25,
+      "mean_sec": 29.5
+    },
+    "vol": {
+      "ok": 23,
+      "of": 25,
+      "mean_sec": 56.7
+    },
+    "mosaic": {
+      "ok": 24,
+      "of": 25,
+      "mean_sec": 15.4
+    }
+  },
+  "boxes_located_3d": 26,
+  "boxes_volume_ok": 11,
+  "failure_reasons": {
+    "바닥": 4,
+    "3D": 3,
+    "점": 3,
+    "objvol": 1,
+    "마스크": 7,
+    "3D↔GPS": 1
+  },
+  "total_sec": null,
+  "generated": "2026-10-02 01:01:30"
+}

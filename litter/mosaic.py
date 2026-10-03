@@ -25,7 +25,7 @@ from .telemetry import read_srt
 from .volume import fit_ground, to_metric, to_metric_auto
 
 
-def build(orbit_dir, srt, out, objects_csv=None, res=0.01, margin=5.0):
+def build(orbit_dir, srt, out, objects_csv=None, res=0.01, margin=5.0, min_track_m=10.0):
     import pycolmap
 
     orbit_dir, out = Path(orbit_dir), Path(out)
@@ -40,7 +40,7 @@ def build(orbit_dir, srt, out, objects_csv=None, res=0.01, margin=5.0):
     alt = np.array([tel[fidx[i.name]]["alt"] for i in imgs])
     geo = Geo(None, lon=tel[fidx[imgs[0].name]]["lon"])
     gps = np.array([geo.to_xy(tel[fidx[i.name]]["lat"], tel[fidx[i.name]]["lon"]) for i in imgs])
-    T, R, s, info0 = to_metric_auto(P, C, D, alt, gps)
+    T, R, s, info0 = to_metric_auto(P, C, D, alt, gps, min_track_m=min_track_m)
     p0 = info0["p0"]
     Cm = T(C)
     R2, t2, rms = fit_rigid2d(Cm[:, :2], gps)
@@ -121,8 +121,9 @@ def main(argv=None):
     ap.add_argument("--out", required=True)
     ap.add_argument("--objects", help="orbit_map의 objects.csv")
     ap.add_argument("--res", type=float, default=0.01, help="m/px")
+    ap.add_argument("--min-track", type=float, default=10.0, help="GPS 수평 이동이 이 거리(m) 이상이면 GPS 경로로 축척 (SRT 고도가 틀릴 때 낮춰서)")
     a = ap.parse_args(argv)
-    build(a.orbit, a.srt, a.out, a.objects, a.res)
+    build(a.orbit, a.srt, a.out, a.objects, a.res, min_track_m=a.min_track)
 
 
 if __name__ == "__main__":

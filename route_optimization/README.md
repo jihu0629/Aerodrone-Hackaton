@@ -1,6 +1,6 @@
 # route_optimization — 위성으로 "어디를 날지" 고르고, 핫스팟 경로가 전체 지그재그보다 이득인지 재기
 
-> 드론대장 붕붕이 · 2026-10-01~02. 원본은 [jihu0629/Aerodrone-Hackaton 의 `route-optimization` 브랜치](https://github.com/jihu0629/Aerodrone-Hackaton/tree/route-optimization)이고, 이 폴더는 그 중 위성 우선순위·전략 비교 부분만 자체 실행되게 떼어 온 것이다 (수거계획 대시보드는 `../shoresweep_planner/`).
+> 드론대장 붕붕이 · 2026-10-01~02. 파이프라인 **① 단계**. 개발 이력은 `stage1-ocean-current-route` 브랜치에 있다 (수거계획 대시보드는 `../shoresweep_planner/`).
 
 **인천·강화 적용 (조석 모델 집적 예상 지도 + 위성 정합)**: `incheon/README.md` — 집적 예상 해안 140 km(전체 1,108 km 의 13 %)만 날면 전체 지그재그 448 h·1,333소티 → 57 h·178소티. 위성 형상 점수는 하구 수로형 핫스팟과 겹치지 않아(무작위 수준) 인천에서는 조석 모델이 1차 선별, 위성은 해안선 정합·갱신 역할.
 
@@ -52,6 +52,6 @@ Windows 콘솔은 `PYTHONUTF8=1`. 문갑도·다른 섬은 `--tile/--bounds/--pr
 
 ## 기존 파이프라인과의 관계
 
-- 비교 모델의 "기존 방식" 은 `feature/coastal-litter-pipeline` 의 `litter/sim_ortho.py` 커버리지(1024×768·HFOV 73.7°·고도 20 m·측면 겹침 0.3·5 m/s·1 프레임/초)와 같은 카메라·같은 식으로 둔다.
+- 비교 모델의 "기존 방식" 은 `stage3-detection-3d-weight` 브랜치 의 `litter/sim_ortho.py` 커버리지(1024×768·HFOV 73.7°·고도 20 m·측면 겹침 0.3·5 m/s·1 프레임/초)와 같은 카메라·같은 식으로 둔다.
 - 검증 밀도는 같은 브랜치 `litter/hawaii.py` 가 니하우 칩 553장에서 낸 탐지 격자. 라벨이 아니라 탐지(재현율 0.58)이고 칩이 있는 해안만이라 "순위와 비율" 까지만 해석한다.
 - 다음: 하와이 원본 라벨(Zenodo 8381113 `chips.csv`)로 재검증, 2단계 운용(고고도 1패스 → 저고도 재방문) 전략 추가, 수거계획 대시보드에 구간 점수 레이어.

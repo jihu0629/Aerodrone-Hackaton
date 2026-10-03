@@ -49,7 +49,10 @@ LABEL_TO_CLS = {"buoy": "plastic_buoy", "unidentified object": "plastic_other", 
                 "line fragment": "rope", "metal": "metal", "tire": "tire", "processed wood": "wood", "vessel": "other"}
 WORLD_CLASSES = ["buoy", "fishing net", "rope", "tire", "wood debris", "plastic debris"]
 MODELS = {"world": ROOT / "yolov8s-worldv2.pt", "aihub": ROOT / "runs/seg/aihub_gsd_det_s/weights/best.pt",
-          "hawaii_ft": ROOT / "runs/seg/hawaii_ft/weights/best.pt"}  # 하와이 학습분할로 미세조정 (ft 명령)
+          "hawaii_ft": ROOT / "runs/seg/hawaii_ft/weights/best.pt",
+          "colab": ROOT / "runs/seg/aihub_gsd_colab/weights/best.pt",  # Colab 30에폭 AI Hub 모델
+          "hawaii_ft8": ROOT / "runs/seg/hawaii_ft8/weights/best.pt",
+          "multi": ROOT / "runs/seg/multi_site/weights/best.pt"}  # 다중 현장 통합 모델 (multisite.py)
 CLS_COLOR = {"plastic_buoy": "#e63946", "eps_buoy": "#e63946", "net": "#f4a261", "rope": "#e9c46a", "tire": "#6d597a",
              "wood": "#8d6e63", "metal": "#577590", "plastic_other": "#2a9d8f", "eps_fragment": "#2a9d8f",
              "pet_bottle": "#2a9d8f", "eps_box": "#e63946", "glass": "#577590", "other": "#999999"}
@@ -193,7 +196,7 @@ def _select(a):
     return [r["filename"] for r in sel]
 
 
-def predict(model_key, files, out, conf=0.05, batch=8, device=0, wait=True, scale=1.0):
+def predict(model_key, files, out, conf=0.05, batch=8, device=0, wait=True, scale=1.0, augment=False):
     """칩(640)은 타일 없이 그대로. seg.predict와 같은 COCO 형식으로 저장 (eval·지도에 공용)."""
     from ultralytics import YOLO
 
@@ -217,7 +220,7 @@ def predict(model_key, files, out, conf=0.05, batch=8, device=0, wait=True, scal
             imgs = [cv2.resize(im_, None, fx=scale, fy=scale, interpolation=cv2.INTER_CUBIC) for im_ in imgs]
         sz = int(640 * scale)
         try:
-            res = m.predict(imgs, conf=conf, imgsz=sz, verbose=False, device=dev)
+            res = m.predict(imgs, conf=conf, imgsz=sz, verbose=False, device=dev, augment=augment)
         except RuntimeError as e:  # CUDA OOM → CPU
             if "out of memory" not in str(e).lower() or dev == "cpu":
                 raise
@@ -225,7 +228,7 @@ def predict(model_key, files, out, conf=0.05, batch=8, device=0, wait=True, scal
             import torch
             torch.cuda.empty_cache()
             dev = "cpu"
-            res = m.predict(imgs, conf=conf, imgsz=sz, verbose=False, device=dev)
+            res = m.predict(imgs, conf=conf, imgsz=sz, verbose=False, device=dev, augment=augment)
         for im, r in zip(chunk, res):
             if r.boxes is None or len(r.boxes) == 0:
                 continue
@@ -477,7 +480,7 @@ def cmd_demo(a):
         files = [r["filename"] for r in load_chips() if r["island"] == a.island]
         predict(a.model, files, pred, conf=0.05, batch=a.batch, device=a.device, wait=not a.no_wait, scale=a.scale)
     print(f"[1] 탐지 → 위경도 (conf≥{a.conf})")
-    objs = detections_to_objects(pred, a.island, a.conf, material_pred=a.material_pred)
+    objs = detections_to_objects(pred, a.island, a.conf, material_pred=a.material_pred, max_thumbs=a.max_thumbs)
     if not objs:
         raise SystemExit("물체 없음")
     geo = Geo(lon=objs[0]["lon"])
@@ -522,11 +525,13 @@ def cmd_demo(a):
 
 # ------------------------------------------------------------------ 4-1. 미세조정 (하와이 학습분할 → 단일 'litter' 클래스)
 def cmd_ft(a):
-    """training_data.csv 칩(1,167장) → YOLO txt(단일 클래스) → AI Hub 가중치에서 이어서 학습. 검증은 평가 420칩."""
+    """training_data.csv 칩(1,167장) → YOLO txt(단일 클래스 또는 8클래스) → AI Hub 가중치에서 이어서 학습. 검증은 평가 420칩."""
     import shutil
     from ultralytics import YOLO
-    ds = ROOT / "data/hawaii_yolo"
+    multi = a.classes == "8"
+    ds = ROOT / ("data/hawaii_yolo8" if multi else "data/hawaii_yolo")
     rows = _read_labels()
+    cls_names = {int(r["class"]) - 1: r["label"] for r in rows}  # 8클래스: CSV class(1~8) → 0~7
     by_f = {}
     for r in rows:
         by_f.setdefault(r["filename"], []).append(r)
@@ -542,15 +547,17 @@ def cmd_ft(a):
             lines = []
             for r in by_f.get(f, []):
                 x0, y0, x1, y1 = (float(r[k]) for k in ("xmin", "ymin", "xmax", "ymax"))
-                lines.append(f"0 {(x0 + x1) / 2 / 640:.5f} {(y0 + y1) / 2 / 640:.5f} {(x1 - x0) / 640:.5f} {(y1 - y0) / 640:.5f}")
+                cid = int(r["class"]) - 1 if multi else 0
+                lines.append(f"{cid} {(x0 + x1) / 2 / 640:.5f} {(y0 + y1) / 2 / 640:.5f} {(x1 - x0) / 640:.5f} {(y1 - y0) / 640:.5f}")
             (ds / "labels" / part / (Path(f).stem + ".txt")).write_text("\n".join(lines))
-    (ds / "data.yaml").write_text(f"path: {ds.resolve().as_posix()}\ntrain: images/train\nval: images/val\nnames:\n  0: litter\n",
+    names = "\n".join(f"  {i}: {cls_names[i]}" for i in sorted(cls_names)) if multi else "  0: litter"
+    (ds / "data.yaml").write_text(f"path: {ds.resolve().as_posix()}\ntrain: images/train\nval: images/val\nnames:\n{names}\n",
                                   encoding="utf-8")
     print(f"데이터셋 train {len(parts['train'])} / val {len(parts['val'])} → {ds}")
     wait_gpu()
-    m = YOLO(str(MODELS["aihub"]))
-    r = m.train(data=str(ds / "data.yaml"), epochs=a.epochs, imgsz=640, batch=a.batch, device=0, project=str(ROOT / "runs/seg"),
-                name="hawaii_ft", exist_ok=True, patience=5, workers=2, single_cls=True,
+    m = YOLO(str(MODELS[a.base]))
+    r = m.train(data=str(ds / "data.yaml"), epochs=a.epochs, imgsz=a.imgsz, batch=a.batch, device=0, project=str(ROOT / "runs/seg"),
+                name=a.name, exist_ok=True, patience=a.patience, workers=2, single_cls=not multi,
                 flipud=0.5, fliplr=0.5, degrees=90, hsv_h=0.01, hsv_s=0.4, hsv_v=0.3, plots=False)
     print(f"best → {Path(r.save_dir) / 'weights' / 'best.pt'}")
 
@@ -575,6 +582,9 @@ def cmd_figs(a):
     figs = ROOT / "docs/figures"
     gt = _boxes_of(OUT / "labels_all.json")
     preds = {k: _boxes_of(OUT / f"pred_{k}_eval{a.suffix}.json", a.conf) for k in ("world", "aihub")}
+    ft_path = OUT / "pred_hawaii_ft_eval_x1.json"  # 하와이 미세조정 모델(원 해상도, conf 0.3)
+    if ft_path.exists():
+        preds["ft"] = _boxes_of(ft_path, 0.3)
     chips = [r for r in load_chips() if r["split"] == "eval" and int(r["n_labels"]) >= 2]
     chips.sort(key=lambda r: -(len(preds["world"].get(r["filename"], [])) + len(preds["aihub"].get(r["filename"], []))))
     # 섬 골고루: 라벨 많은 칩 중 섬별 최대 2장
@@ -586,7 +596,9 @@ def cmd_figs(a):
     n = len(pick)
     rows = [("라벨 (정답)", gt, "#2ec27e"), (f"YOLO-World (텍스트 클래스, conf≥{a.conf})", preds["world"], "#e63946"),
             (f"AI Hub 학습 모델 (conf≥{a.conf})", preds["aihub"], "#2a78d6")]
-    fig, axes = plt.subplots(3, n, figsize=(2.9 * n, 9.4))
+    if "ft" in preds:
+        rows.append(("AI Hub → 하와이 10분 미세조정 (conf≥0.3)", preds["ft"], "#f4a261"))
+    fig, axes = plt.subplots(len(rows), n, figsize=(2.9 * n, 3.1 * len(rows) + 0.4))
     for i, r in enumerate(pick):
         img = _imread(CHIPS / r["filename"])[:, :, ::-1]
         for j, (title, src, col) in enumerate(rows):
@@ -603,7 +615,7 @@ def cmd_figs(a):
                 ax.set_ylabel(title, fontsize=9, color=col)
             if j == 0:
                 ax.set_title(f"{r['island']} · 라벨 {r['n_labels']}", fontsize=8)
-    fig.suptitle("하와이 공개 항공영상(2 cm/px) 칩: 라벨 vs 탐지 — 재학습 없이 우리 파이프라인 적용", fontsize=12)
+    fig.suptitle("하와이 공개 항공영상(2 cm/px) 칩: 라벨 vs 탐지 — 재학습 없음(0.24) → 현지 사진 10분 미세조정(0.58)", fontsize=12)
     fig.tight_layout(rect=(0, 0, 1, 0.97))
     p = figs / "17_하와이_칩_라벨vs탐지.png"
     fig.savefig(p, dpi=140)
@@ -646,6 +658,7 @@ def main(argv=None):
     p.add_argument("--max_cards", type=int, default=60)
     p.add_argument("--out_name", help="runs/hawaii/<이름> (기본: 섬 이름)")
     p.add_argument("--material_pred", help="단일클래스 모델용: 재질을 빌려올 AI Hub 예측 COCO")
+    p.add_argument("--max_thumbs", type=int, default=600, help="지도 팝업 썸네일을 넣을 물체 수 (전부 넣으면 HTML 커짐)")
     p.add_argument("--batch", type=int, default=8)
     p.add_argument("--device", default="0")
     p.add_argument("--no_wait", action="store_true")
@@ -653,6 +666,11 @@ def main(argv=None):
     p = sub.add_parser("ft")
     p.add_argument("--epochs", type=int, default=15)
     p.add_argument("--batch", type=int, default=16)
+    p.add_argument("--classes", choices=["1", "8"], default="1", help="단일 클래스(litter) 또는 하와이 8클래스")
+    p.add_argument("--imgsz", type=int, default=640)
+    p.add_argument("--base", choices=["aihub", "colab"], default="aihub", help="시작 가중치")
+    p.add_argument("--name", default="hawaii_ft", help="runs/seg/<name>")
+    p.add_argument("--patience", type=int, default=5)
     p = sub.add_parser("figs")
     p.add_argument("--island", default="niihau")
     p.add_argument("--conf", type=float, default=0.1)
