@@ -1,7 +1,7 @@
 # ② 드론 조사 비행 — 핫스팟 우선 경로 + 커버리지 + PX4 실비행 검증
 
 > **파이프라인 ② 단계 브랜치** — 전체 흐름(① 경로 최적화 → ② 비행 → ③ 탐지·3D·무게 → ④ 수거계획)은
-> [main 브랜치 README](https://github.com/jihu0629/aerodrone_hackathon) 참고.
+> [main 브랜치 README](https://github.com/jihu0629/Aerodrone-Hackaton) 참고.
 > 이 브랜치는 ①에서 고른 우선 구간을 **실제로 어떤 순서·패턴으로 날지** 정하고, 그 경로가 실제 비행 컨트롤러로 날 수 있는지 검증한 개발 이력이다.
 
 ## 무엇을 하나
