@@ -1,5 +1,7 @@
 # 드론대장 붕붕이 — 드론 영상 기반 해안쓰레기 무게 추정·수거 계획
 
+> **보관용 브랜치** — 대회 첫날의 초기 버전(litter3d v1)과 DJI 영상·비행기록 캡처 도구(`dronecap/`) 실험. 이후 ③ 단계는 `stage3-detection-3d-weight`, ④ 단계는 `stage4-collection-plan` 으로 발전했다. 전체 흐름은 [main 브랜치 README](https://github.com/jihu0629/aerodrone_hackathon) 참고.
+
 2026 항공·드론 산업 수요 기반 해커톤. DJI Mini 5 Pro 로 찍은 해안 영상에서 해양쓰레기를 종류별로 분할하고,
 3D 복원(DSM)으로 개별 부피를 재서 **겉보기 밀도**로 무게를 구한 뒤, 격자 kg 지도와 수거 계획까지 만든다.
 
