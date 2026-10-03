@@ -1,6 +1,6 @@
 # 드론대장 붕붕이 — 해안쓰레기 수거 계획 프로그램
 
-> **파이프라인 ④ 단계 브랜치** — 전체 흐름(① 경로 최적화 → ② 비행 → ③ 탐지·3D·무게 → ④ 수거계획)은 [main 브랜치 README](https://github.com/jihu0629/aerodrone_hackathon) 참고. 이 브랜치는 수거계획 프로그램(ShoreSweep Planner)과 그 전신인 litter3d 의 개발 이력이다.
+> **파이프라인 ④ 단계 브랜치** — 전체 흐름(① 경로 최적화 → ② 비행 → ③ 탐지·3D·무게 → ④ 수거계획)은 [main 브랜치 README](https://github.com/jihu0629/Aerodrone-Hackaton) 참고. 이 브랜치는 수거계획 프로그램(ShoreSweep Planner)과 그 전신인 litter3d 의 개발 이력이다.
 
 2026 항공·드론 산업 수요 기반 해커톤. 기업이 준 드론 라벨(지도 위 쓰레기 위치·재질·면적)과 정사영상으로
 **작업자용 수거 계획**(구역·순서·마대·시간·인원·일정)을 만든다. 결과 HTML 은 그 자체가 계산기라서
