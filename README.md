@@ -14,7 +14,7 @@
 </p>
 <p align="center"><sub>왼쪽 — 같은 카메라로 해안 전체를 도는 대신 위성이 고른 30 % 만 날아 쓰레기의 67 % 포착 (니하우) · 오른쪽 — 기업 라벨 42개로 만든 13구역 · 101 kg · 마대 61장 · 2일 수거 작업 지도 (문갑도)</sub></p>
 
-**결과 보기**: [수거계획 인터랙티브 데모](https://jihu0629.github.io/Aerodrone-Hackaton/) · [드론 정사영상 × 위성 지도 사이트](https://jihu0629.github.io/website/)
+**결과 보기**: [수거계획 인터랙티브 데모](https://jihu0629.github.io/Aerodrone-Hackaton/) · [드론 정사영상 × 위성 지도 사이트](https://jihu0629.github.io/website/) · 배경: [문제 제기와 기업 과제](docs/선행조사/01_문제제기_및_기업과제.md) · [선행조사](docs/선행조사/README.md)
 
 ```
  ① 어디를 날지 고르기          ② 어떻게 날지              ③ 무엇이 얼마나 있나            ④ 어떻게 치울지
@@ -197,8 +197,8 @@ GPU·학습 가중치·원본 영상이 필요한 단계(YOLO 학습, COLMAP 조
 
 | 문서 | 내용 |
 |---|---|
+| [`docs/선행조사/`](docs/선행조사/README.md) | **문제 제기와 기업 과제**, 선행연구 종합, 핵심 논문 정리(Kako 2020 · Andriolo 2024), 드론 3D 측정 가능성, 초기 모델 검증 |
 | [`docs/해안쓰레기_수거계획_방향정리.md`](docs/해안쓰레기_수거계획_방향정리.md) | 현장 문제(위치 50 m 어긋남, 무게 모름) 정의와 해결 방향 |
-| [`docs/선행조사/`](docs/선행조사/) | 드론 3D 재구성으로 해양쓰레기 크기·부피·무게를 잴 수 있는가 |
 | [`route_optimization/docs/ROUTE_OPTIMIZATION.md`](route_optimization/docs/ROUTE_OPTIMIZATION.md) | ① 경로 최적화 작업·추론·결론 |
 | [`docs/핫스팟_우선경로_발표정리.md`](docs/핫스팟_우선경로_발표정리.md) | ② 핫스팟 우선 경로 발표 정리 |
 | [`docs/파이프라인_결과정리.md`](docs/파이프라인_결과정리.md) · [`docs/기술정리_전체.md`](docs/기술정리_전체.md) | ③ 결과 수치·그림 / 단계별 기술 |
