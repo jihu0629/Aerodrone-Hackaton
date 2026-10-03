@@ -1,0 +1,6 @@
+*.tif
+*.tiff
+/outputs/
+__pycache__/
+.pytest_cache/
+input/s2_*/labels_*.csv
